@@ -5,7 +5,7 @@ import colorama
 import json
 import os
 from datetime import datetime
-from github.github import HEADERS, GITHUB_DATE
+from github.github import GITHUB_DATE
 from github.github_project import GithubProject
 
 
@@ -14,21 +14,20 @@ class GithubManager:
     def __init__(self):
         pass
 
-    def check_update(self, project: GithubProject):
+    @staticmethod
+    def check_update(project: GithubProject):
         if project.update_status == "failed":
             print(colorama.Fore.RED + f"Failed to update {project.name}")
         else:
-            if os.path.isfile(os.path.join(project.project_dir, "superelixier.json")):
-                with open(os.path.join(project.project_dir, "superelixier.json"), 'r') as file:
+            ver_info_file = os.path.join(project.target_dir, project.name, "superelixier.json")
+            if os.path.isfile(ver_info_file):
+                with open(ver_info_file, 'r') as file:
                     date_installed = datetime.strptime(json.load(file), GITHUB_DATE)
                 if project.date_latest == date_installed:
                     project.update_status = "no_update"
                 elif project.date_latest > date_installed:
                     project.update_status = "update"
                 else:
-                    print(colorama.Fore.RED + f"{project.name}: Could not determine installed version")
-                    raise ValueError
+                    project.update_status = "error"
             else:
-                print(
-                    colorama.Fore.MAGENTA + f"{project.name}: Version info file not found -- assuming update is available")
-                project.update_status = "update"
+                project.update_status = "update_noverfile"
