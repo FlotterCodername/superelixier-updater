@@ -11,8 +11,9 @@ class GithubManager:
         "User-Agent": "Googlebot/2.1 (+http://www.google.com/bot.html)"
     }
 
-    def __init__(self):
+    def __init__(self, project, target, auth_token=""):
         self.__headers = self.HEADERS
+        self.__project = project
 
     def execute(self):
         pass
