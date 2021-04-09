@@ -14,10 +14,9 @@ class Main:
         self.cfg_auth = configuration["auth"]
         self.cfg_available = configuration["available"]
         self.cfg_local = configuration["local"]
-        self.github_token = self.cfg_auth["github_token"]
 
     def execute(self):
-        pass
+        github_token = self.cfg_auth["github_token"]
 
     @staticmethod
     def print_header(string, color=''):
