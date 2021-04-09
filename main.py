@@ -4,6 +4,7 @@ Copyright 2021 Fabian H. Schneider
 import colorama
 import os
 from config_loader.config_loader import ConfigLoader
+from filesystem_handler.filesystem_handler import FilesystemHandler
 from github.github_manager import GithubManager
 from github.github_project import GithubProject
 
@@ -52,18 +53,20 @@ class Main:
 
     def __update_apps(self):
         for job in self.job_list:
-            color = ''
+            my_fsm = FilesystemHandler(job)
             message = f'{job.name}: '
             if job.update_status == "update":
-                color = colorama.Fore.GREEN
                 message += "Updating"
+                Main.print_header(message, colorama.Fore.GREEN)
+                my_fsm.project_update()
             elif job.update_status == "update_noverfile":
-                color = colorama.Fore.MAGENTA
                 message += "Updating (forced)"
+                Main.print_header(message, colorama.Fore.MAGENTA)
+                my_fsm.project_update()
             elif job.update_status == "not_installed":
-                color = colorama.Fore.BLUE
                 message += "Installing"
-            Main.print_header(message, color)
+                Main.print_header(message, colorama.Fore.BLUE)
+                my_fsm.project_install()
 
     @staticmethod
     def project_status_report(project: GithubProject):
