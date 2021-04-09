@@ -16,9 +16,7 @@ class GithubManager:
 
     @staticmethod
     def check_update(project: GithubProject):
-        if project.update_status == "failed":
-            print(colorama.Fore.RED + f"Failed to update {project.name}")
-        else:
+        if not project.update_status == "failed":
             ver_info_file = os.path.join(project.target_dir, project.name, "superelixier.json")
             if os.path.isfile(ver_info_file):
                 with open(ver_info_file, 'r') as file:

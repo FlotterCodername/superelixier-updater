@@ -20,6 +20,9 @@ class Main:
         # Helper objects
 
     def execute(self):
+        self.__check_updates()
+
+    def __check_updates(self):
         github_token = self.cfg_auth["github_token"]
         project_list = []
 
@@ -56,10 +59,13 @@ class Main:
         elif project.update_status == "error":
             color = colorama.Fore.RED
             message = "Could not determine the version installed"
+        elif project.update_status == "failed":
+            color = colorama.Fore.RED
+            message = "Failed to make remote API call for version check"
         elif project.update_status == "unknown":
             color = colorama.Fore.RED
-            message = "Sorry, something went wrong checking this project."
-        print(color + project.name + ": " + message)
+            message = "Failed to check this project"
+        print(f"{color}{project.name}: {message}")
 
     @staticmethod
     def print_header(string, color=''):
