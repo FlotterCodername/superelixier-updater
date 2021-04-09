@@ -11,9 +11,8 @@ from github.github_project import GithubProject
 
 class GithubManager:
 
-    def __init__(self, token):
-        self.__headers = HEADERS
-        self.__headers["Authorization"] = token
+    def __init__(self):
+        pass
 
     def check_update(self, project: GithubProject):
         if project.update_status == "failed":
