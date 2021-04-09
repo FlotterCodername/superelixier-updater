@@ -1,6 +1,22 @@
 {
   "from_github": [
     {
+      "name": "citra-canary",
+      "user": "citra-emu",
+      "project": "citra-canary",
+      "blob_re": "^citra.*windows.*\\.7z$",
+      "blob_unwanted": [],
+      "appdatas": []
+    },
+    {
+      "name": "citra-nightly",
+      "user": "citra-emu",
+      "project": "citra-nightly",
+      "blob_re": "^citra.*windows.*\\.7z$",
+      "blob_unwanted": [],
+      "appdatas": []
+    },
+    {
       "name": "dbeaver",
       "user": "dbeaver",
       "project": "dbeaver",
@@ -29,6 +45,34 @@
       ]
     },
     {
+      "name": "mGBA",
+      "user": "mgba-emu",
+      "project": "mgba",
+      "blob_re": "^mGBA.*win64.*\\.7z$",
+      "blob_unwanted": [
+        "README_ES.html",
+        "README_ZH_CN.html"
+      ],
+      "appdatas": [
+        "config.ini"
+      ]
+    },
+    {
+      "name": "Mupen64plus",
+      "user": "loganmc10",
+      "project": "m64p",
+      "blob_re": "^m64p.*win64.*\\.zip$",
+      "blob_unwanted": [],
+      "appdatas": [
+        "GLideN64.ini",
+        "GLideN64.custom.ini",
+        "input-profiles.ini",
+        "input-settings.ini",
+        "mupen64plus.cfg",
+        "mupen64plus-gui.ini"
+      ]
+    },
+    {
       "name": "Remove Empty Directories",
       "user": "hxseven",
       "project": "Remove-Empty-Directories",
@@ -47,52 +91,14 @@
       ]
     },
     {
-      "name": "dbeaver",
-      "user": "dbeaver",
-      "project": "dbeaver",
-      "blob_re": "^dbeaver.*win32\\.x86_64.*\\.zip$",
+      "name": "yuzu-mainline",
+      "user": "yuzu-emu",
+      "project": "yuzu-mainline",
+      "blob_re": "^yuzu.*windows.*\\.7z$",
       "blob_unwanted": [
         "^yuzu.*source.*\\.(zip|rar|xz|7z)$"
       ],
-      "appdatas": [
-        "dbeaver.ini"
-      ]
-    },
-    {
-      "name": "Etcher",
-      "user": "balena-io",
-      "project": "etcher",
-      "blob_re": "^balenaEtcher.*Portable.*\\.exe$",
-      "blob_unwanted": [],
       "appdatas": []
-    },
-    {
-      "name": "KeePassXC",
-      "user": "keepassxreboot",
-      "project": "keepassxc",
-      "blob_re": "^KeePassXC.*Win64-portable.*\\.zip$",
-      "blob_unwanted": [],
-      "appdatas": [
-        "config"
-      ]
-    },
-    {
-      "name": "Remove Empty Directories",
-      "user": "hxseven",
-      "project": "Remove-Empty-Directories",
-      "blob_re": "^red.*portable-win64.*\\.zip$",
-      "blob_unwanted": [],
-      "appdatas": []
-    },
-    {
-      "name": "Steam Rom Manager",
-      "user": "doZennn",
-      "project": "steam-rom-manager",
-      "blob_re": "^Steam-ROM-Manager-portable.*\\.exe$",
-      "blob_unwanted": [],
-      "appdatas": [
-        "userData"
-      ]
     }
   ]
 }
