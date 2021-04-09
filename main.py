@@ -48,7 +48,7 @@ class Main:
             project.execute()
             my_github_manager.check_update(project)
             self.project_status_report(project)
-            if project.update_status in ["update", "update_noverfile", "not_installed"]:
+            if project.update_status in ["update", "no_version_file", "not_installed"]:
                 self.job_list.append(project)
 
     def __update_apps(self):
@@ -59,7 +59,7 @@ class Main:
                 message += "Updating"
                 Main.print_header(message, colorama.Fore.GREEN)
                 my_fsm.project_update()
-            elif job.update_status == "update_noverfile":
+            elif job.update_status == "no_version_file":
                 message += "Updating (forced)"
                 Main.print_header(message, colorama.Fore.MAGENTA)
                 my_fsm.project_update()
@@ -78,7 +78,7 @@ class Main:
         elif project.update_status == "update":
             color = colorama.Fore.GREEN
             message = "Update available"
-        elif project.update_status == "update_noverfile":
+        elif project.update_status == "no_version_file":
             color = colorama.Fore.MAGENTA
             message = "Update forced (no valid version info found)"
         elif project.update_status == "not_installed":

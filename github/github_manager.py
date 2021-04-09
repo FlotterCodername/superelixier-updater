@@ -29,4 +29,4 @@ class GithubManager:
                 else:
                     app.update_status = "error"
             else:
-                app.update_status = "update_noverfile"
+                app.update_status = "no_version_file"
