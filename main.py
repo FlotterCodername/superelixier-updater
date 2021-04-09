@@ -69,7 +69,7 @@ class Main:
                 my_fsm.project_update()
             elif job.update_status == "not_installed":
                 message += "Installing"
-                Main.print_header(message, colorama.Fore.BLUE)
+                Main.print_header(message, colorama.Fore.CYAN)
                 my_fsm.project_install()
 
     @staticmethod
@@ -86,7 +86,7 @@ class Main:
             color = colorama.Fore.MAGENTA
             message = "Update forced (no valid version info found)"
         elif project.update_status == "not_installed":
-            color = colorama.Fore.BLUE
+            color = colorama.Fore.CYAN
             message = "Will be installed"
         elif project.update_status == "error":
             color = colorama.Fore.RED
