@@ -38,5 +38,45 @@
     "blob_re": "^Steam-ROM-Manager-portable.*\\.exe$",
     "blob_unwanted": [],
     "appdatas": ["userData"]
+  },
+  {
+    "name": "dbeaver",
+    "user": "dbeaver",
+    "project": "dbeaver",
+    "blob_re": "^dbeaver.*win32\\.x86_64.*\\.zip$",
+    "blob_unwanted": ["^yuzu.*source.*\\.(zip|rar|xz|7z)$"],
+    "appdatas": ["dbeaver.ini"]
+  },
+  {
+    "name": "Etcher",
+    "user": "balena-io",
+    "project": "etcher",
+    "blob_re": "^balenaEtcher.*Portable.*\\.exe$",
+    "blob_unwanted": [],
+    "appdatas": []
+  },
+  {
+    "name": "KeePassXC",
+    "user": "keepassxreboot",
+    "project": "keepassxc",
+    "blob_re": "^KeePassXC.*Win64-portable.*\\.zip$",
+    "blob_unwanted": [],
+    "appdatas": ["config"]
+  },
+  {
+    "name": "Remove Empty Directories",
+    "user": "hxseven",
+    "project": "Remove-Empty-Directories",
+    "blob_re": "^red.*portable-win64.*\\.zip$",
+    "blob_unwanted": [],
+    "appdatas": []
+  },
+  {
+    "name": "Steam Rom Manager",
+    "user": "doZennn",
+    "project": "steam-rom-manager",
+    "blob_re": "^Steam-ROM-Manager-portable.*\\.exe$",
+    "blob_unwanted": [],
+    "appdatas": ["userData"]
   }
 ]
