@@ -16,7 +16,7 @@ from github.github_project import GithubProject
 
 class Main:
     def __init__(self):
-        # CFG
+        # Configuration
         configuration = ConfigLoader().configuration
         self.cfg_auth = configuration["auth"]
         self.cfg_available = configuration["available"]
