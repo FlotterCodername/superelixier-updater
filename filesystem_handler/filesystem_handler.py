@@ -11,7 +11,6 @@ import subprocess
 import urllib.request as rq
 
 from github.github_project import GithubProject
-from main import Main
 
 
 class FilesystemHandler:
@@ -66,7 +65,7 @@ class FilesystemHandler:
                 elif os.path.isfile:
                     dirs_normalized = True
             elif len(extracted) > 1:
-                Main.print_header(f"{self.app.name}: extracted files")
+                print(colorama.Style.BRIGHT + f"{self.app.name}: extracted files")
                 strs = []
                 for extracted in extracted:
                     print_string = extracted
@@ -93,7 +92,6 @@ class FilesystemHandler:
                 print(colorama.Fore.MAGENTA + f"Old {appdata} not found.")
 
     def project_update(self):
-        Main.print_header(f"{self.app.name}: Updating", color=colorama.Fore.GREEN)
         self.project_download()
         self.project_normalize()
         os.rename(self.app.appdir, self.old_version)
@@ -102,7 +100,6 @@ class FilesystemHandler:
         shutil.rmtree(os.path.join(self.app.target_dir, self.old_version))
 
     def project_install(self):
-        Main.print_header(f"{self.app.name}: Installing", color=colorama.Fore.BLUE)
         self.project_download()
         self.project_normalize()
         os.rename(self.staging, self.app.appdir)
