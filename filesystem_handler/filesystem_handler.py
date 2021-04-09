@@ -11,12 +11,12 @@ import subprocess
 import urllib.request as rq
 from datetime import datetime
 from github.github import GITHUB_DATE
-from github.github_project import GithubProject
+from github.github_app import GithubApp
 
 
 class FilesystemHandler:
 
-    def __init__(self, app: GithubProject):
+    def __init__(self, app: GithubApp):
         self.__app = app
         self.__staging = os.path.join(app.target_dir, f".staging-{app.random_id}")
         self.__old_version = os.path.join(app.target_dir, f".oldver-{app.random_id}")

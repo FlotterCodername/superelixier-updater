@@ -5,7 +5,7 @@ import json
 import os
 from datetime import datetime
 from github.github import GITHUB_DATE
-from github.github_project import GithubProject
+from github.github_app import GithubApp
 
 
 class GithubManager:
@@ -14,7 +14,7 @@ class GithubManager:
         pass
 
     @staticmethod
-    def check_update(app: GithubProject):
+    def check_update(app: GithubApp):
         if not os.path.isdir(app.appdir):
             app.update_status = "not_installed"
         elif not app.update_status == "failed":

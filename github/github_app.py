@@ -11,7 +11,7 @@ from datetime import datetime
 from github.github import HEADERS, GITHUB_DATE
 
 
-class GithubProject:
+class GithubApp:
 
     def __init__(self, json_entry: dict, target, token=""):
         self.__headers = HEADERS

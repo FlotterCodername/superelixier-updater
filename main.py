@@ -6,7 +6,7 @@ import os
 from config_loader.config_loader import ConfigLoader
 from filesystem_handler.filesystem_handler import FilesystemHandler
 from github.github_manager import GithubManager
-from github.github_project import GithubProject
+from github.github_app import GithubApp
 
 
 # TODO: Pre-Release version check
@@ -41,7 +41,7 @@ class Main:
                         if not location_found and list_item == project["name"]:
                             location_found = True
                             native_path = os.path.join(*os.path.split(path))
-                            github_project = GithubProject(project, native_path, github_token)
+                            github_project = GithubApp(project, native_path, github_token)
                             project_list.append(github_project)
         my_github_manager = GithubManager()
         for project in project_list:
@@ -69,7 +69,7 @@ class Main:
                 my_fsm.project_install()
 
     @staticmethod
-    def project_status_report(project: GithubProject):
+    def project_status_report(project: GithubApp):
         color = ''
         message = ''
         if project.update_status == "no_update":
