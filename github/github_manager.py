@@ -1,19 +1,35 @@
 """
 Copyright 2021 Fabian H. Schneider
 """
+import colorama
+import json
+import main
+import os
+from datetime import datetime
+from github.github import HEADERS, GITHUB_DATE
+from github.github_project import GithubProject
 
 
 class GithubManager:
-    GITHUB_DATE = f"%Y-%m-%dT%H:%M:%SZ"
-    HEADERS = {
-        "Accept": "application/vnd.github.v3+json",
-        "Authorization": "",
-        "User-Agent": "Googlebot/2.1 (+http://www.google.com/bot.html)"
-    }
 
-    def __init__(self, project, target, auth_token=""):
-        self.__headers = self.HEADERS
-        self.__project = project
+    def __init__(self):
+        self.__headers = HEADERS
+        self.__headers["Authorization"] = main.github_token
 
-    def execute(self):
-        pass
+    def check_update(self, project: GithubProject):
+        if project.update_status == "failed":
+            print(colorama.Fore.RED + f"Failed to update {project.name}")
+        else:
+            if os.path.isfile(os.path.join(project.project_dir, "superelixier.json")):
+                with open(os.path.join(project.project_dir, "superelixier.json"), 'r') as file:
+                    date_installed = datetime.strptime(json.load(file), GITHUB_DATE)
+                if project.date_latest == date_installed:
+                    project.update_status = "no_update"
+                elif project.date_latest > date_installed:
+                    project.update_status = "update"
+                else:
+                    print(colorama.Fore.RED + f"{project.name}: Could not determine installed version")
+                    raise ValueError
+            else:
+                print(colorama.Fore.MAGENTA + f"{project.name}: Version info file not found -- assuming update is available")
+                project.update_status = "update"

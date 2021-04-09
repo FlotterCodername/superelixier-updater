@@ -20,13 +20,7 @@ from datetime import datetime
 # TODO: HTML Parse
 # TODO: Buildbot
 
-def print_header(string, color=''):
-    bar = (len(string)+4)*"#"
-    print(color + bar + "\n# " + string + " #\n"+ bar)
-
-
 root = os.path.dirname(sys.argv[0])
-os.chdir(root)
 with open("available.json", 'r') as file:
     configurations = json.load(file)
 
