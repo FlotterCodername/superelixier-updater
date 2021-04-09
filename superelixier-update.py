@@ -1,3 +1,6 @@
+"""
+Copyright 2021 Fabian H. Schneider
+"""
 import colorama
 import datetime
 import json
@@ -17,22 +20,14 @@ from datetime import datetime
 # TODO: HTML Parse
 # TODO: Buildbot
 
-colorama.init(autoreset=True)
-
-HEADERS = {
-    "Accept": "application/vnd.github.v3+json",
-    "Authorization": "token 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",
-    "User-Agent": "Googlebot/2.1 (+http://www.google.com/bot.html)"
-}
-GITHUB_DATE = f"%Y-%m-%dT%H:%M:%SZ"
-
 def print_header(string, color=''):
     bar = (len(string)+4)*"#"
     print(color + bar + "\n# " + string + " #\n"+ bar)
 
+
 root = os.path.dirname(sys.argv[0])
 os.chdir(root)
-with open("AVAILABLE.json", 'r') as file:
+with open("available.json", 'r') as file:
     configurations = json.load(file)
 
 for configuration in configurations:

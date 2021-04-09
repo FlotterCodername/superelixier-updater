@@ -1,7 +1,17 @@
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+"""
+Copyright 2021 Fabian H. Schneider
+"""
+import colorama
+
+
+class Main:
+    def __init__(self):
+        pass
+
+    def execute(self):
+        colorama.init(autoreset=True)
 
 
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    superelixier_updater = Main()
+    superelixier_updater.execute()
