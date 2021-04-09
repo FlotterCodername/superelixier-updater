@@ -1,0 +1,17 @@
+{
+  "C:/Portable": [],
+  "C:/PortableApps": [
+    "dbeaver",
+    "Etcher",
+    "KeePassXC",
+    "Remove Empty Directories",
+    "Steam Rom Manager"
+  ],
+  "D:/Games/Emulators": [
+    "citra-canary",
+    "citra-nightly",
+    "mGBA",
+    "Mupen64plus",
+    "yuzu-mainline"
+  ]
+}

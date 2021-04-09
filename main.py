@@ -2,13 +2,15 @@
 Copyright 2021 Fabian H. Schneider
 """
 import colorama
+from config_loader.config_loader import ConfigLoader
 
 github_token = ""
 
 
 class Main:
     def __init__(self):
-        pass
+        self.configuration = ConfigLoader().configuration
+        print(self.configuration)
 
     def execute(self):
         colorama.init(autoreset=True)

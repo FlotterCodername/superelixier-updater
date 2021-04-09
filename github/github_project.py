@@ -26,11 +26,11 @@ class GithubProject:
         self._project_dir = os.path.join(target, self._name)
         self._api_call = self.__web_request()
         self._date_latest = datetime.strptime(self._api_call[0]["published_at"], GITHUB_DATE)
+        # Update status will be updated by GithubManager
         self.update_status = "unknown"
 
     def __web_request(self):
-        releases = rest.get(f"https://api.github.com/repos/{self._user}/{self._project}/releases",
-                            headers=self.__headers)
+        releases = rest.get(f"https://api.github.com/repos/{self._user}/{self._project}/releases", headers=self.__headers)
         api_response = json.loads(releases.text)
         if releases.status_code != 200:
             print(colorama.Fore.RED + f'{self.name}: HTTP Status {releases.status_code}: {api_response["message"]}')

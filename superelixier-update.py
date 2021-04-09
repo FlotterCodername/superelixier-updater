@@ -36,30 +36,6 @@ for configuration in configurations:
     random_id = "".join(random.choices(string.ascii_lowercase + string.digits, k=32))
     staging = os.path.join(root, f".staging-{random_id}")
     old_version = os.path.join(root, f".oldver-{random_id}")
-    os.chdir(root)
-
-    releases = rest.get(f"https://api.github.com/repos/{user}/{project}/releases", headers=HEADERS)
-    my_json = json.loads(releases.text)
-    if releases.status_code != 200:
-        print(f'HTTP Status {releases.status_code}: {my_json["message"]}')
-        print(colorama.Fore.RED + f"Failed to update {name}")
-        raise ValueError
-    date_latest = datetime.strptime(my_json[0]["published_at"], GITHUB_DATE)
-
-    def project_checkupdate():
-        if os.path.isfile(os.path.join(project_dir, "superelixier.json")):
-            with open(os.path.join(project_dir, "superelixier.json"), 'r') as file:
-                date_installed = datetime.strptime(json.load(file), GITHUB_DATE)
-            if date_latest == date_installed:
-                return False
-            elif date_latest > date_installed:
-                return True
-            else:
-                print(colorama.Fore.RED + f"{name}: Could not determine installed version")
-                raise ValueError
-        else:
-            print(colorama.Fore.MAGENTA + f"{name}: Version info file not found -- assuming update is available")
-            return True
 
     def project_download():
         try:
