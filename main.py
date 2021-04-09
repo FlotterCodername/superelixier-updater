@@ -25,6 +25,10 @@ class Main:
         self.job_list = []
 
     def execute(self):
+        """
+        The execute() methods in the project are supposed to provide an idea of what the class does in a nutshell.
+        Always put them directly after __init__().
+        """
         colorama.init(autoreset=True)
         self.__check_updates()
         self.__update_apps()
