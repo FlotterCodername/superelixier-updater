@@ -1,7 +1,6 @@
 """
 Copyright 2021 Fabian H. Schneider
 """
-import colorama
 import json
 import os
 from datetime import datetime
@@ -15,17 +14,19 @@ class GithubManager:
         pass
 
     @staticmethod
-    def check_update(project: GithubProject):
-        if not project.update_status == "failed":
-            ver_info_file = os.path.join(project.target_dir, project.name, "superelixier.json")
+    def check_update(app: GithubProject):
+        if not os.path.isdir(app.appdir):
+            app.update_status = "not_installed"
+        elif not app.update_status == "failed":
+            ver_info_file = os.path.join(app.target_dir, app.name, "superelixier.json")
             if os.path.isfile(ver_info_file):
                 with open(ver_info_file, 'r') as file:
                     date_installed = datetime.strptime(json.load(file), GITHUB_DATE)
-                if project.date_latest == date_installed:
-                    project.update_status = "no_update"
-                elif project.date_latest > date_installed:
-                    project.update_status = "update"
+                if app.date_latest == date_installed:
+                    app.update_status = "no_update"
+                elif app.date_latest > date_installed:
+                    app.update_status = "update"
                 else:
-                    project.update_status = "error"
+                    app.update_status = "error"
             else:
-                project.update_status = "update_noverfile"
+                app.update_status = "update_noverfile"

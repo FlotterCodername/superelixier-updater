@@ -3,8 +3,10 @@ Copyright 2021 Fabian H. Schneider
 """
 import colorama
 import json
-import requests as rest
 import os
+import random
+import requests as rest
+import string
 from datetime import datetime
 from github.github import HEADERS, GITHUB_DATE
 
@@ -22,10 +24,12 @@ class GithubProject:
         self._blob_unwanted = json_entry["blob_unwanted"]
         self._appdatas = json_entry["appdatas"]
         # Runtime props
+        self._appdir = os.path.join(target, json_entry["name"])
         self._target_dir = target
         self._api_call = None
         self._date_latest = None
-        # Update status will be updated by GithubManager
+        self._random_id = "".join(random.choices(string.ascii_lowercase + string.digits, k=32))
+        # Update status is managed by GithubManager
         self.update_status = "unknown"
 
     def execute(self):
@@ -70,9 +74,21 @@ class GithubProject:
         return self._appdatas
 
     @property
+    def api_call(self):
+        return self._api_call
+
+    @property
+    def appdir(self):
+        return self._appdir
+
+    @property
     def target_dir(self):
         return self._target_dir
 
     @property
     def date_latest(self):
         return self._date_latest
+
+    @property
+    def random_id(self):
+        return self._random_id

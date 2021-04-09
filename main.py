@@ -7,8 +7,11 @@ from config_loader.config_loader import ConfigLoader
 from github.github_manager import GithubManager
 from github.github_project import GithubProject
 
-colorama.init(autoreset=True)
 
+# TODO: Pre-Release version check
+# TODO: Retention of old versions
+# TODO: HTML Parse
+# TODO: Buildbot, Appveyor, etc.
 
 class Main:
     def __init__(self):
@@ -18,14 +21,16 @@ class Main:
         self.cfg_available = configuration["available"]
         self.cfg_local = configuration["local"]
         # Helper objects
+        self.job_list = []
 
     def execute(self):
+        colorama.init(autoreset=True)
         self.__check_updates()
+        input("Press Enter to continue...")
 
     def __check_updates(self):
         github_token = self.cfg_auth["github_token"]
         project_list = []
-
         for path in self.cfg_local:
             for list_item in self.cfg_local[path]:
                 location_found = False
@@ -36,7 +41,6 @@ class Main:
                             native_path = os.path.join(*os.path.split(path))
                             github_project = GithubProject(project, native_path, github_token)
                             project_list.append(github_project)
-
         my_github_manager = GithubManager()
         for project in project_list:
             project.execute()
@@ -53,6 +57,9 @@ class Main:
         elif project.update_status == "update":
             color = colorama.Fore.GREEN
             message = "Update available"
+        elif project.update_status == "not_installed":
+            color = colorama.Fore.BLUE
+            message = "Will be installed"
         elif project.update_status == "update_noverfile":
             color = colorama.Fore.MAGENTA
             message = "Update forced (no valid version info found)"
