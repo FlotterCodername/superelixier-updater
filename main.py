@@ -4,7 +4,7 @@ Copyright 2021 Fabian H. Schneider
 import colorama
 import os
 from config_loader.config_loader import ConfigLoader
-from filesystem_handler.filesystem_handler import FilesystemHandler
+from file_handler.file_handler import FileHandler
 from github.github_manager import GithubManager
 from github.github_app import GithubApp
 
@@ -53,7 +53,7 @@ class Main:
 
     def __update_apps(self):
         for job in self.job_list:
-            my_fsm = FilesystemHandler(job)
+            my_fsm = FileHandler(job)
             message = f'{job.name}: '
             if job.update_status == "update":
                 message += "Updating"

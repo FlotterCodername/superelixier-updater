@@ -17,6 +17,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\file_handler\file_handler.py">
+          <value>
+            <Attribute>
+              <option name="separator" value=":" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\file_handler\filesystem_handler.py">
           <value>
             <Attribute>

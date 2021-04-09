@@ -14,7 +14,7 @@ from github.github import GITHUB_DATE
 from github.github_app import GithubApp
 
 
-class FilesystemHandler:
+class FileHandler:
 
     def __init__(self, app: GithubApp):
         self.__app = app
