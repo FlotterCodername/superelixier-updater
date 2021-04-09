@@ -28,7 +28,7 @@ class Main:
         colorama.init(autoreset=True)
         self.__check_updates()
         self.__update_apps()
-        # input("Press Enter to continue...")
+        input("Press Enter to continue...")
 
     def __check_updates(self):
         github_token = self.cfg_auth["github_token"]

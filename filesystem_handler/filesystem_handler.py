@@ -9,7 +9,8 @@ import re
 import shutil
 import subprocess
 import urllib.request as rq
-
+from datetime import datetime
+from github.github import GITHUB_DATE
 from github.github_project import GithubProject
 
 
@@ -77,7 +78,7 @@ class FilesystemHandler:
                 print(", ".join(strs))
                 dirs_normalized = True
         with open(os.path.join(self.__staging, "superelixier.json"), "w") as file:
-            json.dump(self.__app.date_latest, file)
+            json.dump(datetime.strftime(self.__app.date_latest, GITHUB_DATE), file)
 
     def __project_merge_oldnew(self):
         for appdata in self.__app.appdatas:
@@ -91,7 +92,14 @@ class FilesystemHandler:
             else:
                 print(colorama.Fore.MAGENTA + f"Old {appdata} not found.")
 
+    def __create_target_dir(self):
+        try:
+            os.mkdir(self.__app.target_dir)
+        except FileExistsError:
+            pass
+
     def project_update(self):
+        self.__create_target_dir()
         self.__project_download()
         self.__project_normalize()
         os.rename(self.__app.appdir, self.__old_version)
@@ -100,6 +108,7 @@ class FilesystemHandler:
         shutil.rmtree(os.path.join(self.__app.target_dir, self.__old_version))
 
     def project_install(self):
+        self.__create_target_dir()
         self.__project_download()
         self.__project_normalize()
         os.rename(self.__staging, self.__app.appdir)
