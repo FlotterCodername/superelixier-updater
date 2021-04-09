@@ -2,18 +2,22 @@
 Copyright 2021 Fabian H. Schneider
 """
 import colorama
+
 from config_loader.config_loader import ConfigLoader
 
-github_token = ""
+colorama.init(autoreset=True)
 
 
 class Main:
     def __init__(self):
-        self.configuration = ConfigLoader().configuration
-        print(self.configuration)
+        configuration = ConfigLoader().configuration
+        self.cfg_auth = configuration["auth"]
+        self.cfg_available = configuration["available"]
+        self.cfg_local = configuration["local"]
+        self.github_token = self.cfg_auth["github_token"]
 
     def execute(self):
-        colorama.init(autoreset=True)
+        pass
 
     @staticmethod
     def print_header(string, color=''):

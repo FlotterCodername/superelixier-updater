@@ -3,7 +3,6 @@ Copyright 2021 Fabian H. Schneider
 """
 import colorama
 import json
-import main
 import os
 from datetime import datetime
 from github.github import HEADERS, GITHUB_DATE
@@ -12,9 +11,9 @@ from github.github_project import GithubProject
 
 class GithubManager:
 
-    def __init__(self):
+    def __init__(self, token):
         self.__headers = HEADERS
-        self.__headers["Authorization"] = main.github_token
+        self.__headers["Authorization"] = token
 
     def check_update(self, project: GithubProject):
         if project.update_status == "failed":
@@ -31,5 +30,6 @@ class GithubManager:
                     print(colorama.Fore.RED + f"{project.name}: Could not determine installed version")
                     raise ValueError
             else:
-                print(colorama.Fore.MAGENTA + f"{project.name}: Version info file not found -- assuming update is available")
+                print(
+                    colorama.Fore.MAGENTA + f"{project.name}: Version info file not found -- assuming update is available")
                 project.update_status = "update"

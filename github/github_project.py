@@ -3,7 +3,6 @@ Copyright 2021 Fabian H. Schneider
 """
 import colorama
 import json
-import main
 import requests as rest
 import os
 from datetime import datetime
@@ -12,9 +11,9 @@ from github.github import HEADERS, GITHUB_DATE
 
 class GithubProject:
 
-    def __init__(self, json_entry: dict, target):
+    def __init__(self, json_entry: dict, target, token=""):
         self.__headers = HEADERS
-        self.__headers["Authorization"] = main.github_token
+        self.__headers["Authorization"] = token
         # Props from JSON
         self._name = json_entry["name"]
         self._user = json_entry["user"]
@@ -30,7 +29,8 @@ class GithubProject:
         self.update_status = "unknown"
 
     def __web_request(self):
-        releases = rest.get(f"https://api.github.com/repos/{self._user}/{self._project}/releases", headers=self.__headers)
+        releases = rest.get(f"https://api.github.com/repos/{self._user}/{self._project}/releases",
+                            headers=self.__headers)
         api_response = json.loads(releases.text)
         if releases.status_code != 200:
             print(colorama.Fore.RED + f'{self.name}: HTTP Status {releases.status_code}: {api_response["message"]}')
