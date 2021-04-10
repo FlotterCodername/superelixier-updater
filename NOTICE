@@ -1,16 +1,14 @@
 This software includes or links to other software licensed under a variety of licenses.
+A copy of Apache License 2.0 is provided at ./thirdparty/Apache-2.0.txt
 
 Licensed under Apache-2.0:
 --------------------------
-A copy of Apache License 2.0 is provided at ./thirdparty/Apache-2.0.txt
-
 Requests
 Copyright 2019 Kenneth Reitz
 
 
 Licensed under BSD-3-Clause:
 --------------------------
-
 Colorama
 Copyright Jonathan Hartley & Arnon Yaari, 2013-2020
 License file: ./thirdparty/Colorama.txt
