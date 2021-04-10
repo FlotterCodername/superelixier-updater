@@ -86,7 +86,25 @@
       "project": "rpcs3-binaries-win",
       "blob_re": "^rpcs3.*win64\\.7z$",
       "blob_unwanted": [],
-      "appdatas": []
+      "appdatas": [
+        "cache",
+        "captures",
+        "config",
+        "dev_flash",
+        "dev_hdd0",
+        "dev_hdd1",
+        "dev_usb000",
+        "GuiConfigs/CurrentSettings.ini",
+        "GuiConfigs/persistent_settings.dat",
+        "InputConfigs",
+        "patches",
+        "shaderlog",
+        "spu-progs",
+        "config.yml",
+        "config_input.yml",
+        "games.yml",
+        "RPCS3.buf"
+      ]
     },
     {
       "name": "Steam Rom Manager",
@@ -120,7 +138,7 @@
       "blob_re": "https://dl\\.dolphin-emu\\.org/.*/dolphin-.*-x64\\.7z",
       "blob_unwanted": [],
       "appdatas": [
-
+        "Sys"
       ]
     },
     {
@@ -139,6 +157,7 @@
         "inis",
         "logs",
         "memcards",
+        "shaders",
         "snaps",
         "sstates",
         "portable.ini"
