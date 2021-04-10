@@ -13,11 +13,6 @@ from github.github_manager import GithubManager
 from github.github_app import GithubApp
 
 
-# TODO: Pre-Release version check
-# TODO: Retention of old versions
-# TODO: HTML Parse
-# TODO: Buildbot, Appveyor, etc.
-
 class Main:
     def __init__(self):
         # Configuration
