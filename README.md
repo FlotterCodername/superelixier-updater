@@ -8,7 +8,7 @@ Currently, it handles apps distributed on GitHub.
 - Extensible: Adding more apps requires only basic knowledge of JSON and regular expressions.
     - Release files detected via regular expression.
     - Can specify files that should be deleted from release (for files you do not need)
-    - Can specify any files or folders that hold configuration data or similar. These will be kept from the old version.
+    - Can specify any files or folders that hold configuration data or similar. These carried over to the new version.
 
 ## Planned
 - Patterns: Replace user-facing regular expressions with a simpler wildcard system
