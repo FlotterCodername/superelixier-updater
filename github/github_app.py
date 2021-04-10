@@ -19,6 +19,8 @@ class GithubApp(GenericApp):
     def __init__(self, json_entry: dict, target, headers):
         super().__init__(json_entry, target)
         self.__headers = headers
+        self._user = json_entry["user"]
+        self._project = json_entry["project"]
         self._api_call = None
         self._date_latest = None
         # Update status is managed by GithubManager
@@ -40,6 +42,14 @@ class GithubApp(GenericApp):
             return None
         else:
             return api_response
+
+    @property
+    def user(self):
+        return self._user
+
+    @property
+    def project(self):
+        return self._project
 
     @property
     def api_call(self):

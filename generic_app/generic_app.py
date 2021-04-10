@@ -21,8 +21,6 @@ class GenericApp:
         """
         # Props from JSON
         self._name = json_entry["name"]
-        self._user = json_entry["user"]
-        self._project = json_entry["project"]
         self._blob_re = json_entry["blob_re"]
         self._blob_unwanted = json_entry["blob_unwanted"]
         self._appdatas = json_entry["appdatas"]
@@ -38,14 +36,6 @@ class GenericApp:
     @property
     def name(self):
         return self._name
-
-    @property
-    def user(self):
-        return self._user
-
-    @property
-    def project(self):
-        return self._project
 
     @property
     def blob_re(self):
