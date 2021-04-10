@@ -111,6 +111,19 @@
   ],
   "from_html": [
     {
+      "name": "Dolphin",
+      "url": "https://dolphin-emu.org/download/",
+      "version_scheme": {
+        "type": "integer",
+        "re": "-(.*?)-x64\\.7z"
+      },
+      "blob_re": "https://dl\\.dolphin-emu\\.org/.*/dolphin-.*-x64\\.7z",
+      "blob_unwanted": [],
+      "appdatas": [
+
+      ]
+    },
+    {
       "name": "PCSX2",
       "url": "https://buildbot.orphis.net/pcsx2/",
       "version_scheme": {

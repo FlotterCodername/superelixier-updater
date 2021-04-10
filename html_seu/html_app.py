@@ -33,7 +33,7 @@ class HTMLApp(GenericApp):
         return request[0]
 
     def __get_latest_version(self):
-        with open(self._web_call, 'r') as file:
+        with open(self._web_call, 'r', encoding="utf-8") as file:
             matches = re.findall(self._blob_re, file.read())
         versions = []
         for match in matches:
@@ -47,10 +47,13 @@ class HTMLApp(GenericApp):
 
     def __normalize_url(self, url):
         url = html.unescape(url)
-        host_address = '{uri.scheme}://{uri.netloc}'.format(uri=urlparse(self._url))
-        host_address_re = "^" + host_address.replace('.', '\\.') + ".*"
-        if re.match(host_address_re, url) is None:
-            url = host_address + url
+        if re.match("^http", url) is None:
+            host_address = '{uri.scheme}://{uri.netloc}'.format(uri=urlparse(self._url))
+            host_address_re = "^" + host_address.replace('.', '\\.') + ".*"
+            if re.match(host_address_re, url) is None:
+                url = host_address + url
+            else:
+                raise ValueError(f"Error in {__name__}: Failed to build URL for {self._name}")
         return url
 
     @property

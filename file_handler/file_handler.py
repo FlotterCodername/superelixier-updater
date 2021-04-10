@@ -37,9 +37,12 @@ class FileHandler:
             raise ValueError
         for url in release_latest:
             print(f"Trying to get file from: {url}")
-            remote_file = rq.urlopen(url).info()['Content-Disposition']
-            value, params = cgi.parse_header(remote_file)
-            filename = params["filename"]
+            cgi_file_filename = rq.urlopen(url).info()['Content-Disposition']
+            if cgi_file_filename is None:
+                filename = url.split("/")[-1]
+            else:
+                value, params = cgi.parse_header(cgi_file_filename)
+                filename = params["filename"]
             download = rq.urlretrieve(url, os.path.join(self.__app.target_dir, self.__staging, filename))
             filename = os.path.split(download[0])[-1]
             if re.fullmatch("^.*\\.(zip|rar|xz|7z)$", filename):
