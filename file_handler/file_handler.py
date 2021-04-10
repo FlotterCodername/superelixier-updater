@@ -12,14 +12,13 @@ import re
 import shutil
 import subprocess
 import urllib.request as rq
-from datetime import datetime
-from github.github import GITHUB_DATE
-from github.github_app import GithubApp
+
+from generic_app.generic_app import GenericApp
 
 
 class FileHandler:
 
-    def __init__(self, app: GithubApp):
+    def __init__(self, app: GenericApp):
         self.__app = app
         self.__staging = os.path.join(app.target_dir, f".staging-{app.random_id}")
         self.__old_version = os.path.join(app.target_dir, f".oldver-{app.random_id}")
@@ -30,26 +29,24 @@ class FileHandler:
         except FileExistsError:
             shutil.rmtree(self.__staging)
             os.mkdir(self.__staging)
-        releases_latest = self.__app.api_call[0]['assets']
-        blob_list = []
-        for blob in releases_latest:
-            filename = blob['browser_download_url'].split("/")[-1]
-            if re.fullmatch(self.__app.blob_re, filename) is not None:
-                blob_list.append(blob)
-        if len(blob_list) == 0:
+        releases_latest = self.__app.version_latest
+        if not isinstance(releases_latest, list):
+            my_list = [releases_latest]
+            releases_latest = my_list
+        if len(releases_latest) == 0:
             print("No matching downloads for the latest version")
             raise ValueError
-        for blob in blob_list:
-            url = blob['browser_download_url']
-            filename = url.split("/")[-1]
+        for release in releases_latest:
+            url = release['blob']
             print(f"Trying to get file from: {url}")
-            rq.urlretrieve(url, os.path.join(self.__app.target_dir, self.__staging, filename))
+            download = rq.urlretrieve(url, os.path.join(self.__app.target_dir, self.__staging))
+            filename = os.path.split(download)[-1]
             if re.fullmatch("^.*\\.(zip|rar|xz|7z)$", filename):
                 subprocess.run(f"7z x -aoa {filename}", cwd=self.__staging, stdout=subprocess.DEVNULL)
                 os.remove(os.path.join(self.__staging, filename))
             elif re.fullmatch("^.*\\.exe$", filename):
                 os.rename(os.path.join(self.__staging, filename),
-                          os.path.join(self.__staging, f"{self.__app.project}.exe"))
+                          os.path.join(self.__staging, f"{self.__app.name}.exe"))
 
     def __project_normalize(self):
         dirs_normalized = False
@@ -82,7 +79,7 @@ class FileHandler:
                 print(", ".join(strs))
                 dirs_normalized = True
         with open(os.path.join(self.__staging, "superelixier.json"), "w") as file:
-            json.dump(datetime.strftime(self.__app.date_latest, GITHUB_DATE), file)
+            json.dump(self.__app.version_latest, file)
 
     def __project_merge_oldnew(self):
         for appdata in self.__app.appdatas:

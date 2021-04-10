@@ -12,6 +12,7 @@ from datetime import datetime
 
 from generic_app.generic_app import GenericApp
 from github.github import GITHUB_DATE
+from github.github_manager import GithubManager
 
 
 class GithubApp(GenericApp):
@@ -22,18 +23,16 @@ class GithubApp(GenericApp):
         self._user = json_entry["user"]
         self._project = json_entry["project"]
         self._api_call = None
-        self._date_latest = None
-        # Update status is managed by GithubManager
-        self.update_status = "unknown"
+        self._version_scheme["type"] = "github"
 
     def execute(self):
         """
         Do (network) latency sensitive parts of object creation here.
         """
-        self._api_call = self.__web_request()
-        self._date_latest = datetime.strptime(self._api_call[0]["published_at"], GITHUB_DATE)
+        self._api_call = self.__api_request()
+        self._version_latest = datetime.strptime(self._api_call[0]["published_at"], GITHUB_DATE)
 
-    def __web_request(self):
+    def __api_request(self):
         releases = rest.get(f"https://api.github.com/repos/{self._user}/{self._project}/releases",
                             headers=self.__headers)
         api_response = json.loads(releases.text)
@@ -42,6 +41,10 @@ class GithubApp(GenericApp):
             return None
         else:
             return api_response
+
+    def __get_latest_version(self):
+        my_list = GithubManager.build_blob_list(self)
+        return my_list
 
     @property
     def user(self):
@@ -54,7 +57,3 @@ class GithubApp(GenericApp):
     @property
     def api_call(self):
         return self._api_call
-
-    @property
-    def date_latest(self):
-        return self._date_latest

@@ -105,7 +105,10 @@
     {
       "name": "PCSX2",
       "url": "https://buildbot.orphis.net/pcsx2/",
-      "version_re": "^dev-.*-$",
+      "version_scheme": {
+        "type": "integer",
+        "re": "dev-(.*?)-"
+      },
       "blob_re": "/pcsx2/index\\.php\\?m=dl&amp;rev=.*&amp;platform=windows-x86",
       "blob_unwanted": [],
       "appdatas": [

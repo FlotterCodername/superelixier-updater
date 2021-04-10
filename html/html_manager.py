@@ -7,21 +7,18 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 """
 import json
 import os
-import re
 
-from github.github import HEADERS
-from github.github_app import GithubApp
+from html.html_app import HTMLApp
 from version_scheme.version_scheme import VersionScheme
 
 
-class GithubManager:
+class HTMLManager:
 
-    def __init__(self, cfg_auth):
-        self._headers = HEADERS
-        self._headers["Authorization"] = cfg_auth["github_token"]
+    def __init__(self):
+        pass
 
     @staticmethod
-    def check_update(app: GithubApp):
+    def check_update(app: HTMLApp):
         if not os.path.isdir(app.appdir):
             app.update_status = "not_installed"
         elif not app.update_status == "failed":
@@ -36,19 +33,6 @@ class GithubManager:
                     app.update_status = "update"
             else:
                 app.update_status = "no_version_file"
-
-    @staticmethod
-    def build_blob_list(app: GithubApp):
-        my_list = []
-        for asset in app.api_call[0]["assets"]:
-            filename = asset['browser_download_url'].split("/")[-1]
-            if re.fullmatch(app.blob_re, filename) is not None:
-                my_dict = {
-                    "version_id": app.api_call[0]["published_at"],
-                    "blob": asset["browser_download_url"]
-                }
-                my_list.append(my_dict)
-        return my_list
 
     @property
     def get_headers(self):

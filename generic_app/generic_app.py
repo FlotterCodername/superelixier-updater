@@ -27,8 +27,8 @@ class GenericApp:
         # Runtime props
         self._appdir = os.path.join(target, json_entry["name"])
         self._target_dir = target
-        self._api_call = None
-        self._date_latest = None
+        self._version_latest = None
+        self._version_scheme = None
         self._random_id = "".join(random.choices(string.ascii_lowercase + string.digits, k=32))
         # Update status managed by child classes
         self.update_status = "unknown"
@@ -56,6 +56,14 @@ class GenericApp:
     @property
     def target_dir(self):
         return self._target_dir
+
+    @property
+    def version_latest(self):
+        return self._version_latest
+
+    @property
+    def version_scheme(self):
+        return self._version_scheme
 
     @property
     def random_id(self):
