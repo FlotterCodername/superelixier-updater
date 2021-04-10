@@ -26,11 +26,11 @@ class FileHandler:
         self.__old_version = os.path.join(app.target_dir, f".oldver-{app.random_id}")
 
     def __project_download(self):
-        try:
-            os.mkdir(self.__staging)
-        except FileExistsError:
-            shutil.rmtree(self.__staging)
-            os.mkdir(self.__staging)
+        # Create folder structure if it doesn't exist
+        os.makedirs(self.__staging, exist_ok=True)
+        # Make sure staging directory is empty
+        shutil.rmtree(self.__staging)
+        os.mkdir(self.__staging)
         release_latest = self.__app.version_latest["blobs"]
         if len(release_latest) == 0:
             print("No matching downloads for the latest version")
@@ -128,24 +128,21 @@ class FileHandler:
                 os.rename(old_location, new_location)
         # Purge empty dirs. This leaves an empty directory if all went well.
         # If it's not empty, project_update() will raise an error.
+        self.__remove_empty_dirs(self.__old_version)
+
+    @staticmethod
+    def __remove_empty_dirs(top_dir):
         empty_dirs = True
         while empty_dirs:
             empty_dirs = False
-            for root, subdirs, _ in os.walk(self.__old_version):
+            for root, subdirs, _ in os.walk(top_dir):
                 for subdir in subdirs:
                     my_path = os.path.join(root, subdir)
                     if len(os.listdir(os.path.join(root, subdir))) == 0:
                         empty_dirs = True
                         os.rmdir(my_path)
 
-    def __create_target_dir(self):
-        try:
-            os.mkdir(self.__app.target_dir)
-        except FileExistsError:
-            pass
-
     def project_update(self):
-        self.__create_target_dir()
         self.__project_download()
         self.__project_normalize()
         os.rename(self.__app.appdir, self.__old_version)
@@ -154,7 +151,6 @@ class FileHandler:
         os.rmdir(os.path.join(self.__app.target_dir, self.__old_version))
 
     def project_install(self):
-        self.__create_target_dir()
         self.__project_download()
         self.__project_normalize()
         os.rename(self.__staging, self.__app.appdir)
