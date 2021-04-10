@@ -35,7 +35,7 @@ Superelixier Updater is in a very early stage of development. The first-time set
   
 ### Running the updater
 - **REMINDER: This software is provided as-is without absolutely any warranty. Use this at your own risk.**
-  - This reminder is necessary as an incorrect configuration could lead to loss of data. But if the program were to crash, you'll have your previous files in a folder ``oldver-{random_id}`` that sits next to the app's directory.
+  - This reminder is necessary because an incorrect configuration could lead to loss of data. In case the program crashes, you'll have your previous files in a folder ``oldver-{random_id}`` that sits next to the app's directory. I'm still working on a scheme that lets the user keep a number of old versions.
 - If your configuration is set up, you can now double-click the ``main.py`` file to run the updater with Python.
 
 ## Planned
