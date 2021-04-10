@@ -115,7 +115,7 @@
       "url": "https://dolphin-emu.org/download/",
       "version_scheme": {
         "type": "integer",
-        "re": "-(.*?)-x64\\.7z"
+        "re": "https://dl\\.dolphin-emu\\.org/.*/dolphin-master-.*-(.*?)-x64\\.7z"
       },
       "blob_re": "https://dl\\.dolphin-emu\\.org/.*/dolphin-.*-x64\\.7z",
       "blob_unwanted": [],
