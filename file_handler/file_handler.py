@@ -5,6 +5,8 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
+import cgi
+
 import colorama
 import json
 import os
@@ -39,8 +41,11 @@ class FileHandler:
         for release in releases_latest:
             url = release['blob']
             print(f"Trying to get file from: {url}")
-            download = rq.urlretrieve(url, os.path.join(self.__app.target_dir, self.__staging))
-            filename = os.path.split(download)[-1]
+            remote_file = rq.urlopen(url).info()['Content-Disposition']
+            value, params = cgi.parse_header(remote_file)
+            filename = params["filename"]
+            download = rq.urlretrieve(url, os.path.join(self.__app.target_dir, self.__staging, filename))
+            filename = os.path.split(download[0])[-1]
             if re.fullmatch("^.*\\.(zip|rar|xz|7z)$", filename):
                 subprocess.run(f"7z x -aoa {filename}", cwd=self.__staging, stdout=subprocess.DEVNULL)
                 os.remove(os.path.join(self.__staging, filename))

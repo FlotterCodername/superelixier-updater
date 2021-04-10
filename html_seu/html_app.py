@@ -5,6 +5,8 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
+import html
+from urllib.parse import urlparse
 import re
 from urllib import request as rq
 from generic_app.generic_app import GenericApp
@@ -38,11 +40,19 @@ class HTMLApp(GenericApp):
         for match in matches:
             my_dict = {
                 "version_id": re.findall(self._version_scheme["re"], match),
-                "blob": match
+                "blob": self.__normalize_url(match)
             }
             versions.append(my_dict)
         version = VersionScheme.get_newest(self._version_scheme, versions)
         return version
+
+    def __normalize_url(self, url):
+        url = html.unescape(url)
+        host_address = '{uri.scheme}://{uri.netloc}'.format(uri=urlparse(self._url))
+        host_address_re = "^" + host_address.replace('.', '\\.') + ".*"
+        if re.match(host_address_re, url) is None:
+            url = host_address + url
+        return url
 
     @property
     def web_call(self):

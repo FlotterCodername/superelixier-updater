@@ -4,7 +4,7 @@ As development progresses, this will change.**
 If you want to wait for a user-friendly version, select ``Watch -> Custom -> Releases`` from the top of this GitHub repository.
 
 Superelixier Updater can automatically update a number of apps provided in portable form.
-It can easily be extended to more programs by a technical user. Currently, it handles apps distributed on GitHub. 
+It can easily be extended to more programs by a technical user. Currently, it handles apps distributed on GitHub and HTML pages. 
 
 ![Example console output of this program](/docs/example.png)
 
@@ -44,9 +44,9 @@ The first-time setup is not friendly to non-technical users yet. If you haven't 
 
 ## Planned
 - Running detection: Skip apps that have opened files
+- More elaborate merging of old and new version. Currently, anything that already comes with the app download can't be in your ``appdatas`` parameters.
 - Patterns: Replace user-facing regular expressions with a simpler wildcard system
 - GitHub: Allow user to download pre-release versions or not
-- HTML: Parser
 - Appveyor: Crawler
 - Buildbot: Crawler
 - GUI:

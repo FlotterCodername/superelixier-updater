@@ -11,7 +11,8 @@ from config_loader.config_loader import ConfigLoader
 from file_handler.file_handler import FileHandler
 from github.github_manager import GithubManager
 from github.github_app import GithubApp
-from html.html_app import HTMLApp
+from html_seu.html_app import HTMLApp
+from html_seu.html_manager import HTMLManager
 
 
 class Main:
@@ -61,7 +62,10 @@ class Main:
                     continue
         for project in project_list:
             project.execute()
-            self.__github_manager.check_update(project)
+            if isinstance(project, GithubApp):
+                GithubManager.check_update(project)
+            elif isinstance(project, HTMLApp):
+                HTMLManager.check_update(project)
             self.project_status_report(project)
             if project.update_status in ["update", "no_version_file", "not_installed"]:
                 self.job_list.append(project)

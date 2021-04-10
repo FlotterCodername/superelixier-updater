@@ -8,7 +8,7 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 import json
 import os
 
-from html.html_app import HTMLApp
+from html_seu.html_app import HTMLApp
 from version_scheme.version_scheme import VersionScheme
 
 
@@ -33,7 +33,3 @@ class HTMLManager:
                     app.update_status = "update"
             else:
                 app.update_status = "no_version_file"
-
-    @property
-    def get_headers(self):
-        return self._headers

@@ -12,7 +12,6 @@ from datetime import datetime
 
 from generic_app.generic_app import GenericApp
 from github.github import GITHUB_DATE
-from github.github_manager import GithubManager
 
 
 class GithubApp(GenericApp):
@@ -43,6 +42,7 @@ class GithubApp(GenericApp):
             return api_response
 
     def __get_latest_version(self):
+        from github.github_manager import GithubManager
         my_list = GithubManager.build_blob_list(self)
         return my_list
 
