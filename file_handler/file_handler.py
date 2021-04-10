@@ -5,7 +5,6 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
-
 import colorama
 import json
 import os
@@ -49,7 +48,8 @@ class FileHandler:
                 subprocess.run(f"7z x -aoa {filename}", cwd=self.__staging, stdout=subprocess.DEVNULL)
                 os.remove(os.path.join(self.__staging, filename))
             elif re.fullmatch("^.*\\.exe$", filename):
-                os.rename(os.path.join(self.__staging, filename), os.path.join(self.__staging, f"{self.__app.project}.exe"))
+                os.rename(os.path.join(self.__staging, filename),
+                          os.path.join(self.__staging, f"{self.__app.project}.exe"))
 
     def __project_normalize(self):
         dirs_normalized = False
