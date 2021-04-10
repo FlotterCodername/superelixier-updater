@@ -9,9 +9,11 @@
   "D:/Games/Emulators": [
     "citra-canary",
     "citra-nightly",
+    "Dolphin",
     "mGBA",
     "Mupen64plus",
     "PCSX2",
+    "RPCS3",
     "yuzu-mainline"
   ]
 }
