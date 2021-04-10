@@ -20,8 +20,8 @@ Superelixier Updater is in a very early stage of development. The first-time set
 - Download or clone this repository.
 - Three configuration files in the ``config`` folder need to be set up.
   - ``available.json`` is included. This holds patterns that the tool needs to detect, download and install updates.
-    - Please check the ``blob_unwanted`` parameters: If you don't want to delete anything from the downloaded update, the lines should look like this: ``"blob_unwanted": [],``. Nevertheless, I have pre-set some parameters as configuration examples.
-    - **IMPORTANT!** If nothing is set in ``appdatas``, *all* files from the old version will be deleted. This ensures that your app folder is clean. Anything that you want to keep from the old version needs to be in the ``appdatas`` parameter, e.g.:
+    Please check the ``blob_unwanted`` parameters: If you don't want to delete anything from the downloaded update, the lines should look like this: ``"blob_unwanted": [],``. Nevertheless, I have pre-set some parameters as configuration examples.
+    **IMPORTANT:** If nothing is set in ``appdatas``, *all* files from the old version will be deleted. This ensures that your app folder is clean. Anything that you want to keep from the old version needs to be in the ``appdatas`` parameter, like so:
     ```json
       "appdatas": [
         "configuration_folder",
