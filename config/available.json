@@ -100,5 +100,26 @@
       ],
       "appdatas": []
     }
+  ],
+  "from_html": [
+    {
+      "name": "PCSX2",
+      "url": "https://buildbot.orphis.net/pcsx2/",
+      "version_re": "^dev-.*-$",
+      "blob_re": "^https://buildbot.orphis.net/pcsx2/index.php?m=dl&rev=.*&platform=windows-x86$",
+      "blob_unwanted": [],
+      "appdatas": [
+        "bios",
+        "cheats",
+        "cheats_ws",
+        "inis",
+        "logs",
+        "memcards",
+        "shaders",
+        "snaps",
+        "sstates",
+        "portable.ini"
+      ]
+    }
   ]
 }
