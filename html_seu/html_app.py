@@ -29,9 +29,8 @@ class HTMLApp(GenericApp):
         self._version_latest = self.__get_latest_version()
 
     def __web_request(self):
-        filename = f"{self._name}.html"
-        rq.urlretrieve(self._url, filename)
-        return filename
+        request = rq.urlretrieve(self._url)
+        return request[0]
 
     def __get_latest_version(self):
         with open(self._web_call, 'r') as file:
@@ -40,7 +39,7 @@ class HTMLApp(GenericApp):
         for match in matches:
             my_dict = {
                 "version_id": re.findall(self._version_scheme["re"], match),
-                "blob": self.__normalize_url(match)
+                "blobs": [self.__normalize_url(match)]
             }
             versions.append(my_dict)
         version = VersionScheme.get_newest(self._version_scheme, versions)

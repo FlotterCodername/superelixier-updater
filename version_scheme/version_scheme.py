@@ -5,6 +5,9 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
+from datetime import datetime
+
+from github.github import GITHUB_DATE
 
 
 class VersionScheme:
@@ -23,7 +26,9 @@ class VersionScheme:
             if new["version_id"] > old["version_id"]:
                 latest_version = new
         if scheme["type"] == "github":
-            if new["version_id"] > old["version_id"]:
+            new_version_id = datetime.strptime(new["version_id"], GITHUB_DATE)
+            old_version_id = datetime.strptime(old["version_id"], GITHUB_DATE)
+            if new_version_id > old_version_id:
                 latest_version = new
         if scheme["type"] == tuple:
             # TODO

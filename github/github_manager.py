@@ -39,16 +39,15 @@ class GithubManager:
 
     @staticmethod
     def build_blob_list(app: GithubApp):
-        my_list = []
+        my_dict = {
+            "version_id": app.api_call[0]["published_at"],
+            "blobs": []
+        }
         for asset in app.api_call[0]["assets"]:
             filename = asset['browser_download_url'].split("/")[-1]
             if re.fullmatch(app.blob_re, filename) is not None:
-                my_dict = {
-                    "version_id": app.api_call[0]["published_at"],
-                    "blob": asset["browser_download_url"]
-                }
-                my_list.append(my_dict)
-        return my_list
+                my_dict["blobs"].append(asset["browser_download_url"])
+        return my_dict
 
     @property
     def get_headers(self):

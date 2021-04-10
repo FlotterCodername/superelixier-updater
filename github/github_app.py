@@ -8,10 +8,7 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 import colorama
 import json
 import requests as rest
-from datetime import datetime
-
 from generic_app.generic_app import GenericApp
-from github.github import GITHUB_DATE
 
 
 class GithubApp(GenericApp):
@@ -29,7 +26,7 @@ class GithubApp(GenericApp):
         Do (network) latency sensitive parts of object creation here.
         """
         self._api_call = self.__api_request()
-        self._version_latest = datetime.strptime(self._api_call[0]["published_at"], GITHUB_DATE)
+        self._version_latest = self.__get_latest_version()
 
     def __api_request(self):
         releases = rest.get(f"https://api.github.com/repos/{self._user}/{self._project}/releases",

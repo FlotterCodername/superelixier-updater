@@ -31,15 +31,11 @@ class FileHandler:
         except FileExistsError:
             shutil.rmtree(self.__staging)
             os.mkdir(self.__staging)
-        releases_latest = self.__app.version_latest
-        if not isinstance(releases_latest, list):
-            my_list = [releases_latest]
-            releases_latest = my_list
-        if len(releases_latest) == 0:
+        release_latest = self.__app.version_latest["blobs"]
+        if len(release_latest) == 0:
             print("No matching downloads for the latest version")
             raise ValueError
-        for release in releases_latest:
-            url = release['blob']
+        for url in release_latest:
             print(f"Trying to get file from: {url}")
             remote_file = rq.urlopen(url).info()['Content-Disposition']
             value, params = cgi.parse_header(remote_file)
