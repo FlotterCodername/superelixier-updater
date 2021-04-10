@@ -11,6 +11,7 @@
     "citra-nightly",
     "mGBA",
     "Mupen64plus",
+    "PCSX2",
     "yuzu-mainline"
   ]
 }

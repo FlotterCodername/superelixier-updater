@@ -11,6 +11,7 @@ from config_loader.config_loader import ConfigLoader
 from file_handler.file_handler import FileHandler
 from github.github_manager import GithubManager
 from github.github_app import GithubApp
+from html.html_app import HTMLApp
 
 
 class Main:
