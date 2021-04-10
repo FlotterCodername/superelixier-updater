@@ -137,9 +137,7 @@
       },
       "blob_re": "https://dl\\.dolphin-emu\\.org/.*/dolphin-.*-x64\\.7z",
       "blob_unwanted": [],
-      "appdatas": [
-        "Sys"
-      ]
+      "appdatas": []
     },
     {
       "name": "PCSX2",
