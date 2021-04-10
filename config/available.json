@@ -81,6 +81,32 @@
       "appdatas": []
     },
     {
+      "name": "RPCS3",
+      "user": "RPCS3",
+      "project": "rpcs3-binaries-win",
+      "blob_re": "^rpcs3.*win64\\.7z$",
+      "blob_unwanted": [],
+      "appdatas": [
+        "cache",
+        "captures",
+        "config",
+        "dev_flash",
+        "dev_hdd0",
+        "dev_hdd1",
+        "dev_usb000",
+        "GuiConfigs/CurrentSettings.ini",
+        "GuiConfigs/persistent_settings.dat",
+        "InputConfigs",
+        "patches",
+        "shaderlog",
+        "spu-progs",
+        "config.yml",
+        "config_input.yml",
+        "games.yml",
+        "RPCS3.buf"
+      ]
+    },
+    {
       "name": "Steam Rom Manager",
       "user": "doZennn",
       "project": "steam-rom-manager",
@@ -99,6 +125,41 @@
         "^yuzu.*source.*\\.(zip|rar|xz|7z)$"
       ],
       "appdatas": []
+    }
+  ],
+  "from_html": [
+    {
+      "name": "Dolphin",
+      "url": "https://dolphin-emu.org/download/",
+      "version_scheme": {
+        "type": "integer",
+        "re": "https://dl\\.dolphin-emu\\.org/.*/dolphin-master-.*-(.*?)-x64\\.7z"
+      },
+      "blob_re": "https://dl\\.dolphin-emu\\.org/.*/dolphin-.*-x64\\.7z",
+      "blob_unwanted": [],
+      "appdatas": []
+    },
+    {
+      "name": "PCSX2",
+      "url": "https://buildbot.orphis.net/pcsx2/",
+      "version_scheme": {
+        "type": "integer",
+        "re": "dev-(.*?)-"
+      },
+      "blob_re": "/pcsx2/index\\.php\\?m=dl&amp;rev=.*&amp;platform=windows-x86",
+      "blob_unwanted": [],
+      "appdatas": [
+        "bios",
+        "cheats",
+        "cheats_ws",
+        "inis",
+        "logs",
+        "memcards",
+        "shaders",
+        "snaps",
+        "sstates",
+        "portable.ini"
+      ]
     }
   ]
 }

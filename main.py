@@ -11,6 +11,8 @@ from config_loader.config_loader import ConfigLoader
 from file_handler.file_handler import FileHandler
 from github.github_manager import GithubManager
 from github.github_app import GithubApp
+from html_seu.html_app import HTMLApp
+from html_seu.html_manager import HTMLManager
 
 
 class Main:
@@ -20,6 +22,9 @@ class Main:
         self.cfg_auth = configuration["auth"]
         self.cfg_available = configuration["available"]
         self.cfg_local = configuration["local"]
+        # Managers
+        self.__github_manager = GithubManager(self.cfg_auth)
+
         # Helper objects
         self.job_list = []
 
@@ -34,22 +39,33 @@ class Main:
         input("Press Enter to continue...")
 
     def __check_updates(self):
-        github_token = self.cfg_auth["github_token"]
         project_list = []
         for path in self.cfg_local:
             for list_item in self.cfg_local[path]:
                 location_found = False
-                if not location_found:
-                    for project in self.cfg_available["from_github"]:
-                        if not location_found and list_item == project["name"]:
-                            location_found = True
-                            native_path = os.path.join(*os.path.split(path))
-                            github_project = GithubApp(project, native_path, github_token)
-                            project_list.append(github_project)
-        my_github_manager = GithubManager()
+                for project in self.cfg_available["from_github"]:
+                    if list_item == project["name"]:
+                        location_found = True
+                        native_path = os.path.join(*os.path.split(path))
+                        github_project = GithubApp(project, native_path, self.__github_manager.get_headers)
+                        project_list.append(github_project)
+                        continue
+                if location_found:
+                    continue
+                for project in self.cfg_available["from_html"]:
+                    if list_item == project["name"]:
+                        location_found = True
+                        native_path = os.path.join(*os.path.split(path))
+                        html_project = HTMLApp(project, native_path)
+                        project_list.append(html_project)
+                if location_found:
+                    continue
         for project in project_list:
             project.execute()
-            my_github_manager.check_update(project)
+            if isinstance(project, GithubApp):
+                GithubManager.check_update(project)
+            elif isinstance(project, HTMLApp):
+                HTMLManager.check_update(project)
             self.project_status_report(project)
             if project.update_status in ["update", "no_version_file", "not_installed"]:
                 self.job_list.append(project)

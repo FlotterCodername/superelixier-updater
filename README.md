@@ -4,7 +4,7 @@ As development progresses, this will change.**
 If you want to wait for a user-friendly version, select ``Watch -> Custom -> Releases`` from the top of this GitHub repository.
 
 Superelixier Updater can automatically update a number of apps provided in portable form.
-It can easily be extended to more programs by a technical user. Currently, it handles apps distributed on GitHub. 
+It can easily be extended to more programs by a technical user. Currently, it handles apps distributed on GitHub and HTML pages. 
 
 ![Example console output of this program](/docs/example.png)
 
@@ -31,9 +31,11 @@ The first-time setup is not friendly to non-technical users yet. If you haven't 
         "configuration_folder",
         "config.ini",
         "other_configuration_file.cfg",
-        "other_configuration_folder"
+        "other_configuration_folder",
+        "folder_where_i_want_to_keep_only/this_file.ini"
       ]
     ``` 
+    Note that in ``folder_where_i_want_to_keep_only``, only ``this_file.ini`` will be retained.
   - ``auth.json`` holds credentials needed to connect to sites hosting downloads. Simply rename the provided ``auth_example.json`` to ``auth.json``. The only credential you can set is a GitHub personal access token. You won't need this unless you run the updater compulsively. 
   - ``local.json`` tells the tool where to install which app. Rename the ``local_example.json`` to ``local.json`` and set your options.
   
@@ -46,7 +48,6 @@ The first-time setup is not friendly to non-technical users yet. If you haven't 
 - Running detection: Skip apps that have opened files
 - Patterns: Replace user-facing regular expressions with a simpler wildcard system
 - GitHub: Allow user to download pre-release versions or not
-- HTML: Parser
 - Appveyor: Crawler
 - Buildbot: Crawler
 - GUI:
