@@ -20,6 +20,7 @@ The first-time setup is not friendly to non-technical users yet. If you haven't 
 
 ### First-time setup
 - This tool requires a Python 3 interpreter. I personally use the latest version of [PyPy](https://www.pypy.org/), but you can also install versions >=3.7 of [standard Python](https://www.python.org/).
+- [Use pip to install](https://packaging.python.org/tutorials/installing-packages/#use-pip-for-installing) the packages ``colorama`` and ``requests``.
 - Download or clone this repository.
 - Three configuration files in the ``config`` folder need to be set up.
   - ``available.json`` is included. This holds patterns that the tool needs to detect, download and install updates.
