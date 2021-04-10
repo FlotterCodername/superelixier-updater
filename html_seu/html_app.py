@@ -38,7 +38,7 @@ class HTMLApp(GenericApp):
         versions = []
         for match in matches:
             my_dict = {
-                "version_id": re.findall(self._version_scheme["re"], match),
+                "version_id": re.findall(self._version_scheme["re"], match)[0],
                 "blobs": [self.__normalize_url(match)]
             }
             versions.append(my_dict)
