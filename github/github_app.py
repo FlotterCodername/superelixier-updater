@@ -11,15 +11,14 @@ import requests as rest
 from datetime import datetime
 
 from generic_app.generic_app import GenericApp
-from github.github import HEADERS, GITHUB_DATE
+from github.github import GITHUB_DATE
 
 
 class GithubApp(GenericApp):
 
-    def __init__(self, json_entry: dict, target, token=""):
+    def __init__(self, json_entry: dict, target, headers):
         super().__init__(json_entry, target)
-        self.__headers = HEADERS
-        self.__headers["Authorization"] = token
+        self.__headers = headers
         self._api_call = None
         self._date_latest = None
         # Update status is managed by GithubManager

@@ -13,6 +13,12 @@ import string
 class GenericApp:
 
     def __init__(self, json_entry: dict, target):
+        """
+        Do not instantiate this. Always use the child classes.
+
+        :param json_entry:
+        :param target:
+        """
         # Props from JSON
         self._name = json_entry["name"]
         self._user = json_entry["user"]
@@ -28,9 +34,6 @@ class GenericApp:
         self._random_id = "".join(random.choices(string.ascii_lowercase + string.digits, k=32))
         # Update status managed by child classes
         self.update_status = "unknown"
-
-    def execute(self):
-        pass
 
     @property
     def name(self):

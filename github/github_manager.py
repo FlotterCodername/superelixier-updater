@@ -8,14 +8,15 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 import json
 import os
 from datetime import datetime
-from github.github import GITHUB_DATE
+from github.github import GITHUB_DATE, HEADERS
 from github.github_app import GithubApp
 
 
 class GithubManager:
 
-    def __init__(self, token):
-        self._token = token
+    def __init__(self, cfg_auth):
+        self._headers = HEADERS
+        self._headers["Authorization"] = cfg_auth["github_token"]
 
     @staticmethod
     def check_update(app: GithubApp):
@@ -34,3 +35,7 @@ class GithubManager:
                     app.update_status = "error"
             else:
                 app.update_status = "no_version_file"
+
+    @property
+    def get_headers(self):
+        return self._headers
