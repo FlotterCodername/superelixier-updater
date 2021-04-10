@@ -1,19 +1,22 @@
 # Superelixier Updater
+**Operating this tool currently requires some technical knowledge about JavaScript Object Notation (JSON) and regular expressions.
+As development progresses, this will change.**
+If you want to wait for a user-friendly version, select ``Watch -> Custom -> Releases`` from the top of this GitHub repository.
+
 Superelixier Updater can automatically update a number of apps provided in portable form.
-It can easily be extended to more programs by a user that has a basic knowledge of JavaScript Object Notation (JSON) and regular expressions.
-Currently, it handles apps distributed on GitHub. 
+It can easily be extended to more programs by a technical user. Currently, it handles apps distributed on GitHub. 
 
 ![Example console output of this program](/docs/example.png)
 
 ## Features
 - No unnecessary downloads: Checks the installed app for update and only downloads releases if there is a new one. Let's not waste bandwidth.
-- Extensible: Adding more apps requires only basic knowledge of JSON and regular expressions.
+- Extensible: Add more apps via configuration files.
     - Release files detected via regular expression.
     - Can specify files that should be deleted from release (for files you do not need)
     - Can specify any files or folders that hold configuration data or similar. These carry over to the new version.
 
 ## Usage
-Superelixier Updater is in a very early stage of development. The first-time setup is not friendly to non-technical users yet. If you haven't used Python before, read closely. **On the bright side**: once set up, using this tool is as simple as running the ``main.py`` file with Python.
+The first-time setup is not friendly to non-technical users yet. If you haven't used Python before, read closely. **On the bright side**: once set up, using this tool is as simple as running the ``main.py`` file with Python.
 
 ### First-time setup
 - This tool requires a Python 3 interpreter. I personally use the latest version of [PyPy](https://www.pypy.org/), but you can also install versions >=3.7 of [standard Python](https://www.python.org/).
