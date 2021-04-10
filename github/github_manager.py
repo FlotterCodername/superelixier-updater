@@ -14,8 +14,8 @@ from github.github_app import GithubApp
 
 class GithubManager:
 
-    def __init__(self):
-        pass
+    def __init__(self, token):
+        self._token = token
 
     @staticmethod
     def check_update(app: GithubApp):
