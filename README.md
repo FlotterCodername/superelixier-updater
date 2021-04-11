@@ -21,7 +21,7 @@ The first-time setup is not friendly to non-technical users yet. If you haven't 
 ### Requirements
 - Python 3 interpreter. I use the latest version of [PyPy](https://www.pypy.org/), but you can also install versions >=3.7 of [standard Python](https://www.python.org/).
 - [Use pip to install](https://packaging.python.org/tutorials/installing-packages/#use-pip-for-installing) the packages ``colorama`` and ``requests``.
-- 7z is used to extract archives and must be in PATH.
+- [7z](https://7-zip.org/7z.html) is used to extract archives and must be in [PATH](https://en.wikipedia.org/wiki/PATH_(variable)).
 
 ### First-time setup
 - Download or clone this repository.
