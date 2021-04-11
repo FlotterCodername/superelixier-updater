@@ -18,9 +18,12 @@ It can easily be extended to more programs by a technical user. Currently, it ha
 ## Usage
 The first-time setup is not friendly to non-technical users yet. If you haven't used Python before, read closely. **On the bright side**: once set up, using this tool is as simple as running the ``main.py`` file with Python.
 
-### First-time setup
-- This tool requires a Python 3 interpreter. I personally use the latest version of [PyPy](https://www.pypy.org/), but you can also install versions >=3.7 of [standard Python](https://www.python.org/).
+### Requirements
+- Python 3 interpreter. I personally use the latest version of [PyPy](https://www.pypy.org/), but you can also install versions >=3.7 of [standard Python](https://www.python.org/).
 - [Use pip to install](https://packaging.python.org/tutorials/installing-packages/#use-pip-for-installing) the packages ``colorama`` and ``requests``.
+- 7z is used to extract archives and must be in PATH.
+
+### First-time setup
 - Download or clone this repository.
 - Three configuration files in the ``config`` folder need to be set up.
   - ``available.json`` is included. This holds patterns that the tool needs to detect, download and install updates.
