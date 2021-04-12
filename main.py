@@ -47,7 +47,7 @@ class Main:
             for list_item in self.cfg_local[path]:
                 location_found = False
                 for project in self.cfg_available["from_appveyor"]:
-                    if list_item == project["name"]:
+                    if list_item.lower() == project["name"].lower():
                         location_found = True
                         appveyor_project = AppveyorApp(project, native_path, self.__appveyor_manager.get_headers)
                         project_list.append(appveyor_project)
@@ -55,7 +55,7 @@ class Main:
                 if location_found:
                     continue
                 for project in self.cfg_available["from_github"]:
-                    if list_item == project["name"]:
+                    if list_item.lower() == project["name"].lower():
                         location_found = True
                         github_project = GithubApp(project, native_path, self.__github_manager.get_headers)
                         project_list.append(github_project)
@@ -63,7 +63,7 @@ class Main:
                 if location_found:
                     continue
                 for project in self.cfg_available["from_html"]:
-                    if list_item == project["name"]:
+                    if list_item.lower() == project["name"].lower():
                         location_found = True
                         html_project = HTMLApp(project, native_path)
                         project_list.append(html_project)

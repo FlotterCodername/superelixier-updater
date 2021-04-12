@@ -6,6 +6,8 @@ If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
 import cgi
+import datetime
+
 import colorama
 import json
 import os
@@ -19,9 +21,11 @@ from generic_app.generic_app import GenericApp
 class FileHandler:
 
     def __init__(self, app: GenericApp):
+        now_string = datetime.datetime.strftime(datetime.datetime.now(), "%Y-%m-%dT%H.%M.%S")
         self.__app = app
         self.__staging = os.path.join(app.target_dir, f".staging-{app.random_id}")
-        self.__old_version = os.path.join(app.target_dir, f".oldver-{app.random_id}")
+        self.__keep_history = True
+        self.__history = os.path.join(app.appdir, ".superelixier_history", now_string)
 
     def __project_download(self):
         # Create folder structure if it doesn't exist
@@ -85,10 +89,53 @@ class FileHandler:
 
     def __project_merge_oldnew(self):
         # Data to keep
+        keep_list = self.__list_appdatas(self.__app)
+        # Full dir tree list
+        full_list = self.__list_folder(self.__staging)
+        # Remove appdatas from staging
+        for file in keep_list:
+            if file.replace(self.__app.appdir, self.__staging) in keep_list:
+                try:
+                    os.remove(file)
+                    full_list.remove(file)
+                except PermissionError:
+                    raise PermissionError(f"Error updating {self.__app.name}: Permission denied for {file}")
+        # Create history folder
+        if self.__keep_history:
+            os.makedirs(self.__history, exist_ok=True)
+        # Move to new location
+        for update_file in full_list:
+            stage_location = update_file
+            new_location = update_file.replace(self.__staging, self.__app.appdir)
+            os.makedirs(os.path.split(new_location)[0], exist_ok=True)
+            if os.path.exists(new_location):
+                if self.__keep_history:
+                    history_location = new_location.replace(self.__app.appdir, self.__history)
+                    os.makedirs(os.path.split(history_location)[0], exist_ok=True)
+                    os.rename(new_location, history_location)
+                    os.rename(stage_location, new_location)
+                else:
+                    os.replace(stage_location, new_location)
+            else:
+                os.rename(stage_location, new_location)
+        self.__remove_empty_dirs(self.__staging)
+
+    @staticmethod
+    def __list_folder(folder):
+        full_list = []
+        for root, _, files in os.walk(folder):
+            for file in files:
+                my_path = os.path.join(root, file)
+                if os.path.isfile(my_path):
+                    full_list.append(my_path)
+        return full_list
+
+    @staticmethod
+    def __list_appdatas(app: GenericApp):
         keep_list = []
         missing_appdata = []
-        for appdata in self.__app.appdatas:
-            data = os.path.join(self.__old_version, *appdata.split("/"))
+        for appdata in app.appdatas:
+            data = os.path.join(app.appdir, *appdata.split("/"))
             if os.path.exists(data):
                 if os.path.isfile(data):
                     keep_list.append(data)
@@ -101,32 +148,7 @@ class FileHandler:
                 missing_appdata.append(appdata)
         if len(missing_appdata) != 0:
             print(colorama.Fore.MAGENTA + f"Old appdatas not found: {', '.join(missing_appdata)}")
-        # Full dir tree list
-        full_list = []
-        for root, _, files in os.walk(self.__old_version):
-            for file in files:
-                my_path = os.path.join(root, file)
-                if os.path.isfile(my_path):
-                    full_list.append(my_path)
-        # Remove files to keep from list before purging
-        for file in keep_list:
-            if file in full_list:
-                full_list.remove(file)
-        # Purge files
-        for file in full_list:
-            os.remove(file)
-        # Move to new location
-        for keep_file in keep_list:
-            old_location = keep_file
-            new_location = keep_file.replace(self.__old_version, self.__app.appdir)
-            os.makedirs(os.path.split(new_location)[0], exist_ok=True)
-            if os.path.exists(new_location):
-                os.replace(old_location, new_location)
-            else:
-                os.rename(old_location, new_location)
-        # Purge empty dirs. This leaves an empty directory if all went well.
-        # If it's not empty, project_update() will raise an error.
-        self.__remove_empty_dirs(self.__old_version)
+        return keep_list
 
     @staticmethod
     def __remove_empty_dirs(top_dir):
@@ -150,10 +172,8 @@ class FileHandler:
     def project_update(self):
         self.__project_download()
         self.__project_normalize()
-        os.rename(self.__app.appdir, self.__old_version)
-        os.rename(self.__staging, self.__app.appdir)
         self.__project_merge_oldnew()
-        os.rmdir(os.path.join(self.__app.target_dir, self.__old_version))
+        os.rmdir(self.__staging)
 
     def project_install(self):
         self.__project_download()
