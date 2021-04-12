@@ -6,7 +6,6 @@ If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
 import cgi
-
 import colorama
 import json
 import os
@@ -14,7 +13,6 @@ import re
 import shutil
 import subprocess
 import urllib.request as rq
-
 from generic_app.generic_app import GenericApp
 
 
@@ -141,6 +139,13 @@ class FileHandler:
                     if len(os.listdir(os.path.join(root, subdir))) == 0:
                         empty_dirs = True
                         os.rmdir(my_path)
+
+    @staticmethod
+    def make_path_native(path):
+        crumbs = path.split("/")
+        if ":" in crumbs[0] and ":\\" not in crumbs[0]:
+            crumbs[0] = crumbs[0].replace(":", ":\\")
+        return os.path.join(*crumbs)
 
     def project_update(self):
         self.__project_download()

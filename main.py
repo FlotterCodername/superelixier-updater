@@ -6,8 +6,6 @@ If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
 import colorama
-import os
-
 from appveyor.appveyor_app import AppveyorApp
 from appveyor.appveyor_manager import AppveyorManager
 from config_loader.config_loader import ConfigLoader
@@ -45,12 +43,12 @@ class Main:
     def __check_updates(self):
         project_list = []
         for path in self.cfg_local:
+            native_path = FileHandler.make_path_native(path)
             for list_item in self.cfg_local[path]:
                 location_found = False
                 for project in self.cfg_available["from_appveyor"]:
                     if list_item == project["name"]:
                         location_found = True
-                        native_path = os.path.join(*os.path.split(path))
                         appveyor_project = AppveyorApp(project, native_path, self.__appveyor_manager.get_headers)
                         project_list.append(appveyor_project)
                         continue
@@ -59,7 +57,6 @@ class Main:
                 for project in self.cfg_available["from_github"]:
                     if list_item == project["name"]:
                         location_found = True
-                        native_path = os.path.join(*os.path.split(path))
                         github_project = GithubApp(project, native_path, self.__github_manager.get_headers)
                         project_list.append(github_project)
                         continue
@@ -68,7 +65,6 @@ class Main:
                 for project in self.cfg_available["from_html"]:
                     if list_item == project["name"]:
                         location_found = True
-                        native_path = os.path.join(*os.path.split(path))
                         html_project = HTMLApp(project, native_path)
                         project_list.append(html_project)
                 if location_found:
