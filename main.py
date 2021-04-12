@@ -7,6 +7,9 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 """
 import colorama
 import os
+
+from appveyor.appveyor_app import AppveyorApp
+from appveyor.appveyor_manager import AppveyorManager
 from config_loader.config_loader import ConfigLoader
 from file_handler.file_handler import FileHandler
 from github.github_manager import GithubManager
@@ -23,6 +26,7 @@ class Main:
         self.cfg_available = configuration["available"]
         self.cfg_local = configuration["local"]
         # Managers
+        self.__appveyor_manager = GithubManager(self.cfg_auth)
         self.__github_manager = GithubManager(self.cfg_auth)
 
         # Helper objects
@@ -43,6 +47,15 @@ class Main:
         for path in self.cfg_local:
             for list_item in self.cfg_local[path]:
                 location_found = False
+                for project in self.cfg_available["from_appveyor"]:
+                    if list_item == project["name"]:
+                        location_found = True
+                        native_path = os.path.join(*os.path.split(path))
+                        appveyor_project = AppveyorApp(project, native_path, self.__appveyor_manager.get_headers)
+                        project_list.append(appveyor_project)
+                        continue
+                if location_found:
+                    continue
                 for project in self.cfg_available["from_github"]:
                     if list_item == project["name"]:
                         location_found = True
@@ -62,6 +75,8 @@ class Main:
                     continue
         for project in project_list:
             project.execute()
+            if isinstance(project, AppveyorApp):
+                AppveyorManager.check_update(project)
             if isinstance(project, GithubApp):
                 GithubManager.check_update(project)
             elif isinstance(project, HTMLApp):

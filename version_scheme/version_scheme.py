@@ -25,6 +25,10 @@ class VersionScheme:
         if scheme["type"] == "integer":
             if new["version_id"] > old["version_id"]:
                 latest_version = new
+        if scheme["type"] == "appveyor":
+            # TODO: Actually check date, not just neq
+            if new["version_id"] != old["version_id"]:
+                latest_version = new
         if scheme["type"] == "github":
             new_version_id = datetime.strptime(new["version_id"], GITHUB_DATE)
             old_version_id = datetime.strptime(old["version_id"], GITHUB_DATE)
