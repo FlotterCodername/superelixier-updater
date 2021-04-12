@@ -1,4 +1,26 @@
 {
+  "from_appveyor": [
+    {
+      "name": "DeSmuME",
+      "user": "zeromus",
+      "project": "desmume",
+      "blob_re": "^.*\\.exe$",
+      "blob_unwanted": [],
+      "appdatas": [
+        "AviFiles",
+        "Battery",
+        "Cheats",
+        "Firmware",
+        "Lua",
+        "Roms",
+        "Screenshots",
+        "SramImportExport",
+        "States",
+        "StateSlots",
+        "desmume.ini"
+      ]
+    }
+  ],
   "from_github": [
     {
       "name": "citra-canary",
