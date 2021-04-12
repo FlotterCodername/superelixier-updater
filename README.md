@@ -26,7 +26,7 @@ The first-time setup is not friendly to non-technical users yet. If you haven't 
 ### First-time setup
 - Download or clone this repository.
 - Three configuration files in the ``config`` folder need to be set up.
-  - ``available.json`` (included) holds patterns that the tool needs to detect, download and install updates. If you're not adding apps, there's nothing to do here. However, should files disappear from the app directory after an update (configuration files etc.), please read [Adding Apps](Adding%20Apps.md) on what to do about it.  
+  - ``available.json`` (included) holds patterns that the tool needs to detect, download and install updates. If you're not adding apps, there's nothing to do here. However, should files disappear from the app directory after an update (configuration files etc.), please read [Adding Apps](Adding%20Apps.md#Appdata) on what to do about it.  
   - ``auth.json`` (included) holds credentials needed to connect to sites hosting downloads. Most users don't need to change anything here, as modest amounts of API calls can be done without tokens.
   - ``local.json`` tells the tool where to install which app. Rename the ``local_example.json`` to ``local.json`` and set your options.
   
