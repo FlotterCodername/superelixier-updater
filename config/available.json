@@ -125,6 +125,17 @@
       "appdatas": [
         "portable.ini"
       ]
+    },
+    {
+      "name": "PPSSPP",
+      "url": "https://www.ppsspp.org/downloads.html",
+      "version_scheme": {
+        "type": "tuple",
+        "re": "files/(.*?)/ppsspp_win\\.zip"
+      },
+      "blob_re": "files/.*/ppsspp_win\\.zip",
+      "blob_unwanted": [],
+      "appdatas": []
     }
   ]
 }
