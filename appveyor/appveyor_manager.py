@@ -23,7 +23,7 @@ class AppveyorManager:
 
     @staticmethod
     def check_update(app: AppveyorApp):
-        if not os.path.isdir(app.appdir):
+        if not os.path.isdir(app.appdir) and not app.update_status == "failed":
             app.update_status = "not_installed"
         elif not app.update_status == "failed":
             ver_info_file = os.path.join(app.target_dir, app.name, "superelixier.json")
