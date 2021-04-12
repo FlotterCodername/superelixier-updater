@@ -94,12 +94,13 @@ class FileHandler:
         full_list = self.__list_folder(self.__staging)
         # Remove appdatas from staging
         for file in keep_list:
-            if file.replace(self.__app.appdir, self.__staging) in keep_list:
+            file_to_protect = file.replace(self.__app.appdir, self.__staging)
+            if file_to_protect in full_list:
                 try:
-                    os.remove(file)
-                    full_list.remove(file)
+                    os.remove(file_to_protect)
+                    full_list.remove(file_to_protect)
                 except PermissionError:
-                    raise PermissionError(f"Error updating {self.__app.name}: Permission denied for {file}")
+                    raise PermissionError(f"Error updating {self.__app.name}: Permission denied for {file_to_protect}")
         # Create history folder
         if self.__keep_history:
             os.makedirs(self.__history, exist_ok=True)
