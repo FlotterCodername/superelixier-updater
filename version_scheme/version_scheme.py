@@ -35,6 +35,8 @@ class VersionScheme:
             if new_version_id > old_version_id:
                 latest_version = new
         if scheme["type"] == tuple:
-            # TODO
+            # TODO: Actually check tuple, not just neq
+            if new["version_id"] != old["version_id"]:
+                latest_version = new
             pass
         return latest_version
