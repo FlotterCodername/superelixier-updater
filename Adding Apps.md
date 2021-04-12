@@ -26,9 +26,12 @@ this: ``"blob_unwanted": [],``
 
 ## Appdata
 
-**IMPORTANT:** If nothing is set in ``appdatas``, *all* files from the old version will be deleted. This ensures that
-your app folder is clean. Anything that you want to keep from the old version needs to be in the ``appdatas`` parameter,
-like so:
+If nothing is set in ``appdatas``, *all* files could potentially be replaced by updates, if they came with the update.
+If that happens, there are backups: All old files are retained in ``<app directory>.superelixier_history/<date>T<time>``
+.
+
+Usually though, developers do not ship such files with their updates. You can still protect files from being overwritten
+using the ``appdatas`` parameter, like so:
 
   ```json
 "appdatas": [
@@ -40,5 +43,5 @@ like so:
 ]
   ``` 
 
-Note that in ``folder_where_i_want_to_keep_only``, only ``this_file.ini`` will be retained. Also, regular expressions
+Note that in ``folder_where_i_want_to_keep_only``, only ``this_file.ini`` will be protected. Also, regular expressions
 are not supported here.

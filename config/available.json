@@ -6,19 +6,7 @@
       "project": "desmume",
       "blob_re": "^.*\\.exe$",
       "blob_unwanted": [],
-      "appdatas": [
-        "AviFiles",
-        "Battery",
-        "Cheats",
-        "Firmware",
-        "Lua",
-        "Roms",
-        "Screenshots",
-        "SramImportExport",
-        "States",
-        "StateSlots",
-        "desmume.ini"
-      ]
+      "appdatas": []
     }
   ],
   "from_github": [
@@ -62,9 +50,7 @@
       "project": "keepassxc",
       "blob_re": "^KeePassXC.*Win64-portable.*\\.zip$",
       "blob_unwanted": [],
-      "appdatas": [
-        "config"
-      ]
+      "appdatas": []
     },
     {
       "name": "mGBA",
@@ -72,9 +58,7 @@
       "project": "mgba",
       "blob_re": "^mGBA.*win64.*\\.7z$",
       "blob_unwanted": [],
-      "appdatas": [
-        "config.ini"
-      ]
+      "appdatas": []
     },
     {
       "name": "Mupen64plus",
@@ -82,14 +66,7 @@
       "project": "m64p",
       "blob_re": "^m64p.*win64.*\\.zip$",
       "blob_unwanted": [],
-      "appdatas": [
-        "GLideN64.ini",
-        "GLideN64.custom.ini",
-        "input-profiles.ini",
-        "input-settings.ini",
-        "mupen64plus.cfg",
-        "mupen64plus-gui.ini"
-      ]
+      "appdatas": []
     },
     {
       "name": "Remove Empty Directories",
@@ -105,25 +82,7 @@
       "project": "rpcs3-binaries-win",
       "blob_re": "^rpcs3.*win64\\.7z$",
       "blob_unwanted": [],
-      "appdatas": [
-        "cache",
-        "captures",
-        "config",
-        "dev_flash",
-        "dev_hdd0",
-        "dev_hdd1",
-        "dev_usb000",
-        "GuiConfigs/CurrentSettings.ini",
-        "GuiConfigs/persistent_settings.dat",
-        "InputConfigs",
-        "patches",
-        "shaderlog",
-        "spu-progs",
-        "config.yml",
-        "config_input.yml",
-        "games.yml",
-        "RPCS3.buf"
-      ]
+      "appdatas": []
     },
     {
       "name": "Steam Rom Manager",
@@ -131,9 +90,7 @@
       "project": "steam-rom-manager",
       "blob_re": "^Steam-ROM-Manager-portable.*\\.exe$",
       "blob_unwanted": [],
-      "appdatas": [
-        "userData"
-      ]
+      "appdatas": []
     },
     {
       "name": "yuzu-mainline",
@@ -166,15 +123,6 @@
       "blob_re": "/pcsx2/index\\.php\\?m=dl&amp;rev=.*&amp;platform=windows-x86",
       "blob_unwanted": [],
       "appdatas": [
-        "bios",
-        "cheats",
-        "cheats_ws",
-        "inis",
-        "logs",
-        "memcards",
-        "shaders",
-        "snaps",
-        "sstates",
         "portable.ini"
       ]
     }
