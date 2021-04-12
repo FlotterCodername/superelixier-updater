@@ -6,6 +6,7 @@ If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
 import html
+from urllib.error import HTTPError
 from urllib.parse import urlparse
 import re
 from urllib import request as rq
@@ -26,10 +27,15 @@ class HTMLApp(GenericApp):
         Do (network) latency sensitive parts of object creation here.
         """
         self._web_call = self.__web_request()
-        self._version_latest = self.__get_latest_version()
+        if not self.update_status == "failed":
+            self._version_latest = self.__get_latest_version()
 
     def __web_request(self):
-        request = rq.urlretrieve(self._url)
+        try:
+            request = rq.urlretrieve(self._url)
+        except HTTPError:
+            self.update_status = "failed"
+            return []
         return request[0]
 
     def __get_latest_version(self):
