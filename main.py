@@ -10,6 +10,7 @@ from appveyor.appveyor_app import AppveyorApp
 from appveyor.appveyor_manager import AppveyorManager
 from config_loader.config_loader import ConfigLoader
 from file_handler.file_handler import FileHandler
+from generic_app.generic_app import GenericApp
 from github.github_manager import GithubManager
 from github.github_app import GithubApp
 from html_seu.html_app import HTMLApp
@@ -99,7 +100,7 @@ class Main:
                 my_fsm.project_install()
 
     @staticmethod
-    def project_status_report(project: GithubApp):
+    def project_status_report(project: GenericApp):
         color = ''
         message = ''
         if project.update_status == "no_update":
