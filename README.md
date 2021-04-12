@@ -26,7 +26,7 @@ The first-time setup is not friendly to non-technical users yet. If you haven't 
 ### First-time setup
 - Download or clone this repository.
 - Three configuration files in the ``config`` folder need to be set up.
-  - ``available.json`` is included. This holds patterns that the tool needs to detect, download and install updates.
+  - ``available.json`` (included) holds patterns that the tool needs to detect, download and install updates.
     Please check the ``blob_unwanted`` parameters: If you don't want to delete anything from the downloaded update, the lines should look like this: ``"blob_unwanted": [],``. Nevertheless, I have pre-set some parameters as configuration examples.
     **IMPORTANT:** If nothing is set in ``appdatas``, *all* files from the old version will be deleted. This ensures that your app folder is clean. Anything that you want to keep from the old version needs to be in the ``appdatas`` parameter, like so:
     ```json
@@ -39,7 +39,7 @@ The first-time setup is not friendly to non-technical users yet. If you haven't 
       ]
     ``` 
     Note that in ``folder_where_i_want_to_keep_only``, only ``this_file.ini`` will be retained.
-  - ``auth.json`` holds credentials needed to connect to sites hosting downloads. Simply rename the provided ``auth_example.json`` to ``auth.json``. The only credentials you can set are Appveyor/GitHub API tokens. You won't need these unless you run the updater compulsively. 
+  - ``auth.json`` (included) holds credentials needed to connect to sites hosting downloads. Most users don't need to change anything here, as modest amounts of API calls can be done without tokens.
   - ``local.json`` tells the tool where to install which app. Rename the ``local_example.json`` to ``local.json`` and set your options.
   
 ### Running the updater
