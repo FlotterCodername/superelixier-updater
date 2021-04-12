@@ -71,10 +71,7 @@
       "user": "mgba-emu",
       "project": "mgba",
       "blob_re": "^mGBA.*win64.*\\.7z$",
-      "blob_unwanted": [
-        "README_ES.html",
-        "README_ZH_CN.html"
-      ],
+      "blob_unwanted": [],
       "appdatas": [
         "config.ini"
       ]
@@ -143,9 +140,7 @@
       "user": "yuzu-emu",
       "project": "yuzu-mainline",
       "blob_re": "^yuzu.*windows.*\\.7z$",
-      "blob_unwanted": [
-        "^yuzu.*source.*\\.(zip|rar|xz|7z)$"
-      ],
+      "blob_unwanted": [],
       "appdatas": []
     }
   ],
