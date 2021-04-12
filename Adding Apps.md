@@ -15,10 +15,11 @@ set up the  ``blob_unwanted`` parameter. This parameter takes regular expression
 ````
 
 The first entry deletes an installation package with the filename ``vc_redist.x64.exe``. The backslashes are necessary
-because ``.`` is a special character in regular expressions. It's a double backslash because backslashes are also
-special characters in JSON strings. The second entry is a more elaborate regular expression that deletes a hypothetical
-source code archive. To learn more about regular expressions, check
-out [this w3schools article](https://www.w3schools.com/python/python_regex.asp).
+because ``.`` is a special character in regular expressions. It's a double backslash because ``\`` is a special
+character in JSON strings.
+
+The second entry is a more elaborate regular expression that deletes a hypothetical source code archive. To learn more
+about regular expressions, check out [this w3schools article](https://www.w3schools.com/python/python_regex.asp).
 
 If you don't want to delete anything from the downloaded update, the line should look like
 this: ``"blob_unwanted": [],``
@@ -39,5 +40,5 @@ like so:
 ]
   ``` 
 
-Note that in ``folder_where_i_want_to_keep_only``, only ``this_file.ini`` will be retained. Also, regular expressions are not
-supported here.
+Note that in ``folder_where_i_want_to_keep_only``, only ``this_file.ini`` will be retained. Also, regular expressions
+are not supported here.
