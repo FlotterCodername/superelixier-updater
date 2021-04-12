@@ -39,7 +39,7 @@ The first-time setup is not friendly to non-technical users yet. If you haven't 
       ]
     ``` 
     Note that in ``folder_where_i_want_to_keep_only``, only ``this_file.ini`` will be retained.
-  - ``auth.json`` holds credentials needed to connect to sites hosting downloads. Simply rename the provided ``auth_example.json`` to ``auth.json``. The only credential you can set is a GitHub personal access token. You won't need this unless you run the updater compulsively. 
+  - ``auth.json`` holds credentials needed to connect to sites hosting downloads. Simply rename the provided ``auth_example.json`` to ``auth.json``. The only credentials you can set are Appveyor/GitHub API tokens. You won't need these unless you run the updater compulsively. 
   - ``local.json`` tells the tool where to install which app. Rename the ``local_example.json`` to ``local.json`` and set your options.
   
 ### Running the updater
