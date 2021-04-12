@@ -103,6 +103,17 @@
   ],
   "from_html": [
     {
+      "name": "Cemu",
+      "url": "http://cemu.info/",
+      "version_scheme": {
+        "type": "tuple",
+        "re": "https://cemu\\.info/releases/cemu_(.*?)\\.zip"
+      },
+      "blob_re": "https://cemu\\.info/releases/cemu_.*\\.zip",
+      "blob_unwanted": [],
+      "appdatas": []
+    },
+    {
       "name": "Dolphin",
       "url": "https://dolphin-emu.org/download/",
       "version_scheme": {
@@ -127,7 +138,7 @@
       ]
     },
     {
-      "name": "PPSSPP",
+      "name": "PPSSPP (fails with HTTP status 403)",
       "url": "https://www.ppsspp.org/downloads.html",
       "version_scheme": {
         "type": "tuple",
