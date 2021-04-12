@@ -45,7 +45,7 @@ class FileHandler:
                 filename = params["filename"]
             download = rq.urlretrieve(url, os.path.join(self.__app.target_dir, self.__staging, filename))
             filename = os.path.split(download[0])[-1]
-            if re.fullmatch("^.*\\.(zip|rar|xz|7z)$", filename):
+            if re.fullmatch("^.*\\.(001|7z|bz2|bzip2|gz|gzip|lzma|rar|tar|tgz|txz|xz|zip)$", filename):
                 subprocess.run(f"7z x -aoa {filename}", cwd=self.__staging, stdout=subprocess.DEVNULL)
                 os.remove(os.path.join(self.__staging, filename))
             elif re.fullmatch("^.*\\.exe$", filename):
