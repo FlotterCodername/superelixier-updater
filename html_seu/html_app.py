@@ -6,10 +6,9 @@ If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
 import html
-from urllib.error import HTTPError
-from urllib.parse import urlparse
 import re
-from urllib import request as rq
+from requests import get
+from urllib.parse import urlparse
 from generic_app.generic_app import GenericApp
 from version_scheme.version_scheme import VersionScheme
 
@@ -31,16 +30,12 @@ class HTMLApp(GenericApp):
             self._version_latest = self.__get_latest_version()
 
     def __web_request(self):
-        try:
-            request = rq.urlretrieve(self._url)
-        except HTTPError:
-            self.update_status = "failed"
-            return []
-        return request[0]
+        header = {'User-Agent': 'Superelixier Updater (Contact: @FroyoXSG on GitHub)'}
+        request = get(self._url, headers=header)
+        return request.text
 
     def __get_latest_version(self):
-        with open(self._web_call, 'r', encoding="utf-8") as file:
-            matches = re.findall(self._blob_re, file.read())
+        matches = re.findall(self._blob_re, self._web_call)
         versions = []
         for match in matches:
             my_dict = {
@@ -57,6 +52,8 @@ class HTMLApp(GenericApp):
             host_address = '{uri.scheme}://{uri.netloc}'.format(uri=urlparse(self._url))
             host_address_re = "^" + host_address.replace('.', '\\.') + ".*"
             if re.match(host_address_re, url) is None:
+                url = "/" + url
+                url = url.replace("//", "/")
                 url = host_address + url
             else:
                 raise ValueError(f"Error in {__name__}: Failed to build URL for {self._name}")
