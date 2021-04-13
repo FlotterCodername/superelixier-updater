@@ -138,7 +138,7 @@
       ]
     },
     {
-      "name": "PPSSPP (fails with HTTP status 403)",
+      "name": "PPSSPP",
       "url": "https://www.ppsspp.org/downloads.html",
       "version_scheme": {
         "type": "tuple",
