@@ -26,13 +26,18 @@ class HTMLApp(GenericApp):
         Do (network) latency sensitive parts of object creation here.
         """
         self._web_call = self.__web_request()
-        if not self.update_status == "failed":
+        if self._web_call is None:
+            self.update_status = "failed"
+        else:
             self._version_latest = self.__get_latest_version()
 
     def __web_request(self):
         header = {'User-Agent': 'Superelixier Updater (Contact: @FroyoXSG on GitHub)'}
         request = get(self._url, headers=header)
-        return request.text
+        if request.status_code != 200:
+            return None
+        else:
+            return request.text
 
     def __get_latest_version(self):
         matches = re.findall(self._blob_re, self._web_call)
