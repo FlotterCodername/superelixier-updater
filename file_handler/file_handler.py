@@ -5,16 +5,14 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
-import cgi
-import datetime
-
 import colorama
+import datetime
 import json
 import os
 import re
+import requests
 import shutil
 import subprocess
-import urllib.request as rq
 from generic_app.generic_app import GenericApp
 
 
@@ -37,16 +35,13 @@ class FileHandler:
         if len(release_latest) == 0:
             print("No matching downloads for the latest version")
             raise ValueError
+        headers = {'User-Agent': 'Superelixier Updater (Contact: @FroyoXSG on GitHub)'}
         for url in release_latest:
             print(f"Trying to get file from: {url}")
-            cgi_file_filename = rq.urlopen(url).info()['Content-Disposition']
-            if cgi_file_filename is None:
-                filename = url.split("/")[-1]
-            else:
-                value, params = cgi.parse_header(cgi_file_filename)
-                filename = params["filename"]
-            download = rq.urlretrieve(url, os.path.join(self.__app.target_dir, self.__staging, filename))
-            filename = os.path.split(download[0])[-1]
+            response = requests.get(url, allow_redirects=True, headers=headers)
+            filename = os.path.join(self.__staging, self.__get_remote_filename(url, response))
+            with open(filename, "wb") as file:
+                file.write(response.content)
             if re.fullmatch("^.*\\.(001|7z|bz2|bzip2|gz|gzip|lzma|rar|tar|tgz|txz|xz|zip)$", filename):
                 subprocess.run(f"7z x -aoa {filename}", cwd=self.__staging, stdout=subprocess.DEVNULL)
                 os.remove(os.path.join(self.__staging, filename))
@@ -162,6 +157,16 @@ class FileHandler:
                     if len(os.listdir(os.path.join(root, subdir))) == 0:
                         empty_dirs = True
                         os.rmdir(my_path)
+
+    @staticmethod
+    def __get_remote_filename(url, response):
+        cd = response.headers.get('content-disposition')
+        if not cd:
+            filename = url.split("/")[-1]
+        else:
+            filename = re.findall('filename=(.+)', cd)[0]
+        filename = filename.replace('"', '')
+        return filename
 
     @staticmethod
     def make_path_native(path):
