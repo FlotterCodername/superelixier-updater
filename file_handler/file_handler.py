@@ -50,12 +50,14 @@ class FileHandler:
                           os.path.join(self.__staging, f"{self.__app.name}.exe"))
 
     def __project_normalize(self):
-        dirs_normalized = False
-        while not dirs_normalized:
+        normalize_failure = False
+        normalize_done = False
+        while not normalize_done:
             extracted = os.listdir(self.__staging)
             if len(extracted) == 0:
-                print("Failure listing directory")
-                raise FileNotFoundError
+                print("Failure downloading or extracting this app")
+                normalize_done = True
+                normalize_failure = True
             elif len(extracted) == 1:
                 extracted_dir = os.path.join(self.__staging, extracted[0])
                 if os.path.isdir(extracted_dir):
@@ -66,7 +68,7 @@ class FileHandler:
                         )
                     os.rmdir(extracted_dir)
                 elif os.path.isfile:
-                    dirs_normalized = True
+                    normalize_done = True
             elif len(extracted) > 1:
                 print(colorama.Style.BRIGHT + f"{self.__app.name}: extracted files")
                 strs = []
@@ -78,9 +80,10 @@ class FileHandler:
                             os.remove(os.path.join(self.__staging, extracted))
                     strs.append(print_string)
                 print(", ".join(strs))
-                dirs_normalized = True
-        with open(os.path.join(self.__staging, "superelixier.json"), "w") as file:
-            json.dump(self.__app.version_latest, file)
+                normalize_done = True
+        if not normalize_failure:
+            with open(os.path.join(self.__staging, "superelixier.json"), "w") as file:
+                json.dump(self.__app.version_latest, file)
 
     def __project_merge_oldnew(self):
         # Data to keep
