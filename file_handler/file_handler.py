@@ -34,7 +34,6 @@ class FileHandler:
         release_latest = self.__app.version_latest["blobs"]
         if len(release_latest) == 0:
             print("No matching downloads for the latest version")
-            raise ValueError
         headers = {'User-Agent': 'Superelixier Updater (Contact: @FroyoXSG on GitHub)'}
         for url in release_latest:
             print(f"Trying to get file from: {url}")
