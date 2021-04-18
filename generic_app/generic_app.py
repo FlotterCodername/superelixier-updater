@@ -21,7 +21,9 @@ class GenericApp:
         """
         # Props from JSON
         self._name = json_entry["name"]
-        self._blob_re = json_entry["blob_re"]
+        self._optionals = {}
+        optional_keys = ["blob_re", "blob_permalink"]
+        self.__set_optionals(json_entry, optional_keys)
         self._blob_unwanted = json_entry["blob_unwanted"]
         self._appdatas = json_entry["appdatas"]
         # Runtime props
@@ -33,13 +35,18 @@ class GenericApp:
         # Update status managed by child classes
         self.update_status = "unknown"
 
+    def __set_optionals(self, json_entry: dict, optional_keys: list):
+        for key in optional_keys:
+            if key in json_entry:
+                self._optionals[key] = json_entry[key]
+
     @property
     def name(self):
         return self._name
 
     @property
-    def blob_re(self):
-        return self._blob_re
+    def optionals(self):
+        return self._optionals
 
     @property
     def blob_unwanted(self):
