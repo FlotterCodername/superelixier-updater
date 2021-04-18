@@ -117,6 +117,8 @@ class FileHandler:
             else:
                 os.rename(stage_location, new_location)
         self.__remove_empty_dirs(self.__staging)
+        # Ideally don't create these folders in the first place:
+        self.__remove_empty_dirs(os.path.split(self.__history)[0], delete_top=True)
 
     @staticmethod
     def __list_folder(folder):
@@ -149,7 +151,7 @@ class FileHandler:
         return keep_list
 
     @staticmethod
-    def __remove_empty_dirs(top_dir):
+    def __remove_empty_dirs(top_dir, delete_top=False):
         empty_dirs = True
         while empty_dirs:
             empty_dirs = False
@@ -159,6 +161,10 @@ class FileHandler:
                     if len(os.listdir(os.path.join(root, subdir))) == 0:
                         empty_dirs = True
                         os.rmdir(my_path)
+        if delete_top:
+            if len(os.listdir(top_dir)) == 0:
+                os.rmdir(top_dir)
+
 
     @staticmethod
     def __get_remote_filename(url, response):
