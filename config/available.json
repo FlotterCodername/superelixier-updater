@@ -133,6 +133,23 @@
       "appdatas": []
     },
     {
+      "name": "KiTTY",
+      "url": "https://www.fosshub.com/KiTTY.html",
+      "version_scheme": {
+        "type": "tuple",
+        "re": "https://www\\.fosshub\\.com/KiTTY\\.html\\?dwl=kitty_portable-(.*?)\\.exe"
+      },
+      "blob_permalink": "http://www.9bis.net/kitty/files/kitty_portable.exe",
+      "blob_unwanted": [],
+      "appdatas": [
+        "Jumplist",
+        "Proxies",
+        "Sessions",
+        "SshHostKeys",
+        "kitty.ini"
+      ]
+    },
+    {
       "name": "PCSX2",
       "url": "https://buildbot.orphis.net/pcsx2/",
       "version_scheme": {
