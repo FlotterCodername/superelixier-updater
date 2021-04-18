@@ -14,10 +14,13 @@ class VersionScheme:
 
     @staticmethod
     def get_newest(scheme: dict, versions: list):
-        latest_version = versions[0]
-        for version in versions:
-            latest_version = VersionScheme.compare(scheme, latest_version, version)
-        return latest_version
+        if len(versions) == 0:
+            return {"version": "", "blobs": []}
+        else:
+            latest_version = versions[0]
+            for version in versions:
+                latest_version = VersionScheme.compare(scheme, latest_version, version)
+            return latest_version
 
     @staticmethod
     def compare(scheme: dict, old: dict, new: dict):
