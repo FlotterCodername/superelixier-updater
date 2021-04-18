@@ -40,15 +40,24 @@ class HTMLApp(GenericApp):
             return request.text
 
     def __get_latest_version(self):
-        matches = re.findall(self._blob_re, self._web_call)
         versions = []
-        for match in matches:
-            re_match = re.search(self._version_scheme["re"], match).group(1)
-            my_dict = {
-                "version_id": re_match,
-                "blobs": [self.__normalize_url(match)]
-            }
-            versions.append(my_dict)
+        if "blob_permalink" in self._optionals:
+            matches = re.findall(self._version_scheme["re"], self._web_call)
+            for match in matches:
+                my_dict = {
+                    "version_id": match,
+                    "blobs": [self._optionals["blob_permalink"]]
+                }
+                versions.append(my_dict)
+        elif "blob_re" in self._optionals:
+            matches = re.findall(self._optionals["blob_re"], self._web_call)
+            for match in matches:
+                re_match = re.search(self._version_scheme["re"], match).group(1)
+                my_dict = {
+                    "version_id": re_match,
+                    "blobs": [self.__normalize_url(match)]
+                }
+                versions.append(my_dict)
         version = VersionScheme.get_newest(self._version_scheme, versions)
         return version
 
