@@ -43,10 +43,14 @@ class GithubManager:
             "version_id": app.api_call[0]["published_at"],
             "blobs": []
         }
-        for asset in app.api_call[0]["assets"]:
-            filename = asset['browser_download_url'].split("/")[-1]
-            if re.fullmatch(app.blob_re, filename) is not None:
-                my_dict["blobs"].append(asset["browser_download_url"])
+        if "blob_re" in app.optionals:
+            for asset in app.api_call[0]["assets"]:
+                filename = asset['browser_download_url'].split("/")[-1]
+                if re.fullmatch(app.optionals["blob_re"], filename) is not None:
+                    my_dict["blobs"].append(asset["browser_download_url"])
+        else:
+            print(f"{app.name} Error: \"blob_re\" is not configured but is required")
+            app.update_status = "failed"
         return my_dict
 
     @property

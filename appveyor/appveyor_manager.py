@@ -44,10 +44,14 @@ class AppveyorManager:
             "version_id": app.api_call[0]["created"],
             "blobs": []
         }
-        for asset in app.api_call:
-            filename = asset['fileName']
-            if re.fullmatch(app.blob_re, filename.split("/")[-1]) is not None:
-                my_dict["blobs"].append(AppveyorManager.API_URL + "/buildjobs/" + asset["jobId"] + "/artifacts/" + filename)
+        if "blob_re" in app.optionals:
+            for asset in app.api_call:
+                filename = asset['fileName']
+                if re.fullmatch(app.optionals["blob_re"], filename.split("/")[-1]) is not None:
+                    my_dict["blobs"].append(AppveyorManager.API_URL + "/buildjobs/" + asset["jobId"] + "/artifacts/" + filename)
+        else:
+            print(f"{app.name} Error: \"blob_re\" is not configured but is required")
+            app.update_status = "failed"
         return my_dict
 
     @property
