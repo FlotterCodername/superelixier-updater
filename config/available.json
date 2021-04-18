@@ -37,6 +37,14 @@
       ]
     },
     {
+      "name": "diagrams.net",
+      "user": "jgraph",
+      "project": "drawio-desktop",
+      "blob_re": "^draw.io-.*-windows-no-installer\\.exe$",
+      "blob_unwanted": [],
+      "appdatas": []
+    },
+    {
       "name": "Etcher",
       "user": "balena-io",
       "project": "etcher",
