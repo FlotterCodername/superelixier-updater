@@ -34,17 +34,17 @@ class FileHandler:
         release_latest = self.__app.version_latest["blobs"]
         if len(release_latest) == 0:
             print("No matching downloads for the latest version")
-        headers = {'User-Agent': 'Superelixier Updater (Contact: @FroyoXSG on GitHub)'}
         for url in release_latest:
             print(f"Trying to get file from: {url}")
+            headers = {'User-Agent': 'Superelixier Updater (Contact: @FroyoXSG on GitHub)'}
             response = requests.get(url, allow_redirects=True, headers=headers)
             filename = os.path.join(self.__staging, self.__get_remote_filename(url, response))
             with open(filename, "wb") as file:
                 file.write(response.content)
-            if re.fullmatch("^.*\\.(001|7z|bz2|bzip2|gz|gzip|lzma|rar|tar|tgz|txz|xz|zip)$", filename):
+            if filename and re.fullmatch("^.*\\.(001|7z|bz2|bzip2|gz|gzip|lzma|rar|tar|tgz|txz|xz|zip)$", filename):
                 subprocess.run(f"7z x -aoa {filename}", cwd=self.__staging, stdout=subprocess.DEVNULL)
                 os.remove(os.path.join(self.__staging, filename))
-            elif re.fullmatch("^.*\\.exe$", filename):
+            elif filename and re.fullmatch("^.*\\.exe$", filename):
                 os.rename(os.path.join(self.__staging, filename),
                           os.path.join(self.__staging, f"{self.__app.name}.exe"))
 
