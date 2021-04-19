@@ -1,4 +1,4 @@
-# Pre-configured apps
+# Pre-configured Apps
 
 - Blender
 - Cemu

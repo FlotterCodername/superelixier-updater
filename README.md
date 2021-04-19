@@ -11,7 +11,7 @@ more programs by a technical user. Currently, it handles apps distributed on App
 ![Example console output of this program](/docs/example.png)
 
 ## Features
-
+- [List of Pre-configured Apps](Available%20Apps.md)
 - No unnecessary downloads: Checks the installed app for update and only downloads releases if there is a new one. Let's
   not waste bandwidth.
 - Extensible: Add more apps via configuration files.
