@@ -25,7 +25,7 @@ class ConfigLoader:
             for app in cfg[app_location]:
                 app_list.append(app["name"])
         app_list.sort(key=str.casefold)
-        markdown = ["# Pre-configured apps\r\n"]
+        markdown = ["# Pre-configured Apps\r\n"]
         for app in app_list:
             markdown.append(f"- {app}")
         markdown = "\r\n".join(markdown)
