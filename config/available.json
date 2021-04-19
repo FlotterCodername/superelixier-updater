@@ -111,6 +111,17 @@
   ],
   "from_html": [
     {
+      "name": "Blender",
+      "url": "https://www.blender.org/download",
+      "version_scheme": {
+        "type": "tuple",
+        "re": "https://www\\.blender\\.org/download/Blender.*/blender-(.*?)-windows64\\.zip"
+      },
+      "blob_re": ".*(https://www\\.blender\\.org/download/Blender.*/blender-.*?-windows64\\.zip).*",
+      "blob_unwanted": [],
+      "appdatas": []
+    },
+    {
       "name": "Cemu",
       "url": "http://cemu.info/",
       "version_scheme": {
