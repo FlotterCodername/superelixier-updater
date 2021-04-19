@@ -22,7 +22,7 @@ class GenericApp:
         # Props from JSON
         self._name = json_entry["name"]
         self._optionals = {}
-        optional_keys = ["blob_re", "blob_permalink"]
+        optional_keys = ["blob_re", "blob_permalink", "is_sfx"]
         self.__set_optionals(json_entry, optional_keys)
         self._blob_unwanted = json_entry["blob_unwanted"]
         self._appdatas = json_entry["appdatas"]

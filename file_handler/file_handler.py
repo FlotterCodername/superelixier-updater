@@ -36,7 +36,10 @@ class FileHandler:
             print("No matching downloads for the latest version")
         for url in release_latest:
             filename = self.__url_downloader(url)
-            if filename and re.fullmatch("^.*\\.(001|7z|bz2|bzip2|gz|gzip|lzma|rar|tar|tgz|txz|xz|zip)$", filename):
+            archives = "001|7z|bz2|bzip2|gz|gzip|lzma|rar|tar|tgz|txz|xz|zip"
+            if "is_sfx" in self.__app.optionals and self.__app.optionals["is_sfx"] == "1":
+                archives = f"exe|{archives}"
+            if filename and re.fullmatch(f"^.*\\.({archives})$", filename):
                 subprocess.run(f"7z x -aoa {filename}", cwd=self.__staging, stdout=subprocess.DEVNULL)
                 os.remove(os.path.join(self.__staging, filename))
             elif filename and re.fullmatch("^.*\\.exe$", filename):
