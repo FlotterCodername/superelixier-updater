@@ -18,6 +18,20 @@ class ConfigLoader:
         for cfg in ["auth", "available", "local"]:
             self._configuration[cfg] = json.load(open(os.path.join(cfg_dir, f"{cfg}.json"), 'r'))
 
+    def write_app_list(self):
+        cfg = self._configuration["available"]
+        app_list = []
+        for app_location in cfg:
+            for app in cfg[app_location]:
+                app_list.append(app["name"])
+        app_list.sort(key=str.casefold)
+        markdown = ["# Pre-configured apps\r\n"]
+        for app in app_list:
+            markdown.append(f"- {app}")
+        markdown = "\r\n".join(markdown)
+        with open(os.path.join(os.path.dirname(sys.argv[0]), "Available Apps.md"), "wb") as file:
+            file.write(str.encode(markdown))
+
     @property
     def configuration(self):
         return self._configuration
