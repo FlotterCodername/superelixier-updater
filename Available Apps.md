@@ -1,0 +1,22 @@
+# Pre-configured apps
+
+- Blender
+- Cemu
+- citra-canary
+- citra-nightly
+- dbeaver
+- DeSmuME
+- diagrams.net
+- Dolphin
+- Etcher
+- Kdenlive
+- KeePassXC
+- KiTTY
+- mGBA
+- Mupen64plus
+- PCSX2
+- PPSSPP
+- Remove Empty Directories
+- RPCS3
+- Steam Rom Manager
+- yuzu-mainline
