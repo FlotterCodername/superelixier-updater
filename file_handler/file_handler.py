@@ -35,18 +35,28 @@ class FileHandler:
         if len(release_latest) == 0:
             print("No matching downloads for the latest version")
         for url in release_latest:
-            print(f"Trying to get file from: {url}")
-            headers = {'User-Agent': 'Superelixier Updater (Contact: @FroyoXSG on GitHub)'}
-            response = requests.get(url, allow_redirects=True, headers=headers)
-            filename = os.path.join(self.__staging, self.__get_remote_filename(url, response))
-            with open(filename, "wb") as file:
-                file.write(response.content)
+            filename = self.__url_downloader(url)
             if filename and re.fullmatch("^.*\\.(001|7z|bz2|bzip2|gz|gzip|lzma|rar|tar|tgz|txz|xz|zip)$", filename):
                 subprocess.run(f"7z x -aoa {filename}", cwd=self.__staging, stdout=subprocess.DEVNULL)
                 os.remove(os.path.join(self.__staging, filename))
             elif filename and re.fullmatch("^.*\\.exe$", filename):
                 os.rename(os.path.join(self.__staging, filename),
                           os.path.join(self.__staging, f"{self.__app.name}.exe"))
+
+    def __url_downloader(self, url):
+        print(f"Trying to get file from: {url}")
+        headers = {'User-Agent': 'Superelixier Updater (Contact: @FroyoXSG on GitHub)'}
+        response = requests.get(url, allow_redirects=True, headers=headers)
+        if response.headers.get('refresh'):
+            url = response.headers["refresh"].split(';')[-1]
+            if "url=".lower() in url:
+                url = url.split("=")[-1]
+            print(f"Redirected to: {url}")
+            response = requests.get(url, allow_redirects=True, headers=headers)
+        filename = os.path.join(self.__staging, self.__get_remote_filename(url, response))
+        with open(filename, "wb") as file:
+            file.write(response.content)
+        return filename
 
     def __project_normalize(self):
         normalize_failure = False
@@ -164,7 +174,6 @@ class FileHandler:
         if delete_top:
             if len(os.listdir(top_dir)) == 0:
                 os.rmdir(top_dir)
-
 
     @staticmethod
     def __get_remote_filename(url, response):
