@@ -9,6 +9,7 @@ import colorama
 from appveyor.appveyor_app import AppveyorApp
 from appveyor.appveyor_manager import AppveyorManager
 from config_loader.config_loader import ConfigLoader
+from config_loader.eula import EulaChecker
 from environment_handler.environment_handler import LockFile, LockFileException
 from file_handler.file_handler import FileHandler
 from generic_app.generic_app import GenericApp
@@ -25,6 +26,7 @@ class Main:
             self.__lock = LockFile()
         except LockFileException:
             exit()
+        EulaChecker.check_eula()
         # Configuration
         configuration = ConfigLoader().configuration
         self.cfg_auth = configuration["auth"]
