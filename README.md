@@ -29,7 +29,7 @@ the bright side**: once set up, using this tool is as simple as running the ``ma
 - Python 3 interpreter. I use the latest version of [PyPy](https://www.pypy.org/), but you can also install version
   3.7 (or compatible) of [standard Python](https://www.python.org/).
 - [Use pip to install](https://packaging.python.org/tutorials/installing-packages/#use-pip-for-installing) the
-  packages ``colorama`` and ``requests``.
+  packages ``colorama``, ``packaging`` and ``requests``.
 - [7z](https://7-zip.org/7z.html) is used to extract archives and must be
   in [PATH](https://en.wikipedia.org/wiki/PATH_(variable)).
 

@@ -6,8 +6,8 @@ If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
 from datetime import datetime
-
 from github.github import GITHUB_DATE
+from packaging import version
 
 
 class VersionScheme:
@@ -18,12 +18,19 @@ class VersionScheme:
             return {"version": "", "blobs": []}
         else:
             latest_version = versions[0]
-            for version in versions:
-                latest_version = VersionScheme.compare(scheme, latest_version, version)
+            for my_version in versions:
+                latest_version = VersionScheme.compare(scheme, latest_version, my_version)
             return latest_version
 
     @staticmethod
     def compare(scheme: dict, old: dict, new: dict):
+        """
+        When in doubt, this should return the 'new' version so that the app will be updated to what is currently advertised on the remote site, if nothing else.
+        :param scheme:
+        :param old:
+        :param new:
+        :return:
+        """
         latest_version = old
         if scheme["type"] == "integer":
             if new["version_id"] > old["version_id"]:
@@ -37,9 +44,7 @@ class VersionScheme:
             old_version_id = datetime.strptime(old["version_id"], GITHUB_DATE)
             if new_version_id > old_version_id:
                 latest_version = new
-        if scheme["type"] == tuple:
-            # TODO: Actually check tuple, not just neq
-            if new["version_id"] != old["version_id"]:
+        if scheme["type"] == "tuple":
+            if version.parse(new["version_id"]) > version.parse(old["version_id"]):
                 latest_version = new
-            pass
         return latest_version

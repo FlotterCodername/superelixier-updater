@@ -28,7 +28,10 @@ class HTMLManager:
                     version_installed = json.load(file)
                 comparison = VersionScheme.compare(app.version_scheme, app.version_latest, version_installed)
                 if comparison == version_installed:
-                    app.update_status = "no_update"
+                    if comparison != app.version_latest:
+                        app.update_status = "installed_newer"
+                    else:
+                        app.update_status = "no_update"
                 else:
                     app.update_status = "update"
             else:

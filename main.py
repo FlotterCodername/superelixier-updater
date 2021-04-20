@@ -106,6 +106,9 @@ class Main:
         if project.update_status == "no_update":
             color = colorama.Style.BRIGHT
             message = "No update available"
+        elif project.update_status == "installed_newer":
+            color = colorama.Style.BRIGHT + colorama.Fore.MAGENTA
+            message = "Installed is newer. " + colorama.Style.DIM + colorama.Fore.RESET + "Please make sure your version wasn't retracted because of problems with it."
         elif project.update_status == "update":
             color = colorama.Fore.GREEN
             message = "Update available"
