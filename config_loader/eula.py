@@ -11,7 +11,7 @@ import re
 import sys
 
 TERM_VER = 1
-TERMS = ["Superelixier Terms\r\n",
+TERMS = ["Superelixier 3rd-Party Notice\r\n",
          "==================\r\n"
          "All apps installed using this program are subject to their respective licenses as determined by the proprietors of these apps ('proprietors' hereafter). ",
          "Inclusion in this list should not be seen as any indication of affiliation of proprietors with the creator(s) of Superelixier Updater ('we' hereafter). ",
