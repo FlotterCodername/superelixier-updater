@@ -9,6 +9,7 @@ import colorama
 from appveyor.appveyor_app import AppveyorApp
 from appveyor.appveyor_manager import AppveyorManager
 from config_loader.config_loader import ConfigLoader
+from environment_handler.environment_handler import LockFile, LockFileException
 from file_handler.file_handler import FileHandler
 from generic_app.generic_app import GenericApp
 from github.github_manager import GithubManager
@@ -19,6 +20,11 @@ from html_seu.html_manager import HTMLManager
 
 class Main:
     def __init__(self):
+        colorama.init(autoreset=True)
+        try:
+            self.__lock = LockFile()
+        except LockFileException:
+            exit()
         # Configuration
         configuration = ConfigLoader().configuration
         self.cfg_auth = configuration["auth"]
@@ -36,7 +42,6 @@ class Main:
         The execute() methods in the project are supposed to provide an idea of what the class does in a nutshell.
         Always put them directly after __init__().
         """
-        colorama.init(autoreset=True)
         self.__check_updates()
         self.__update_apps()
         input("Press Enter to continue...")

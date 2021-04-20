@@ -2,3 +2,4 @@
 /config/auth.json
 /config/local.json
 /venv
+/superelixier.lock
