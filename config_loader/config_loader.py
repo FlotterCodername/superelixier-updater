@@ -25,7 +25,13 @@ class ConfigLoader:
             for app in cfg[app_location]:
                 app_list.append(app["name"])
         app_list.sort(key=str.casefold)
-        markdown = ["# Pre-configured Apps\r\n"]
+        markdown = ["# Pre-configured Apps\r\n",
+                    "These apps are subject to their respective licenses as determined by _the proprietors of these apps_ ('proprietors' hereafter).",
+                    "Inclusion in this list should not be seen as any indication of affiliation of proprietors with us.",
+                    "_The creator(s) of Superelixier Updater_ ('we' hereafter) only provide automation routines for installing these apps on your local machine.\r\n",
+                    "It remains your responsibility as a user of our software to adhere to the terms and licenses proprietors have set for the software that you are asking our routines to access.\r\n",
+                    "As a practical example, you may be required to purchase a license from proprietors if using proprietors' software commercially.",
+                    "As a further practical example, if you create a modified version of proprietors' software, you may be required to disclose source code of your modified version."]
         for app in app_list:
             markdown.append(f"- {app}")
         markdown = "\r\n".join(markdown)
