@@ -25,6 +25,7 @@ class Main:
         try:
             self.__lock = LockFile()
         except LockFileException:
+            input("Press ENTER to exit.")
             exit()
         EulaChecker.check_eula()
         # Configuration

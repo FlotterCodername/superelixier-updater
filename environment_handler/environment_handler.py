@@ -9,7 +9,7 @@ import os
 import sys
 import colorama
 
-LOCK_MSG = "The previous Superelixier Updater instance is still running. Exiting."
+LOCK_MSG = "ERROR: The previous Superelixier Updater instance is still running."
 
 
 class LockFileException(BaseException):

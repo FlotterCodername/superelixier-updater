@@ -41,7 +41,9 @@ class EulaChecker:
         if re.match(r"^yes,? i agree$", challenge.casefold()):
             EulaChecker.__accept_eula(TERM_VER)
         else:
-            sys.exit("Must exit because terms were not accepted. If you meant to accept, make sure you only type \"yes i agree\" without quotes.")
+            print("Cannot continue as terms were not accepted. If you meant to accept, make sure you only type \"yes i agree\" without quotes.")
+            input("Press ENTER to exit.")
+            sys.exit()
 
     @staticmethod
     def __accept_eula(version: int):
