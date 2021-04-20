@@ -5,6 +5,8 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
+import time
+
 import colorama
 from appveyor.appveyor_app import AppveyorApp
 from appveyor.appveyor_manager import AppveyorManager
@@ -25,7 +27,7 @@ class Main:
         try:
             self.__lock = LockFile()
         except LockFileException:
-            input("Press ENTER to exit.")
+            time.sleep(7)
             exit()
         EulaChecker.check_eula()
         # Configuration
