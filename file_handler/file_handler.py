@@ -71,7 +71,7 @@ class FileHandler:
                     filename = extracted[0]
             if filename and re.fullmatch("^.*\\.exe$", filename):
                 if "installer" in self.__app.optionals and self.__app.optionals["installer"] == "innoextract":
-                    subprocess.run(f'{self.INNOEXTRACT} -n "{filename}"', cwd=self.__staging, stdout=subprocess.DEVNULL)
+                    subprocess.run(f'{self.INNOEXTRACT} -n -m "{filename}"', cwd=self.__staging, stdout=subprocess.DEVNULL)
                     os.remove(os.path.join(self.__staging, filename))
                 else:
                     os.rename(os.path.join(self.__staging, filename),
