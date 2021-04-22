@@ -14,6 +14,7 @@ more programs by a technical user. Currently, it handles apps distributed on App
 - [List of Pre-configured Apps](Available%20Apps.md)
 - No unnecessary downloads: Checks the installed app for update and only downloads releases if there is a new one. Let's
   not waste bandwidth.
+- Running detection: Downloaded updates will be applied next run if the folder was in use this run.
 - Extensible: Add more apps via configuration files.
     - Release files detected via regular expression.
     - Can specify files that should be deleted from release (for files you do not need)
@@ -57,7 +58,6 @@ the bright side**: once set up, using this tool is as simple as running the ``ma
 
 ## Planned
 
-- Running detection: Skip apps that have opened files
 - History: Make number/age of kept backups configurable.
 - Patterns: Replace user-facing regular expressions with a simpler wildcard system
 - GitHub: Allow user to download pre-release versions or not
