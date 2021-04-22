@@ -21,11 +21,30 @@ class FileHandler:
     def __init__(self, app: GenericApp):
         now_string = datetime.datetime.strftime(datetime.datetime.now(), "%Y-%m-%dT%H.%M.%S")
         self.__app = app
-        self.__staging = os.path.join(app.target_dir, f".staging-{app.random_id}")
+        self.__cache = os.path.join(app.target_dir, ".superelixier-cache")
+        self.__staging = os.path.join(self.__cache, str(app.random_id))
         self.__keep_history = True
-        self.__history = os.path.join(app.appdir, ".superelixier_history", now_string)
+        self.__history = os.path.join(app.appdir, ".superelixier-history", now_string)
+        self.__deferred = os.path.join(self.__cache, ".deferred", app.name)
 
     def __project_download(self):
+        """
+        Handle the download of blobs or check if deferred update matches latest version on remote site.
+
+        :return: False if the directory should be normalized, True if not.
+        """
+        # Check if deferred update files should be leveraged
+        version_deferred = os.path.join(self.__deferred, "superelixier.json")
+        if os.path.isfile(version_deferred):
+            with open(version_deferred, 'r') as file:
+                version_deferred = json.load(file)
+            if version_deferred == self.__app.version_latest:
+                print(colorama.Fore.GREEN + self.__app.name + ": Re-using previously downloaded update files")
+                self.__staging = self.__deferred
+                return True
+            else:
+                print(colorama.Fore.GREEN + self.__app.name + ": Previously downloaded update is not latest version, removing")
+                shutil.rmtree(self.__deferred)
         # Create folder structure if it doesn't exist
         os.makedirs(self.__staging, exist_ok=True)
         # Make sure staging directory is empty
@@ -45,9 +64,16 @@ class FileHandler:
             elif filename and re.fullmatch("^.*\\.exe$", filename):
                 os.rename(os.path.join(self.__staging, filename),
                           os.path.join(self.__staging, f"{self.__app.name}.exe"))
+        return False
 
     def __url_downloader(self, url):
-        print(f"Trying to get file from: {url}")
+        """
+        curl without curl
+
+        :param url:
+        :return:
+        """
+        print(f"Downloading file from: {url}")
         headers = {'User-Agent': 'Superelixier Updater (Contact: @FroyoXSG on GitHub)'}
         response = requests.get(url, allow_redirects=True, headers=headers)
         if response.headers.get('refresh'):
@@ -98,6 +124,10 @@ class FileHandler:
                 json.dump(self.__app.version_latest, file)
 
     def __project_merge_oldnew(self):
+        # Lock all files
+        opened_files = self.__lock_folder(self.__app)
+        if opened_files == {}:
+            return False
         # Data to keep
         keep_list = self.__list_appdatas(self.__app)
         # Full dir tree list
@@ -123,6 +153,8 @@ class FileHandler:
                 if self.__keep_history:
                     history_location = new_location.replace(self.__app.appdir, self.__history)
                     os.makedirs(os.path.split(history_location)[0], exist_ok=True)
+                    # close file
+                    opened_files[new_location].close()
                     os.rename(new_location, history_location)
                     os.rename(stage_location, new_location)
                 else:
@@ -132,9 +164,24 @@ class FileHandler:
         self.__remove_empty_dirs(self.__staging)
         # Ideally don't create these folders in the first place:
         self.__remove_empty_dirs(os.path.split(self.__history)[0], delete_top=True)
+        return True
+
+    def __defer_update(self):
+        # Check if the current FileHandler job was already deferred itself
+        if self.__staging != self.__deferred:
+            # Clear out possible orphaned files
+            if os.path.isdir(self.__deferred):
+                shutil.rmtree(self.__deferred)
+            os.makedirs(os.path.split(self.__deferred)[0], exist_ok=True)
+            os.rename(self.__staging, self.__deferred)
 
     @staticmethod
     def __list_folder(folder):
+        """
+
+        :param folder: Folder to scan
+        :return: List of absolute file paths
+        """
         full_list = []
         for root, _, files in os.walk(folder):
             for file in files:
@@ -162,6 +209,26 @@ class FileHandler:
         if len(missing_appdata) != 0:
             print(colorama.Fore.MAGENTA + f"Old appdatas not found: {', '.join(missing_appdata)}")
         return keep_list
+
+    @staticmethod
+    def __lock_folder(app):
+        """
+        Open all files in binary append mode to get exclusive access. Close all files if any file is in use.
+        :param app:
+        :return: Dictionary with the file handles. Invoker must close these again.
+        """
+        opened_files = {}
+        # Here we could also check if any binaries are running and not even bother with trying to lock all files.
+        try:
+            for existing_file in FileHandler.__list_folder(app.appdir):
+                if os.path.isfile(existing_file):
+                    opened_files[existing_file] = open(existing_file, 'ab')
+        except PermissionError:
+            print(colorama.Fore.MAGENTA + app.name + f": Folder is in use. Update files will be moved next time.")
+            for key in opened_files:
+                opened_files[key].close()
+            return {}
+        return opened_files
 
     @staticmethod
     def __remove_empty_dirs(top_dir, delete_top=False):
@@ -217,12 +284,14 @@ class FileHandler:
             FileHandler.__remove_empty_dirs(cache, delete_top=True)
 
     def project_update(self):
-        self.__project_download()
-        self.__project_normalize()
-        self.__project_merge_oldnew()
-        os.rmdir(self.__staging)
+        reused_files = self.__project_download()
+        if not reused_files:
+            self.__project_normalize()
+        if not self.__project_merge_oldnew():
+            self.__defer_update()
 
     def project_install(self):
-        self.__project_download()
-        self.__project_normalize()
+        reused_files = self.__project_download()
+        if not reused_files:
+            self.__project_normalize()
         os.rename(self.__staging, self.__app.appdir)
