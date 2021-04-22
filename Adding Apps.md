@@ -27,7 +27,7 @@ this: ``"blob_unwanted": [],``
 ## Appdata
 
 If nothing is set in ``appdatas``, *all* files could potentially be replaced by updates, if they came with the update.
-If that happens, there are backups: All old files are retained in ``<app directory>.superelixier_history/<date>T<time>``
+If that happens, there are backups: All old files are retained in ``<app directory>/.superelixier_history/<date>T<time>``
 .
 
 Usually though, developers do not ship such files with their updates. You can still protect files from being overwritten
