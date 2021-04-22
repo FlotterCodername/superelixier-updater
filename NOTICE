@@ -14,3 +14,9 @@ Licensed under BSD-3-Clause:
 Colorama
 Copyright Jonathan Hartley & Arnon Yaari, 2013-2020
 License file: ./thirdparty/Colorama.txt
+
+Licensed as-is:
+---------------
+innoextract
+Copyright 2011-2020 Daniel Scharrer
+License file: ./thirdparty/innoextract.txt
