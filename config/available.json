@@ -230,10 +230,10 @@
     },
     {
       "name": "XnView Classic",
-      "url": "https://www.xnview.com/en/xnviewmp/#downloads",
+      "url": "https://www.xnview.com/en/xnview/#downloads",
       "version_scheme": {
         "type": "tuple",
-        "re": "<p class=\"h5 mt-3\">Download <strong>XnView (.*?)</strong>:</p>"
+        "re": "<p class=\"h5 mt-3\">Download <strong>XnView (.*?)</strong>.*?</p>"
       },
       "blob_permalink": "https://download.xnview.com/XnView-win-full.zip",
       "blob_unwanted": [],
@@ -244,7 +244,7 @@
       "url": "https://www.xnview.com/en/xnviewmp/#downloads",
       "version_scheme": {
         "type": "tuple",
-        "re": "<p class=\"h5 mt-3\">Download <strong>XnView MP (.*?)</strong>:</p>"
+        "re": "<p class=\"h5 mt-3\">Download <strong>XnView MP (.*?)</strong>.*?</p>"
       },
       "blob_permalink": "https://download.xnview.com/XnViewMP-win-x64.zip",
       "blob_unwanted": ["vc_redist\\.x64\\.exe"],
