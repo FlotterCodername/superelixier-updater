@@ -165,6 +165,12 @@ class FileHandler:
 
     @staticmethod
     def __remove_empty_dirs(top_dir, delete_top=False):
+        """
+        Delete empty folders created by this program. Do not use on app folders! We don't mess with the UX of installed apps that way.
+        :param top_dir:
+        :param delete_top:
+        :return:
+        """
         empty_dirs = True
         while empty_dirs:
             empty_dirs = False
@@ -175,8 +181,11 @@ class FileHandler:
                         empty_dirs = True
                         os.rmdir(my_path)
         if delete_top:
-            if len(os.listdir(top_dir)) == 0:
-                os.rmdir(top_dir)
+            try:
+                if len(os.listdir(top_dir)) == 0:
+                    os.rmdir(top_dir)
+            except FileNotFoundError:
+                pass
 
     @staticmethod
     def __get_remote_filename(url, response):
@@ -194,6 +203,18 @@ class FileHandler:
         if ":" in crumbs[0] and ":\\" not in crumbs[0]:
             crumbs[0] = crumbs[0].replace(":", ":\\")
         return os.path.join(*crumbs)
+
+    @staticmethod
+    def pre_exit_cleanup(configuration_local: dict):
+        """
+        Remove cache directories created by this program.
+
+        :param configuration_local:
+        :return:
+        """
+        for target in configuration_local:
+            cache = os.path.join(FileHandler.make_path_native(target), ".superelixier-cache")
+            FileHandler.__remove_empty_dirs(cache, delete_top=True)
 
     def project_update(self):
         self.__project_download()

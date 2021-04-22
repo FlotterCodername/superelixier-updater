@@ -48,6 +48,7 @@ class Main:
         """
         self.__check_updates()
         self.__update_apps()
+        FileHandler.pre_exit_cleanup(self.cfg_local)
         input("Press Enter to continue...")
         self.__lock.__del__()
 
