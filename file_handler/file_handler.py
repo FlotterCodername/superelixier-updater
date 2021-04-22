@@ -65,7 +65,11 @@ class FileHandler:
             if filename and re.fullmatch(f"^.*\\.({archives})$", filename):
                 subprocess.run(f'7z x -aoa "{filename}"', cwd=self.__staging, stdout=subprocess.DEVNULL)
                 os.remove(os.path.join(self.__staging, filename))
-            elif filename and re.fullmatch("^.*\\.exe$", filename):
+                # Handle zipped installer case
+                extracted = os.listdir(self.__staging)
+                if len(extracted) == 1:
+                    filename = extracted[0]
+            if filename and re.fullmatch("^.*\\.exe$", filename):
                 if "installer" in self.__app.optionals and self.__app.optionals["installer"] == "innoextract":
                     subprocess.run(f'{self.INNOEXTRACT} -n "{filename}"', cwd=self.__staging, stdout=subprocess.DEVNULL)
                     os.remove(os.path.join(self.__staging, filename))
