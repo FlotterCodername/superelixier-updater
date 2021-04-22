@@ -25,6 +25,8 @@ As a further practical example, if you create a modified version of proprietors'
 - nvidiaProfileInspector
 - PCSX2
 - PPSSPP
+- Project64
+- Project64-Development
 - Remove Empty Directories
 - RPCS3
 - Steam Rom Manager
