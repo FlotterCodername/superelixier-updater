@@ -224,7 +224,7 @@ class FileHandler:
                 if os.path.isfile(existing_file):
                     opened_files[existing_file] = open(existing_file, 'ab')
         except PermissionError:
-            print(colorama.Fore.MAGENTA + app.name + f": Folder is in use. Update files will be moved next time.")
+            print(colorama.Fore.MAGENTA + colorama.Style.BRIGHT + app.name + f": Folder is in use. Update files will be moved next time.")
             for key in opened_files:
                 opened_files[key].close()
             return {}
