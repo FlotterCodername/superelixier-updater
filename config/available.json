@@ -197,10 +197,10 @@
       "name": "Project64",
       "url": "https://www.pj64-emu.com/download/project64-latest",
       "version_scheme": {
-        "type": "id",
-        "re": ".*/file/(.*?)/.*"
+        "type": "integer",
+        "re": ".*/file/setup-project64-.*-(.*?)-.*?/.*"
       },
-      "blob_re": ".*(/file/.*?/).*",
+      "blob_re": ".*(/file/setup-project64-.*?/).*",
       "blob_unwanted": [],
       "installer": "innoextract",
       "appdatas": []
