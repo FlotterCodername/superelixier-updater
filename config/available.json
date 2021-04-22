@@ -160,7 +160,7 @@
       },
       "blob_re": ".*(https://download\\.kde\\.org/stable/kdenlive/.*?/windows/kdenlive-.*?_standalone\\.exe).*",
       "blob_unwanted": [],
-      "is_sfx": "1",
+      "installer": "sfx",
       "appdatas": []
     },
     {

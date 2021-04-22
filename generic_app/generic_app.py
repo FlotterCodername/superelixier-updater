@@ -22,7 +22,7 @@ class GenericApp:
         # Props from JSON
         self._name = json_entry["name"]
         self._optionals = {}
-        optional_keys = ["blob_re", "blob_permalink", "is_sfx"]
+        optional_keys = ["blob_re", "blob_permalink", "installer"]
         self.__set_optionals(json_entry, optional_keys)
         self._blob_unwanted = json_entry["blob_unwanted"]
         self._appdatas = json_entry["appdatas"]
@@ -32,7 +32,7 @@ class GenericApp:
         self._version_latest = {}
         self._version_scheme = {}
         self._random_id = "".join(random.choices(string.ascii_lowercase + string.digits, k=32))
-        # Update status managed by child classes
+        # Update status managed by manager classes
         self.update_status = "unknown"
 
     def __set_optionals(self, json_entry: dict, optional_keys: list):

@@ -37,7 +37,7 @@ class FileHandler:
         for url in release_latest:
             filename = self.__url_downloader(url)
             archives = "001|7z|bz2|bzip2|gz|gzip|lzma|rar|tar|tgz|txz|xz|zip"
-            if "is_sfx" in self.__app.optionals and self.__app.optionals["is_sfx"] == "1":
+            if "installer" in self.__app.optionals and self.__app.optionals["installer"] == "sfx":
                 archives = f"exe|{archives}"
             if filename and re.fullmatch(f"^.*\\.({archives})$", filename):
                 subprocess.run(f"7z x -aoa {filename}", cwd=self.__staging, stdout=subprocess.DEVNULL)
