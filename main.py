@@ -50,6 +50,7 @@ class Main:
         self.__check_updates()
         self.__update_apps()
         input("Press Enter to continue...")
+        self.__lock.__del__()
 
     def __check_updates(self):
         project_list = []
