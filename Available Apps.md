@@ -30,4 +30,6 @@ As a further practical example, if you create a modified version of proprietors'
 - Remove Empty Directories
 - RPCS3
 - Steam Rom Manager
+- XnView Classic
+- XnView MP
 - yuzu-mainline
