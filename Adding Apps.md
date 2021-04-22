@@ -2,6 +2,10 @@
 
 ``available.json`` holds patterns that the tool needs to detect, download and install updates.
 
+## Basic parameters
+
+*Documentation forthcoming*
+
 ## Unwanted files
 
 If you want to delete something from a downloaded app, e.g. a ``vcredist`` setup that you already have installed anyway,
