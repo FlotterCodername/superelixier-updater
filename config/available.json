@@ -194,6 +194,30 @@
       ]
     },
     {
+      "name": "Project64",
+      "url": "https://www.pj64-emu.com/download/project64-latest",
+      "version_scheme": {
+        "type": "id",
+        "re": ".*/file/(.*?)/.*"
+      },
+      "blob_re": ".*(/file/.*?/).*",
+      "blob_unwanted": [],
+      "installer": "innoextract",
+      "appdatas": []
+    },
+    {
+      "name": "Project64-Development",
+      "url": "https://www.pj64-emu.com/nightly-builds",
+      "version_scheme": {
+        "type": "integer",
+        "re": ".*/file/setup-project64-.*-(.*?)-.*?/.*"
+      },
+      "blob_re": ".*(/file/setup-project64-.*?/).*",
+      "blob_unwanted": [],
+      "installer": "innoextract",
+      "appdatas": []
+    },
+    {
       "name": "PPSSPP",
       "url": "https://www.ppsspp.org/downloads.html",
       "version_scheme": {
