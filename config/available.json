@@ -152,6 +152,18 @@
       "appdatas": []
     },
     {
+      "name": "HxD",
+      "url": "https://mh-nexus.de/en/programs.php",
+      "version_scheme": {
+        "type": "tuple",
+        "re": ".*<h2>HxD</h2>.|\\r|\\n*?<span style=\"float: left;\">(.*?) .*?</span>.*"
+      },
+      "blob_permalink": "https://mh-nexus.de/downloads/HxDPortableSetup.zip",
+      "blob_unwanted": ["HxD\\.exe"],
+      "installer": "innoextract",
+      "appdatas": []
+    },
+    {
       "name": "Kdenlive",
       "url": "https://kdenlive.org/en/download/",
       "version_scheme": {

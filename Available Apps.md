@@ -17,6 +17,7 @@ As a further practical example, if you create a modified version of proprietors'
 - diagrams.net
 - Dolphin
 - Etcher
+- HxD
 - Kdenlive
 - KeePassXC
 - KiTTY
