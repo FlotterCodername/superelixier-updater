@@ -77,6 +77,14 @@
       "appdatas": []
     },
     {
+      "name": "nvidiaProfileInspector",
+      "user": "Orbmu2k",
+      "project": "nvidiaProfileInspector",
+      "blob_re": "^nvidiaProfileInspector\\.zip$",
+      "blob_unwanted": [],
+      "appdatas": []
+    },
+    {
       "name": "Remove Empty Directories",
       "user": "hxseven",
       "project": "Remove-Empty-Directories",
