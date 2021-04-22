@@ -32,19 +32,22 @@ class VersionScheme:
         :return:
         """
         latest_version = old
-        if scheme["type"] == "integer":
+        if scheme["type"] == "id":
+            if new["version_id"] != old["version_id"]:
+                latest_version = new
+        elif scheme["type"] == "integer":
             if new["version_id"] > old["version_id"]:
                 latest_version = new
-        if scheme["type"] == "appveyor":
+        elif scheme["type"] == "tuple":
+            if version.parse(new["version_id"]) > version.parse(old["version_id"]):
+                latest_version = new
+        elif scheme["type"] == "appveyor":
             # TODO: Actually check date, not just neq
             if new["version_id"] != old["version_id"]:
                 latest_version = new
-        if scheme["type"] == "github":
+        elif scheme["type"] == "github":
             new_version_id = datetime.strptime(new["version_id"], GITHUB_DATE)
             old_version_id = datetime.strptime(old["version_id"], GITHUB_DATE)
             if new_version_id > old_version_id:
-                latest_version = new
-        if scheme["type"] == "tuple":
-            if version.parse(new["version_id"]) > version.parse(old["version_id"]):
                 latest_version = new
         return latest_version
