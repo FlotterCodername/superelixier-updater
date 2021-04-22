@@ -127,7 +127,8 @@ class FileHandler:
         # Lock all files
         opened_files = self.__lock_folder(self.__app)
         if opened_files == {}:
-            return False
+            if len(self.__list_folder(self.__app.appdir)) != 0:
+                return False
         # Data to keep
         keep_list = self.__list_appdatas(self.__app)
         # Full dir tree list
