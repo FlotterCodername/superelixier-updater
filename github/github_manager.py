@@ -5,37 +5,19 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
-import json
-import os
 import re
 
+from generic_app.generic_manager import GenericManager
 from github.github import HEADERS
 from github.github_app import GithubApp
-from version_scheme.version_scheme import VersionScheme
 
 
-class GithubManager:
+class GithubManager(GenericManager):
 
     def __init__(self, cfg_auth):
+        super().__init__()
         self._headers = HEADERS
         self._headers["Authorization"] = cfg_auth["github_token"]
-
-    @staticmethod
-    def check_update(app: GithubApp):
-        if not os.path.isdir(app.appdir) and not app.update_status == "failed":
-            app.update_status = "not_installed"
-        elif not app.update_status == "failed":
-            ver_info_file = os.path.join(app.target_dir, app.name, "superelixier.json")
-            if os.path.isfile(ver_info_file):
-                with open(ver_info_file, 'r') as file:
-                    version_installed = json.load(file)
-                comparison = VersionScheme.compare(app.version_scheme, app.version_latest, version_installed)
-                if comparison == version_installed:
-                    app.update_status = "no_update"
-                else:
-                    app.update_status = "update"
-            else:
-                app.update_status = "no_version_file"
 
     @staticmethod
     def build_blob_list(app: GithubApp):

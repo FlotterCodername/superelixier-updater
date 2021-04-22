@@ -9,16 +9,15 @@ import time
 
 import colorama
 from appveyor.appveyor_app import AppveyorApp
-from appveyor.appveyor_manager import AppveyorManager
 from config_loader.config_loader import ConfigLoader
 from config_loader.eula import EulaChecker
 from environment_handler.environment_handler import LockFile, LockFileException
 from file_handler.file_handler import FileHandler
 from generic_app.generic_app import GenericApp
-from github.github_manager import GithubManager
+from generic_app.generic_manager import GenericManager
 from github.github_app import GithubApp
+from github.github_manager import GithubManager
 from html_seu.html_app import HTMLApp
-from html_seu.html_manager import HTMLManager
 
 
 class Main:
@@ -83,12 +82,7 @@ class Main:
                     continue
         for project in project_list:
             project.execute()
-            if isinstance(project, AppveyorApp):
-                AppveyorManager.check_update(project)
-            if isinstance(project, GithubApp):
-                GithubManager.check_update(project)
-            elif isinstance(project, HTMLApp):
-                HTMLManager.check_update(project)
+            GenericManager.check_update(project)
             self.project_status_report(project)
             if project.update_status in ["update", "no_version_file", "not_installed"]:
                 self.job_list.append(project)
