@@ -5,6 +5,8 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
+import sys
+
 import colorama
 import datetime
 import json
@@ -17,6 +19,8 @@ from generic_app.generic_app import GenericApp
 
 
 class FileHandler:
+
+    INNOEXTRACT = os.path.join(os.path.dirname(sys.argv[0]), "bin-win32", "innoextract", "innoextract.exe")
 
     def __init__(self, app: GenericApp):
         now_string = datetime.datetime.strftime(datetime.datetime.now(), "%Y-%m-%dT%H.%M.%S")
@@ -59,11 +63,15 @@ class FileHandler:
             if "installer" in self.__app.optionals and self.__app.optionals["installer"] == "sfx":
                 archives = f"exe|{archives}"
             if filename and re.fullmatch(f"^.*\\.({archives})$", filename):
-                subprocess.run(f"7z x -aoa {filename}", cwd=self.__staging, stdout=subprocess.DEVNULL)
+                subprocess.run(f'7z x -aoa "{filename}"', cwd=self.__staging, stdout=subprocess.DEVNULL)
                 os.remove(os.path.join(self.__staging, filename))
             elif filename and re.fullmatch("^.*\\.exe$", filename):
-                os.rename(os.path.join(self.__staging, filename),
-                          os.path.join(self.__staging, f"{self.__app.name}.exe"))
+                if "installer" in self.__app.optionals and self.__app.optionals["installer"] == "innoextract":
+                    subprocess.run(f'{self.INNOEXTRACT} -n "{filename}"', cwd=self.__staging, stdout=subprocess.DEVNULL)
+                    os.remove(os.path.join(self.__staging, filename))
+                else:
+                    os.rename(os.path.join(self.__staging, filename),
+                              os.path.join(self.__staging, f"{self.__app.name}.exe"))
         return False
 
     def __url_downloader(self, url):
