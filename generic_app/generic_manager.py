@@ -19,6 +19,12 @@ class GenericManager:
 
     @staticmethod
     def check_update(app: GenericApp):
+        """
+        Checks the local installation and any deferred updates against what has been determined to be the latest version on the remote site.
+        Based on that, set update status that governs the appropriate course of action.
+        :param app:
+        :return:
+        """
         if not os.path.isdir(app.appdir) and not app.update_status == "failed":
             app.update_status = "not_installed"
         elif not app.update_status == "failed":
