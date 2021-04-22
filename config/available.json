@@ -206,6 +206,17 @@
       ]
     },
     {
+      "name": "PPSSPP",
+      "url": "https://www.ppsspp.org/downloads.html",
+      "version_scheme": {
+        "type": "tuple",
+        "re": "files/(.*?)/ppsspp_win\\.zip"
+      },
+      "blob_re": "files/.*/ppsspp_win\\.zip",
+      "blob_unwanted": [],
+      "appdatas": []
+    },
+    {
       "name": "Project64",
       "url": "https://www.pj64-emu.com/download/project64-latest",
       "version_scheme": {
@@ -230,13 +241,13 @@
       "appdatas": []
     },
     {
-      "name": "PPSSPP",
-      "url": "https://www.ppsspp.org/downloads.html",
+      "name": "ReShade Setup",
+      "url": "https://reshade.me",
       "version_scheme": {
         "type": "tuple",
-        "re": "files/(.*?)/ppsspp_win\\.zip"
+        "re": ".*/downloads/.*_(.*?)\\.exe.*"
       },
-      "blob_re": "files/.*/ppsspp_win\\.zip",
+      "blob_re": ".*<a href=\"(/downloads/.*?\\.exe)\" class=\"button\">Download ReShade.*?</a>.*",
       "blob_unwanted": [],
       "appdatas": []
     },

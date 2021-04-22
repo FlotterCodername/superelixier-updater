@@ -29,6 +29,7 @@ As a further practical example, if you create a modified version of proprietors'
 - Project64
 - Project64-Development
 - Remove Empty Directories
+- ReShade Setup
 - RPCS3
 - Steam Rom Manager
 - XnView Classic
