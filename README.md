@@ -13,7 +13,7 @@ more programs by a technical user. Currently, it handles apps distributed on App
 ## Features
 - [List of Pre-configured Apps](Available%20Apps.md)
 - No unnecessary downloads: Checks the installed app for update and only downloads releases if there is a new one. Let's
-  not waste bandwidth.
+  not waste bandwidth (caveat: only detects updates it did itself).
 - Running detection: Downloaded updates will be applied next run if the folder was in use this run.
 - Extensible: Add more apps via configuration files.
     - Release files detected via regular expression.
