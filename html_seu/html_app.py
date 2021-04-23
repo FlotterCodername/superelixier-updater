@@ -7,8 +7,9 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 """
 import html
 import re
-from requests import get
+import requests as rest
 from urllib.parse import urlparse
+from urllib3.exceptions import RequestError
 from generic_app.generic_app import GenericApp
 from version_scheme.version_scheme import VersionScheme
 
@@ -32,12 +33,14 @@ class HTMLApp(GenericApp):
             self._version_latest = self.__get_latest_version()
 
     def __web_request(self):
-        header = {'User-Agent': 'Superelixier Updater (Contact: @FroyoXSG on GitHub)'}
-        request = get(self._url, headers=header)
-        if request.status_code != 200:
+        try:
+            header = {'User-Agent': 'Superelixier Updater (Contact: @FroyoXSG on GitHub)'}
+            request = rest.get(self._url, headers=header)
+            if request.status_code != 200:
+                return None
+        except (rest.exceptions.ConnectionError, RequestError):
             return None
-        else:
-            return request.text
+        return request.text
 
     def __get_latest_version(self):
         versions = []

@@ -8,6 +8,8 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 import colorama
 import json
 import requests as rest
+from urllib3.exceptions import RequestError
+
 from generic_app.generic_app import GenericApp
 
 
@@ -26,17 +28,22 @@ class GithubApp(GenericApp):
         Do (network) latency sensitive parts of object creation here.
         """
         self._api_call = self.__api_request()
-        self._version_latest = self.__get_latest_version()
+        if self._api_call is None:
+            self.update_status = "failed"
+        else:
+            self._version_latest = self.__get_latest_version()
 
     def __api_request(self):
-        releases = rest.get(f"https://api.github.com/repos/{self._user}/{self._project}/releases",
-                            headers=self.__headers)
-        api_response = json.loads(releases.text)
-        if releases.status_code != 200:
-            print(colorama.Fore.RED + f'{self.name}: HTTP Status {releases.status_code}: {api_response["message"]}')
+        try:
+            releases = rest.get(f"https://api.github.com/repos/{self._user}/{self._project}/releases",
+                                headers=self.__headers)
+            api_response = json.loads(releases.text)
+            if releases.status_code != 200:
+                print(colorama.Fore.RED + f'{self.name}: HTTP Status {releases.status_code}: {api_response["message"]}')
+                return None
+        except (rest.exceptions.ConnectionError, RequestError):
             return None
-        else:
-            return api_response
+        return api_response
 
     def __get_latest_version(self):
         from github.github_manager import GithubManager
