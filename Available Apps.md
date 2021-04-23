@@ -31,6 +31,7 @@ As a further practical example, if you create a modified version of proprietors'
 - Remove Empty Directories
 - ReShade Setup
 - RPCS3
+- Ryujinx
 - Steam Rom Manager
 - XnView Classic
 - XnView MP
