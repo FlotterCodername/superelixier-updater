@@ -62,16 +62,16 @@ class FileHandler:
             archives = "001|7z|bz2|bzip2|gz|gzip|lzma|rar|tar|tgz|txz|xz|zip"
             if "installer" in self.__app.optionals and self.__app.optionals["installer"] == "sfx":
                 archives = f"exe|{archives}"
-            if filename and re.fullmatch(f"^.*\\.({archives})$", filename):
+            if filename and re.fullmatch(f"^.*\\.({archives})$", filename.casefold()):
                 subprocess.run(f'7z x -aoa "{filename}"', cwd=self.__staging, stdout=subprocess.DEVNULL)
                 os.remove(os.path.join(self.__staging, filename))
                 # Handle zipped installer case
                 extracted = os.listdir(self.__staging)
                 if len(extracted) == 1:
                     filename = extracted[0]
-            if filename and re.fullmatch("^.*\\.exe$", filename):
+            if filename and re.fullmatch("^.*\\.exe$", filename.casefold()):
                 if "installer" in self.__app.optionals and self.__app.optionals["installer"] == "innoextract":
-                    subprocess.run(f'{self.INNOEXTRACT} -n -m "{filename}"', cwd=self.__staging, stdout=subprocess.DEVNULL)
+                    subprocess.run(f'{self.INNOEXTRACT} -n "{filename}"', cwd=self.__staging, stdout=subprocess.DEVNULL)
                     os.remove(os.path.join(self.__staging, filename))
                 else:
                     os.rename(os.path.join(self.__staging, filename),
@@ -138,9 +138,8 @@ class FileHandler:
     def __project_merge_oldnew(self):
         # Lock all files
         opened_files = self.__lock_folder(self.__app)
-        if opened_files == {}:
-            if len(self.__list_folder(self.__app.appdir)) != 0:
-                return False
+        if opened_files is None:
+            return False
         # Data to keep
         keep_list = self.__list_appdatas(self.__app)
         # Full dir tree list
@@ -167,13 +166,16 @@ class FileHandler:
                     history_location = new_location.replace(self.__app.appdir, self.__history)
                     os.makedirs(os.path.split(history_location)[0], exist_ok=True)
                     # close file
-                    opened_files[new_location].close()
+                    if new_location in opened_files:
+                        opened_files[new_location].close()
                     os.rename(new_location, history_location)
                     os.rename(stage_location, new_location)
                 else:
                     os.replace(stage_location, new_location)
             else:
                 os.rename(stage_location, new_location)
+        for key in opened_files:
+            opened_files[key].close()
         self.__remove_empty_dirs(self.__staging)
         # Ideally don't create these folders in the first place:
         self.__remove_empty_dirs(os.path.split(self.__history)[0], delete_top=True)
@@ -232,15 +234,26 @@ class FileHandler:
         """
         opened_files = {}
         # Here we could also check if any binaries are running and not even bother with trying to lock all files.
+        file_list = FileHandler.__list_folder(app.appdir)
         try:
-            for existing_file in FileHandler.__list_folder(app.appdir):
-                if os.path.isfile(existing_file):
-                    opened_files[existing_file] = open(existing_file, 'ab')
+            for existing_file in file_list:
+                # There is a limit of 2048 opened files per process.
+                if len(file_list) <= 2000:
+                    if os.path.isfile(existing_file):
+                        opened_files[existing_file] = open(existing_file, 'ab')
+                else:
+                    if os.path.isfile(existing_file) and re.search("\\.(bat|cmd|com|dll|exe|elf|js|jse|msc|ps1|sh|vbe|vbs|wsf|wsh)$", os.path.split(existing_file)[-1].casefold()):
+                        opened_files[existing_file] = open(existing_file, 'ab')
         except PermissionError:
             print(colorama.Fore.MAGENTA + colorama.Style.BRIGHT + app.name + f": Folder is in use. Update files will be moved next time.")
             for key in opened_files:
                 opened_files[key].close()
-            return {}
+            return None
+        except OSError:
+            print(colorama.Fore.MAGENTA + colorama.Style.BRIGHT + app.name + f": Couldn't get folder lock.")
+            for key in opened_files:
+                opened_files[key].close()
+            return None
         return opened_files
 
     @staticmethod
