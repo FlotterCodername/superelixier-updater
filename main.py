@@ -5,6 +5,8 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
+import os
+import sys
 import time
 
 import colorama
@@ -50,8 +52,9 @@ class Main:
         self.__check_updates()
         self.__update_apps()
         FileHandler.pre_exit_cleanup(self.cfg_local)
+        if os.path.split(sys.executable)[-1] in ["pypy3", "pypy3.exe"]:
+            self.__lock.__del__()
         input("Press Enter to continue...")
-        self.__lock.__del__()
 
     def __check_updates(self):
         project_list = []
