@@ -5,7 +5,6 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
-import concurrent.futures
 import time
 
 import colorama
@@ -85,7 +84,7 @@ class Main:
                     continue
         with futures.ThreadPoolExecutor(max_workers=8) as executor:
             projects = {executor.submit(Main.__threadable_update_check, project): project for project in project_list}
-            for project in concurrent.futures.as_completed(projects):
+            for project in futures.as_completed(projects):
                 if projects[project].update_status in ["update", "no_version_file", "not_installed"]:
                     self.job_list.append(projects[project])
 
