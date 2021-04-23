@@ -5,9 +5,11 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
+import concurrent.futures
 import time
 
 import colorama
+from concurrent import futures
 from appveyor.appveyor_app import AppveyorApp
 from config_loader.config_loader import ConfigLoader
 from config_loader.eula import EulaChecker
@@ -81,12 +83,17 @@ class Main:
                         project_list.append(html_project)
                 if location_found:
                     continue
-        for project in project_list:
-            project.execute()
-            GenericManager.check_update(project)
-            self.project_status_report(project)
-            if project.update_status in ["update", "no_version_file", "not_installed"]:
-                self.job_list.append(project)
+        with futures.ThreadPoolExecutor(max_workers=8) as executor:
+            projects = {executor.submit(Main.__threadable_update_check, project): project for project in project_list}
+            for project in concurrent.futures.as_completed(projects):
+                if projects[project].update_status in ["update", "no_version_file", "not_installed"]:
+                    self.job_list.append(projects[project])
+
+    @staticmethod
+    def __threadable_update_check(project):
+        project.execute()
+        GenericManager.check_update(project)
+        Main.project_status_report(project)
 
     def __update_apps(self):
         for job in self.job_list:
@@ -133,7 +140,7 @@ class Main:
         elif project.update_status == "unknown":
             color = colorama.Fore.RED
             message = "Failed to check this project"
-        print(f"{color}{project.name}: {message}")
+        print(f"{color}{project.name}: {message}\r\n", end='')
 
     @staticmethod
     def print_header(string, color=''):
