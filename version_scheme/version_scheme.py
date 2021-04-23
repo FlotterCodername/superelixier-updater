@@ -6,6 +6,7 @@ If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
 from datetime import datetime
+from appveyor.appveyor import APPVEYOR_DATE
 from github.github import GITHUB_DATE
 from packaging import version
 
@@ -42,8 +43,9 @@ class VersionScheme:
             if version.parse(new["version_id"]) > version.parse(old["version_id"]):
                 latest_version = new
         elif scheme["type"] == "appveyor":
-            # TODO: Actually check date, not just neq
-            if new["version_id"] != old["version_id"]:
+            new_version_id = VersionScheme.__slice_appveyor_date(new["version_id"])
+            old_version_id = VersionScheme.__slice_appveyor_date(old["version_id"])
+            if new_version_id > old_version_id:
                 latest_version = new
         elif scheme["type"] == "github":
             new_version_id = datetime.strptime(new["version_id"], GITHUB_DATE)
@@ -51,3 +53,10 @@ class VersionScheme:
             if new_version_id > old_version_id:
                 latest_version = new
         return latest_version
+
+    @staticmethod
+    def __slice_appveyor_date(datestr: str):
+        datestr = datestr[:30] + datestr[31:]
+        datestr = datestr.split(".")[0] + datestr[-5:]
+        datestr_date = datetime.strptime(datestr, APPVEYOR_DATE)
+        return datestr_date
