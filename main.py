@@ -38,7 +38,7 @@ class Main:
         # Managers
         self.__appveyor_manager = GithubManager(self.cfg_auth)
         self.__github_manager = GithubManager(self.cfg_auth)
-
+        self.__multithreaded = True
         # Helper objects
         self.job_list = []
 
@@ -82,11 +82,18 @@ class Main:
                         project_list.append(html_project)
                 if location_found:
                     continue
-        with futures.ThreadPoolExecutor(max_workers=8) as executor:
-            projects = {executor.submit(Main.__threadable_update_check, project): project for project in project_list}
-            for project in futures.as_completed(projects):
-                if projects[project].update_status in ["update", "no_version_file", "not_installed"]:
-                    self.job_list.append(projects[project])
+
+        if self.__multithreaded:
+            with futures.ThreadPoolExecutor(max_workers=8) as executor:
+                projects = {executor.submit(Main.__threadable_update_check, project): project for project in project_list}
+                for project in futures.as_completed(projects):
+                    if projects[project].update_status in ["update", "no_version_file", "not_installed"]:
+                        self.job_list.append(projects[project])
+        else:
+            for project in project_list:
+                Main.__threadable_update_check(project)
+                if project.update_status in ["update", "no_version_file", "not_installed"]:
+                    self.job_list.append(project)
 
     @staticmethod
     def __threadable_update_check(project):
