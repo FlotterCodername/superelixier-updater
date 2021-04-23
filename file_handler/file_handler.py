@@ -17,10 +17,11 @@ import shutil
 import subprocess
 from generic_app.generic_app import GenericApp
 
+SEVENZIP = os.path.join(os.path.dirname(sys.argv[0]), "bin-win32", "7z", "7z.exe")
+INNOEXTRACT = os.path.join(os.path.dirname(sys.argv[0]), "bin-win32", "innoextract", "innoextract.exe")
+
 
 class FileHandler:
-
-    INNOEXTRACT = os.path.join(os.path.dirname(sys.argv[0]), "bin-win32", "innoextract", "innoextract.exe")
 
     def __init__(self, app: GenericApp):
         now_string = datetime.datetime.strftime(datetime.datetime.now(), "%Y-%m-%dT%H.%M.%S")
@@ -63,7 +64,7 @@ class FileHandler:
             if "installer" in self.__app.optionals and self.__app.optionals["installer"] == "sfx":
                 archives = f"exe|{archives}"
             if filename and re.fullmatch(f"^.*\\.({archives})$", filename.casefold()):
-                subprocess.run(f'7z x -aoa "{filename}"', cwd=self.__staging, stdout=subprocess.DEVNULL)
+                subprocess.run(f'{SEVENZIP} x -aoa "{filename}"', cwd=self.__staging, stdout=subprocess.DEVNULL)
                 os.remove(os.path.join(self.__staging, filename))
                 # Handle zipped installer case
                 extracted = os.listdir(self.__staging)
@@ -71,7 +72,7 @@ class FileHandler:
                     filename = extracted[0]
             if filename and re.fullmatch("^.*\\.exe$", filename.casefold()):
                 if "installer" in self.__app.optionals and self.__app.optionals["installer"] == "innoextract":
-                    subprocess.run(f'{self.INNOEXTRACT} -n "{filename}"', cwd=self.__staging, stdout=subprocess.DEVNULL)
+                    subprocess.run(f'{INNOEXTRACT} -n "{filename}"', cwd=self.__staging, stdout=subprocess.DEVNULL)
                     os.remove(os.path.join(self.__staging, filename))
                 else:
                     os.rename(os.path.join(self.__staging, filename),
