@@ -142,7 +142,7 @@ class Main:
             message = "Could not determine the version installed"
         elif project.update_status == "failed":
             color = colorama.Fore.RED
-            message = "Failed to make remote API call for version check"
+            message = "Could not connect to URL or API"
         elif project.update_status == "unknown":
             color = colorama.Fore.RED
             message = "Failed to check this project"
