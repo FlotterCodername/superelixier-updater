@@ -15,6 +15,14 @@
       "blob_re": "^.*win_x64\\.zip$",
       "blob_unwanted": [],
       "appdatas": []
+    },
+    {
+      "name": "xenia",
+      "user": "benvanik",
+      "project": "xenia",
+      "blob_re": "^xenia_master\\.zip$",
+      "blob_unwanted": [],
+      "appdatas": []
     }
   ],
   "from_github": [
