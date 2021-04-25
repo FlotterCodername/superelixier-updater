@@ -31,7 +31,7 @@ The first-time setup is not friendly to non-technical users yet. **On the bright
 
 ### First-time setup
 
-- Download and extract the latest release (available shortly).
+- Download and extract the latest preview release.
 - Three configuration files in the ``config`` folder need to be set up.
     - ``available.json`` (included) holds patterns that the tool needs to detect, download and install updates. If
       you're not adding apps, there's normally nothing to do here. However, should files disappear from the app
