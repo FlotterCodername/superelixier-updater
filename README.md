@@ -23,19 +23,15 @@ more programs by a technical user. Currently, it handles apps distributed on App
 
 ## Usage
 
-The first-time setup is not friendly to non-technical users yet. If you haven't used Python before, read closely. **On
-the bright side**: once set up, using this tool is as simple as running the ``main.py`` file with Python.
+The first-time setup is not friendly to non-technical users yet. **On the bright side**: once set up, using this tool is as simple as running the ``main.exe`` file.
 
 ### Requirements
 
 - Windows 10 64-Bit
-- [Python 3.9+](https://www.python.org/).
-- [Use pip to install](https://packaging.python.org/tutorials/installing-packages/#use-pip-for-installing) the
-  packages ``colorama``, ``packaging`` and ``requests``.
 
 ### First-time setup
 
-- Download or clone this repository.
+- Download and extract the latest release (available shortly).
 - Three configuration files in the ``config`` folder need to be set up.
     - ``available.json`` (included) holds patterns that the tool needs to detect, download and install updates. If
       you're not adding apps, there's normally nothing to do here. However, should files disappear from the app
@@ -52,7 +48,7 @@ the bright side**: once set up, using this tool is as simple as running the ``ma
     - This reminder is necessary because a bad configuration could lead to unexpected behavior. In case anything goes
       wrong, you'll have your previous files in a folder ``.superelixier-history`` that sits in the app's directory. As
       of now, the updater doesn't delete any of your old files at all: everything goes into the history folder instead.
-- If your configuration is set up, you can now double-click the ``main.py`` file to run the updater with Python.
+- If your configuration is set up, you run the ``main.exe`` file to run the updater.
 
 ## Planned
 
