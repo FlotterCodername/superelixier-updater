@@ -128,7 +128,11 @@ class FileHandler:
                     for pattern in self.__app.blob_unwanted:
                         if re.fullmatch(pattern, extracted):
                             print_string = colorama.Fore.RED + extracted + " (removed)" + colorama.Fore.RESET
-                            os.remove(os.path.join(self.__staging, extracted))
+                            full_path = os.path.join(self.__staging, extracted)
+                            if os.path.isfile(full_path):
+                                os.remove(full_path)
+                            if os.path.isdir(full_path):
+                                shutil.rmtree(full_path)
                     strs.append(print_string)
                 print(", ".join(strs))
                 normalize_done = True
