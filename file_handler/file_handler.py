@@ -142,14 +142,14 @@ class FileHandler:
                 json.dump(self.__app.version_latest, file)
 
     def __project_merge_oldnew(self):
-        # Lock all files
-        opened_files = self.__lock_folder(self.__app)
-        if opened_files is None:
-            return False
         # Data to keep
         keep_list = self.__list_appdatas(self.__app)
         # Full dir tree list
         full_list = self.__list_folder(self.__staging)
+        # Lock all files
+        opened_files = self.__lock_folder(self.__app, self.__staging, full_list)
+        if opened_files is None:
+            return False
         # Remove appdatas from staging
         for file in keep_list:
             file_to_protect = file.replace(self.__app.appdir, self.__staging)
@@ -246,15 +246,21 @@ class FileHandler:
         return keep_list
 
     @staticmethod
-    def __lock_folder(app):
+    def __lock_folder(app, staging, staging_list):
         """
         Open all files in binary append mode to get exclusive access. Close all files if any file is in use.
         :param app:
         :return: Dictionary with the file handles. Invoker must close these again.
         """
         opened_files = {}
+        target_list = []
+        for my_file in staging_list:
+            target_list.append(my_file.replace(staging, app.appdir))
         # Here we could also check if any binaries are running and not even bother with trying to lock all files.
         file_list = FileHandler.__list_folder(app.appdir)
+        for my_file in file_list:
+            if my_file not in target_list:
+                file_list.remove(my_file)
         try:
             for existing_file in file_list:
                 # There is a limit of 2048 opened files per process.
