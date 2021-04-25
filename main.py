@@ -52,8 +52,7 @@ class Main:
         self.__check_updates()
         self.__update_apps()
         FileHandler.pre_exit_cleanup(self.cfg_local)
-        if os.path.split(sys.executable)[-1] in ["pypy3", "pypy3.exe"]:
-            self.__lock.__del__()
+        self.__lock.__del__()
         input("Press Enter to continue...")
 
     def __check_updates(self):
