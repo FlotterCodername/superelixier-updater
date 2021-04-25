@@ -4,9 +4,9 @@ xcopy config dist\config /E /Y /I
 del dist\config\auth.json
 del dist\config\local.json
 del dist\config\eula.json
-xcopy LICENSE.txt dist\LICENSE.txt /Y
-xcopy NOTICE.txt dist\NOTICE.txt /Y
-xcopy README.md dist\README.md /Y
+xcopy LICENSE.txt dist /Y
+xcopy NOTICE.txt dist /Y
+xcopy README.md dist /Y
 xcopy bin-win32 dist\bin-win32 /E /Y /I
 xcopy docs dist\docs /E /Y /I
 xcopy thirdparty dist\thirdparty /E /Y /I
