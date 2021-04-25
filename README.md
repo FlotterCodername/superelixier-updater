@@ -59,7 +59,7 @@ the bright side**: once set up, using this tool is as simple as running the ``ma
 - History: Make number/age of kept backups configurable.
 - Patterns: Replace user-facing regular expressions with a simpler wildcard system
 - GitHub: Allow user to download pre-release versions (currently skipped)
-- Buildbot: Handler
+- HTML Index Handler (Apache/h5ai...)
 - GUI:
     - Present update progress
     - Configuration editing
