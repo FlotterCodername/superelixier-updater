@@ -27,6 +27,14 @@
   ],
   "from_github": [
     {
+      "name": "Audacity",
+      "user": "audacity",
+      "project": "audacity",
+      "blob_re": "^audacity-win-.*\\.zip$",
+      "blob_unwanted": [],
+      "appdatas": []
+    },
+        {
       "name": "citra-canary",
       "user": "citra-emu",
       "project": "citra-canary",
