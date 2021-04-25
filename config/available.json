@@ -225,6 +225,28 @@
       "appdatas": []
     },
     {
+      "name": "FileZilla Client",
+      "url": "https://filezilla-project.org/download.php?show_all=1",
+      "version_scheme": {
+        "type": "tuple",
+        "re": "https://.*?filezilla-project\\.org/client/FileZilla_(.*?)_win64\\.zip\\?.*?"
+      },
+      "blob_re": "<a href=\"(.*?)\" rel=\".*?\">FileZilla_.*?_win64\\.zip</a>",
+      "blob_unwanted": [],
+      "appdatas": []
+    },
+    {
+      "name": "FreeCommander XE",
+      "url": "https://freecommander.com/en/downloads-portable/",
+      "version_scheme": {
+        "type": "integer",
+        "re": "<span style=\".*?\">FreeCommander XE 2021 Build (.*?) portable ZIP</span>"
+      },
+      "blob_permalink": "https://freecommander.com/downloads/FreeCommanderXE-32-public_portable.zip",
+      "blob_unwanted": [],
+      "appdatas": []
+    },
+    {
       "name": "HxD",
       "url": "https://mh-nexus.de/en/programs.php",
       "version_scheme": {

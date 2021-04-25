@@ -19,6 +19,8 @@ As a further practical example, if you create a modified version of proprietors'
 - diagrams.net
 - Dolphin
 - Etcher
+- FileZilla Client
+- FreeCommander XE
 - HandBrake
 - HxD
 - Kdenlive
