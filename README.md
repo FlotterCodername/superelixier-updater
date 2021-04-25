@@ -12,7 +12,7 @@ more programs by a technical user. Currently, it handles apps distributed on App
 
 ## Features
 
-- [List of Pre-configured Apps](Available%20Apps.md)
+- [List of Pre-configured Apps](docs/Available%20Apps.md)
 - No unnecessary downloads: Checks the installed app for update and only downloads releases if there is a new one. Let's
   not waste bandwidth (caveat: only detects updates it did itself).
 - Running detection: Downloaded updates will be applied next run if the folder was in use this run.
@@ -35,7 +35,7 @@ The first-time setup is not friendly to non-technical users yet. **On the bright
 - Three configuration files in the ``config`` folder need to be set up.
     - ``available.json`` (included) holds patterns that the tool needs to detect, download and install updates. If
       you're not adding apps, there's normally nothing to do here. However, should files disappear from the app
-      directory after an update (configuration files etc.), please read [Adding Apps](Adding%20Apps.md#Appdata) on what
+      directory after an update (configuration files etc.), please read [Adding Apps](docs/Adding%20Apps.md#Appdata) on what
       to do about it.
     - ``auth.json`` will be auto-created if it's missing. Most users don't need to change anything here, as modest
       amounts of API calls can be done without authentification tokens.
