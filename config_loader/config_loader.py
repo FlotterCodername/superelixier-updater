@@ -8,6 +8,7 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 import colorama
 import json
 import os
+import re
 import sys
 from config_loader.defaults import AUTH
 
@@ -35,6 +36,8 @@ class ConfigLoader:
                 print(f"{colorama.Fore.RED}Fatal error: {cfg}.json is not a valid JSON file.")
                 input("Press ENTER to exit.")
                 sys.exit()
+        tmp = self.__validate_paths()
+        self._configuration["local"] = tmp
 
     def write_app_list(self):
         cfg = self._configuration["available"]
@@ -55,6 +58,15 @@ class ConfigLoader:
         markdown = "\r\n".join(markdown)
         with open(os.path.join(os.path.dirname(sys.argv[0]), "Available Apps.md"), "wb") as file:
             file.write(str.encode(markdown))
+
+    def __validate_paths(self):
+        cfg_local = self._configuration["local"].copy()
+        for key in self._configuration["local"]:
+            if re.match(r"^/", key):
+                cwdrive = os.path.splitdrive(sys.argv[0])[0]
+                key_new = cwdrive + key
+                cfg_local[key_new] = cfg_local.pop(key)
+        return cfg_local
 
     @property
     def configuration(self):
