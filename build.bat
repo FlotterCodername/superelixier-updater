@@ -14,5 +14,5 @@ cd dist
 del ..\..\superelixier-releases\superelixier-updater.zip
 7z -tzip u ..\..\superelixier-releases\superelixier-updater.zip * -m0=Deflate -mx9
 cd ..
-REM rmdir dist /s /q
+rmdir dist /s /q
 exit
