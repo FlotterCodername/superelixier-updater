@@ -56,7 +56,7 @@ class ConfigLoader:
         for app in app_list:
             markdown.append(f"- {app}")
         markdown = "\r\n".join(markdown)
-        with open(os.path.join(os.path.dirname(sys.argv[0]), "Available Apps.md"), "wb") as file:
+        with open(os.path.join(os.path.dirname(sys.argv[0]), "docs", "Available Apps.md"), "wb") as file:
             file.write(str.encode(markdown))
 
     def __validate_paths(self):
