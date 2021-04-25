@@ -33,8 +33,8 @@ class GenericManager:
                 with open(ver_info_file, 'r') as file:
                     version_installed = json.load(file)
                 comparison = VersionScheme.compare(app.version_scheme, app.version_latest, version_installed)
-                if comparison == version_installed:
-                    if comparison != app.version_latest:
+                if comparison["version_id"] == version_installed["version_id"]:
+                    if comparison["version_id"] != app.version_latest["version_id"]:
                         app.update_status = "installed_newer"
                     else:
                         app.update_status = "no_update"
