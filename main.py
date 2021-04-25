@@ -30,7 +30,7 @@ class Main:
             self.__lock = LockFile()
         except LockFileException:
             time.sleep(7)
-            exit()
+            sys.exit()
         EulaChecker.check_eula()
         # Configuration
         configuration = ConfigLoader().configuration

@@ -29,10 +29,12 @@ class ConfigLoader:
                     print(f"{colorama.Fore.RED}Fatal error: {cfg}.json was not found but is required.")
                     if cfg == "local":
                         print(f"{colorama.Fore.RED}There is a {cfg}_example.json in the config directory that you can use as a blueprint.")
-                    exit()
+                    input("Press ENTER to exit.")
+                    sys.exit()
             except json.JSONDecodeError:
                 print(f"{colorama.Fore.RED}Fatal error: {cfg}.json is not a valid JSON file.")
-                exit()
+                input("Press ENTER to exit.")
+                sys.exit()
 
     def write_app_list(self):
         cfg = self._configuration["available"]
