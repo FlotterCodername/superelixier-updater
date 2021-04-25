@@ -18,6 +18,7 @@ As a further practical example, if you create a modified version of proprietors'
 - diagrams.net
 - Dolphin
 - Etcher
+- Handbrake
 - HxD
 - Kdenlive
 - KeePassXC

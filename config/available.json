@@ -69,6 +69,14 @@
       "appdatas": []
     },
     {
+      "name": "HandBrake",
+      "user": "HandBrake",
+      "project": "HandBrake",
+      "blob_re": "^HandBrake-.*-x86_64-Win_GUI\\.zip$",
+      "blob_unwanted": [],
+      "appdatas": []
+    },
+    {
       "name": "KeePassXC",
       "user": "keepassxreboot",
       "project": "keepassxc",
