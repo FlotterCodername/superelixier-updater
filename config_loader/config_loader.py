@@ -5,9 +5,11 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
+import colorama
 import json
 import os
 import sys
+from config_loader.defaults import AUTH
 
 
 class ConfigLoader:
@@ -16,7 +18,21 @@ class ConfigLoader:
         self._configuration = {}
         cfg_dir = os.path.join(os.path.dirname(sys.argv[0]), "config")
         for cfg in ["auth", "available", "local"]:
-            self._configuration[cfg] = json.load(open(os.path.join(cfg_dir, f"{cfg}.json"), 'r'))
+            try:
+                self._configuration[cfg] = json.load(open(os.path.join(cfg_dir, f"{cfg}.json"), 'r'))
+            except FileNotFoundError:
+                if cfg == "auth":
+                    with open(os.path.join(cfg_dir, f"{cfg}.json"), "w") as file:
+                        json.dump(AUTH, file)
+                    self._configuration[cfg] = json.load(open(os.path.join(cfg_dir, f"{cfg}.json"), 'r'))
+                else:
+                    print(f"{colorama.Fore.RED}Fatal error: {cfg}.json was not found but is required.")
+                    if cfg == "local":
+                        print(f"{colorama.Fore.RED}There is a {cfg}_example.json in the config directory that you can use as a blueprint.")
+                    exit()
+            except json.JSONDecodeError:
+                print(f"{colorama.Fore.RED}Fatal error: {cfg}.json is not a valid JSON file.")
+                exit()
 
     def write_app_list(self):
         cfg = self._configuration["available"]

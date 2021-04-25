@@ -11,6 +11,7 @@ more programs by a technical user. Currently, it handles apps distributed on App
 ![Example console output of this program](/docs/example.png)
 
 ## Features
+
 - [List of Pre-configured Apps](Available%20Apps.md)
 - No unnecessary downloads: Checks the installed app for update and only downloads releases if there is a new one. Let's
   not waste bandwidth (caveat: only detects updates it did itself).
@@ -40,8 +41,8 @@ the bright side**: once set up, using this tool is as simple as running the ``ma
       you're not adding apps, there's normally nothing to do here. However, should files disappear from the app
       directory after an update (configuration files etc.), please read [Adding Apps](Adding%20Apps.md#Appdata) on what
       to do about it.
-    - ``auth.json`` (included) holds credentials needed to connect to sites hosting downloads. Most users don't need to
-      change anything here, as modest amounts of API calls can be done without tokens.
+    - ``auth.json`` will be auto-created if it's missing. Most users don't need to change anything here, as modest
+      amounts of API calls can be done without authentification tokens.
     - ``local.json`` tells the tool where to install which app. Rename the ``local_example.json`` to ``local.json`` and
       set your options. Make sure you use forward slashes in your paths.
 

@@ -1,6 +1,7 @@
 pyinstaller main.py -F
 rmdir build /s /q
 xcopy config dist\config /E /Y /I
+del dist\config\auth.json
 del dist\config\local.json
 del dist\config\eula.json
 xcopy docs dist\docs /E /Y /I
