@@ -93,6 +93,20 @@
       "appdatas": []
     },
     {
+      "name": "KiTTY",
+      "user": "cyd01",
+      "project": "KiTTY",
+      "blob_re": "^kitty_portable\\.exe$",
+      "blob_unwanted": [],
+      "appdatas": [
+        "Jumplist",
+        "Proxies",
+        "Sessions",
+        "SshHostKeys",
+        "kitty.ini"
+      ]
+    },
+    {
       "name": "mGBA",
       "user": "mgba-emu",
       "project": "mgba",
@@ -227,23 +241,6 @@
       "blob_unwanted": [],
       "installer": "sfx",
       "appdatas": []
-    },
-    {
-      "name": "KiTTY",
-      "url": "https://www.fosshub.com/KiTTY.html",
-      "version_scheme": {
-        "type": "tuple",
-        "re": "https://www\\.fosshub\\.com/KiTTY\\.html\\?dwl=kitty_portable-(.*?)\\.exe"
-      },
-      "blob_permalink": "http://www.9bis.net/kitty/files/kitty_portable.exe",
-      "blob_unwanted": [],
-      "appdatas": [
-        "Jumplist",
-        "Proxies",
-        "Sessions",
-        "SshHostKeys",
-        "kitty.ini"
-      ]
     },
     {
       "name": "PCSX2",
