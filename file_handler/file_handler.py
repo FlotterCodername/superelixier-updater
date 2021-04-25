@@ -17,8 +17,9 @@ import subprocess
 import sys
 from generic_app.generic_app import GenericApp
 
-SEVENZIP = os.path.join(os.path.dirname(sys.argv[0]), "bin-win32", "7z", "7z.exe")
-INNOEXTRACT = os.path.join(os.path.dirname(sys.argv[0]), "bin-win32", "innoextract", "innoextract.exe")
+BIN = os.path.join(os.path.dirname(sys.argv[0]), "bin-win32")
+SEVENZIP = os.path.join(BIN, "7z", "7z.exe")
+INNOEXTRACT = os.path.join(BIN, "innoextract", "innoextract.exe")
 
 
 class FileHandler:
@@ -187,7 +188,12 @@ class FileHandler:
         return True
 
     def __defer_update(self):
-        # Check if the current FileHandler job was already deferred itself
+        """
+        If the new files couldn't be moved over (opened files in target), prepare update files for re-use next run.
+        If the current job was already a deferred job, do nothing.
+
+        :return:
+        """
         if self.__staging != self.__deferred:
             # Clear out possible orphaned files
             if os.path.isdir(self.__deferred):
