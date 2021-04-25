@@ -26,6 +26,7 @@ As a further practical example, if you create a modified version of proprietors'
 - KiTTY
 - mGBA
 - Mupen64plus
+- Notepad++
 - nvidiaProfileInspector
 - PCSX2
 - PPSSPP

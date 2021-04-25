@@ -117,6 +117,14 @@
       "appdatas": []
     },
     {
+      "name": "Notepad++",
+      "user": "notepad-plus-plus",
+      "project": "notepad-plus-plus",
+      "blob_re": "^npp\\..*?\\.portable\\.x64\\.7z$",
+      "blob_unwanted": [],
+      "appdatas": []
+    },
+    {
       "name": "Remove Empty Directories",
       "user": "hxseven",
       "project": "Remove-Empty-Directories",
