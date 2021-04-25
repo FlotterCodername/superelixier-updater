@@ -28,7 +28,7 @@ the bright side**: once set up, using this tool is as simple as running the ``ma
 
 ### Requirements
 
-- Windows
+- Windows 10 64-Bit
 - [Python 3.9+](https://www.python.org/).
 - [Use pip to install](https://packaging.python.org/tutorials/installing-packages/#use-pip-for-installing) the
   packages ``colorama``, ``packaging`` and ``requests``.
