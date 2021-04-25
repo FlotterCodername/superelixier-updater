@@ -5,16 +5,16 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
-import sys
-
 import colorama
+import requests
 import datetime
 import json
 import os
 import re
-import requests
+import string
 import shutil
 import subprocess
+import sys
 from generic_app.generic_app import GenericApp
 
 SEVENZIP = os.path.join(os.path.dirname(sys.argv[0]), "bin-win32", "7z", "7z.exe")
@@ -288,11 +288,12 @@ class FileHandler:
     @staticmethod
     def __get_remote_filename(url, response):
         cd = response.headers.get('content-disposition')
-        if not cd:
-            filename = url.split("/")[-1]
-        else:
+        if cd:
             filename = re.findall('filename=(.+)', cd)[0]
-        filename = filename.replace('"', '')
+        else:
+            filename = url.split("/")[-1]
+        valid_chars = "-_.() %s%s" % (string.ascii_letters, string.digits)
+        filename = ''.join(c for c in filename if c in valid_chars)
         return filename
 
     @staticmethod
