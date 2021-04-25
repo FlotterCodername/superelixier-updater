@@ -68,6 +68,8 @@ class HTMLApp(GenericApp):
         url = html.unescape(url)
         if re.match("^http", url) is None:
             host_address = '{uri.scheme}://{uri.netloc}'.format(uri=urlparse(self._url))
+            if re.match("^//", url):
+                return host_address.split("//", 1)[0] + url
             host_address_re = "^" + host_address.replace('.', '\\.') + ".*"
             if re.match(host_address_re, url) is None:
                 url = "/" + url
