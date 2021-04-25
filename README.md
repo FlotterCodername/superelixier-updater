@@ -50,7 +50,7 @@ the bright side**: once set up, using this tool is as simple as running the ``ma
 
 - **REMINDER: This software is provided as-is without absolutely any warranty. Use this at your own risk.**
     - This reminder is necessary because a bad configuration could lead to unexpected behavior. In case anything goes
-      wrong, you'll have your previous files in a folder ``.superelixier_history`` that sits in the app's directory. As
+      wrong, you'll have your previous files in a folder ``.superelixier-history`` that sits in the app's directory. As
       of now, the updater doesn't delete any of your old files at all: everything goes into the history folder instead.
 - If your configuration is set up, you can now double-click the ``main.py`` file to run the updater with Python.
 
