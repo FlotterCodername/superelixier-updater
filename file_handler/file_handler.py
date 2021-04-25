@@ -313,6 +313,8 @@ class FileHandler:
             filename = re.findall('filename=(.+)', cd)[0]
         else:
             filename = url.split("/")[-1]
+            if re.search("^.*?\\..*?\\?", filename):
+                filename = filename.split("?")[0]
         valid_chars = "-_.() %s%s" % (string.ascii_letters, string.digits)
         filename = ''.join(c for c in filename if c in valid_chars)
         return filename
