@@ -146,6 +146,17 @@
       "appdatas": []
     },
     {
+      "name": "CDBurnerXP",
+      "url": "https://cdburnerxp.se/download",
+      "version_scheme": {
+        "type": "tuple",
+        "re": "https://download\\.cdburnerxp\\.se/portable/CDBurnerXP-x64-(.*?)\\.zip"
+      },
+      "blob_re": ".*<td><a href=\"(https://download\\.cdburnerxp\\.se/portable/CDBurnerXP-x64-.*?\\.zip)\" onclick=\".*?\">64 bit</a></td>.*",
+      "blob_unwanted": [],
+      "appdatas": []
+    },
+    {
       "name": "Cemu",
       "url": "http://cemu.info/",
       "version_scheme": {
