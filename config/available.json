@@ -112,7 +112,7 @@
       "name": "Remove Empty Directories",
       "user": "hxseven",
       "project": "Remove-Empty-Directories",
-      "blob_re": "^red.*portable-win64.*\\.zip$",
+      "blob_re": "^red.*portable.*\\.zip$",
       "blob_unwanted": [],
       "appdatas": []
     },
