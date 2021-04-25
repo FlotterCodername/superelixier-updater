@@ -201,6 +201,15 @@ class FileHandler:
             os.makedirs(os.path.split(self.__deferred)[0], exist_ok=True)
             os.rename(self.__staging, self.__deferred)
 
+    def __post_install(self):
+        """
+        Actions to run after the boilerplate installation process.
+
+        :return:
+        """
+        if self.__app.name in ["VSCode", "VSCodium"]:
+            os.makedirs(os.path.join(self.__app.appdir, "data"), exist_ok=True)
+
     @staticmethod
     def __list_folder(folder):
         """
@@ -327,9 +336,11 @@ class FileHandler:
             self.__project_normalize()
         if not self.__project_merge_oldnew():
             self.__defer_update()
+        self.__post_install()
 
     def project_install(self):
         reused_files = self.__project_download()
         if not reused_files:
             self.__project_normalize()
         os.rename(self.__staging, self.__app.appdir)
+        self.__post_install()

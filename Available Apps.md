@@ -38,6 +38,8 @@ As a further practical example, if you create a modified version of proprietors'
 - Ryujinx
 - Steam Rom Manager
 - VLC media player
+- VSCode
+- VSCodium
 - xenia
 - XnView Classic
 - XnView MP
