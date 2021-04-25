@@ -33,6 +33,7 @@ As a further practical example, if you create a modified version of proprietors'
 - RPCS3
 - Ryujinx
 - Steam Rom Manager
+- VLC media player
 - xenia
 - XnView Classic
 - XnView MP
