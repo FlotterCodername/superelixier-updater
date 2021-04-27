@@ -32,11 +32,7 @@ The first-time setup is not friendly to non-technical users yet. **On the bright
 ### First-time setup
 
 - Download and extract the latest preview release.
-- Three configuration files in the ``config`` folder need to be set up.
-    - ``available.json`` (included) holds patterns that the tool needs to detect, download and install updates. If
-      you're not adding apps, there's normally nothing to do here. However, should files disappear from the app
-      directory after an update (configuration files etc.), please read [Adding Apps](docs/Adding%20Apps.md#Appdata) on what
-      to do about it.
+- Two configuration files in the ``config`` folder need to be set up.
     - ``auth.json`` will be auto-created if it's missing. Most users don't need to change anything here, as modest
       amounts of API calls can be done without authentification tokens.
     - ``local.json`` tells the tool where to install which app. Rename the ``local_example.json`` to ``local.json`` and
