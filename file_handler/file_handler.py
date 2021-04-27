@@ -89,16 +89,22 @@ class FileHandler:
         """
         print(f"Downloading file from: {url}")
         headers = {'User-Agent': 'Superelixier Updater (Contact: @FroyoXSG on GitHub)'}
-        response = requests.get(url, allow_redirects=True, headers=headers)
+        response = requests.get(url, allow_redirects=True, headers=headers, stream=True)
+        tmpfile = os.path.join(self.__staging, "download-incomplete")
+        with open(tmpfile, "wb") as fd:
+            for chunk in response.iter_content(chunk_size=1024):
+                fd.write(chunk)
         if response.headers.get('refresh'):
             url = response.headers["refresh"].split(';')[-1]
             if "url=".lower() in url:
                 url = url.split("=")[-1]
             print(f"Redirected to: {url}")
-            response = requests.get(url, allow_redirects=True, headers=headers)
+            response = requests.get(url, allow_redirects=True, headers=headers, stream=True)
+            with open(tmpfile, "wb") as fd:
+                for chunk in response.iter_content(chunk_size=1024):
+                    fd.write(chunk)
         filename = os.path.join(self.__staging, self.__get_remote_filename(url, response))
-        with open(filename, "wb") as file:
-            file.write(response.content)
+        os.rename(tmpfile, filename)
         return filename
 
     def __project_normalize(self):
