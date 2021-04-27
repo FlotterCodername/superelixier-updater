@@ -59,7 +59,7 @@ class ConfigLoader:
             markdown.append(f"## {cat}\r\nApp | Description\r\n--- | ---")
             for app in cfg:
                 if app["info"]["category"] == cat:
-                    markdown.append(f"{app['name']} | {app['info']['gist'].replace('%name', app['name'])}")
+                    markdown.append(f"**{app['name']}** | {app['info']['gist'].replace('%name', app['name'])}")
         markdown = "\r\n".join(markdown)
         with open(os.path.join(os.path.dirname(sys.argv[0]), "docs", "Available Apps.md"), "wb") as file:
             file.write(str.encode(markdown))
