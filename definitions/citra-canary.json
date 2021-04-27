@@ -1,0 +1,13 @@
+{
+  "info": {
+    "gist": "Emulates the Nintendo 3DS. The 'canary' branch has all the latest features, but might be less stable than 'nightly'.",
+    "category": "Emulators"
+  },
+  "name": "citra-canary",
+  "user": "citra-emu",
+  "project": "citra-canary",
+  "blob_re": "^citra.*windows.*\\.7z$",
+  "blob_unwanted": [],
+  "appdatas": [],
+  "repo": "github"
+}

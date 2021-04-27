@@ -1,0 +1,13 @@
+{
+  "info": {
+    "gist": "",
+    "category": "Developer Tools"
+  },
+  "name": "VSCodium",
+  "user": "VSCodium",
+  "project": "vscodium",
+  "blob_re": "^VSCodium-win32-x64-.*\\.zip$",
+  "blob_unwanted": [],
+  "appdatas": [],
+  "repo": "github"
+}

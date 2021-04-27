@@ -16,9 +16,9 @@ from config_loader.defaults import AUTH
 class ConfigLoader:
 
     def __init__(self):
-        self._configuration = {}
         cfg_dir = os.path.join(os.path.dirname(sys.argv[0]), "config")
-        for cfg in ["auth", "available", "local"]:
+        self._configuration = {"available": self.__load_cfg_available()}
+        for cfg in ["auth", "local"]:
             try:
                 self._configuration[cfg] = json.load(open(os.path.join(cfg_dir, f"{cfg}.json"), 'r'))
             except FileNotFoundError:
@@ -40,24 +40,43 @@ class ConfigLoader:
         self._configuration["local"] = tmp
 
     def write_app_list(self):
-        cfg = self._configuration["available"]
-        app_list = []
-        for app_location in cfg:
-            for app in cfg[app_location]:
-                app_list.append(app["name"])
-        app_list.sort(key=str.casefold)
+        cfg = []
+        for item in self._configuration["available"]:
+            cfg.append(self._configuration["available"][item])
         markdown = ["# Pre-configured Apps\r\n",
                     "These apps are subject to their respective licenses as determined by _the proprietors of these apps_ ('proprietors' hereafter).",
                     "Inclusion in this list should not be seen as any indication of affiliation of proprietors with _the creator(s) of Superelixier Updater_ ('we' hereafter).",
                     "We only provide automation routines for installing these apps on your local machine.\r\n",
                     "It remains your responsibility as a user of our software to adhere to the terms and licenses proprietors have set for the software that you are asking our routines to access.\r\n",
                     "As a practical example, you may be required to purchase a license from proprietors if using proprietors' software commercially.",
-                    "As a further practical example, if you create a modified version of proprietors' software, you may be required to disclose source code of your modified version."]
-        for app in app_list:
-            markdown.append(f"- {app}")
+                    "As a further practical example, if you create a modified version of proprietors' software, you may be required to disclose source code of your modified version.\r\n"]
+        cats = []
+        for app in cfg:
+            if app['info']['category'] not in cats:
+                cats.append(app['info']['category'])
+        cats.sort(key=str.casefold)
+        for cat in cats:
+            markdown.append(f"## {cat}\r\nApp | Description\r\n--- | ---")
+            for app in cfg:
+                if app["info"]["category"] == cat:
+                    markdown.append(f"{app['name']} | {app['info']['gist'].replace('%name', app['name'])}")
         markdown = "\r\n".join(markdown)
         with open(os.path.join(os.path.dirname(sys.argv[0]), "docs", "Available Apps.md"), "wb") as file:
             file.write(str.encode(markdown))
+
+    @staticmethod
+    def __load_cfg_available():
+        definition_dir = os.path.join(os.path.dirname(sys.argv[0]), "definitions")
+        files = os.listdir(definition_dir)
+        cfg_available = {}
+        for defi in files:
+            if re.search("\\.json$", defi):
+                try:
+                    my_dict = json.load(open(os.path.join(definition_dir, defi), 'r'))
+                    cfg_available[my_dict["name"].casefold()] = my_dict
+                except json.JSONDecodeError:
+                    pass
+        return cfg_available
 
     def __validate_paths(self):
         cfg_local = self._configuration["local"].copy()

@@ -1,0 +1,16 @@
+{
+  "info": {
+    "gist": "Emulates the Sony PlayStation Portable.",
+    "category": "Emulators"
+  },
+  "name": "PPSSPP",
+  "url": "https://www.ppsspp.org/downloads.html",
+  "version_scheme": {
+    "type": "tuple",
+    "re": "files/(.*?)/ppsspp_win\\.zip"
+  },
+  "blob_re": "files/.*/ppsspp_win\\.zip",
+  "blob_unwanted": [],
+  "appdatas": [],
+  "repo": "html"
+}

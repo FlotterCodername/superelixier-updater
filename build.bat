@@ -8,6 +8,7 @@ xcopy LICENSE.txt dist /Y
 xcopy NOTICE.txt dist /Y
 xcopy README.md dist /Y
 xcopy bin-win32 dist\bin-win32 /E /Y /I
+xcopy definitions dist\definitions /E /Y /I
 xcopy docs dist\docs /E /Y /I
 xcopy thirdparty dist\thirdparty /E /Y /I
 cd dist

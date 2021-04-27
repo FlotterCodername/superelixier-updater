@@ -1,0 +1,13 @@
+{
+  "info": {
+    "gist": "",
+    "category": "Developer Tools"
+  },
+  "name": "Notepad++",
+  "user": "notepad-plus-plus",
+  "project": "notepad-plus-plus",
+  "blob_re": "^npp\\..*?\\.portable\\.x64\\.7z$",
+  "blob_unwanted": [],
+  "appdatas": [],
+  "repo": "github"
+}

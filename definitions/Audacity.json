@@ -1,0 +1,13 @@
+{
+  "info": {
+    "gist": "",
+    "category": "Audio & Video"
+  },
+  "name": "Audacity",
+  "user": "audacity",
+  "project": "audacity",
+  "blob_re": "^audacity-win-.*\\.zip$",
+  "blob_unwanted": [],
+  "appdatas": [],
+  "repo": "github"
+}

@@ -1,0 +1,19 @@
+{
+  "info": {
+    "gist": "",
+    "category": "Audio & Video"
+  },
+  "name": "VLC media player",
+  "url": "https://www.videolan.org/vlc/",
+  "version_scheme": {
+    "type": "tuple",
+    "re": "//get\\.videolan\\.org/vlc/(.*?)/win64/vlc.*?win64\\.exe"
+  },
+  "blob_re": ".*<li><a href=\"(//get\\.videolan\\.org/vlc/.*?/win64/vlc.*?win64\\.exe)\">Windows 64bit</a></li>.*",
+  "blob_unwanted": [
+    "\\$PLUGINSDIR"
+  ],
+  "installer": "sfx",
+  "appdatas": [],
+  "repo": "html"
+}

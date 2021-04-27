@@ -1,0 +1,13 @@
+{
+  "info": {
+    "gist": "",
+    "category": "Utilities"
+  },
+  "name": "Etcher",
+  "user": "balena-io",
+  "project": "etcher",
+  "blob_re": "^balenaEtcher.*Portable.*\\.exe$",
+  "blob_unwanted": [],
+  "appdatas": [],
+  "repo": "github"
+}
