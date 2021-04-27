@@ -1,0 +1,13 @@
+{
+  "info": {
+    "gist": "Add roms to Steam as shortcuts with library images",
+    "category": "Gaming"
+  },
+  "name": "Steam Rom Manager",
+  "user": "doZennn",
+  "project": "steam-rom-manager",
+  "blob_re": "^Steam-ROM-Manager-portable.*\\.exe$",
+  "blob_unwanted": [],
+  "appdatas": [],
+  "repo": "github"
+}

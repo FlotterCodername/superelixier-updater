@@ -1,0 +1,13 @@
+{
+  "info": {
+    "gist": "Emulates the Nintendo Switch.",
+    "category": "Emulators"
+  },
+  "name": "yuzu-mainline",
+  "user": "yuzu-emu",
+  "project": "yuzu-mainline",
+  "blob_re": "^yuzu.*windows.*\\.7z$",
+  "blob_unwanted": [],
+  "appdatas": [],
+  "repo": "github"
+}

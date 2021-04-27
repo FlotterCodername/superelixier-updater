@@ -1,0 +1,13 @@
+{
+  "info": {
+    "gist": "Password manager",
+    "category": "Security"
+  },
+  "name": "KeePassXC",
+  "user": "keepassxreboot",
+  "project": "keepassxc",
+  "blob_re": "^KeePassXC.*Win64-portable.*\\.zip$",
+  "blob_unwanted": [],
+  "appdatas": [],
+  "repo": "github"
+}

@@ -1,0 +1,15 @@
+{
+  "info": {
+    "gist": "SQL client",
+    "category": "Developer Tools"
+  },
+  "name": "dbeaver",
+  "user": "dbeaver",
+  "project": "dbeaver",
+  "blob_re": "^dbeaver.*win32\\.x86_64.*\\.zip$",
+  "blob_unwanted": [],
+  "appdatas": [
+    "dbeaver.ini"
+  ],
+  "repo": "github"
+}

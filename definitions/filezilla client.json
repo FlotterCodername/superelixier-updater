@@ -1,0 +1,16 @@
+{
+  "info": {
+    "gist": "FTP/SFTP client",
+    "category": "Network Tools"
+  },
+  "name": "FileZilla Client",
+  "url": "https://filezilla-project.org/download.php?show_all=1",
+  "version_scheme": {
+    "type": "tuple",
+    "re": "https://.*?filezilla-project\\.org/client/FileZilla_(.*?)_win64\\.zip\\?.*?"
+  },
+  "blob_re": "<a href=\"(.*?)\" rel=\".*?\">FileZilla_.*?_win64\\.zip</a>",
+  "blob_unwanted": [],
+  "appdatas": [],
+  "repo": "html"
+}

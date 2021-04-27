@@ -1,0 +1,13 @@
+{
+  "info": {
+    "gist": "3rd-party Nvidia driver configuration frontend",
+    "category": "Gaming"
+  },
+  "name": "nvidiaProfileInspector",
+  "user": "Orbmu2k",
+  "project": "nvidiaProfileInspector",
+  "blob_re": "^nvidiaProfileInspector\\.zip$",
+  "blob_unwanted": [],
+  "appdatas": [],
+  "repo": "github"
+}

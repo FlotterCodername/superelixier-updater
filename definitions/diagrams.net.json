@@ -1,0 +1,13 @@
+{
+  "info": {
+    "gist": "Diagram software for making flowcharts, process diagrams, org charts, UML, ER and network diagrams. Previously known as draw.io",
+    "category": "Developer Tools"
+  },
+  "name": "diagrams.net",
+  "user": "jgraph",
+  "project": "drawio-desktop",
+  "blob_re": "^draw.io-.*-windows-no-installer\\.exe$",
+  "blob_unwanted": [],
+  "appdatas": [],
+  "repo": "github"
+}

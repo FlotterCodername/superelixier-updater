@@ -1,0 +1,17 @@
+{
+  "info": {
+    "gist": "Non-linear video editor",
+    "category": "Audio & Video"
+  },
+  "name": "Kdenlive",
+  "url": "https://kdenlive.org/en/download/",
+  "version_scheme": {
+    "type": "tuple",
+    "re": "https://download\\.kde\\.org/stable/kdenlive/.*?/windows/kdenlive-(.*?)_standalone\\.exe"
+  },
+  "blob_re": ".*(https://download\\.kde\\.org/stable/kdenlive/.*?/windows/kdenlive-.*?_standalone\\.exe).*",
+  "blob_unwanted": [],
+  "installer": "sfx",
+  "appdatas": [],
+  "repo": "html"
+}

@@ -1,0 +1,17 @@
+{
+  "info": {
+    "gist": "Emulates the Nintendo 64. The 'Development' branch has all the latest features, but might be less stable.",
+    "category": "Emulators"
+  },
+  "name": "Project64-Development",
+  "url": "https://www.pj64-emu.com/nightly-builds",
+  "version_scheme": {
+    "type": "integer",
+    "re": ".*/file/setup-project64-.*-(.*?)-.*?/.*"
+  },
+  "blob_re": ".*(/file/setup-project64-.*?/).*",
+  "blob_unwanted": [],
+  "installer": "innoextract",
+  "appdatas": [],
+  "repo": "html"
+}

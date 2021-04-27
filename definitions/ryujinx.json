@@ -1,0 +1,13 @@
+{
+  "info": {
+    "gist": "Emulates the Nintendo Switch.",
+    "category": "Emulators"
+  },
+  "name": "Ryujinx",
+  "user": "gdkchan",
+  "project": "ryujinx",
+  "blob_re": "^.*win_x64\\.zip$",
+  "blob_unwanted": [],
+  "appdatas": [],
+  "repo": "appveyor"
+}

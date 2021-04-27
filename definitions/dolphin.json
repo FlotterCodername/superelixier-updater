@@ -1,0 +1,16 @@
+{
+  "info": {
+    "gist": "Emulates the Nintendo GameCube and Nintendo Wii.",
+    "category": "Emulators"
+  },
+  "name": "Dolphin",
+  "url": "https://dolphin-emu.org/download/",
+  "version_scheme": {
+    "type": "integer",
+    "re": "https://dl\\.dolphin-emu\\.org/.*/dolphin-master-.*-(.*?)-x64\\.7z"
+  },
+  "blob_re": "https://dl\\.dolphin-emu\\.org/.*/dolphin-.*-x64\\.7z",
+  "blob_unwanted": [],
+  "appdatas": [],
+  "repo": "html"
+}

@@ -1,0 +1,16 @@
+{
+  "info": {
+    "gist": "Installer for ReShade, a universal shader injector",
+    "category": "Gaming"
+  },
+  "name": "ReShade Setup",
+  "url": "https://reshade.me",
+  "version_scheme": {
+    "type": "tuple",
+    "re": ".*/downloads/.*_(.*?)\\.exe.*"
+  },
+  "blob_re": ".*<a href=\"(/downloads/.*?\\.exe)\" class=\"button\">Download ReShade.*?</a>.*",
+  "blob_unwanted": [],
+  "appdatas": [],
+  "repo": "html"
+}
