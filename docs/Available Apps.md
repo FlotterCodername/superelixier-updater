@@ -12,22 +12,22 @@ As a further practical example, if you create a modified version of proprietors'
 ## Audio & Video
 App | Description
 --- | ---
-Audacity | 
-Blender | 
-HandBrake | 
-Kdenlive | 
-VLC media player | 
-XnView Classic | 
-XnView MP | 
+Audacity | Audio recorder and editor
+Blender | 3D graphics suite (and much more)
+HandBrake | Audio/video converter built on top of ffmpeg
+Kdenlive | Non-linear video editor
+VLC media player | Video & audio player with broad support for file formats and network streams
+XnView Classic | Image browser, viewer and converter
+XnView MP | Image browser, viewer and converter. More features than XnView Classic
 ## Developer Tools
 App | Description
 --- | ---
-dbeaver | 
-diagrams.net | 
-HxD | 
-Notepad++ | 
-VSCode | 
-VSCodium | 
+dbeaver | SQL client
+diagrams.net | Diagram software for making flowcharts, process diagrams, org charts, UML, ER and network diagrams. Previously known as draw.io
+HxD | Hex editor
+Notepad++ | Text editor
+VSCode | Extensible code editor supporting many programming languages
+VSCodium | Extensible code editor supporting many programming languages. This is VSCode without telemetry and Microsoft/GitHub account sync features.
 ## Emulators
 App | Description
 --- | ---
@@ -49,22 +49,22 @@ yuzu-mainline | Emulates the Nintendo Switch.
 ## Gaming
 App | Description
 --- | ---
-nvidiaProfileInspector | 
-ReShade Setup | 
-Steam Rom Manager | 
+nvidiaProfileInspector | 3rd-party Nvidia driver configuration frontend
+ReShade Setup | Installer for ReShade, a universal shader injector
+Steam Rom Manager | Add roms to Steam as shortcuts with library images
 ## Network Tools
 App | Description
 --- | ---
-FileZilla Client | 
-KiTTY | 
+FileZilla Client | FTP/SFTP client
+KiTTY | SSH and telnet client. Improved version of PuTTY
 ## Security
 App | Description
 --- | ---
-KeePassXC | 
+KeePassXC | Password manager
 ## Utilities
 App | Description
 --- | ---
-CDBurnerXP | 
-Etcher | 
-FreeCommander XE | 
-Remove Empty Directories | 
+CDBurnerXP | Disc burning utility
+Etcher | SD card flasher
+FreeCommander XE | File manager
+Remove Empty Directories | Clean directory structures using rulesets
