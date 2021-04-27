@@ -1,6 +1,6 @@
 # Adding Apps
 
-``available.json`` holds patterns that the tool needs to detect, download and install updates.
+The JSON files in ``/definitions`` hold patterns that the tool needs to detect, download and install updates. The JSON file's name is not relevant to functionality, but we're using all-lowercase file names for uniformity.
 
 ## Basic parameters
 
