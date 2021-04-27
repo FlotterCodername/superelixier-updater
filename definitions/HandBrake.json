@@ -1,6 +1,6 @@
 {
   "info": {
-    "gist": "",
+    "gist": "Audio/video converter built on top of ffmpeg",
     "category": "Audio & Video"
   },
   "name": "HandBrake",
