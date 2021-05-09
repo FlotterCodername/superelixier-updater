@@ -68,4 +68,6 @@ App | Description
 **Etcher** | SD card flasher
 **FreeCommander XE** | File manager
 **Remove Empty Directories** | Clean directory structures using rulesets
+**Rufus** | Create bootable USB flash drives
 **ueli** | Cross-platform keystroke launcher
+**UNetbootin** | Create bootable USB flash drives

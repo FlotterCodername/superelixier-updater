@@ -1,0 +1,13 @@
+{
+  "info": {
+    "gist": "Create bootable USB flash drives",
+    "category": "Utilities"
+  },
+  "name": "Rufus",
+  "user": "pbatard",
+  "project": "rufus",
+  "blob_re": "^rufus-.*p\\.exe$",
+  "blob_unwanted": [],
+  "appdatas": [],
+  "repo": "github"
+}
