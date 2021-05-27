@@ -20,6 +20,7 @@ class GenericApp:
         :param target:
         """
         # Props from JSON
+        self._url = None
         self._name = json_entry["name"]
         self._optionals = {}
         optional_keys = ["blob_re", "blob_permalink", "installer"]
@@ -63,6 +64,10 @@ class GenericApp:
     @property
     def target_dir(self):
         return self._target_dir
+
+    @property
+    def url(self):
+        return self._url
 
     @property
     def version_latest(self):

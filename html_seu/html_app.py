@@ -5,10 +5,8 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
-import html
 import re
 import requests as rest
-from urllib.parse import urlparse
 from urllib3.exceptions import RequestError
 from generic_app.generic_app import GenericApp
 from version_scheme.version_scheme import VersionScheme
@@ -58,26 +56,11 @@ class HTMLApp(GenericApp):
                 re_match = re.search(self._version_scheme["re"], match).group(1)
                 my_dict = {
                     "version_id": re_match,
-                    "blobs": [self.__normalize_url(match)]
+                    "blobs": [match]
                 }
                 versions.append(my_dict)
         version = VersionScheme.get_newest(self._version_scheme, versions)
         return version
-
-    def __normalize_url(self, url):
-        url = html.unescape(url)
-        if re.match("^http", url) is None:
-            host_address = '{uri.scheme}://{uri.netloc}'.format(uri=urlparse(self._url))
-            if re.match("^//", url):
-                return host_address.split("//", 1)[0] + url
-            host_address_re = "^" + host_address.replace('.', '\\.') + ".*"
-            if re.match(host_address_re, url) is None:
-                url = "/" + url
-                url = url.replace("//", "/")
-                url = host_address + url
-            else:
-                raise ValueError(f"Error in {__name__}: Failed to build URL for {self._name}")
-        return url
 
     @property
     def web_call(self):

@@ -8,6 +8,7 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 import colorama
 import requests
 import datetime
+import html
 import json
 import os
 import re
@@ -15,6 +16,7 @@ import string
 import shutil
 import subprocess
 import sys
+from urllib.parse import urlparse, urlunparse
 from generic_app.generic_app import GenericApp
 
 BIN = os.path.join(os.path.dirname(sys.argv[0]), "bin-win32")
@@ -87,25 +89,64 @@ class FileHandler:
         :param url:
         :return:
         """
+        url = self.__normalize_url(url, source=self.__app.url)
         print(f"Downloading file from: {url}")
         headers = {'User-Agent': 'Superelixier Updater (Contact: @FroyoXSG on GitHub)'}
         response = requests.get(url, allow_redirects=True, headers=headers, stream=True)
         tmpfile = os.path.join(self.__staging, "download-incomplete")
+        if response.headers.get('refresh'):
+            old_url = url
+            url = response.headers["refresh"].split(';')[-1]
+            if "url=" in url.lower():
+                url = url.split("=")[-1]
+                url = self.__normalize_url(url, source=old_url)
+            print(f"Redirected to: {url}")
+            response = requests.get(url, allow_redirects=True, headers=headers, stream=True)
+        elif response.headers["content-type"]:
+            ct = response.headers["content-type"]
+            if "text/html" in ct.lower():
+                old_url = url
+                javascript_download = "{window.location *= *('|\")(.*)('|\");*\\}"
+                with open(tmpfile, "wb") as fd:
+                    for chunk in response.iter_content(chunk_size=1024):
+                        fd.write(chunk)
+                with open(tmpfile, 'r') as file:
+                    html = file.read()
+                match = re.search(javascript_download, html)
+                if match:
+                    url = self.__normalize_url(match.group(2), source=old_url)
+                    print(f"Redirected to: {url}")
+                else:
+                    raise ValueError(f"{self.__app.name}: Failed to find URL")
+                if self.__check_domain(old_url, url):
+                    response = requests.get(url, allow_redirects=True, headers=headers, stream=True)
+                else:
+                    raise ValueError(f"{self.__app.name}: Could not do a JavaScript-triggered download because the download domain didn't match a trusted domain we know.")
         with open(tmpfile, "wb") as fd:
             for chunk in response.iter_content(chunk_size=1024):
                 fd.write(chunk)
-        if response.headers.get('refresh'):
-            url = response.headers["refresh"].split(';')[-1]
-            if "url=".lower() in url:
-                url = url.split("=")[-1]
-            print(f"Redirected to: {url}")
-            response = requests.get(url, allow_redirects=True, headers=headers, stream=True)
-            with open(tmpfile, "wb") as fd:
-                for chunk in response.iter_content(chunk_size=1024):
-                    fd.write(chunk)
         filename = os.path.join(self.__staging, self.__get_remote_filename(url, response))
         os.rename(tmpfile, filename)
         return filename
+
+    def __normalize_url(self, url, source=None):
+        skeleton = [None, None, None, None, None, None]
+        try:
+            url_parsed = urlparse(html.unescape(url), scheme="https")
+            if source:
+                source_parsed = urlparse(html.unescape(source), scheme="https")
+            else:
+                source_parsed = skeleton
+            for i in range(6):
+                skeleton[i] = url_parsed[i]
+                if i < 2 and skeleton[i] == '':
+                    skeleton[i] = source_parsed[i]
+            if None in skeleton[0:5]:
+                raise ValueError
+            url = urlunparse(skeleton)
+        except BaseException:
+            raise ValueError(f"{self.__app.name}: Failed to build URL")
+        return url
 
     def __project_normalize(self):
         normalize_failure = False
@@ -358,3 +399,12 @@ class FileHandler:
             self.__project_normalize()
         os.rename(self.__staging, self.__app.appdir)
         self.__post_install()
+
+    @staticmethod
+    def __check_domain(old_url, new_url):
+        # I considered slicing to second-level domain and TLD here. But since the list of [PSDs](https://publicsuffix.org/) is ever-expanding...
+        # This will have to do until I have a safe method to handle PSDs.
+        if urlparse(old_url).netloc == urlparse(new_url).netloc:
+            return True
+        else:
+            return False
