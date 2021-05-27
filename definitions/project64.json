@@ -4,12 +4,12 @@
     "category": "Emulators"
   },
   "name": "Project64",
-  "url": "https://www.pj64-emu.com/download/project64-latest",
+  "url": "https://www.pj64-emu.com/public-releases",
   "version_scheme": {
-    "type": "integer",
-    "re": ".*/file/setup-project64-.*-(.*?)-.*?/.*"
+    "type": "tuple",
+    "re": ".*download/project64-(.*?)-installer.*"
   },
-  "blob_re": ".*(/file/setup-project64-.*?/).*",
+  "blob_re": ".*\"(/download/project64-.*?-installer)\">.*",
   "blob_unwanted": [],
   "installer": "innoextract",
   "appdatas": [],
