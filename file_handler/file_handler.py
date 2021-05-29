@@ -397,7 +397,8 @@ class FileHandler:
         reused_files = self.__project_download()
         if not reused_files:
             self.__project_normalize()
-        os.rename(self.__staging, self.__app.appdir)
+        if os.listdir(self.__staging):
+            os.rename(self.__staging, self.__app.appdir)
         self.__post_install()
 
     @staticmethod
