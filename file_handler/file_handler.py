@@ -6,17 +6,14 @@ If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
 import colorama
-import requests
 import datetime
-import html
 import json
 import os
 import re
-import string
 import shutil
 import subprocess
 import sys
-from urllib.parse import urlparse, urlunparse
+from file_handler.downloader import Downloader
 from generic_app.generic_app import GenericApp
 
 BIN = os.path.join(os.path.dirname(sys.argv[0]), "bin-win32")
@@ -62,7 +59,10 @@ class FileHandler:
         if len(release_latest) == 0:
             print("No matching downloads for the latest version")
         for url in release_latest:
-            filename = self.__url_downloader(url)
+            tmpfile = os.path.join(self.__staging, "download-incomplete")
+            filename = Downloader(url, tmpfile).file
+            if os.path.isfile(tmpfile):
+                os.remove(tmpfile)
             archives = "001|7z|bz2|bzip2|gz|gzip|lzma|rar|tar|tgz|txz|xz|zip"
             if "installer" in self.__app.optionals and self.__app.optionals["installer"] == "sfx":
                 archives = f"exe|{archives}"
@@ -81,72 +81,6 @@ class FileHandler:
                     os.rename(os.path.join(self.__staging, filename),
                               os.path.join(self.__staging, f"{self.__app.name}.exe"))
         return False
-
-    def __url_downloader(self, url):
-        """
-        curl without curl
-
-        :param url:
-        :return:
-        """
-        url = self.__normalize_url(url, source=self.__app.url)
-        print(f"Downloading file from: {url}")
-        headers = {'User-Agent': 'Superelixier Updater (Contact: @FroyoXSG on GitHub)'}
-        response = requests.get(url, allow_redirects=True, headers=headers, stream=True)
-        tmpfile = os.path.join(self.__staging, "download-incomplete")
-        if response.headers.get('refresh'):
-            old_url = url
-            url = response.headers["refresh"].split(';')[-1]
-            if "url=" in url.lower():
-                url = url.split("=")[-1]
-                url = self.__normalize_url(url, source=old_url)
-            print(f"Redirected to: {url}")
-            response = requests.get(url, allow_redirects=True, headers=headers, stream=True)
-        elif response.headers["content-type"]:
-            ct = response.headers["content-type"]
-            if "text/html" in ct.lower():
-                old_url = url
-                javascript_download = "{window.location *= *('|\")(.*)('|\");*\\}"
-                with open(tmpfile, "wb") as fd:
-                    for chunk in response.iter_content(chunk_size=1024):
-                        fd.write(chunk)
-                with open(tmpfile, 'r') as file:
-                    html = file.read()
-                match = re.search(javascript_download, html)
-                if match:
-                    url = self.__normalize_url(match.group(2), source=old_url)
-                    print(f"Redirected to: {url}")
-                else:
-                    raise ValueError(f"{self.__app.name}: Failed to find URL")
-                if self.__check_domain(old_url, url):
-                    response = requests.get(url, allow_redirects=True, headers=headers, stream=True)
-                else:
-                    raise ValueError(f"{self.__app.name}: Could not do a JavaScript-triggered download because the download domain didn't match a trusted domain we know.")
-        with open(tmpfile, "wb") as fd:
-            for chunk in response.iter_content(chunk_size=1024):
-                fd.write(chunk)
-        filename = os.path.join(self.__staging, self.__get_remote_filename(url, response))
-        os.rename(tmpfile, filename)
-        return filename
-
-    def __normalize_url(self, url, source=None):
-        skeleton = [None, None, None, None, None, None]
-        try:
-            url_parsed = urlparse(html.unescape(url), scheme="https")
-            if source:
-                source_parsed = urlparse(html.unescape(source), scheme="https")
-            else:
-                source_parsed = skeleton
-            for i in range(6):
-                skeleton[i] = url_parsed[i]
-                if i < 2 and skeleton[i] == '':
-                    skeleton[i] = source_parsed[i]
-            if None in skeleton[0:5]:
-                raise ValueError
-            url = urlunparse(skeleton)
-        except BaseException:
-            raise ValueError(f"{self.__app.name}: Failed to build URL")
-        return url
 
     def __project_normalize(self):
         normalize_failure = False
@@ -354,19 +288,6 @@ class FileHandler:
                 pass
 
     @staticmethod
-    def __get_remote_filename(url, response):
-        cd = response.headers.get('content-disposition')
-        if cd:
-            filename = re.findall('filename=(.+)', cd)[0]
-        else:
-            filename = url.split("/")[-1]
-            if re.search("^.*?\\.(exe|001|7z|bz2|bzip2|gz|gzip|lzma|rar|tar|tgz|txz|xz|zip)\\?", filename):
-                filename = filename.split("?")[0]
-        valid_chars = "-_.() %s%s" % (string.ascii_letters, string.digits)
-        filename = ''.join(c for c in filename if c in valid_chars)
-        return filename
-
-    @staticmethod
     def make_path_native(path):
         crumbs = path.split("/")
         if ":" in crumbs[0] and ":\\" not in crumbs[0]:
@@ -400,12 +321,3 @@ class FileHandler:
         if os.listdir(self.__staging):
             os.rename(self.__staging, self.__app.appdir)
         self.__post_install()
-
-    @staticmethod
-    def __check_domain(old_url, new_url):
-        # I considered slicing to second-level domain and TLD here. But since the list of [PSDs](https://publicsuffix.org/) is ever-expanding...
-        # This will have to do until I have a safe method to handle PSDs.
-        if urlparse(old_url).netloc == urlparse(new_url).netloc:
-            return True
-        else:
-            return False
