@@ -8,6 +8,8 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 import re
 import requests as rest
 from urllib3.exceptions import RequestError
+
+from file_handler.downloader import Downloader
 from generic_app.generic_app import GenericApp
 from version_scheme.version_scheme import VersionScheme
 
@@ -56,7 +58,7 @@ class HTMLApp(GenericApp):
                 re_match = re.search(self._version_scheme["re"], match).group(1)
                 my_dict = {
                     "version_id": re_match,
-                    "blobs": [match]
+                    "blobs": [Downloader.normalize_url(match, self._url)]
                 }
                 versions.append(my_dict)
         version = VersionScheme.get_newest(self._version_scheme, versions)
