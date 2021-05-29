@@ -42,6 +42,7 @@ App | Description
 **PPSSPP** | Emulates the Sony PlayStation Portable.
 **Project64-Development** | Emulates the Nintendo 64. The 'Development' branch has all the latest features, but might be less stable.
 **Project64** | Emulates the Nintendo 64.
+**RetroArch** | Frontend for emulators, game engines and media players.
 **RPCS3** | Emulates the Sony PlayStation 3.
 **Ryujinx** | Emulates the Nintendo Switch.
 **xenia** | Emulates the Microsoft Xbox 360
