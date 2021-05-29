@@ -88,7 +88,7 @@ class FileHandler:
         while not normalize_done:
             extracted = os.listdir(self.__staging)
             if len(extracted) == 0:
-                print("Failure downloading or extracting this app")
+                print(f"{colorama.Fore.RED}Failure downloading or extracting this app")
                 normalize_done = True
                 normalize_failure = True
             elif len(extracted) == 1:
