@@ -1,6 +1,6 @@
 {
   "info": {
-    "gist": "FTP/SFTP client",
+    "gist": "File transfer client supporting FTP, FTPS and SFTP",
     "category": "Network Tools"
   },
   "name": "FileZilla Client",
