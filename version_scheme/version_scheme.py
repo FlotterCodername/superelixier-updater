@@ -33,26 +33,29 @@ class VersionScheme:
         :return:
         """
         latest_version = old
-        if scheme["type"] == "id":
-            if new["version_id"] != old["version_id"]:
-                latest_version = new
-        elif scheme["type"] == "integer":
-            if new["version_id"] > old["version_id"]:
-                latest_version = new
-        elif scheme["type"] == "tuple":
-            if version.parse(new["version_id"]) > version.parse(old["version_id"]):
-                latest_version = new
-        elif scheme["type"] == "appveyor":
-            new_version_id = VersionScheme.__slice_appveyor_date(new["version_id"])
-            old_version_id = VersionScheme.__slice_appveyor_date(old["version_id"])
-            if new_version_id > old_version_id:
-                latest_version = new
-        elif scheme["type"] == "github":
-            new_version_id = datetime.strptime(new["version_id"], GITHUB_DATE)
-            old_version_id = datetime.strptime(old["version_id"], GITHUB_DATE)
-            if new_version_id > old_version_id:
-                latest_version = new
-        return latest_version
+        try:
+            if scheme["type"] == "id":
+                if new["version_id"] != old["version_id"]:
+                    latest_version = new
+            elif scheme["type"] == "integer":
+                if new["version_id"] > old["version_id"]:
+                    latest_version = new
+            elif scheme["type"] == "tuple":
+                if version.parse(new["version_id"]) > version.parse(old["version_id"]):
+                    latest_version = new
+            elif scheme["type"] == "appveyor":
+                new_version_id = VersionScheme.__slice_appveyor_date(new["version_id"])
+                old_version_id = VersionScheme.__slice_appveyor_date(old["version_id"])
+                if new_version_id > old_version_id:
+                    latest_version = new
+            elif scheme["type"] == "github":
+                new_version_id = datetime.strptime(new["version_id"], GITHUB_DATE)
+                old_version_id = datetime.strptime(old["version_id"], GITHUB_DATE)
+                if new_version_id > old_version_id:
+                    latest_version = new
+            return latest_version
+        except KeyError:
+            return None
 
     @staticmethod
     def __slice_appveyor_date(datestr: str):
