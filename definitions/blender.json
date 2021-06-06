@@ -7,9 +7,9 @@
   "url": "https://www.blender.org/download",
   "version_scheme": {
     "type": "tuple",
-    "re": "https://www\\.blender\\.org/download/Blender.*/blender-(.*?)-windows64\\.zip"
+    "re": "https://www\\.blender\\.org/download/Blender.*/blender-(.*?)-windows-?x?64\\.zip"
   },
-  "blob_re": ".*(https://www\\.blender\\.org/download/Blender.*/blender-.*?-windows64\\.zip).*",
+  "blob_re": ".*(https://www\\.blender\\.org/download/Blender.*/blender-.*?-windows-?x?64\\.zip).*",
   "blob_unwanted": [],
   "appdatas": [],
   "repo": "html"
