@@ -57,7 +57,7 @@ App | Description
 ## Network Tools
 App | Description
 --- | ---
-**FileZilla Client** | FTP/SFTP client
+**FileZilla Client** | File transfer client supporting FTP, FTPS and SFTP
 **KiTTY** | SSH and telnet client. Improved version of PuTTY
 ## Security
 App | Description
