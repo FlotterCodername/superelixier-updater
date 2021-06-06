@@ -36,6 +36,7 @@ App | Description
 **citra-nightly** | Emulates the Nintendo 3DS.
 **DeSmuME** | Emulates the Nintendo DS.
 **Dolphin** | Emulates the Nintendo GameCube and Nintendo Wii.
+**EasyRPG Player** | RPGMaker 2000 and 2003 compatible game interpreter. Not an emulator in a technical sense.
 **mGBA** | Emulates the Nintendo Game Boy, Game Boy Color and Game Boy Advance.
 **Mupen64plus** | Emulates the Nintendo 64.
 **PCSX2** | Emulates the Sony PlayStation 2. Latest builds from Git.

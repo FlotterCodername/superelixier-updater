@@ -1,0 +1,16 @@
+{
+  "info": {
+    "gist": "RPGMaker 2000 and 2003 compatible game interpreter. Not an emulator in a technical sense.",
+    "category": "Emulators"
+  },
+  "name": "EasyRPG Player",
+  "url": "https://easyrpg.org/player/downloads/",
+  "version_scheme": {
+    "type": "tuple",
+    "re": "https://easyrpg\\.org/downloads/player/(.*?)/EasyRPG_Player-.*?-Windows-x64\\.zip"
+  },
+  "blob_re": "https://easyrpg\\.org/downloads/player/.*?/EasyRPG_Player-.*?-Windows-x64\\.zip",
+  "blob_unwanted": [],
+  "appdatas": [],
+  "repo": "html"
+}
