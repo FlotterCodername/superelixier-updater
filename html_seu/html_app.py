@@ -53,12 +53,11 @@ class HTMLApp(GenericApp):
                 }
                 versions.append(my_dict)
         elif "blob_re" in self._optionals:
-            matches = re.findall(self._optionals["blob_re"], self._web_call)
+            matches = re.finditer(self._optionals["blob_re"], self._web_call)
             for match in matches:
-                re_match = re.search(self._version_scheme["re"], match).group(1)
                 my_dict = {
-                    "version_id": re_match,
-                    "blobs": [Downloader.normalize_url(match, self._url)]
+                    "version_id": match.group('ver'),
+                    "blobs": [Downloader.normalize_url(match.group('url'), self._url)]
                 }
                 versions.append(my_dict)
         version = VersionScheme.get_newest(self._version_scheme, versions)
