@@ -16,6 +16,7 @@ App | Description
 **Blender** | 3D graphics suite (and much more)
 **HandBrake** | Audio/video converter built on top of ffmpeg
 **Kdenlive** | Non-linear video editor
+**MediathekView** | Frontend for the media libraries of German public broadcasters like ARD and ZDF
 **VLC media player** | Video & audio player with broad support for file formats and network streams
 **XnView Classic** | Image browser, viewer and converter
 **XnView MP** | Image browser, viewer and converter. More features than XnView Classic
