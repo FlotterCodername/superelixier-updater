@@ -1,4 +1,4 @@
-pyinstaller main.py -F
+pyinstaller main.py --icon=app.ico -F
 rmdir build /s /q
 xcopy config dist\config /E /Y /I
 del dist\config\auth.json
