@@ -6,10 +6,9 @@
   "name": "Cemu",
   "url": "http://cemu.info/",
   "version_scheme": {
-    "type": "tuple",
-    "re": "https://cemu\\.info/releases/cemu_(.*?)\\.zip"
+    "type": "tuple"
   },
-  "blob_re": "https://cemu\\.info/releases/cemu_.*\\.zip",
+  "blob_re": ".*\"(?P<url>https://cemu\\.info/releases/cemu_(?P<ver>.*?)\\.zip)\".*",
   "blob_unwanted": [],
   "appdatas": [],
   "repo": "html"

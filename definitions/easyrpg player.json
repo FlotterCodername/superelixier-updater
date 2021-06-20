@@ -6,10 +6,9 @@
   "name": "EasyRPG Player",
   "url": "https://easyrpg.org/player/downloads/",
   "version_scheme": {
-    "type": "tuple",
-    "re": "https://easyrpg\\.org/downloads/player/(.*?)/EasyRPG_Player-.*?-Windows-x64\\.zip"
+    "type": "tuple"
   },
-  "blob_re": "https://easyrpg\\.org/downloads/player/.*?/EasyRPG_Player-.*?-Windows-x64\\.zip",
+  "blob_re": "(?P<url>https://easyrpg\\.org/downloads/player/(?P<ver>.*?)/EasyRPG_Player-.*?-Windows-x64\\.zip)",
   "blob_unwanted": [],
   "appdatas": [],
   "repo": "html"

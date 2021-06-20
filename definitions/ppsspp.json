@@ -6,10 +6,9 @@
   "name": "PPSSPP",
   "url": "https://www.ppsspp.org/downloads.html",
   "version_scheme": {
-    "type": "tuple",
-    "re": "files/(.*?)/ppsspp_win\\.zip"
+    "type": "tuple"
   },
-  "blob_re": "files/.*/ppsspp_win\\.zip",
+  "blob_re": "(?P<url>files/(?P<ver>.*?)/ppsspp_win\\.zip)",
   "blob_unwanted": [],
   "appdatas": [],
   "repo": "html"
