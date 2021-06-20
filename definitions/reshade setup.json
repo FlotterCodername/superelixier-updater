@@ -8,7 +8,7 @@
   "version_scheme": {
     "type": "tuple"
   },
-  "blob_re": ".*<a href=\"(?P<url>/downloads/.*?_(?P<ver>.*?)\\.exe)\" class=\"button\">Download ReShade.*?</a>.*",
+  "blob_re": ".*<a href=\"(?P<url>/downloads/.*?\\.exe)\" class=\"button\">Download ReShade (?P<ver>.*?)</a>.*",
   "blob_unwanted": [],
   "appdatas": [],
   "repo": "html"
