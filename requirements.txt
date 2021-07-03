@@ -1,4 +1,5 @@
 colorama~=0.4.4
-packaging~=20.9
+packaging
 pyinstaller
 requests~=2.25.1
+urllib3
