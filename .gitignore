@@ -2,10 +2,10 @@
 /.vscode
 /build
 /dist
-/main.spec
 /config/auth.json
 /config/local.json
 /venv
 /superelixier.lock
 /config/eula.json
 /app.ico
+/superelixier.spec
