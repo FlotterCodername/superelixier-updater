@@ -5,6 +5,7 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
+import os
 import sys
 import time
 
@@ -20,11 +21,13 @@ from generic_app.generic_manager import GenericManager
 from github.github_app import GithubApp
 from github.github_manager import GithubManager
 from html_seu.html_app import HTMLApp
+RESET = f"{colorama.Fore.WHITE}{colorama.Style.NORMAL}"
+MAGENTA = f"{colorama.Style.BRIGHT}{colorama.Fore.MAGENTA}"
+CYAN = f"{colorama.Style.BRIGHT}{colorama.Fore.CYAN}"
 
 
 class Main:
     def __init__(self):
-        colorama.init(autoreset=True)
         try:
             self.__lock = LockFile()
         except LockFileException:
@@ -100,11 +103,11 @@ class Main:
                 my_fsm.project_update()
             elif job.update_status == "no_version_file":
                 message += "Updating (forced)"
-                Main.print_header(message, colorama.Fore.MAGENTA)
+                Main.print_header(message, MAGENTA)
                 my_fsm.project_update()
             elif job.update_status == "not_installed":
                 message += "Installing"
-                Main.print_header(message, colorama.Fore.CYAN)
+                Main.print_header(message, CYAN)
                 my_fsm.project_install()
 
     @staticmethod
@@ -115,16 +118,16 @@ class Main:
             color = colorama.Style.BRIGHT
             message = "No update available"
         elif project.update_status == "installed_newer":
-            color = colorama.Style.BRIGHT + colorama.Fore.MAGENTA
-            message = "Installed is newer. " + colorama.Style.DIM + colorama.Fore.RESET + f"\r\n{project.name}: Please make sure your version wasn't retracted because of problems with it."
+            color = MAGENTA
+            message = f"Installed is newer.\r\n{RESET}{project.name}: Please make sure your version wasn't retracted because of problems with it."
         elif project.update_status == "update":
             color = colorama.Fore.GREEN
             message = "Update available"
         elif project.update_status == "no_version_file":
-            color = colorama.Fore.MAGENTA
+            color = MAGENTA
             message = "Update forced (no valid version info found)"
         elif project.update_status == "not_installed":
-            color = colorama.Fore.CYAN
+            color = CYAN
             message = "Will be installed"
         elif project.update_status == "error":
             color = colorama.Fore.RED
@@ -135,14 +138,29 @@ class Main:
         elif project.update_status == "unknown":
             color = colorama.Fore.RED
             message = "Failed to check this project"
-        print(f"{color}{project.name}: {message}\r\n", end='')
+        print(f"{color}{project.name}: {message}\r\n{RESET}", end='')
 
     @staticmethod
     def print_header(string, color=''):
         bar = (len(string) + 4) * "#"
-        print(color + bar + "\n# " + string + " #\n" + bar)
+        print(f"{color}{bar}\n# {string} #\n{bar}{RESET}")
+
+    @staticmethod
+    def color_handling(init=True):
+        if init:
+            os.system('cls')
+            os.system('color 0f')
+            colorama.init()
+            print(colorama.Back.BLACK, end='')
+            print(colorama.Fore.WHITE, end='')
+        else:
+            os.system('color')
+            print(colorama.Style.RESET_ALL, end='')
+            os.system('cls')
 
 
 if __name__ == '__main__':
+    Main.color_handling()
     superelixier_updater = Main()
     superelixier_updater.execute()
+    Main.color_handling(init=False)

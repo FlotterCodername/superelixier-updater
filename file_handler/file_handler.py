@@ -19,6 +19,8 @@ from generic_app.generic_app import GenericApp
 BIN = os.path.join(os.path.dirname(sys.argv[0]), "bin-win32")
 SEVENZIP = os.path.join(BIN, "7z", "7z.exe")
 INNOEXTRACT = os.path.join(BIN, "innoextract", "innoextract.exe")
+RESET = f"{colorama.Fore.WHITE}{colorama.Style.NORMAL}"
+MAGENTA = f"{colorama.Style.BRIGHT}{colorama.Fore.MAGENTA}"
 
 
 class FileHandler:
@@ -109,7 +111,7 @@ class FileHandler:
                     print_string = extracted
                     for pattern in self.__app.blob_unwanted:
                         if re.fullmatch(pattern, extracted):
-                            print_string = colorama.Fore.RED + extracted + " (removed)" + colorama.Fore.RESET
+                            print_string = colorama.Fore.RED + f"{extracted} (removed)" + RESET
                             full_path = os.path.join(self.__staging, extracted)
                             if os.path.isfile(full_path):
                                 os.remove(full_path)
@@ -223,7 +225,7 @@ class FileHandler:
             else:
                 missing_appdata.append(appdata)
         if len(missing_appdata) != 0:
-            print(colorama.Fore.MAGENTA + f"Old appdatas not found: {', '.join(missing_appdata)}")
+            print(MAGENTA + f"Old appdatas not found: {', '.join(missing_appdata)}")
         return keep_list
 
     @staticmethod
@@ -252,12 +254,12 @@ class FileHandler:
                     if os.path.isfile(existing_file) and re.search("\\.(bat|cmd|com|dll|exe|elf|js|jse|msc|ps1|sh|vbe|vbs|wsf|wsh)$", os.path.split(existing_file)[-1].casefold()):
                         opened_files[existing_file] = open(existing_file, 'ab')
         except PermissionError:
-            print(colorama.Fore.MAGENTA + colorama.Style.BRIGHT + app.name + f": Folder is in use. Update files will be moved next time.")
+            print(MAGENTA + f"{app.name}: Folder is in use. Update files will be moved next time.")
             for key in opened_files:
                 opened_files[key].close()
             return None
         except OSError:
-            print(colorama.Fore.MAGENTA + colorama.Style.BRIGHT + app.name + f": Couldn't get folder lock.")
+            print(MAGENTA + f"{app.name}: Couldn't get folder lock.")
             for key in opened_files:
                 opened_files[key].close()
             return None
