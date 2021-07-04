@@ -1,12 +1,12 @@
 {
   "info": {
-    "gist": "Audio recorder and editor",
-    "category": "Audio & Video"
+    "gist": "Audio recorder and editor. Waiting for privacy-friendly fork because upstream authors got a little too audacious.",
+    "category": "Broken"
   },
   "name": "Audacity",
   "user": "audacity",
   "project": "audacity",
-  "blob_re": "^audacity-win-.*\\.zip$",
+  "blob_re": "^o^",
   "blob_unwanted": [],
   "appdatas": [],
   "repo": "github"

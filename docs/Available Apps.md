@@ -12,7 +12,6 @@ As a further practical example, if you create a modified version of proprietors'
 ## Audio & Video
 App | Description
 --- | ---
-**Audacity** | Audio recorder and editor
 **Blender** | 3D graphics suite (and much more)
 **HandBrake** | Audio/video converter built on top of ffmpeg
 **Kdenlive** | Non-linear video editor
@@ -21,6 +20,10 @@ App | Description
 **VLC media player** | Video & audio player with broad support for file formats and network streams
 **XnView Classic** | Image browser, viewer and converter
 **XnView MP** | Image browser, viewer and converter. More features than XnView Classic
+## Broken
+App | Description
+--- | ---
+**Audacity** | Audio recorder and editor. Waiting for privacy-friendly fork because upstream authors got a little too audacious.
 ## Developer Tools
 App | Description
 --- | ---
