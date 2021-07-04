@@ -114,7 +114,10 @@ class Main:
     def project_status_report(project: GenericApp):
         color = ''
         message = ''
-        if project.update_status == "no_update":
+        if project.name == "Audacity":
+            color = colorama.Fore.RED
+            message = 'No longer supported by superelixier-updater due to end-user\'s privacy concerns.'
+        elif project.update_status == "no_update":
             color = colorama.Style.BRIGHT
             message = "No update available"
         elif project.update_status == "installed_newer":
