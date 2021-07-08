@@ -69,7 +69,8 @@ class FileHandler:
             if "installer" in self.__app.optionals and self.__app.optionals["installer"] == "sfx":
                 archives = f"exe|{archives}"
             if filename and re.fullmatch(f"^.*\\.({archives})$", filename.casefold()):
-                subprocess.run(f'{SEVENZIP} x -aoa -sdel "{filename}"', cwd=self.__staging, stdout=subprocess.DEVNULL)
+                subprocess.run(f'{SEVENZIP} x -aoa "{filename}"', cwd=self.__staging, stdout=subprocess.DEVNULL)
+                os.remove(os.path.join(self.__staging, filename))
                 # Handle zipped installer case
                 extracted = os.listdir(self.__staging)
                 if len(extracted) == 1:
