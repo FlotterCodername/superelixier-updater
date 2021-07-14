@@ -59,7 +59,6 @@ class VersionScheme:
 
     @staticmethod
     def __slice_appveyor_date(datestr: str):
-        datestr = datestr[:30] + datestr[31:]
-        datestr = datestr.split(".")[0] + datestr[-5:]
+        datestr = datestr.split(".")[0]
         datestr_date = datetime.strptime(datestr, APPVEYOR_DATE)
         return datestr_date
