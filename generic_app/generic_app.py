@@ -39,7 +39,9 @@ class GenericApp:
     def __set_optionals(self, json_entry: dict, optional_keys: list):
         for key in optional_keys:
             if key in json_entry:
-                self._optionals[key] = json_entry[key]
+                self._optionals.update({key: json_entry[key]})
+            else:
+                self._optionals.update({key: None})
 
     @property
     def name(self):
