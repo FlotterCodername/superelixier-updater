@@ -7,5 +7,6 @@
 /venv
 /superelixier.lock
 /superelixier.spec
+/bin-win32/
 /config/eula.json
 /app.ico
