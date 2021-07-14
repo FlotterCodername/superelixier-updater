@@ -94,18 +94,20 @@ class FileHandler:
                 normalize_done = True
                 normalize_failure = True
             elif len(extracted) == 1:
-                extracted_dir = os.path.join(self.__staging, extracted[0])
-                if os.path.isdir(extracted_dir):
-                    for file in os.listdir(extracted_dir):
+                extracted_content = os.path.join(self.__staging, extracted[0])
+                if os.path.isdir(extracted_content):
+                    for item in os.listdir(extracted_content):
                         shutil.move(
-                            os.path.join(extracted_dir, file),
-                            os.path.join(self.__staging, file)
+                            os.path.join(extracted_content, item),
+                            os.path.join(self.__staging, item)
                         )
-                    os.rmdir(extracted_dir)
-                elif os.path.isfile:
+                    os.rmdir(extracted_content)
+                elif os.path.isfile(extracted_content):
+                    print(colorama.Style.BRIGHT + f"{self.__app.name}: file retrieved:")
+                    print(extracted[0])
                     normalize_done = True
             elif len(extracted) > 1:
-                print(colorama.Style.BRIGHT + f"{self.__app.name}: extracted files")
+                print(colorama.Style.BRIGHT + f"{self.__app.name}: extracted files:")
                 strs = []
                 for extracted in extracted:
                     print_string = extracted
