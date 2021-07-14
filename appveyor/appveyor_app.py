@@ -37,22 +37,34 @@ class AppveyorApp(GenericApp):
 
     def __api_request(self):
         try:
-            jobs = rest.get(f"{AppveyorApp.API_URL}/projects/{self._user}/{self._project}",
-                            headers=self.__headers)
-            api_response = json.loads(jobs.text)
-            if jobs.status_code != 200:
-                print(colorama.Fore.RED + f'{self.name}: HTTP Status {jobs.status_code}: {api_response["message"]}')
+            api_response = rest.get(f"{AppveyorApp.API_URL}/projects/{self._user}/{self._project}/history?recordsNumber=20", headers=self.__headers)
+            if api_response.status_code != 200:
+                print(colorama.Fore.RED + f'{self.name}: HTTP Status {api_response.status_code}: {json.loads(api_response.text)["message"]}')
                 return None
-            job_id = api_response["build"]["jobs"][0]["jobId"]
-            artifacts = rest.get(f"{AppveyorApp.API_URL}/buildjobs/{job_id}/artifacts")
+            history = json.loads(api_response.text)['builds']
+            job_id = None
+            for build in history:
+                if job_id:
+                    break
+                if build['status'] == 'success' and build['branch'] == self._branch:
+                    api_response = rest.get(f"{AppveyorApp.API_URL}/projects/{self._user}/{self._project}/builds/{build['buildId']}")
+                    if api_response.status_code == 200:
+                        jobs = json.loads(api_response.text)['build']['jobs']
+                        for job in jobs:
+                            if job['status'] == 'success':
+                                job_id = job['jobId']
+                                break
+            if job_id:
+                artifacts = rest.get(f"{AppveyorApp.API_URL}/buildjobs/{job_id}/artifacts")
+            else:
+                return None
             api_response = json.loads(artifacts.text)
             if artifacts.status_code != 200:
                 print(colorama.Fore.RED + f'{self.name}: HTTP Status {artifacts.status_code}: {api_response["message"]}')
                 return None
-            # If a build has no artifacts on Appveyor, the JSON response will be []:
+            # Handle hypothetical case where successful build has no artifacts. The JSON response would be []:
             if len(api_response) == 0:
-                # TODO: Ability to get last successful build if newest one has failed.
-                self.update_status = "failed"
+                return None
             for file in api_response:
                 file["jobId"] = job_id
         except (rest.exceptions.ConnectionError, RequestError):
