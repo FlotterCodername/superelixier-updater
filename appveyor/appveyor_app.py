@@ -21,6 +21,7 @@ class AppveyorApp(GenericApp):
         self.__headers = headers
         self._user = json_entry["user"]
         self._project = json_entry["project"]
+        self._branch = self._optionals["branch"] or 'master'
         self._api_call = None
         self._version_scheme["type"] = "appveyor"
 

@@ -6,6 +6,7 @@
   "name": "DeSmuME",
   "user": "zeromus",
   "project": "desmume",
+  "branch": "master",
   "blob_re": "^.*\\.exe$",
   "blob_unwanted": [],
   "appdatas": [],
