@@ -50,7 +50,6 @@ The first-time setup is not friendly to non-technical users yet. **On the bright
 
 - History: Make number/age of kept backups configurable.
 - Patterns: Replace user-facing regular expressions with a simpler wildcard system
-- GitHub: Allow user to download pre-release versions (currently skipped)
 - HTML Index Handler (Apache/h5ai...)
 - GUI:
     - Present update progress
