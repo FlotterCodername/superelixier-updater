@@ -20,6 +20,7 @@ class GithubApp(GenericApp):
         self.__headers = headers
         self._user = json_entry["user"]
         self._project = json_entry["project"]
+        self._prerelease = self._optionals["prerelease"] or False
         self._api_call = None
         self._version_scheme["type"] = "github"
 
@@ -30,8 +31,11 @@ class GithubApp(GenericApp):
         self._api_call = self.__api_request()
         if self._api_call is None:
             self.update_status = "failed"
-        else:
-            self._version_latest = self.__get_latest_version()
+            return
+        self._version_latest = self.__get_latest_version()
+        if not self._version_latest:
+            self.update_status = 'failed'
+            return
 
     def __api_request(self):
         try:
@@ -57,6 +61,10 @@ class GithubApp(GenericApp):
     @property
     def project(self):
         return self._project
+
+    @property
+    def prerelease(self):
+        return self._prerelease
 
     @property
     def api_call(self):
