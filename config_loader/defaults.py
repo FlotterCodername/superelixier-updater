@@ -1,4 +1,4 @@
 AUTH = {
-  "appveyor_token": "",
-  "github_token": ""
+    "appveyor_token": "",
+    "github_token": ""
 }
