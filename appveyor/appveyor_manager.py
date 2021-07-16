@@ -26,7 +26,7 @@ class AppveyorManager(GenericManager):
             "version_id": app.api_call[0]["created"],
             "blobs": []
         }
-        if "blob_re" in app.optionals:
+        if app.optionals["blob_re"]:
             for asset in app.api_call:
                 filename = asset['fileName']
                 if re.fullmatch(app.optionals["blob_re"], filename.split("/")[-1]) is not None:

@@ -30,7 +30,11 @@ class HTMLApp(GenericApp):
         if self._web_call is None:
             self.update_status = "failed"
         else:
-            self._version_latest = self.__get_latest_version()
+            try:
+                self._version_latest = self.__get_latest_version()
+            except Exception as e:
+                print(f"Error checking {self.name}: {type(e)}: {e}")
+                self.update_status = 'unknown'
 
     def __web_request(self):
         try:
@@ -44,7 +48,7 @@ class HTMLApp(GenericApp):
 
     def __get_latest_version(self):
         versions = []
-        if "blob_permalink" in self._optionals:
+        if self._optionals["blob_permalink"]:
             matches = re.findall(self._version_scheme["re"], self._web_call)
             for match in matches:
                 my_dict = {
@@ -52,7 +56,7 @@ class HTMLApp(GenericApp):
                     "blobs": [self._optionals["blob_permalink"]]
                 }
                 versions.append(my_dict)
-        elif "blob_re" in self._optionals:
+        elif self._optionals["blob_re"]:
             matches = re.finditer(self._optionals["blob_re"], self._web_call)
             for match in matches:
                 my_dict = {
