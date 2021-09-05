@@ -79,7 +79,7 @@ class FileHandler:
                 if "installer" in self.__app.optionals and self.__app.optionals["installer"] == "innoextract":
                     subprocess.run(f'{INNOEXTRACT} -n "{filename}"', cwd=self.__staging, stdout=subprocess.DEVNULL)
                     os.remove(os.path.join(self.__staging, filename))
-                elif "installer" not in self.__app.optionals:
+                elif "installer" in self.__app.optionals and self.__app.optionals["installer"] is None:
                     os.rename(os.path.join(self.__staging, filename),
                               os.path.join(self.__staging, f"{self.__app.name}.exe"))
         return False
