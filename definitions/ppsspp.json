@@ -8,7 +8,7 @@
   "version_scheme": {
     "type": "tuple"
   },
-  "blob_re": "(?P<url>files/(?P<ver>.*?)/ppsspp_win\\.zip)",
+Up  "blob_re": "<p><a.*?href=\\\"(?P<url>files/.*?/ppsspp_win\\.zip)\\\">.*?Download (?P<ver>.*?) zip</a></p>",
   "blob_unwanted": [],
   "appdatas": [],
   "repo": "html"
