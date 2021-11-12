@@ -6,7 +6,7 @@
   "name": "Project64",
   "url": "https://www.pj64-emu.com/public-releases",
   "version_scheme": {
-    "type": "tuple"
+    "is_type": "tuple"
   },
   "blob_re": ".*<a href=\"(?P<url>/download/project64-v?[-0-9]*?(-installer)?)\">Project64 ( |v)*(?P<ver>.*?)( Installer)?</a>.*",
   "blob_unwanted": [],

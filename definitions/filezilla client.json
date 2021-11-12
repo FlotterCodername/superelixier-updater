@@ -6,7 +6,7 @@
   "name": "FileZilla Client",
   "url": "https://filezilla-project.org/download.php?show_all=1",
   "version_scheme": {
-    "type": "tuple"
+    "is_type": "tuple"
   },
   "blob_re": "<a href=\"(?P<url>.*?)\" rel=\".*?\">FileZilla_(?P<ver>.*?)_win64\\.zip</a>",
   "blob_unwanted": [],

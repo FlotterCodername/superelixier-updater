@@ -15,6 +15,5 @@
     "SshHostKeys",
     "kitty.ini"
   ],
-  "repo": "github",
-  "spec": 1
+  "repo": "github"
 }

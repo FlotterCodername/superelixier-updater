@@ -6,7 +6,7 @@
   "name": "VLC media player",
   "url": "https://www.videolan.org/vlc/",
   "version_scheme": {
-    "type": "tuple"
+    "is_type": "tuple"
   },
   "blob_re": ".*<li><a href=\"(?P<url>//get\\.videolan\\.org/vlc/(?P<ver>.*?)/win64/vlc-.*?-win64\\.exe)\">Windows 64bit</a></li>.*",
   "blob_unwanted": [

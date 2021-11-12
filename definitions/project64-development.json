@@ -6,7 +6,7 @@
   "name": "Project64-Development",
   "url": "https://www.pj64-emu.com/nightly-builds",
   "version_scheme": {
-    "type": "integer"
+    "is_type": "integer"
   },
   "blob_re": "\"(?P<url>/file/setup-project64-.*-(?P<ver>.*?)-.*?/)\"",
   "blob_unwanted": [],

@@ -6,7 +6,7 @@
   "name": "ReShade Setup",
   "url": "https://reshade.me",
   "version_scheme": {
-    "type": "tuple"
+    "is_type": "tuple"
   },
   "blob_re": ".*<a href=\"(?P<url>/downloads/.*?\\.exe)\" class=\"button\">Download ReShade (?P<ver>.*?)</a>.*",
   "blob_unwanted": [],

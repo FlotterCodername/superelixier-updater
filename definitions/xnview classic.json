@@ -6,8 +6,8 @@
   "name": "XnView Classic",
   "url": "https://www.xnview.com/en/xnview/#downloads",
   "version_scheme": {
-    "type": "tuple",
-    "re": "<p class=\"h5 mt-3\">Download <strong>XnView (.*?)</strong>.*?</p>"
+    "is_type": "tuple",
+    "version_re": "<p class=\"h5 mt-3\">Download <strong>XnView (.*?)</strong>.*?</p>"
   },
   "blob_permalink": "https://download.xnview.com/XnView-win-full.zip",
   "blob_unwanted": [],

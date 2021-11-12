@@ -6,8 +6,8 @@
   "name": "VSCode",
   "url": "https://github.com/microsoft/vscode/releases",
   "version_scheme": {
-    "type": "tuple",
-    "re": "<span class=\"css-truncate-target\" style=\".*?\">(.*?)</span>"
+    "is_type": "tuple",
+    "version_re": "<span class=\"css-truncate-target\" style=\".*?\">(.*?)</span>"
   },
   "blob_permalink": "https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-archive",
   "blob_unwanted": [],
