@@ -69,7 +69,7 @@ class FileHandler:
             if "installer" in self.__app.optionals and self.__app.optionals["installer"] == "sfx":
                 archives = f"exe|{archives}"
             if filename and re.fullmatch(f"^.*\\.({archives})$", filename.casefold()):
-                subprocess.run(f'{SEVENZIP} x -aoa "{filename}"', cwd=self.__staging, stdout=subprocess.DEVNULL)
+                subprocess.run([SEVENZIP, 'x', '-aoa', filename], cwd=self.__staging, stdout=subprocess.DEVNULL)
                 os.remove(os.path.join(self.__staging, filename))
                 # Handle zipped installer case
                 extracted = os.listdir(self.__staging)
@@ -77,7 +77,7 @@ class FileHandler:
                     filename = extracted[0]
             if filename and filename[-4:].casefold() == '.exe':
                 if "installer" in self.__app.optionals and self.__app.optionals["installer"] == "innoextract":
-                    subprocess.run(f'{INNOEXTRACT} -n "{filename}"', cwd=self.__staging, stdout=subprocess.DEVNULL)
+                    subprocess.run([INNOEXTRACT, '-n', filename], cwd=self.__staging, stdout=subprocess.DEVNULL)
                     os.remove(os.path.join(self.__staging, filename))
                 elif "installer" in self.__app.optionals and self.__app.optionals["installer"] is None:
                     os.rename(os.path.join(self.__staging, filename),
