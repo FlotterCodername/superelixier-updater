@@ -9,10 +9,6 @@ It remains your responsibility as a user of our software to adhere to the terms 
 As a practical example, you may be required to purchase a license from proprietors if using proprietors' software commercially.
 As a further practical example, if you create a modified version of proprietors' software, you may be required to disclose source code of your modified version.
 
-## !Deactivated
-App | Description
---- | ---
-**Audacity** | Audio recorder and editor. Waiting for privacy-friendly fork because upstream authors got a little too audacious.
 ## Audio & Video
 App | Description
 --- | ---
