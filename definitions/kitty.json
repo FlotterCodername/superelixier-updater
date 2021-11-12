@@ -6,7 +6,7 @@
   "name": "KiTTY",
   "user": "cyd01",
   "project": "KiTTY",
-  "blob_re": "^kitty_portable\\.exe$",
+  "blob_re": "^kitty-bin-.*?\\.zip$",
   "blob_unwanted": [],
   "appdatas": [
     "Jumplist",
@@ -15,5 +15,6 @@
     "SshHostKeys",
     "kitty.ini"
   ],
-  "repo": "github"
+  "repo": "github",
+  "spec": 1
 }

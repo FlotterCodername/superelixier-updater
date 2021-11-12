@@ -6,12 +6,13 @@
   "name": "PCSX2",
   "url": "https://buildbot.orphis.net/pcsx2/",
   "version_scheme": {
-    "type": "integer"
+    "type": "tuple"
   },
-  "blob_re": ".*(?P<url>/pcsx2/index\\.php\\?m=dl&amp;rev=.*?-dev-(?P<ver>.*?)-.*?&amp;platform=windows-x86).*",
+  "blob_re": ".*(?P<url>/pcsx2/index\\.php\\?m=dl&amp;rev=v*(?P<ver>.*?)&amp;platform=windows-x86).*",
   "blob_unwanted": [],
   "appdatas": [
     "portable.ini"
   ],
-  "repo": "html"
+  "repo": "html",
+  "spec": 1
 }
