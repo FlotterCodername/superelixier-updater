@@ -11,6 +11,7 @@ from urllib3.exceptions import RequestError
 
 from file_handler.downloader import Downloader
 from generic_app.generic_app import GenericApp
+from html_seu import HEADERS
 from version_scheme.version_scheme import VersionScheme
 
 
@@ -38,8 +39,7 @@ class HTMLApp(GenericApp):
 
     def __web_request(self):
         try:
-            header = {'User-Agent': 'Superelixier Updater (Contact: @FroyoXSG on GitHub)'}
-            request = rest.get(self._url, headers=header)
+            request = rest.get(self._url, headers=HEADERS)
             if request.status_code != 200:
                 return None
         except (rest.exceptions.ConnectionError, RequestError):

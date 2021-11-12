@@ -8,7 +8,7 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 import re
 
 from generic_app.generic_manager import GenericManager
-from github.github import HEADERS
+from github import HEADERS
 from github.github_app import GithubApp
 
 

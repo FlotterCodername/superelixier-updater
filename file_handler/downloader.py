@@ -15,7 +15,7 @@ from urllib.parse import urlparse, urlunparse
 
 from requests import HTTPError
 
-HEADERS = {'User-Agent': 'Superelixier Updater (Contact: @FroyoXSG on GitHub)'}
+from html_seu import HEADERS
 
 
 class Downloader:

@@ -6,8 +6,8 @@ If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
 from datetime import datetime
-from appveyor.appveyor import APPVEYOR_DATE
-from github.github import GITHUB_DATE
+from appveyor import APPVEYOR_DATE
+from github import GITHUB_DATE
 from packaging import version
 
 

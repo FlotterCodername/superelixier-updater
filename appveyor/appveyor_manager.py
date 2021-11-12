@@ -7,7 +7,7 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 """
 import re
 
-from appveyor.appveyor import HEADERS
+from appveyor import HEADERS, API_URL
 from appveyor.appveyor_app import AppveyorApp
 from generic_app.generic_manager import GenericManager
 
@@ -30,7 +30,7 @@ class AppveyorManager(GenericManager):
             for asset in app.api_call:
                 filename = asset['fileName']
                 if re.fullmatch(app.optionals["blob_re"], filename.split("/")[-1]) is not None:
-                    my_dict["blobs"].append(AppveyorManager.API_URL + "/buildjobs/" + asset["jobId"] + "/artifacts/" + filename)
+                    my_dict["blobs"].append(API_URL + "/buildjobs/" + asset["jobId"] + "/artifacts/" + filename)
         else:
             print(f"{app.name} Error: \"blob_re\" is not configured but is required")
             app.update_status = "failed"

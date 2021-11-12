@@ -10,11 +10,11 @@ import json
 import requests as rest
 from urllib3.exceptions import RequestError
 
+from appveyor import API_URL
 from generic_app.generic_app import GenericApp
 
 
 class AppveyorApp(GenericApp):
-    API_URL = "https://ci.appveyor.com/api"
 
     def __init__(self, json_entry: dict, target, headers):
         super().__init__(json_entry, target)
@@ -37,7 +37,7 @@ class AppveyorApp(GenericApp):
 
     def __api_request(self):
         try:
-            api_response = rest.get(f"{AppveyorApp.API_URL}/projects/{self._user}/{self._project}/history?recordsNumber=20", headers=self.__headers)
+            api_response = rest.get(f"{API_URL}/projects/{self._user}/{self._project}/history?recordsNumber=20", headers=self.__headers)
             if api_response.status_code != 200:
                 print(colorama.Fore.RED + f'{self.name}: HTTP Status {api_response.status_code}: {json.loads(api_response.text)["message"]}')
                 return None
@@ -47,7 +47,7 @@ class AppveyorApp(GenericApp):
                 if job_id:
                     break
                 if build['status'] == 'success' and build['branch'] == self._branch:
-                    api_response = rest.get(f"{AppveyorApp.API_URL}/projects/{self._user}/{self._project}/builds/{build['buildId']}")
+                    api_response = rest.get(f"{API_URL}/projects/{self._user}/{self._project}/builds/{build['buildId']}")
                     if api_response.status_code == 200:
                         jobs = json.loads(api_response.text)['build']['jobs']
                         for job in jobs:
@@ -55,7 +55,7 @@ class AppveyorApp(GenericApp):
                                 job_id = job['jobId']
                                 break
             if job_id:
-                artifacts = rest.get(f"{AppveyorApp.API_URL}/buildjobs/{job_id}/artifacts")
+                artifacts = rest.get(f"{API_URL}/buildjobs/{job_id}/artifacts")
             else:
                 return None
             api_response = json.loads(artifacts.text)
