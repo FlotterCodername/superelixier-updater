@@ -12,7 +12,7 @@ from urllib3.exceptions import RequestError
 from file_handler.downloader import Downloader
 from generic_app.generic_app import GenericApp
 from html_seu import HEADERS
-from version_scheme.version_scheme import VersionScheme
+from version_scheme.version_scheme import get_newest, VersionScheme
 
 
 class HTMLApp(GenericApp):
@@ -20,7 +20,7 @@ class HTMLApp(GenericApp):
     def __init__(self, json_entry: dict, target):
         super().__init__(json_entry, target)
         self._url = json_entry["url"]
-        self._version_scheme = json_entry["version_scheme"]
+        self._version_scheme = VersionScheme(**json_entry["version_scheme"])
         self._web_call = None
 
     def execute(self):
@@ -49,7 +49,7 @@ class HTMLApp(GenericApp):
     def __get_latest_version(self):
         versions = []
         if self._optionals["blob_permalink"]:
-            matches = re.findall(self._version_scheme["re"], self._web_call)
+            matches = re.findall(self._version_scheme.version_re, self._web_call)
             for match in matches:
                 my_dict = {
                     "version_id": match,
@@ -64,7 +64,7 @@ class HTMLApp(GenericApp):
                     "blobs": [Downloader.normalize_url(match.group('url'), self._url)]
                 }
                 versions.append(my_dict)
-        version = VersionScheme.get_newest(self._version_scheme, versions)
+        version = get_newest(self._version_scheme, versions)
         return version
 
     @property

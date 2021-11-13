@@ -9,10 +9,12 @@ import os
 import random
 import string
 
+from version_scheme.version_scheme import VersionScheme
+
 
 class GenericApp:
 
-    def __init__(self, json_entry: dict, target):
+    def __init__(self, json_entry: dict, target: str):
         """
         Do not instantiate this. Always use the child classes.
 
@@ -31,7 +33,7 @@ class GenericApp:
         self._appdir = os.path.join(target, json_entry["name"])
         self._target_dir = target
         self._version_latest = {}
-        self._version_scheme = {}
+        self._version_scheme = VersionScheme()
         self._random_id = "".join(random.choices(string.ascii_lowercase + string.digits, k=32))
         # Update status managed by manager classes
         self.update_status = "unknown"

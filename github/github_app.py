@@ -11,6 +11,7 @@ import requests as rest
 from urllib3.exceptions import RequestError
 
 from generic_app.generic_app import GenericApp
+from version_scheme.version_scheme import VersionScheme
 
 
 class GithubApp(GenericApp):
@@ -22,7 +23,7 @@ class GithubApp(GenericApp):
         self._project = json_entry["project"]
         self._prerelease = self._optionals["prerelease"] or False
         self._api_call = None
-        self._version_scheme["type"] = "github"
+        self._version_scheme = VersionScheme(is_type="github")
 
     def execute(self):
         """

@@ -12,6 +12,7 @@ from urllib3.exceptions import RequestError
 
 from appveyor import API_URL
 from generic_app.generic_app import GenericApp
+from version_scheme.version_scheme import VersionScheme
 
 
 class AppveyorApp(GenericApp):
@@ -23,7 +24,7 @@ class AppveyorApp(GenericApp):
         self._project = json_entry["project"]
         self._branch = self._optionals["branch"] or 'master'
         self._api_call = None
-        self._version_scheme["type"] = "appveyor"
+        self._version_scheme = VersionScheme(is_type="appveyor")
 
     def execute(self):
         """

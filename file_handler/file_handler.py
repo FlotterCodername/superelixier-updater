@@ -124,7 +124,7 @@ class FileHandler:
                 normalize_done = True
         if not normalize_failure:
             with open(os.path.join(self.__staging, "superelixier.json"), "w") as file:
-                json.dump(self.__app.version_latest, file)
+                json.dump({**self.__app.version_latest, 'spec': self.__app.version_scheme.spec}, file)
 
     def __project_merge_oldnew(self):
         # Data to keep

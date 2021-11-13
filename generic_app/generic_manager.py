@@ -9,7 +9,7 @@ import json
 import os
 
 from generic_app.generic_app import GenericApp
-from version_scheme.version_scheme import VersionScheme
+from version_scheme.version_scheme import compare
 
 
 class GenericManager:
@@ -32,11 +32,16 @@ class GenericManager:
             if os.path.isfile(ver_info_file):
                 with open(ver_info_file, 'r') as file:
                     version_installed = json.load(file)
-                comparison = VersionScheme.compare(app.version_scheme, app.version_latest, version_installed)
+                if 'spec' not in version_installed:
+                    version_installed['spec'] = 0
+                comparison = compare(app.version_scheme, app.version_latest, version_installed)
                 if comparison:
                     if comparison["version_id"] == version_installed["version_id"]:
                         if comparison["version_id"] != app.version_latest["version_id"]:
-                            app.update_status = "installed_newer"
+                            if app.version_scheme.spec > version_installed['spec']:
+                                app.update_status = 'update'
+                            else:
+                                app.update_status = "installed_newer"
                         else:
                             app.update_status = "no_update"
                     else:
