@@ -17,8 +17,8 @@ from file_handler.downloader import Downloader
 from generic_app.generic_app import GenericApp
 
 BIN = os.path.join(os.path.dirname(sys.argv[0]), "bin-win32")
-SEVENZIP = os.path.join(BIN, "7z", "7z.exe")
-INNOEXTRACT = os.path.join(BIN, "innoextract", "innoextract.exe")
+SEVENZIP = os.path.join(BIN, "7z.exe")
+INNOEXTRACT = os.path.join(BIN, "innoextract.exe")
 RESET = f"{colorama.Fore.WHITE}{colorama.Style.NORMAL}"
 MAGENTA = f"{colorama.Style.BRIGHT}{colorama.Fore.MAGENTA}"
 

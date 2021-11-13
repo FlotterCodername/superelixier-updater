@@ -7,7 +7,6 @@
 /venv
 /superelixier.lock
 /superelixier.spec
-/bin-win32/7z/*
-/bin-win32/innoextract/*
+/bin-win32/*
 /config/eula.json
 /app.ico
