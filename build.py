@@ -91,5 +91,5 @@ copy_folder(docs_dir, docs_dist, exclusions=["example.png", "github-markdown.css
 copy_folder(thirdparty_dir, thirdparty_dist)
 for root_file in ROOT_FILES:
     conversion_copy(root_file, DIST)
-subprocess.run(['7z', '-tzip' 'u' f'..\\..\\superelixier-updater-{VERSION}.zip', '*', '-m0=Deflate', '-mx9'], cwd=DIST)
+subprocess.run(['7z', '-tzip', 'u', f'..\\..\\superelixier-updater-{VERSION}.zip', '*', '-m0=Deflate', '-mx9'], cwd=DIST)
 cleanup()

@@ -67,7 +67,7 @@ class ConfigLoader:
     @staticmethod
     def __load_cfg_available():
         definition_dir = os.path.join(os.path.dirname(sys.argv[0]), "definitions")
-        files = os.listdir(definition_dir)
+        files = [f for f in os.listdir(definition_dir) if f != '.manifest.json']
         cfg_available = {}
         for defi in files:
             if re.search("\\.json$", defi):
