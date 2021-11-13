@@ -22,8 +22,10 @@ from github.github_app import GithubApp
 from github.github_manager import GithubManager
 from html_seu.html_app import HTMLApp
 RESET = f"{colorama.Fore.WHITE}{colorama.Style.NORMAL}"
+GREEN = colorama.Fore.GREEN
 MAGENTA = f"{colorama.Style.BRIGHT}{colorama.Fore.MAGENTA}"
 CYAN = f"{colorama.Style.BRIGHT}{colorama.Fore.CYAN}"
+TRIGGER_UPDATE_STATUS = ("update", "no_version_file", "not_installed")
 
 
 class Main:
@@ -79,12 +81,12 @@ class Main:
             with futures.ThreadPoolExecutor(max_workers=8) as executor:
                 projects = {executor.submit(Main.__threadable_update_check, project): project for project in project_list}
                 for project in futures.as_completed(projects):
-                    if projects[project].update_status in ["update", "no_version_file", "not_installed"]:
+                    if projects[project].update_status in TRIGGER_UPDATE_STATUS:
                         self.job_list.append(projects[project])
         else:
             for project in project_list:
                 Main.__threadable_update_check(project)
-                if project.update_status in ["update", "no_version_file", "not_installed"]:
+                if project.update_status in TRIGGER_UPDATE_STATUS:
                     self.job_list.append(project)
 
     @staticmethod
@@ -99,7 +101,7 @@ class Main:
             message = f'{job.name}: '
             if job.update_status == "update":
                 message += "Updating"
-                Main.print_header(message, colorama.Fore.GREEN)
+                Main.print_header(message, GREEN)
                 my_fsm.project_update()
             elif job.update_status == "no_version_file":
                 message += "Updating (forced)"
@@ -121,7 +123,7 @@ class Main:
             color = MAGENTA
             message = f"Installed is newer.\r\n{RESET}{project.name}: Please make sure your version wasn't retracted because of problems with it."
         elif project.update_status == "update":
-            color = colorama.Fore.GREEN
+            color = GREEN
             message = "Update available"
         elif project.update_status == "no_version_file":
             color = MAGENTA
