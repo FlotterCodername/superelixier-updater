@@ -3,4 +3,3 @@ flake8
 packaging
 pyinstaller
 requests~=2.26.0
-urllib3
