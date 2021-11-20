@@ -8,7 +8,7 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 import colorama
 import json
 import requests as rest
-from urllib3.exceptions import RequestError
+from requests import HTTPError
 
 from generic_app.generic_app import GenericApp
 from version_scheme.version_scheme import VersionScheme
@@ -46,7 +46,7 @@ class GithubApp(GenericApp):
             if releases.status_code != 200:
                 print(colorama.Fore.RED + f'{self.name}: HTTP Status {releases.status_code}: {api_response["message"]}')
                 return None
-        except (rest.exceptions.ConnectionError, RequestError):
+        except (ConnectionError, HTTPError):
             return None
         return api_response
 

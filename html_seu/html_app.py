@@ -6,8 +6,9 @@ If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
 import re
+
 import requests as rest
-from urllib3.exceptions import RequestError
+from requests import HTTPError
 
 from file_handler.downloader import Downloader
 from generic_app.generic_app import GenericApp
@@ -42,7 +43,7 @@ class HTMLApp(GenericApp):
             request = rest.get(self._url, headers=HEADERS)
             if request.status_code != 200:
                 return None
-        except (rest.exceptions.ConnectionError, RequestError):
+        except (ConnectionError, HTTPError):
             return None
         return request.text
 

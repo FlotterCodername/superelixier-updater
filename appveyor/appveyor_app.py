@@ -8,7 +8,7 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 import colorama
 import json
 import requests as rest
-from urllib3.exceptions import RequestError
+from requests import HTTPError
 
 from appveyor import API_URL
 from generic_app.generic_app import GenericApp
@@ -68,7 +68,7 @@ class AppveyorApp(GenericApp):
                 return None
             for file in api_response:
                 file["jobId"] = job_id
-        except (rest.exceptions.ConnectionError, RequestError):
+        except (ConnectionError, HTTPError):
             return None
         return api_response
 
