@@ -1,9 +1,12 @@
+"""
+Copyright 2021 Fabian H. Schneider
+
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+If a copy of the MPL was not distributed with this file,
+You can obtain one at https://mozilla.org/MPL/2.0/.
+"""
 import copy
 import json
-import os
-from jsonschema import validate
-
-import helper.terminal
 
 INSTALLERS = {"enum": ["sfx", "innoextract"]}
 REPOS = {"enum": ["appveyor", "github", "html"]}
@@ -85,9 +88,11 @@ class JsonSchema:
             "github": self.__definition_github,
             "html": self.__definition_html,
         }
+        """
         for key in self.REPO_MAP:
             with open(key + ".schema.json", "w") as fd:
                 json.dump(self.REPO_MAP[key], fd, indent=2)
+        """
 
     def __apply_override(self):
         my_actions = (

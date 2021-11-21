@@ -12,7 +12,8 @@ import json
 import os
 from os.path import join as opj
 
-from config_handler.defaults import AUTH
+import settings
+from config_handler import AUTH
 from helper import DIR_APP
 from helper.terminal import ERROR, WARNING, exit_app
 
@@ -29,7 +30,14 @@ class ConfigHandler:
 
     def __init__(self):
         self._cfg_dir = opj(DIR_APP, "config")
-        self._configuration = {"auth": self._load_auth(), "available": self.__load_cfg_available(), "local": self._load_local()}
+        self._configuration = {
+            "auth": self._load_auth(),
+            "available": self.__load_cfg_available(),
+            "local": self._load_local()
+        }
+        settings.app_config = self._configuration
+        settings.appveyor_headers["Authorization"] = self._configuration["auth"]["appveyor_token"]
+        settings.github_headers["Authorization"] = self._configuration["auth"]["github_token"]
 
     def _load_auth(self):
         msg_invalid = E_INVALID % FN_AUTH

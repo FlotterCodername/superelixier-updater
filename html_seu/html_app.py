@@ -12,16 +12,14 @@ from requests import HTTPError
 
 from file_handler.downloader import Downloader
 from generic_app.generic_app import GenericApp
+from generic_app.generic_manager import GenericManager
 from html_seu import HEADERS
-from version_scheme.version_scheme import get_newest, VersionScheme
 
 
 class HTMLApp(GenericApp):
 
-    def __init__(self, json_entry: dict, target):
-        super().__init__(json_entry, target)
-        self._url = json_entry["url"]
-        self._version_scheme = VersionScheme(**json_entry["version_scheme"])
+    def __init__(self, target, **kwargs):
+        super().__init__(target, **kwargs)
         self._web_call = None
 
     def execute(self):
@@ -49,23 +47,23 @@ class HTMLApp(GenericApp):
 
     def __get_latest_version(self):
         versions = []
-        if self._optionals["blob_permalink"]:
-            matches = re.findall(self._version_scheme.version_re, self._web_call)
+        if self.blob_permalink:
+            matches = re.findall(self.ver_scheme_re, self._web_call)
             for match in matches:
                 my_dict = {
                     "version_id": match,
-                    "blobs": [self._optionals["blob_permalink"]]
+                    "blobs": [self.blob_permalink]
                 }
                 versions.append(my_dict)
-        elif self._optionals["blob_re"]:
-            matches = re.finditer(self._optionals["blob_re"], self._web_call)
+        elif self.blob_re:
+            matches = re.finditer(self.blob_re, self._web_call)
             for match in matches:
                 my_dict = {
                     "version_id": match.group('ver'),
                     "blobs": [Downloader.normalize_url(match.group('url'), self._url)]
                 }
                 versions.append(my_dict)
-        version = get_newest(self._version_scheme, versions)
+        version = GenericManager.get_newest(self._ver_scheme_type, versions)
         return version
 
     @property

@@ -9,22 +9,18 @@ import json
 import requests as rest
 from requests import HTTPError
 
+import settings
 from appveyor import API_URL
 from generic_app.generic_app import GenericApp
 from helper.terminal import ERROR
-from version_scheme.version_scheme import VersionScheme
 
 
 class AppveyorApp(GenericApp):
 
-    def __init__(self, json_entry: dict, target, headers):
-        super().__init__(json_entry, target)
-        self.__headers = headers
-        self._user = json_entry["user"]
-        self._project = json_entry["project"]
-        self._branch = self._optionals["branch"] or 'master'
+    def __init__(self, target, **kwargs):
+        super().__init__(target, **kwargs)
+        self._branch = self._branch or 'master'
         self._api_call = None
-        self._version_scheme = VersionScheme(is_type="appveyor")
 
     def execute(self):
         """
@@ -38,7 +34,7 @@ class AppveyorApp(GenericApp):
 
     def __api_request(self):
         try:
-            api_response = rest.get(f"{API_URL}/projects/{self._user}/{self._project}/history?recordsNumber=20", headers=self.__headers)
+            api_response = rest.get(f"{API_URL}/projects/{self._user}/{self._project}/history?recordsNumber=20", headers=settings.appveyor_headers)
             if api_response.status_code != 200:
                 print(ERROR + self.name + ": HTTP Status %s: %s" % (api_response.status_code, json.loads(api_response.text)["message"]))
                 return None
@@ -76,14 +72,6 @@ class AppveyorApp(GenericApp):
         from appveyor.appveyor_manager import AppveyorManager
         my_list = AppveyorManager.build_blob_list(self)
         return my_list
-
-    @property
-    def user(self):
-        return self._user
-
-    @property
-    def project(self):
-        return self._project
 
     @property
     def api_call(self):
