@@ -5,14 +5,17 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
+import sys
 from json import JSONDecodeError
 
 import json
+import os
 from os.path import join as opj
 
-import helper.terminal
 from config_handler.defaults import AUTH
-from helper import *
+from helper import DIR_APP
+from helper.terminal import ERROR, WARNING, exit_app
+
 E_MISSING = ERROR + '%s was not found but is required.'
 E_INVALID = ERROR + '%s is not valid JSON.'
 W_INVALID = WARNING + '%s is not valid JSON.%s'
@@ -38,7 +41,7 @@ class ConfigHandler:
                 json.dump(AUTH, fd)
             return self.__load_json(loc)
         except JSONDecodeError:
-            helper.terminal.exit_app()
+            exit_app()
 
     def _load_local(self):
         msg_invalid = E_INVALID % FN_LOCAL
@@ -48,7 +51,7 @@ class ConfigHandler:
         try:
             return self.__load_json(loc, msg_invalid, msg_missing)
         except (FileNotFoundError, JSONDecodeError):
-            helper.terminal.exit_app()
+            exit_app()
 
     @staticmethod
     def __load_json(path: str, msg_invalid=None, msg_missing=None, raising=True):

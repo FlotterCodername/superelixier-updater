@@ -6,9 +6,13 @@ If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
 import os
+import sys
 import time
 
 from concurrent import futures
+
+import colorama
+
 from appveyor.appveyor_app import AppveyorApp
 from config_handler.config_handler import ConfigHandler
 from config_handler.eula import EulaChecker
@@ -18,7 +22,7 @@ from generic_app.generic_app import GenericApp
 from generic_app.generic_manager import GenericManager
 from github.github_app import GithubApp
 from github.github_manager import GithubManager
-from helper.terminal import *
+from helper.terminal import print_header, GREEN, MAGENTA, CYAN, BRIGHT, RESET, RED
 from html_seu.html_app import HTMLApp
 TRIGGER_UPDATE_STATUS = ("update", "no_version_file", "not_installed")
 
@@ -112,7 +116,7 @@ class Main:
         color = ''
         message = ''
         if project.update_status == "no_update":
-            color = colorama.Style.BRIGHT
+            color = BRIGHT
             message = "No update available"
         elif project.update_status == "installed_newer":
             color = MAGENTA
@@ -127,13 +131,13 @@ class Main:
             color = CYAN
             message = "Will be installed"
         elif project.update_status == "error":
-            color = colorama.Fore.RED
+            color = RED
             message = "Could not determine the version installed"
         elif project.update_status == "failed":
-            color = colorama.Fore.RED
+            color = RED
             message = "Could not connect to URL or API"
         elif project.update_status == "unknown":
-            color = colorama.Fore.RED
+            color = RED
             message = "Failed to check this project"
         print(f"{color}{project.name}: {message}\r\n{RESET}", end='')
 

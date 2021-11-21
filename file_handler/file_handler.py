@@ -5,7 +5,6 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
-import colorama
 import datetime
 import json
 import os
@@ -15,12 +14,11 @@ import subprocess
 import sys
 from file_handler.downloader import Downloader
 from generic_app.generic_app import GenericApp
+from helper.terminal import ERROR, BRIGHT, GREEN, RED, RESET, MAGENTA
 
 BIN = os.path.join(os.path.dirname(sys.argv[0]), "bin-win32")
 SEVENZIP = os.path.join(BIN, "7z.exe")
 INNOEXTRACT = os.path.join(BIN, "innoextract.exe")
-RESET = f"{colorama.Fore.WHITE}{colorama.Style.NORMAL}"
-MAGENTA = f"{colorama.Style.BRIGHT}{colorama.Fore.MAGENTA}"
 
 
 class FileHandler:
@@ -46,11 +44,11 @@ class FileHandler:
             with open(version_deferred, 'r') as file:
                 version_deferred = json.load(file)
             if version_deferred == self.__app.version_latest:
-                print(colorama.Fore.GREEN + self.__app.name + ": Re-using previously downloaded update files")
+                print(GREEN + self.__app.name + ": Re-using previously downloaded update files")
                 self.__staging = self.__deferred
                 return True
             else:
-                print(colorama.Fore.GREEN + self.__app.name + ": Previously downloaded update is not latest version, removing")
+                print(GREEN + self.__app.name + ": Previously downloaded update is not latest version, removing")
                 shutil.rmtree(self.__deferred)
         # Create folder structure if it doesn't exist
         os.makedirs(self.__staging, exist_ok=True)
@@ -90,7 +88,7 @@ class FileHandler:
         while not normalize_done:
             extracted = os.listdir(self.__staging)
             if len(extracted) == 0:
-                print(f"{colorama.Fore.RED}Failure downloading or extracting this app")
+                print(ERROR + "Failure downloading or extracting this app")
                 normalize_done = True
                 normalize_failure = True
             elif len(extracted) == 1:
@@ -103,17 +101,17 @@ class FileHandler:
                         )
                     os.rmdir(extracted_content)
                 elif os.path.isfile(extracted_content):
-                    print(colorama.Style.BRIGHT + f"{self.__app.name}: file retrieved:")
+                    print(BRIGHT + self.__app.name + ": file retrieved:")
                     print(extracted[0])
                     normalize_done = True
             elif len(extracted) > 1:
-                print(colorama.Style.BRIGHT + f"{self.__app.name}: extracted files:")
+                print(BRIGHT + self.__app.name + ": extracted files:")
                 strs = []
                 for extracted in extracted:
                     print_string = extracted
                     for pattern in self.__app.blob_unwanted:
                         if re.fullmatch(pattern, extracted):
-                            print_string = colorama.Fore.RED + f"{extracted} (removed)" + RESET
+                            print_string = RED + extracted + " (removed)" + RESET
                             full_path = os.path.join(self.__staging, extracted)
                             if os.path.isfile(full_path):
                                 os.remove(full_path)
@@ -227,7 +225,7 @@ class FileHandler:
             else:
                 missing_appdata.append(appdata)
         if len(missing_appdata) != 0:
-            print(MAGENTA + f"Old appdatas not found: {', '.join(missing_appdata)}")
+            print(MAGENTA + "Old appdatas not found: %s" % ', '.join(missing_appdata))
         return keep_list
 
     @staticmethod
