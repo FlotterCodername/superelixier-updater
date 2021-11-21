@@ -8,58 +8,125 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 import os
 import random
 import string
-
-from version_scheme.version_scheme import VersionScheme
+from typing import Union, List
 
 
 class GenericApp:
-
-    def __init__(self, json_entry: dict, target: str):
+    def __init__(
+        self,
+        target,
+        *,
+        appdatas: Union[str, List[str]] = None,
+        blob_re: str = None,
+        blob_permalink: str = None,
+        blob_unwanted: Union[str, List[str]] = None,
+        branch: str = None,
+        info: dict = None,
+        installer: str = None,
+        name: str = None,
+        url: str = None,
+        user: str = None,
+        prerelease: bool = None,
+        project: str = None,
+        repo: str = None,
+        ver_scheme_re: str = None,
+        ver_scheme_type: str = None,
+        ver_scheme_spec: int = None
+    ):
         """
         Do not instantiate this. Always use the child classes.
-
-        :param json_entry:
-        :param target:
         """
         # Props from JSON
-        self._url = None
-        self._name = json_entry["name"]
-        self._optionals = {}
-        optional_keys = ["blob_re", "blob_permalink", "installer", "branch", "prerelease"]
-        self.__set_optionals(json_entry, optional_keys)
-        self._blob_unwanted = json_entry["blob_unwanted"]
-        self._appdatas = json_entry["appdatas"]
+        self._appdatas = appdatas
+        self._blob_re = blob_re
+        self._blob_re = blob_re
+        self._blob_permalink = blob_permalink
+        self._blob_unwanted = blob_unwanted
+        self._branch = branch
+        self._info = info
+        self._installer = installer
+        self._name = name
+        self._url = url
+        self._user = user
+        self._prerelease = prerelease
+        self._project = project
+        self._repo = repo
+        self._ver_scheme_re = ver_scheme_re
+        self._ver_scheme_type = ver_scheme_type
+        self._ver_scheme_spec = ver_scheme_spec
         # Runtime props
-        self._appdir = os.path.join(target, json_entry["name"])
+        self._appdir = os.path.join(target, self._name)
         self._target_dir = target
         self._version_latest = {}
-        self._version_scheme = VersionScheme()
-        self._random_id = "".join(random.choices(string.ascii_lowercase + string.digits, k=32))
+        self._random_id = "".join(
+            random.choices(string.ascii_lowercase + string.digits, k=32)
+        )
         # Update status managed by manager classes
         self.update_status = "unknown"
 
-    def __set_optionals(self, json_entry: dict, optional_keys: list):
-        for key in optional_keys:
-            if key in json_entry:
-                self._optionals.update({key: json_entry[key]})
-            else:
-                self._optionals.update({key: None})
+    @property
+    def appdatas(self):
+        return self._appdatas
 
     @property
-    def name(self):
-        return self._name
+    def blob_re(self):
+        return self._blob_re
 
     @property
-    def optionals(self):
-        return self._optionals
+    def blob_permalink(self):
+        return self._blob_permalink
 
     @property
     def blob_unwanted(self):
         return self._blob_unwanted
 
     @property
-    def appdatas(self):
-        return self._appdatas
+    def branch(self):
+        return self._branch
+
+    @property
+    def info(self):
+        return self._info
+
+    @property
+    def installer(self):
+        return self._installer
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def url(self):
+        return self._url
+
+    @property
+    def user(self):
+        return self._user
+
+    @property
+    def prerelease(self):
+        return self._prerelease
+
+    @property
+    def project(self):
+        return self._project
+
+    @property
+    def repo(self):
+        return self._repo
+
+    @property
+    def ver_scheme_re(self):
+        return self._ver_scheme_re
+
+    @property
+    def ver_scheme_type(self):
+        return self._ver_scheme_type
+
+    @property
+    def ver_scheme_spec(self):
+        return self._ver_scheme_spec
 
     @property
     def appdir(self):
@@ -70,16 +137,8 @@ class GenericApp:
         return self._target_dir
 
     @property
-    def url(self):
-        return self._url
-
-    @property
     def version_latest(self):
         return self._version_latest
-
-    @property
-    def version_scheme(self):
-        return self._version_scheme
 
     @property
     def random_id(self):

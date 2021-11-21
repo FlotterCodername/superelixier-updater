@@ -5,9 +5,7 @@
   },
   "name": "RetroArch",
   "url": "https://retroarch.com/index.php?page=platforms",
-  "version_scheme": {
-    "is_type": "tuple"
-  },
+  "ver_scheme_type": "tuple",
   "blob_re": ".*<a href=\"(?P<url>https://buildbot\\.libretro\\.com/stable/(?P<ver>.*?)/windows/x86_64/RetroArch\\.7z)\".*",
   "blob_unwanted": [],
   "appdatas": [],

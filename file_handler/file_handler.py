@@ -64,7 +64,7 @@ class FileHandler:
             if os.path.isfile(tmpfile):
                 os.remove(tmpfile)
             archives = "001|7z|bz2|bzip2|gz|gzip|lzma|rar|tar|tgz|txz|xz|zip"
-            if "installer" in self.__app.optionals and self.__app.optionals["installer"] == "sfx":
+            if self.__app.installer == "sfx":
                 archives = f"exe|{archives}"
             if filename and re.fullmatch(f"^.*\\.({archives})$", filename.casefold()):
                 subprocess.run([SEVENZIP, 'x', '-aoa', filename], cwd=self.__staging, stdout=subprocess.DEVNULL)
@@ -73,11 +73,11 @@ class FileHandler:
                 extracted = os.listdir(self.__staging)
                 if len(extracted) == 1:
                     filename = extracted[0]
-            if filename and filename[-4:].casefold() == '.exe':
-                if "installer" in self.__app.optionals and self.__app.optionals["installer"] == "innoextract":
+            if filename and filename.casefold().endswith('.exe'):
+                if self.__app.installer == "innoextract":
                     subprocess.run([INNOEXTRACT, '-n', filename], cwd=self.__staging, stdout=subprocess.DEVNULL)
                     os.remove(os.path.join(self.__staging, filename))
-                elif "installer" in self.__app.optionals and self.__app.optionals["installer"] is None:
+                elif self.__app.installer is None:
                     os.rename(os.path.join(self.__staging, filename),
                               os.path.join(self.__staging, f"{self.__app.name}.exe"))
         return False
@@ -122,7 +122,7 @@ class FileHandler:
                 normalize_done = True
         if not normalize_failure:
             with open(os.path.join(self.__staging, "superelixier.json"), "w") as file:
-                json.dump({**self.__app.version_latest, 'spec': self.__app.version_scheme.spec}, file)
+                json.dump({**self.__app.version_latest, 'spec': self.__app.ver_scheme_spec}, file)
 
     def __project_merge_oldnew(self):
         # Data to keep

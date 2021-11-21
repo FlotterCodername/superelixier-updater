@@ -12,6 +12,7 @@ import time
 from concurrent import futures
 
 import colorama
+import settings
 
 from appveyor.appveyor_app import AppveyorApp
 from config_handler.config_handler import ConfigHandler
@@ -37,13 +38,13 @@ class Main:
             sys.exit()
         EulaChecker.check_eula()
         # Configuration
-        configuration = ConfigHandler().configuration
-        self.cfg_auth = configuration["auth"]
-        self.cfg_available = configuration["available"]
-        self.cfg_local = configuration["local"]
+        ConfigHandler()
+        self.cfg_auth = settings.app_config["auth"]
+        self.cfg_available = settings.app_config["available"]
+        self.cfg_local = settings.app_config["local"]
         # Managers
-        self.__appveyor_manager = GithubManager(self.cfg_auth)
-        self.__github_manager = GithubManager(self.cfg_auth)
+        self.__appveyor_manager = GithubManager()
+        self.__github_manager = GithubManager()
         self.__multithreaded = True
         # Helper objects
         self.job_list = []
@@ -65,29 +66,29 @@ class Main:
             native_path = FileHandler.make_path_native(path)
             for list_item in self.cfg_local[path]:
                 if list_item.casefold() in self.cfg_available:
-                    project = self.cfg_available[list_item.casefold()]
-                    if project["repo"]:
+                    appconf = self.cfg_available[list_item.casefold()]
+                    if appconf["repo"]:
                         job = None
-                        if project["repo"] == "appveyor":
-                            job = AppveyorApp(project, native_path, self.__appveyor_manager.get_headers)
-                        elif project["repo"] == "github":
-                            job = GithubApp(project, native_path, self.__github_manager.get_headers)
-                        elif project["repo"] == "html":
-                            job = HTMLApp(project, native_path)
+                        if appconf["repo"] == "appveyor":
+                            job = AppveyorApp(native_path, **appconf)
+                        elif appconf["repo"] == "github":
+                            job = GithubApp(native_path, **appconf)
+                        elif appconf["repo"] == "html":
+                            job = HTMLApp(native_path, **appconf)
                         if job is not None:
                             project_list.append(job)
 
         if self.__multithreaded:
             with futures.ThreadPoolExecutor(max_workers=8) as executor:
                 projects = {executor.submit(Main.__threadable_update_check, project): project for project in project_list}
-                for project in futures.as_completed(projects):
-                    if projects[project].update_status in TRIGGER_UPDATE_STATUS:
-                        self.job_list.append(projects[project])
+                for appconf in futures.as_completed(projects):
+                    if projects[appconf].update_status in TRIGGER_UPDATE_STATUS:
+                        self.job_list.append(projects[appconf])
         else:
-            for project in project_list:
-                Main.__threadable_update_check(project)
-                if project.update_status in TRIGGER_UPDATE_STATUS:
-                    self.job_list.append(project)
+            for appconf in project_list:
+                Main.__threadable_update_check(appconf)
+                if appconf.update_status in TRIGGER_UPDATE_STATUS:
+                    self.job_list.append(appconf)
 
     @staticmethod
     def __threadable_update_check(project):

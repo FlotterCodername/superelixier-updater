@@ -5,9 +5,7 @@
   },
   "name": "CDBurnerXP",
   "url": "https://cdburnerxp.se/download",
-  "version_scheme": {
-    "is_type": "tuple"
-  },
+  "ver_scheme_type": "tuple",
   "blob_re": "<td><a href=\"(?P<url>https://download\\.cdburnerxp\\.se/portable/CDBurnerXP-x64-(?P<ver>.*?)\\.zip)\" onclick=\".*?\">64 bit</a></td>",
   "blob_unwanted": [],
   "appdatas": [],

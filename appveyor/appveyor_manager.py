@@ -7,18 +7,14 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 """
 import re
 
-from appveyor import HEADERS, API_URL
+from appveyor import API_URL
 from appveyor.appveyor_app import AppveyorApp
 from generic_app.generic_manager import GenericManager
 
 
 class AppveyorManager(GenericManager):
-    API_URL = "https://ci.appveyor.com/api"
-
-    def __init__(self, cfg_auth):
+    def __init__(self):
         super().__init__()
-        self._headers = HEADERS
-        self._headers["Authorization"] = cfg_auth["appveyor_token"]
 
     @staticmethod
     def build_blob_list(app: AppveyorApp):
@@ -26,16 +22,8 @@ class AppveyorManager(GenericManager):
             "version_id": app.api_call[0]["created"],
             "blobs": []
         }
-        if app.optionals["blob_re"]:
-            for asset in app.api_call:
-                filename = asset['fileName']
-                if re.fullmatch(app.optionals["blob_re"], filename.split("/")[-1]) is not None:
-                    my_dict["blobs"].append(API_URL + "/buildjobs/" + asset["jobId"] + "/artifacts/" + filename)
-        else:
-            print(f"{app.name} Error: \"blob_re\" is not configured but is required")
-            app.update_status = "failed"
+        for asset in app.api_call:
+            filename = asset['fileName']
+            if re.fullmatch(app.blob_re, filename.split("/")[-1]) is not None:
+                my_dict["blobs"].append(API_URL + "/buildjobs/" + asset["jobId"] + "/artifacts/" + filename)
         return my_dict
-
-    @property
-    def get_headers(self):
-        return self._headers

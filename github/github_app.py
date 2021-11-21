@@ -9,21 +9,17 @@ import json
 import requests as rest
 from requests import HTTPError
 
+import settings
 from generic_app.generic_app import GenericApp
 from helper.terminal import ERROR
-from version_scheme.version_scheme import VersionScheme
 
 
 class GithubApp(GenericApp):
 
-    def __init__(self, json_entry: dict, target, headers):
-        super().__init__(json_entry, target)
-        self.__headers = headers
-        self._user = json_entry["user"]
-        self._project = json_entry["project"]
-        self._prerelease = self._optionals["prerelease"] or False
+    def __init__(self, target, **kwargs):
+        super().__init__(target, **kwargs)
+        self._prerelease = self._prerelease or False
         self._api_call = None
-        self._version_scheme = VersionScheme(is_type="github")
 
     def execute(self):
         """
@@ -41,7 +37,7 @@ class GithubApp(GenericApp):
     def __api_request(self):
         try:
             releases = rest.get(f"https://api.github.com/repos/{self._user}/{self._project}/releases",
-                                headers=self.__headers)
+                                headers=settings.github_headers)
             api_response = json.loads(releases.text)
             if releases.status_code != 200:
                 print(ERROR + self.name + ": HTTP Status %s: %s" % (releases.status_code, api_response["message"]))
@@ -54,18 +50,6 @@ class GithubApp(GenericApp):
         from github.github_manager import GithubManager
         my_list = GithubManager.build_blob_list(self)
         return my_list
-
-    @property
-    def user(self):
-        return self._user
-
-    @property
-    def project(self):
-        return self._project
-
-    @property
-    def prerelease(self):
-        return self._prerelease
 
     @property
     def api_call(self):

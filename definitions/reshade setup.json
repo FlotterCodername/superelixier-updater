@@ -5,9 +5,7 @@
   },
   "name": "ReShade Setup",
   "url": "https://reshade.me",
-  "version_scheme": {
-    "is_type": "tuple"
-  },
+  "ver_scheme_type": "tuple",
   "blob_re": ".*<a href=\"(?P<url>/downloads/.*?\\.exe)\" class=\"button\">Download ReShade (?P<ver>.*?)</a>.*",
   "blob_unwanted": [],
   "appdatas": [],

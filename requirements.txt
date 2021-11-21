@@ -1,5 +1,6 @@
 colorama
 flake8
+jsonschema
 packaging
 pyinstaller
 requests~=2.26.0

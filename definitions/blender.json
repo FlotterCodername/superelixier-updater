@@ -5,9 +5,7 @@
   },
   "name": "Blender",
   "url": "https://www.blender.org/download",
-  "version_scheme": {
-    "is_type": "tuple"
-  },
+  "ver_scheme_type": "tuple",
   "blob_re": ".*href=\"(?P<url>https://www\\.blender\\.org/download/Blender.*?/blender-(?P<ver>.*?)-windows-?x?64\\.zip)/?\".*",
   "blob_unwanted": [],
   "appdatas": [],
