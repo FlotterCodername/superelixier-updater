@@ -9,22 +9,22 @@ import os
 import sys
 import time
 
-import colorama
 from concurrent import futures
+
+import colorama
+
 from appveyor.appveyor_app import AppveyorApp
-from config_loader.config_loader import ConfigLoader
-from config_loader.eula import EulaChecker
+from config_handler.config_handler import ConfigHandler
+from config_handler.eula import EulaChecker
 from environment_handler.environment_handler import LockFile, LockFileException
 from file_handler.file_handler import FileHandler
 from generic_app.generic_app import GenericApp
 from generic_app.generic_manager import GenericManager
 from github.github_app import GithubApp
 from github.github_manager import GithubManager
+from helper.terminal import print_header, GREEN, MAGENTA, CYAN, BRIGHT, RESET, RED
 from html_seu.html_app import HTMLApp
-RESET = f"{colorama.Fore.WHITE}{colorama.Style.NORMAL}"
-GREEN = colorama.Fore.GREEN
-MAGENTA = f"{colorama.Style.BRIGHT}{colorama.Fore.MAGENTA}"
-CYAN = f"{colorama.Style.BRIGHT}{colorama.Fore.CYAN}"
+
 TRIGGER_UPDATE_STATUS = ("update", "no_version_file", "not_installed")
 
 
@@ -37,7 +37,7 @@ class Main:
             sys.exit()
         EulaChecker.check_eula()
         # Configuration
-        configuration = ConfigLoader().configuration
+        configuration = ConfigHandler().configuration
         self.cfg_auth = configuration["auth"]
         self.cfg_available = configuration["available"]
         self.cfg_local = configuration["local"]
@@ -101,15 +101,15 @@ class Main:
             message = f'{job.name}: '
             if job.update_status == "update":
                 message += "Updating"
-                Main.print_header(message, GREEN)
+                print_header(message, GREEN)
                 my_fsm.project_update()
             elif job.update_status == "no_version_file":
                 message += "Updating (forced)"
-                Main.print_header(message, MAGENTA)
+                print_header(message, MAGENTA)
                 my_fsm.project_update()
             elif job.update_status == "not_installed":
                 message += "Installing"
-                Main.print_header(message, CYAN)
+                print_header(message, CYAN)
                 my_fsm.project_install()
 
     @staticmethod
@@ -117,11 +117,12 @@ class Main:
         color = ''
         message = ''
         if project.update_status == "no_update":
-            color = colorama.Style.BRIGHT
+            color = BRIGHT
             message = "No update available"
         elif project.update_status == "installed_newer":
             color = MAGENTA
-            message = f"Installed is newer.\r\n{RESET}{project.name}: Please make sure your version wasn't retracted because of problems with it."
+            message = "Installed is newer.\r\n " + RESET + project.name + \
+                      ": Please make sure your version wasn't retracted because of problems with it."
         elif project.update_status == "update":
             color = GREEN
             message = "Update available"
@@ -132,20 +133,15 @@ class Main:
             color = CYAN
             message = "Will be installed"
         elif project.update_status == "error":
-            color = colorama.Fore.RED
+            color = RED
             message = "Could not determine the version installed"
         elif project.update_status == "failed":
-            color = colorama.Fore.RED
+            color = RED
             message = "Could not connect to URL or API"
         elif project.update_status == "unknown":
-            color = colorama.Fore.RED
+            color = RED
             message = "Failed to check this project"
-        print(f"{color}{project.name}: {message}\r\n{RESET}", end='')
-
-    @staticmethod
-    def print_header(string, color=''):
-        bar = (len(string) + 4) * "#"
-        print(f"{color}{bar}\n# {string} #\n{bar}{RESET}")
+        print("%s%s: %s\r\n%s" % (color, project.name, message, RESET), end='')
 
     @staticmethod
     def color_handling(init=True):

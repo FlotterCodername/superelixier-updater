@@ -5,7 +5,6 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
-import colorama
 import requests
 import html
 import os
@@ -15,6 +14,7 @@ from urllib.parse import urlparse, urlunparse
 
 from requests import HTTPError
 
+from helper.terminal import ERROR
 from html_seu import HEADERS
 
 
@@ -51,7 +51,7 @@ class Downloader:
         """
         response = requests.get(url, allow_redirects=True, headers=HEADERS, stream=True)
         if response.status_code != 200:
-            print(f"{colorama.Fore.RED}Download failed, HTTP status {response.status_code}: {response.reason}")
+            print(ERROR + "Download failed, HTTP status %s: %s" % (response.status_code, response.reason))
             raise HTTPError
         else:
             if response.headers.get('refresh'):
@@ -63,7 +63,7 @@ class Downloader:
                     print(f"Redirected to: {url}")
                     url, response = Downloader.__handle_redirects(url, dl_file)
                 else:
-                    print(f"{colorama.Fore.RED}Failed to find URL on redirect")
+                    print(ERROR + "Failed to find URL on redirect")
                     raise ValueError
             elif response.headers.get("content-type"):
                 ct = response.headers["content-type"]
@@ -78,11 +78,11 @@ class Downloader:
                         url = Downloader.normalize_url(match.group(2), source=old_url)
                         print(f"Redirected to: {url}")
                         if not Downloader.__check_domain(old_url, url):
-                            print(f"{colorama.Fore.RED}Could not do a JavaScript-triggered download because the download domain didn't match a trusted domain we know.")
+                            print(ERROR + "Could not do a JavaScript-triggered download because the download domain didn't match a trusted domain we know.")
                             raise ValueError
                         url, response = Downloader.__handle_redirects(url, dl_file)
                     else:
-                        print(f"{colorama.Fore.RED}Failed to find URL on redirect")
+                        print(ERROR + "Failed to find URL on redirect")
                         raise ValueError
         return url, response
 
@@ -116,7 +116,7 @@ class Downloader:
                 raise ValueError
             url = urlunparse(skeleton)
         except BaseException:
-            print(f"{colorama.Fore.RED}Failed to build URL")
+            print(ERROR + "Failed to build URL")
             raise ValueError
         return url
 

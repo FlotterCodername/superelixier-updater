@@ -7,9 +7,10 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 """
 import os
 import sys
-import colorama
 
-LOCK_MSG = "ERROR: The previous Superelixier Updater instance is still running."
+from helper.terminal import ERROR, BRIGHT
+
+LOCK_MSG = ERROR + BRIGHT + "The previous Superelixier Updater instance is still running."
 
 
 class LockFileException(Exception):
@@ -48,5 +49,5 @@ class LockFile:
 
     @staticmethod
     def __lock_exit():
-        print(colorama.Fore.RED + colorama.Style.BRIGHT + LOCK_MSG)
+        print(LOCK_MSG)
         raise LockFileException()

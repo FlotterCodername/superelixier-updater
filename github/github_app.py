@@ -5,12 +5,12 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
-import colorama
 import json
 import requests as rest
 from requests import HTTPError
 
 from generic_app.generic_app import GenericApp
+from helper.terminal import ERROR
 from version_scheme.version_scheme import VersionScheme
 
 
@@ -44,7 +44,7 @@ class GithubApp(GenericApp):
                                 headers=self.__headers)
             api_response = json.loads(releases.text)
             if releases.status_code != 200:
-                print(colorama.Fore.RED + f'{self.name}: HTTP Status {releases.status_code}: {api_response["message"]}')
+                print(ERROR + self.name + ": HTTP Status %s: %s" % (releases.status_code, api_response["message"]))
                 return None
         except (ConnectionError, HTTPError):
             return None

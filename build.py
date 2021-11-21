@@ -13,7 +13,7 @@ import subprocess
 import sys
 from os.path import join as opj
 from os.path import split as ops
-from config_loader.config_loader import ConfigLoader
+from config_handler.config_handler import ConfigHandler
 
 APP_NAME = "superelixier"
 VERSION = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -80,7 +80,7 @@ def pandoc(src, dst):
 
 
 cleanup()
-ConfigLoader().write_app_list()
+ConfigHandler().write_app_list()
 subprocess.run(['pyinstaller', 'main.py', '--icon=app.ico', '--name', APP_NAME, '--onefile'], cwd=PROJECT)
 for f in FOLDERS:
     os.makedirs(f, exist_ok=True)

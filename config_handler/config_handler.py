@@ -5,39 +5,67 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
-import colorama
+import sys
+from json import JSONDecodeError
+
 import json
 import os
-import re
-import sys
-from config_loader.defaults import AUTH
+from os.path import join as opj
+
+from config_handler.defaults import AUTH
+from helper import DIR_APP
+from helper.terminal import ERROR, WARNING, exit_app
+
+E_MISSING = ERROR + '%s was not found but is required.'
+E_INVALID = ERROR + '%s is not valid JSON.'
+W_INVALID = WARNING + '%s is not valid JSON.%s'
+
+FN_AUTH = 'auth.json'
+FN_LOCAL = 'local.json'
+FN_LOCAL_EX = 'local_example.json'
 
 
-class ConfigLoader:
+class ConfigHandler:
 
     def __init__(self):
-        cfg_dir = os.path.join(os.path.dirname(sys.argv[0]), "config")
-        self._configuration = {"available": self.__load_cfg_available()}
-        for cfg in ["auth", "local"]:
-            try:
-                self._configuration[cfg] = json.load(open(os.path.join(cfg_dir, f"{cfg}.json"), 'r'))
-            except FileNotFoundError:
-                if cfg == "auth":
-                    with open(os.path.join(cfg_dir, f"{cfg}.json"), "w") as file:
-                        json.dump(AUTH, file)
-                    self._configuration[cfg] = json.load(open(os.path.join(cfg_dir, f"{cfg}.json"), 'r'))
-                else:
-                    print(f"{colorama.Fore.RED}Fatal error: {cfg}.json was not found but is required.")
-                    if cfg == "local":
-                        print(f"{colorama.Fore.RED}There is a {cfg}_example.json in the config directory that you can use as a blueprint.")
-                    input("Press ENTER to exit.")
-                    sys.exit()
-            except json.JSONDecodeError:
-                print(f"{colorama.Fore.RED}Fatal error: {cfg}.json is not a valid JSON file.")
-                input("Press ENTER to exit.")
-                sys.exit()
-        tmp = self.__validate_paths()
-        self._configuration["local"] = tmp
+        self._cfg_dir = opj(DIR_APP, "config")
+        self._configuration = {"auth": self._load_auth(), "available": self.__load_cfg_available(), "local": self._load_local()}
+
+    def _load_auth(self):
+        msg_invalid = E_INVALID % FN_AUTH
+        loc = opj(self._cfg_dir, FN_AUTH)
+        try:
+            return self.__load_json(loc, msg_invalid)
+        except FileNotFoundError:
+            with open(loc, "w") as fd:
+                json.dump(AUTH, fd)
+            return self.__load_json(loc)
+        except JSONDecodeError:
+            exit_app()
+
+    def _load_local(self):
+        msg_invalid = E_INVALID % FN_LOCAL
+        msg_missing = E_MISSING % FN_LOCAL
+        msg_missing += "You can use '%s' in the application's 'config' directory as a blueprint." % FN_LOCAL_EX
+        loc = opj(self._cfg_dir, FN_LOCAL)
+        try:
+            return self.__load_json(loc, msg_invalid, msg_missing)
+        except (FileNotFoundError, JSONDecodeError):
+            exit_app()
+
+    @staticmethod
+    def __load_json(path: str, msg_invalid=None, msg_missing=None, raising=True):
+        e_map = {FileNotFoundError: msg_missing, JSONDecodeError: msg_invalid}
+        loaded = None
+        try:
+            with open(opj(path), 'r') as fd:
+                loaded = json.load(fd)
+        except (FileNotFoundError, JSONDecodeError) as e:
+            if error := e_map[type(e)]:
+                print(error)
+            if raising:
+                raise e
+        return loaded
 
     def write_app_list(self):
         cfg = []
@@ -61,18 +89,18 @@ class ConfigLoader:
                 if app["info"]["category"] == cat:
                     markdown.append(f"**{app['name']}** | {app['info']['gist'].replace('%name', app['name'])}")
         markdown = "\r\n".join(markdown)
-        with open(os.path.join(os.path.dirname(sys.argv[0]), "docs", "Available Apps.md"), "wb") as file:
+        with open(opj(DIR_APP, "docs", "Available Apps.md"), "wb") as file:
             file.write(str.encode(markdown))
 
     @staticmethod
     def __load_cfg_available():
-        definition_dir = os.path.join(os.path.dirname(sys.argv[0]), "definitions")
+        definition_dir = opj(DIR_APP, "definitions")
         files = [f for f in os.listdir(definition_dir) if f != '.manifest.json']
         cfg_available = {}
         for defi in files:
-            if re.search("\\.json$", defi):
+            if defi.endswith('.json'):
                 try:
-                    my_dict = json.load(open(os.path.join(definition_dir, defi), 'r'))
+                    my_dict = json.load(open(opj(definition_dir, defi), 'r'))
                     cfg_available[my_dict["name"].casefold()] = my_dict
                 except json.JSONDecodeError:
                     pass
@@ -81,7 +109,7 @@ class ConfigLoader:
     def __validate_paths(self):
         cfg_local = self._configuration["local"].copy()
         for key in self._configuration["local"]:
-            if re.match(r"^/", key):
+            if key.startswith('/'):
                 cwdrive = os.path.splitdrive(sys.argv[0])[0]
                 key_new = cwdrive + key
                 cfg_local[key_new] = cfg_local.pop(key)

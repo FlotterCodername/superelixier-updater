@@ -5,13 +5,13 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
-import colorama
 import json
 import requests as rest
 from requests import HTTPError
 
 from appveyor import API_URL
 from generic_app.generic_app import GenericApp
+from helper.terminal import ERROR
 from version_scheme.version_scheme import VersionScheme
 
 
@@ -40,7 +40,7 @@ class AppveyorApp(GenericApp):
         try:
             api_response = rest.get(f"{API_URL}/projects/{self._user}/{self._project}/history?recordsNumber=20", headers=self.__headers)
             if api_response.status_code != 200:
-                print(colorama.Fore.RED + f'{self.name}: HTTP Status {api_response.status_code}: {json.loads(api_response.text)["message"]}')
+                print(ERROR + self.name + ": HTTP Status %s: %s" % (api_response.status_code, json.loads(api_response.text)["message"]))
                 return None
             history = json.loads(api_response.text)['builds']
             job_id = None
@@ -61,7 +61,7 @@ class AppveyorApp(GenericApp):
                 return None
             api_response = json.loads(artifacts.text)
             if artifacts.status_code != 200:
-                print(colorama.Fore.RED + f'{self.name}: HTTP Status {artifacts.status_code}: {api_response["message"]}')
+                print(ERROR + self.name + ": HTTP Status %s: %s" % (artifacts.status_code, api_response["message"]))
                 return None
             # Handle hypothetical case where successful build has no artifacts. The JSON response would be []:
             if len(api_response) == 0:
