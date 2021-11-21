@@ -24,6 +24,7 @@ from github.github_app import GithubApp
 from github.github_manager import GithubManager
 from helper.terminal import print_header, GREEN, MAGENTA, CYAN, BRIGHT, RESET, RED
 from html_seu.html_app import HTMLApp
+
 TRIGGER_UPDATE_STATUS = ("update", "no_version_file", "not_installed")
 
 
@@ -120,7 +121,8 @@ class Main:
             message = "No update available"
         elif project.update_status == "installed_newer":
             color = MAGENTA
-            message = f"Installed is newer.\r\n{RESET}{project.name}: Please make sure your version wasn't retracted because of problems with it."
+            message = "Installed is newer.\r\n " + RESET + project.name + \
+                      ": Please make sure your version wasn't retracted because of problems with it."
         elif project.update_status == "update":
             color = GREEN
             message = "Update available"
@@ -139,7 +141,7 @@ class Main:
         elif project.update_status == "unknown":
             color = RED
             message = "Failed to check this project"
-        print(f"{color}{project.name}: {message}\r\n{RESET}", end='')
+        print("%s%s: %s\r\n%s" % (color, project.name, message, RESET), end='')
 
     @staticmethod
     def color_handling(init=True):
