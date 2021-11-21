@@ -5,9 +5,7 @@
   },
   "name": "Dolphin",
   "url": "https://dolphin-emu.org/download/",
-  "version_scheme": {
-    "is_type": "integer"
-  },
+  "ver_scheme_type": "integer",
   "blob_re": "(?P<url>https://dl\\.dolphin-emu\\.org/.*/dolphin-.*-(?P<ver>.*?)-x64\\.7z)",
   "blob_unwanted": [],
   "appdatas": [],

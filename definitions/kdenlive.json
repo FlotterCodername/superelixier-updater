@@ -5,9 +5,7 @@
   },
   "name": "Kdenlive",
   "url": "https://kdenlive.org/en/download/",
-  "version_scheme": {
-    "is_type": "tuple"
-  },
+  "ver_scheme_type": "tuple",
   "blob_re": "(?P<url>https://download\\.kde\\.org/stable/kdenlive/.*?/windows/kdenlive-(?P<ver>.*?)_standalone\\.exe)",
   "blob_unwanted": [],
   "installer": "sfx",

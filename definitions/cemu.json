@@ -5,9 +5,7 @@
   },
   "name": "Cemu",
   "url": "http://cemu.info/",
-  "version_scheme": {
-    "is_type": "tuple"
-  },
+  "ver_scheme_type": "tuple",
   "blob_re": ".*\"(?P<url>https://cemu\\.info/releases/cemu_(?P<ver>.*?)\\.zip)\".*",
   "blob_unwanted": [],
   "appdatas": [],

@@ -5,10 +5,8 @@
   },
   "name": "PCSX2",
   "url": "https://buildbot.orphis.net/pcsx2/",
-  "version_scheme": {
-    "is_type": "tuple",
-    "spec": 1
-  },
+  "ver_scheme_type": "tuple",
+  "ver_scheme_spec": 1,
   "blob_re": ".*(?P<url>/pcsx2/index\\.php\\?m=dl&amp;rev=v*(?P<ver>.*?)&amp;platform=windows-x86).*",
   "blob_unwanted": [],
   "appdatas": [
