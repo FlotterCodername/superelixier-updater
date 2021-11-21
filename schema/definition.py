@@ -6,7 +6,10 @@ If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
 import copy
-import json
+
+import jsonschema
+
+from helper.terminal import ERROR
 
 INSTALLERS = {"enum": ["sfx", "innoextract"]}
 REPOS = {"enum": ["appveyor", "github", "html"]}
@@ -88,11 +91,6 @@ class JsonSchema:
             "github": self.__definition_github,
             "html": self.__definition_html,
         }
-        """
-        for key in self.REPO_MAP:
-            with open(key + ".schema.json", "w") as fd:
-                json.dump(self.REPO_MAP[key], fd, indent=2)
-        """
 
     def __apply_override(self):
         my_actions = (
@@ -102,6 +100,32 @@ class JsonSchema:
         )
         for row in my_actions:
             row[0].update(row[1])
-            for key in row[3]:
+            for key in row[2]:
                 if key in row[0]["properties"]:
-                    row[0].pop(key)
+                    row[0]["properties"].pop(key)
+
+    def validate_definition(self, obj, filename):
+        if 'repo' not in obj:
+            print("%sfile %s: Missing key \"repo\"!" % (ERROR, filename))
+            return False
+        if obj['repo'] not in REPOS["enum"]:
+            print("%sfile %s: Unknown key \"repo\"!" % (ERROR, filename))
+            return False
+        model = self.REPO_MAP[obj['repo']]
+        try:
+            jsonschema.validate(obj, model)
+        except jsonschema.ValidationError:
+            print("%sfile %s: ValidationError!" % (ERROR, filename))
+            return False
+        except jsonschema.SchemaError:
+            print("%sfile %s: The app has a bug in its %s schema validation!" % (ERROR, filename, obj['repo']))
+            return False
+        return True
+
+
+if __name__ == '__main__':
+    instance = JsonSchema()
+    for key in instance.REPO_MAP:
+        with open(key + ".schema.json", "w") as fd:
+            import json
+            json.dump(instance.REPO_MAP[key], fd, indent=2)

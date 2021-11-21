@@ -16,6 +16,7 @@ import settings
 from config_handler import AUTH
 from helper import DIR_APP
 from helper.terminal import ERROR, WARNING, exit_app
+from schema.definition import JsonSchema
 
 E_MISSING = ERROR + '%s was not found but is required.'
 E_INVALID = ERROR + '%s is not valid JSON.'
@@ -30,6 +31,7 @@ class ConfigHandler:
 
     def __init__(self):
         self._cfg_dir = opj(DIR_APP, "config")
+        self._schema = JsonSchema()
         self._configuration = {
             "auth": self._load_auth(),
             "available": self.__load_cfg_available(),
@@ -100,8 +102,7 @@ class ConfigHandler:
         with open(opj(DIR_APP, "docs", "Available Apps.md"), "wb") as file:
             file.write(str.encode(markdown))
 
-    @staticmethod
-    def __load_cfg_available():
+    def __load_cfg_available(self):
         definition_dir = opj(DIR_APP, "definitions")
         files = [f for f in os.listdir(definition_dir) if f != '.manifest.json']
         cfg_available = {}
@@ -109,9 +110,11 @@ class ConfigHandler:
             if defi.endswith('.json'):
                 try:
                     my_dict = json.load(open(opj(definition_dir, defi), 'r'))
+                    if not self._schema.validate_definition(my_dict, filename=defi):
+                        raise ValueError
                     cfg_available[my_dict["name"].casefold()] = my_dict
-                except json.JSONDecodeError:
-                    pass
+                except ValueError:
+                    print("%sBad definition: %s" % (ERROR, defi))
         return cfg_available
 
     def __validate_paths(self):
