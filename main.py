@@ -22,7 +22,6 @@ from file_handler.file_handler import FileHandler
 from generic_app.generic_app import GenericApp
 from generic_app.generic_manager import GenericManager
 from github.github_app import GithubApp
-from github.github_manager import GithubManager
 from helper.terminal import print_header, GREEN, MAGENTA, CYAN, BRIGHT, RESET, RED
 from html_seu.html_app import HTMLApp
 
@@ -42,9 +41,6 @@ class Main:
         self.cfg_auth = settings.app_config["auth"]
         self.cfg_available = settings.app_config["available"]
         self.cfg_local = settings.app_config["local"]
-        # Managers
-        self.__appveyor_manager = GithubManager()
-        self.__github_manager = GithubManager()
         self.__multithreaded = True
         # Helper objects
         self.job_list = []
