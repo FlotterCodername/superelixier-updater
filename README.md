@@ -1,4 +1,6 @@
+
 # Superelixier Updater
+[![Python application](https://github.com/FlotterCodername/superelixier-updater/actions/workflows/python-app.yml/badge.svg)](https://github.com/FlotterCodername/superelixier-updater/actions/workflows/python-app.yml)
 
 **Operating this tool currently requires some technical knowledge about JavaScript Object Notation (JSON) and regular
 expressions. As development progresses, this will change.**
