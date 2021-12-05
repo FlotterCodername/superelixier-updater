@@ -109,7 +109,7 @@ class JsonSchema:
             print("%sfile %s: Missing key \"repo\"!" % (ERROR, filename))
             return False
         if obj['repo'] not in REPOS["enum"]:
-            print("%sfile %s: Unknown key \"repo\"!" % (ERROR, filename))
+            print("%sfile %s: Unknown value for key \"repo\"!" % (ERROR, filename))
             return False
         model = self.REPO_MAP[obj['repo']]
         try:
