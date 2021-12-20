@@ -59,7 +59,8 @@ class ConfigHandler:
         msg_missing += "You can use '%s' in the application's 'config' directory as a blueprint." % FN_LOCAL_EX
         loc = opj(self._cfg_dir, FN_LOCAL)
         try:
-            return self.__load_json(loc, msg_invalid, msg_missing)
+            unvalidated = self.__load_json(loc, msg_invalid, msg_missing)
+            return ConfigHandler._validate_paths(unvalidated)
         except (FileNotFoundError, JSONDecodeError):
             exit_app()
 
@@ -117,14 +118,15 @@ class ConfigHandler:
                     print("%sBad definition: %s" % (ERROR, defi))
         return cfg_available
 
-    def __validate_paths(self):
-        cfg_local = self._configuration["local"].copy()
-        for key in self._configuration["local"]:
-            if key.startswith('/'):
+    @staticmethod
+    def _validate_paths(cfg_local):
+        new = {}
+        for key_old in cfg_local:
+            if key_old.startswith('/') or key_old.startswith('\\'):
                 cwdrive = os.path.splitdrive(sys.argv[0])[0]
-                key_new = cwdrive + key
-                cfg_local[key_new] = cfg_local.pop(key)
-        return cfg_local
+                key_new = cwdrive + key_old
+                new[key_new] = cfg_local[key_old]
+        return new
 
     @property
     def configuration(self):
