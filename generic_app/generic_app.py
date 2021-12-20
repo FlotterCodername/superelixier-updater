@@ -14,7 +14,7 @@ from typing import Union, List
 class GenericApp:
     def __init__(
         self,
-        target,
+        target: str,
         *,
         appdatas: Union[str, List[str]] = None,
         blob_re: str = None,
