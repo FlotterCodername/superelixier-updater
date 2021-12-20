@@ -1,4 +1,1 @@
-AUTH = {
-    "appveyor_token": "",
-    "github_token": ""
-}
+AUTH = {"appveyor_token": "", "github_token": ""}

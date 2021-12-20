@@ -18,6 +18,6 @@ def exit_app():
     sys.exit()
 
 
-def print_header(string, color='', *, frame_char='#'):
+def print_header(string, color="", *, frame_char="#"):
     bar = (len(string) + 4) * frame_char
     print("%s%s\n%s %s %s\n%s%s" % (color, bar, frame_char, string, frame_char, bar, RESET))

@@ -13,7 +13,6 @@ from generic_app.generic_app import GenericApp
 
 
 class GenericManager:
-
     @staticmethod
     def check_update(app: GenericApp):
         """
@@ -27,16 +26,16 @@ class GenericManager:
         elif not app.update_status == "failed":
             ver_info_file = os.path.join(app.target_dir, app.name, "superelixier.json")
             if os.path.isfile(ver_info_file):
-                with open(ver_info_file, 'r') as file:
+                with open(ver_info_file, "r") as file:
                     version_installed = json.load(file)
-                if 'spec' not in version_installed:
-                    version_installed['spec'] = 0
+                if "spec" not in version_installed:
+                    version_installed["spec"] = 0
                 comparison = GenericManager.compare(app.ver_scheme_type, app.version_latest, version_installed)
                 if comparison:
                     if comparison["version_id"] == version_installed["version_id"]:
                         if comparison["version_id"] != app.version_latest["version_id"]:
-                            if app.ver_scheme_spec > version_installed['spec']:
-                                app.update_status = 'update'
+                            if app.ver_scheme_spec > version_installed["spec"]:
+                                app.update_status = "update"
                             else:
                                 app.update_status = "installed_newer"
                         else:
@@ -64,6 +63,7 @@ class GenericManager:
                     latest_version = new
             elif ver_scheme_type == "tuple":
                 from packaging import version
+
                 if version.parse(new["version_id"]) > version.parse(old["version_id"]):
                     latest_version = new
             elif ver_scheme_type == "appveyor":
@@ -73,6 +73,7 @@ class GenericManager:
                     latest_version = new
             elif ver_scheme_type == "github":
                 from github import GITHUB_DATE
+
                 new_version_id = datetime.strptime(new["version_id"], GITHUB_DATE)
                 old_version_id = datetime.strptime(old["version_id"], GITHUB_DATE)
                 if new_version_id > old_version_id:
@@ -94,6 +95,7 @@ class GenericManager:
     @staticmethod
     def slice_appveyor_date(datestr: str):
         from appveyor import APPVEYOR_DATE
+
         datestr = datestr.split(".")[0]
         datestr_date = datetime.strptime(datestr, APPVEYOR_DATE)
         return datestr_date

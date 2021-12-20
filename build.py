@@ -13,6 +13,7 @@ import subprocess
 import sys
 from os.path import join as opj
 from os.path import split as ops
+
 from config_handler.config_handler import ConfigHandler
 
 APP_NAME = "superelixier"
@@ -23,7 +24,7 @@ DIST = opj(PROJECT, "dist")
 ROOT_FILES = [
     lic := opj(PROJECT, "LICENSE.txt"),
     notice := opj(PROJECT, "NOTICE.txt"),
-    readme := opj(PROJECT, "README.md")
+    readme := opj(PROJECT, "README.md"),
 ]
 FOLDERS = [
     BUILD,
@@ -37,7 +38,7 @@ FOLDERS = [
     def_dir := opj(PROJECT, "definitions"),
     def_dist := opj(DIST, "definitions"),
     thirdparty_dir := opj(PROJECT, "thirdparty"),
-    thirdparty_dist := opj(DIST, "thirdparty")
+    thirdparty_dist := opj(DIST, "thirdparty"),
 ]
 
 
@@ -49,7 +50,7 @@ def cleanup():
 
 def conversion_copy(infile, dst):
     if re.match("^.*\\.md", infile.casefold()):
-        outfile = '.'.join(os.path.split(infile)[1].split('.')[:-1]) + ".html"
+        outfile = ".".join(os.path.split(infile)[1].split(".")[:-1]) + ".html"
         pandoc(infile, opj(dst, outfile))
     else:
         os.makedirs(dst, exist_ok=True)
@@ -71,17 +72,19 @@ def copy_folder(src, dst, exclusions=None):
 
 def pandoc(src, dst):
     preprocessed = opj(BUILD, ops(src)[1])
-    with open(src, 'r') as fd:
+    with open(src, "r") as fd:
         markdown = fd.read()
     markdown = re.sub(r"\[(?P<text>.*?)]\((?P<href>.*?).md\)", r"[\g<text>](\g<href>.html)", markdown)
-    with open(preprocessed, 'w') as fd:
+    with open(preprocessed, "w") as fd:
         fd.write(markdown)
-    subprocess.run(['pandoc', preprocessed, '-s', '-o', dst, '--self-contained', '--css=./docs/github-markdown.css'], cwd=PROJECT)
+    subprocess.run(
+        ["pandoc", preprocessed, "-s", "-o", dst, "--self-contained", "--css=./docs/github-markdown.css"], cwd=PROJECT
+    )
 
 
 cleanup()
 ConfigHandler().write_app_list()
-subprocess.run(['pyinstaller', 'main.py', '--icon=app.ico', '--name', APP_NAME, '--onefile'], cwd=PROJECT)
+subprocess.run(["pyinstaller", "main.py", "--icon=app.ico", "--name", APP_NAME, "--onefile"], cwd=PROJECT)
 for f in FOLDERS:
     os.makedirs(f, exist_ok=True)
 copy_folder(bin_dir, bin_dist)
@@ -91,5 +94,7 @@ copy_folder(docs_dir, docs_dist, exclusions=["example.png", "github-markdown.css
 copy_folder(thirdparty_dir, thirdparty_dist)
 for root_file in ROOT_FILES:
     conversion_copy(root_file, DIST)
-subprocess.run(['7z', '-tzip', 'u', f'..\\..\\superelixier-updater-{VERSION}.zip', '*', '-m0=Deflate', '-mx9'], cwd=DIST)
+subprocess.run(
+    ["7z", "-tzip", "u", f"..\\..\\superelixier-updater-{VERSION}.zip", "*", "-m0=Deflate", "-mx9"], cwd=DIST
+)
 cleanup()

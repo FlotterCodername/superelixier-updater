@@ -10,6 +10,5 @@ from generic_app.generic_manager import GenericManager
 
 
 class HTMLManager(GenericManager):
-
     def __init__(self):
         super().__init__()

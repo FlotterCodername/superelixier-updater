@@ -12,7 +12,6 @@ from github.github_app import GithubApp
 
 
 class GithubManager(GenericManager):
-
     def __init__(self):
         super().__init__()
 
@@ -27,12 +26,9 @@ class GithubManager(GenericManager):
                 latest_release = release
                 break
         if latest_release:
-            my_dict = {
-                "version_id": latest_release["published_at"],
-                "blobs": []
-            }
+            my_dict = {"version_id": latest_release["published_at"], "blobs": []}
             for asset in latest_release["assets"]:
-                filename = asset['browser_download_url'].split("/")[-1]
+                filename = asset["browser_download_url"].split("/")[-1]
                 if re.fullmatch(app.blob_re, filename) is not None:
                     my_dict["blobs"].append(asset["browser_download_url"])
             return my_dict

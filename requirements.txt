@@ -1,5 +1,6 @@
 colorama
 flake8
+isort
 jsonschema
 packaging
 pyinstaller

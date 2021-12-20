@@ -8,7 +8,7 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 import os
 import random
 import string
-from typing import Union, List
+from typing import List, Union
 
 
 class GenericApp:
@@ -58,9 +58,7 @@ class GenericApp:
         self._appdir = os.path.join(target, self._name)
         self._target_dir = target
         self._version_latest = {}
-        self._random_id = "".join(
-            random.choices(string.ascii_lowercase + string.digits, k=32)
-        )
+        self._random_id = "".join(random.choices(string.ascii_lowercase + string.digits, k=32))
         # Update status managed by manager classes
         self.update_status = "unknown"
 

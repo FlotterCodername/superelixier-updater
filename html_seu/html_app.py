@@ -17,7 +17,6 @@ from html_seu import HEADERS
 
 
 class HTMLApp(GenericApp):
-
     def __init__(self, target, **kwargs):
         super().__init__(target, **kwargs)
         self._web_call = None
@@ -34,7 +33,7 @@ class HTMLApp(GenericApp):
                 self._version_latest = self.__get_latest_version()
             except Exception as e:
                 print(f"Error checking {self.name}: {type(e)}: {e}")
-                self.update_status = 'unknown'
+                self.update_status = "unknown"
 
     def __web_request(self):
         try:
@@ -50,17 +49,14 @@ class HTMLApp(GenericApp):
         if self.blob_permalink:
             matches = re.findall(self.ver_scheme_re, self._web_call)
             for match in matches:
-                my_dict = {
-                    "version_id": match,
-                    "blobs": [self.blob_permalink]
-                }
+                my_dict = {"version_id": match, "blobs": [self.blob_permalink]}
                 versions.append(my_dict)
         elif self.blob_re:
             matches = re.finditer(self.blob_re, self._web_call)
             for match in matches:
                 my_dict = {
-                    "version_id": match.group('ver'),
-                    "blobs": [Downloader.normalize_url(match.group('url'), self._url)]
+                    "version_id": match.group("ver"),
+                    "blobs": [Downloader.normalize_url(match.group("url"), self._url)],
                 }
                 versions.append(my_dict)
         version = GenericManager.get_newest(self._ver_scheme_type, versions)

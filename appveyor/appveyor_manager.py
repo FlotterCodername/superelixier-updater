@@ -18,12 +18,9 @@ class AppveyorManager(GenericManager):
 
     @staticmethod
     def build_blob_list(app: AppveyorApp):
-        my_dict = {
-            "version_id": app.api_call[0]["created"],
-            "blobs": []
-        }
+        my_dict = {"version_id": app.api_call[0]["created"], "blobs": []}
         for asset in app.api_call:
-            filename = asset['fileName']
+            filename = asset["fileName"]
             if re.fullmatch(app.blob_re, filename.split("/")[-1]) is not None:
                 my_dict["blobs"].append(API_URL + "/buildjobs/" + asset["jobId"] + "/artifacts/" + filename)
         return my_dict

@@ -67,9 +67,7 @@ DISALLOW_APIBASED = [
 DISALLOW_APPVEYOR = [*DISALLOW_APIBASED, "prerelease"]
 DISALLOW_GITHUB = [*DISALLOW_APIBASED, "branch"]
 DISALLOW_HTML = ["branch", "user", "project", "prelease"]
-REQUIRE_APPVEYOR = {
-    "required": ["blob_re", "branch", "info", "name", "project", "repo", "user"]
-}
+REQUIRE_APPVEYOR = {"required": ["blob_re", "branch", "info", "name", "project", "repo", "user"]}
 REQUIRE_GITHUB = {"required": ["blob_re", "info", "name", "project", "repo", "user"]}
 REQUIRE_HTML = {
     "required": ["info", "url", "repo", "ver_scheme_type"],
@@ -105,27 +103,28 @@ class JsonSchema:
                     row[0]["properties"].pop(key)
 
     def validate_definition(self, obj, filename):
-        if 'repo' not in obj:
-            print("%sfile %s: Missing key \"repo\"!" % (ERROR, filename))
+        if "repo" not in obj:
+            print('%sfile %s: Missing key "repo"!' % (ERROR, filename))
             return False
-        if obj['repo'] not in REPOS["enum"]:
-            print("%sfile %s: Unknown value for key \"repo\"!" % (ERROR, filename))
+        if obj["repo"] not in REPOS["enum"]:
+            print('%sfile %s: Unknown value for key "repo"!' % (ERROR, filename))
             return False
-        model = self.REPO_MAP[obj['repo']]
+        model = self.REPO_MAP[obj["repo"]]
         try:
             jsonschema.validate(obj, model)
         except jsonschema.ValidationError:
             print("%sfile %s: ValidationError!" % (ERROR, filename))
             return False
         except jsonschema.SchemaError:
-            print("%sfile %s: The app has a bug in its %s schema validation!" % (ERROR, filename, obj['repo']))
+            print("%sfile %s: The app has a bug in its %s schema validation!" % (ERROR, filename, obj["repo"]))
             return False
         return True
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     instance = JsonSchema()
     for key in instance.REPO_MAP:
         with open(key + ".schema.json", "w") as fd:
             import json
+
             json.dump(instance.REPO_MAP[key], fd, indent=2)

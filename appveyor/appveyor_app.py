@@ -6,6 +6,7 @@ If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
 import json
+
 import requests as rest
 from requests import HTTPError
 
@@ -16,10 +17,9 @@ from helper.terminal import ERROR
 
 
 class AppveyorApp(GenericApp):
-
     def __init__(self, target, **kwargs):
         super().__init__(target, **kwargs)
-        self._branch = self._branch or 'master'
+        self._branch = self._branch or "master"
         self._api_call = None
 
     def execute(self):
@@ -34,22 +34,31 @@ class AppveyorApp(GenericApp):
 
     def __api_request(self):
         try:
-            api_response = rest.get(f"{API_URL}/projects/{self._user}/{self._project}/history?recordsNumber=20", headers=settings.appveyor_headers)
+            api_response = rest.get(
+                f"{API_URL}/projects/{self._user}/{self._project}/history?recordsNumber=20",
+                headers=settings.appveyor_headers,
+            )
             if api_response.status_code != 200:
-                print(ERROR + self.name + ": HTTP Status %s: %s" % (api_response.status_code, json.loads(api_response.text)["message"]))
+                print(
+                    ERROR
+                    + self.name
+                    + ": HTTP Status %s: %s" % (api_response.status_code, json.loads(api_response.text)["message"])
+                )
                 return None
-            history = json.loads(api_response.text)['builds']
+            history = json.loads(api_response.text)["builds"]
             job_id = None
             for build in history:
                 if job_id:
                     break
-                if build['status'] == 'success' and build['branch'] == self._branch:
-                    api_response = rest.get(f"{API_URL}/projects/{self._user}/{self._project}/builds/{build['buildId']}")
+                if build["status"] == "success" and build["branch"] == self._branch:
+                    api_response = rest.get(
+                        f"{API_URL}/projects/{self._user}/{self._project}/builds/{build['buildId']}"
+                    )
                     if api_response.status_code == 200:
-                        jobs = json.loads(api_response.text)['build']['jobs']
+                        jobs = json.loads(api_response.text)["build"]["jobs"]
                         for job in jobs:
-                            if job['status'] == 'success':
-                                job_id = job['jobId']
+                            if job["status"] == "success":
+                                job_id = job["jobId"]
                                 break
             if job_id:
                 artifacts = rest.get(f"{API_URL}/buildjobs/{job_id}/artifacts")
@@ -70,6 +79,7 @@ class AppveyorApp(GenericApp):
 
     def __get_latest_version(self):
         from appveyor.appveyor_manager import AppveyorManager
+
         my_list = AppveyorManager.build_blob_list(self)
         return my_list
 

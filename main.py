@@ -8,12 +8,11 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 import os
 import sys
 import time
-
 from concurrent import futures
 
 import colorama
-import settings
 
+import settings
 from appveyor.appveyor_app import AppveyorApp
 from config_handler.config_handler import ConfigHandler
 from config_handler.eula import EulaChecker
@@ -22,7 +21,7 @@ from file_handler.file_handler import FileHandler
 from generic_app.generic_app import GenericApp
 from generic_app.generic_manager import GenericManager
 from github.github_app import GithubApp
-from helper.terminal import print_header, GREEN, MAGENTA, CYAN, BRIGHT, RESET, RED
+from helper.terminal import BRIGHT, CYAN, GREEN, MAGENTA, RED, RESET, print_header
 from html_seu.html_app import HTMLApp
 
 TRIGGER_UPDATE_STATUS = ("update", "no_version_file", "not_installed")
@@ -76,7 +75,9 @@ class Main:
 
         if self.__multithreaded:
             with futures.ThreadPoolExecutor(max_workers=8) as executor:
-                projects = {executor.submit(Main.__threadable_update_check, project): project for project in project_list}
+                projects = {
+                    executor.submit(Main.__threadable_update_check, project): project for project in project_list
+                }
                 for appconf in futures.as_completed(projects):
                     if projects[appconf].update_status in TRIGGER_UPDATE_STATUS:
                         self.job_list.append(projects[appconf])
@@ -95,7 +96,7 @@ class Main:
     def __update_apps(self):
         for job in self.job_list:
             my_fsm = FileHandler(job)
-            message = f'{job.name}: '
+            message = f"{job.name}: "
             if job.update_status == "update":
                 message += "Updating"
                 print_header(message, GREEN)
@@ -111,15 +112,19 @@ class Main:
 
     @staticmethod
     def project_status_report(project: GenericApp):
-        color = ''
-        message = ''
+        color = ""
+        message = ""
         if project.update_status == "no_update":
             color = BRIGHT
             message = "No update available"
         elif project.update_status == "installed_newer":
             color = MAGENTA
-            message = "Installed is newer.\r\n " + RESET + project.name + \
-                      ": Please make sure your version wasn't retracted because of problems with it."
+            message = (
+                "Installed is newer.\r\n "
+                + RESET
+                + project.name
+                + ": Please make sure your version wasn't retracted because of problems with it."
+            )
         elif project.update_status == "update":
             color = GREEN
             message = "Update available"
@@ -138,23 +143,23 @@ class Main:
         elif project.update_status == "unknown":
             color = RED
             message = "Failed to check this project"
-        print("%s%s: %s\r\n%s" % (color, project.name, message, RESET), end='')
+        print("%s%s: %s\r\n%s" % (color, project.name, message, RESET), end="")
 
     @staticmethod
     def color_handling(init=True):
         if init:
-            os.system('cls')
-            os.system('color 0f')
+            os.system("cls")
+            os.system("color 0f")
             colorama.init()
-            print(colorama.Back.BLACK, end='')
-            print(colorama.Fore.WHITE, end='')
+            print(colorama.Back.BLACK, end="")
+            print(colorama.Fore.WHITE, end="")
         else:
-            os.system('color')
-            print(colorama.Style.RESET_ALL, end='')
-            os.system('cls')
+            os.system("color")
+            print(colorama.Style.RESET_ALL, end="")
+            os.system("cls")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     Main.color_handling()
     superelixier_updater = Main()
     superelixier_updater.execute()

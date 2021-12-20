@@ -6,6 +6,7 @@ If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
 import json
+
 import requests as rest
 from requests import HTTPError
 
@@ -15,7 +16,6 @@ from helper.terminal import ERROR
 
 
 class GithubApp(GenericApp):
-
     def __init__(self, target, **kwargs):
         super().__init__(target, **kwargs)
         self._prerelease = self._prerelease or False
@@ -31,13 +31,14 @@ class GithubApp(GenericApp):
             return
         self._version_latest = self.__get_latest_version()
         if not self._version_latest:
-            self.update_status = 'failed'
+            self.update_status = "failed"
             return
 
     def __api_request(self):
         try:
-            releases = rest.get(f"https://api.github.com/repos/{self._user}/{self._project}/releases",
-                                headers=settings.github_headers)
+            releases = rest.get(
+                f"https://api.github.com/repos/{self._user}/{self._project}/releases", headers=settings.github_headers
+            )
             api_response = json.loads(releases.text)
             if releases.status_code != 200:
                 print(ERROR + self.name + ": HTTP Status %s: %s" % (releases.status_code, api_response["message"]))
@@ -48,6 +49,7 @@ class GithubApp(GenericApp):
 
     def __get_latest_version(self):
         from github.github_manager import GithubManager
+
         my_list = GithubManager.build_blob_list(self)
         return my_list
 

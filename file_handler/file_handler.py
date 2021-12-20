@@ -12,9 +12,10 @@ import re
 import shutil
 import subprocess
 import sys
+
 from file_handler.downloader import Downloader
 from generic_app.generic_app import GenericApp
-from helper.terminal import ERROR, BRIGHT, GREEN, RED, RESET, MAGENTA
+from helper.terminal import BRIGHT, ERROR, GREEN, MAGENTA, RED, RESET
 
 BIN = os.path.join(os.path.dirname(sys.argv[0]), "bin-win32")
 SEVENZIP = os.path.join(BIN, "7z.exe")
@@ -22,7 +23,6 @@ INNOEXTRACT = os.path.join(BIN, "innoextract.exe")
 
 
 class FileHandler:
-
     def __init__(self, app: GenericApp):
         now_string = datetime.datetime.strftime(datetime.datetime.now(), "%Y-%m-%dT%H.%M.%S")
         self.__app = app
@@ -41,7 +41,7 @@ class FileHandler:
         # Check if deferred update files should be leveraged
         version_deferred = os.path.join(self.__deferred, "superelixier.json")
         if os.path.isfile(version_deferred):
-            with open(version_deferred, 'r') as file:
+            with open(version_deferred, "r") as file:
                 version_deferred = json.load(file)
             if version_deferred == self.__app.version_latest:
                 print(GREEN + self.__app.name + ": Re-using previously downloaded update files")
@@ -67,19 +67,20 @@ class FileHandler:
             if self.__app.installer == "sfx":
                 archives = f"exe|{archives}"
             if filename and re.fullmatch(f"^.*\\.({archives})$", filename.casefold()):
-                subprocess.run([SEVENZIP, 'x', '-aoa', filename], cwd=self.__staging, stdout=subprocess.DEVNULL)
+                subprocess.run([SEVENZIP, "x", "-aoa", filename], cwd=self.__staging, stdout=subprocess.DEVNULL)
                 os.remove(os.path.join(self.__staging, filename))
                 # Handle zipped installer case
                 extracted = os.listdir(self.__staging)
                 if len(extracted) == 1:
                     filename = extracted[0]
-            if filename and filename.casefold().endswith('.exe'):
+            if filename and filename.casefold().endswith(".exe"):
                 if self.__app.installer == "innoextract":
-                    subprocess.run([INNOEXTRACT, '-n', filename], cwd=self.__staging, stdout=subprocess.DEVNULL)
+                    subprocess.run([INNOEXTRACT, "-n", filename], cwd=self.__staging, stdout=subprocess.DEVNULL)
                     os.remove(os.path.join(self.__staging, filename))
                 elif self.__app.installer is None:
-                    os.rename(os.path.join(self.__staging, filename),
-                              os.path.join(self.__staging, f"{self.__app.name}.exe"))
+                    os.rename(
+                        os.path.join(self.__staging, filename), os.path.join(self.__staging, f"{self.__app.name}.exe")
+                    )
         return False
 
     def __project_normalize(self):
@@ -95,10 +96,7 @@ class FileHandler:
                 extracted_content = os.path.join(self.__staging, extracted[0])
                 if os.path.isdir(extracted_content):
                     for item in os.listdir(extracted_content):
-                        shutil.move(
-                            os.path.join(extracted_content, item),
-                            os.path.join(self.__staging, item)
-                        )
+                        shutil.move(os.path.join(extracted_content, item), os.path.join(self.__staging, item))
                     os.rmdir(extracted_content)
                 elif os.path.isfile(extracted_content):
                     print(BRIGHT + self.__app.name + ": file retrieved:")
@@ -122,7 +120,7 @@ class FileHandler:
                 normalize_done = True
         if not normalize_failure:
             with open(os.path.join(self.__staging, "superelixier.json"), "w") as file:
-                json.dump({**self.__app.version_latest, 'spec': self.__app.ver_scheme_spec}, file)
+                json.dump({**self.__app.version_latest, "spec": self.__app.ver_scheme_spec}, file)
 
     def __project_merge_oldnew(self):
         # Data to keep
@@ -225,7 +223,7 @@ class FileHandler:
             else:
                 missing_appdata.append(appdata)
         if len(missing_appdata) != 0:
-            print(MAGENTA + "Old appdatas not found: %s" % ', '.join(missing_appdata))
+            print(MAGENTA + "Old appdatas not found: %s" % ", ".join(missing_appdata))
         return keep_list
 
     @staticmethod
@@ -249,10 +247,13 @@ class FileHandler:
                 # There is a limit of 2048 opened files per process.
                 if len(file_list) <= 2000:
                     if os.path.isfile(existing_file):
-                        opened_files[existing_file] = open(existing_file, 'ab')
+                        opened_files[existing_file] = open(existing_file, "ab")
                 else:
-                    if os.path.isfile(existing_file) and re.search("\\.(bat|cmd|com|dll|exe|elf|js|jse|msc|ps1|sh|vbe|vbs|wsf|wsh)$", os.path.split(existing_file)[-1].casefold()):
-                        opened_files[existing_file] = open(existing_file, 'ab')
+                    if os.path.isfile(existing_file) and re.search(
+                        "\\.(bat|cmd|com|dll|exe|elf|js|jse|msc|ps1|sh|vbe|vbs|wsf|wsh)$",
+                        os.path.split(existing_file)[-1].casefold(),
+                    ):
+                        opened_files[existing_file] = open(existing_file, "ab")
         except PermissionError:
             print(MAGENTA + f"{app.name}: Folder is in use. Update files will be moved next time.")
             for key in opened_files:
