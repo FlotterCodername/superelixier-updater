@@ -126,6 +126,8 @@ class ConfigHandler:
                 cwdrive = os.path.splitdrive(sys.argv[0])[0]
                 key_new = cwdrive + key_old
                 new[key_new] = cfg_local[key_old]
+            else:
+                new[key_old] = cfg_local[key_old]
         return new
 
     @property
