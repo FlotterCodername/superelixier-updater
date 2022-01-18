@@ -30,6 +30,11 @@ class GenericManager:
                     version_installed = json.load(file)
                 if "spec" not in version_installed:
                     version_installed["spec"] = 0
+                if "repo" not in version_installed:
+                    version_installed["repo"] = "html"
+                if app.repo != version_installed["repo"]:
+                    app.update_status = "update"
+                    return
                 comparison = GenericManager.compare(app.ver_scheme_type, app.version_latest, version_installed)
                 if comparison:
                     if comparison["version_id"] == version_installed["version_id"]:
