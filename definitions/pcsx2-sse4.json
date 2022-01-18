@@ -1,0 +1,16 @@
+{
+  "info": {
+    "gist": "Emulates the Sony PlayStation 2. SSE4 Development builds (use if your CPU has no AVX2)",
+    "category": "Emulators"
+  },
+  "name": "PCSX2-SSE4",
+  "user": "PCSX2",
+  "project": "pcsx2",
+  "blob_re": "^pcsx2-.*-windows-64bit-SSE4.7z$",
+  "blob_unwanted": [],
+  "appdatas": [
+    "portable.ini"
+  ],
+  "prerelease": true,
+  "repo": "github"
+}
