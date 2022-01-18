@@ -1,19 +1,20 @@
 # Superelixier Updater
+
 [![Python app](https://github.com/FlotterCodername/superelixier-updater/actions/workflows/python-app.yml/badge.svg)](https://github.com/FlotterCodername/superelixier-updater/actions/workflows/python-app.yml) [![CodeQL](https://github.com/FlotterCodername/superelixier-updater/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/FlotterCodername/superelixier-updater/actions/workflows/codeql-analysis.yml)
 
-**Operating this tool currently requires some technical knowledge about JavaScript Object Notation (JSON) and regular
-expressions. As development progresses, this will change.**
-If you want to wait for a user-friendly version, select ``Watch -> Custom -> Releases`` from the top of the GitHub
-repository.
+**Using this tool currently requires basic knowledge about JavaScript Object Notation (JSON). As development progresses,
+this will change.** If you want to wait for a user-friendly version, select ``Watch -> Custom -> Releases`` from the top
+of the GitHub repository. In any case, check out the [list of Pre-configured Apps](./docs/Available%20Apps.md)
 
-Superelixier Updater can automatically update a number of apps provided in portable form. It can easily be extended to
-more programs by a technical user. Currently, it handles apps distributed on Appveyor, GitHub and HTML pages.
+Users who add additional apps definitions to the updater need to be familiar with JSON and regular expressions.
+
+Superelixier Updater can automatically update a number of apps provided in portable form. Currently, it handles apps
+distributed on Appveyor, GitHub and HTML pages.
 
 ![Example console output of this program](./docs/example.png)
 
 ## Features
 
-- [List of Pre-configured Apps](./docs/Available%20Apps.md)
 - No unnecessary downloads: Checks the installed app for update and only downloads releases if there is a new one. Let's
   not waste bandwidth (caveat: only detects updates it did itself).
 - Running detection: Downloaded updates will be applied next run if the folder was in use this run.
@@ -24,7 +25,8 @@ more programs by a technical user. Currently, it handles apps distributed on App
 
 ## Usage
 
-The first-time setup is not friendly to non-technical users yet. **On the bright side**: once set up, using this tool is as simple as running the ``superelixier.exe`` file.
+The first-time setup is not friendly to non-technical users yet. **On the bright side**: once set up, using this tool is
+as simple as running the ``superelixier.exe`` file.
 
 ### Requirements
 
