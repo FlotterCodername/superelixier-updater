@@ -42,7 +42,8 @@ App | Description
 **EasyRPG Player** | RPGMaker 2000 and 2003 compatible game interpreter. Not an emulator in a technical sense.
 **mGBA** | Emulates the Nintendo Game Boy, Game Boy Color and Game Boy Advance.
 **Mupen64plus** | Emulates the Nintendo 64.
-**PCSX2** | Emulates the Sony PlayStation 2. Development builds from Git via Orphis.
+**PCSX2-SSE4** | Emulates the Sony PlayStation 2. SSE4 Development builds (use if your CPU has no AVX2)
+**PCSX2** | Emulates the Sony PlayStation 2. AVX2 Development builds
 **PPSSPP Development** | Emulates the Sony PlayStation Portable. Development builds from Git via Orphis.
 **PPSSPP** | Emulates the Sony PlayStation Portable.
 **Project64-Development** | Emulates the Nintendo 64. The 'Development' branch has all the latest features, but might be less stable.
