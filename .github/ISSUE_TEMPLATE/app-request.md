@@ -14,10 +14,11 @@ assignees: ''
 <Oneliner description of app>
 
 ### Hosted at
+<Click appropriate box after submitting issue>
 
 - [ ] AppVeyor
 - [ ] GitHub
-- [ ] Other service
+- [ ] Other service: NAME
 - [ ] Project website
 
 URL: <PASTE URL HERE>
