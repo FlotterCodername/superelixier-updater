@@ -74,6 +74,7 @@ App | Description
 **CDBurnerXP** | Disc burning utility
 **Etcher** | SD card flasher
 **FreeCommander XE** | File manager
+**paint.net** | Freeware image editor originally conceived as an alternative to Microsoft Paint.
 **Remove Empty Directories** | Clean directory structures using rulesets
 **Rufus** | Create bootable USB flash drives
 **ueli** | Cross-platform keystroke launcher
