@@ -18,8 +18,8 @@ assignees: ''
 
 - [ ] AppVeyor
 - [ ] GitHub
-- [ ] Other service: NAME
+- [ ] Other service: SERVICE_NAME_HERE
 - [ ] Project website
 
-URL: <PASTE URL HERE>
+URL: 
 <AppVeyor or GitHub is preferred over project websites>
