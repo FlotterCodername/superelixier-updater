@@ -20,7 +20,7 @@ as simple as running the ``superelixier.exe`` file.
 
 ### Requirements
 
-- Windows 10 64-Bit
+- Windows 10+ 64-Bit
 
 ### First-time setup
 
