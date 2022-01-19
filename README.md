@@ -50,10 +50,4 @@ as simple as running the ``superelixier.exe`` file.
 - If your configuration is set up, you run the ``superelixier.exe`` file to run the updater.
 
 ## Planned
-
-- History: Make number/age of kept backups configurable.
-- Patterns: Replace user-facing regular expressions with a simpler wildcard system
-- HTML Index Handler (Apache/h5ai...)
-- GUI:
-    - Present update progress
-    - Configuration editing
+Planned features are tracked via [labeled GitHub Issues](https://github.com/FlotterCodername/superelixier-updater/issues?q=is%3Aopen+is%3Aissue+label%3Aaccepted+label%3Aepic%2Cenhancement).
