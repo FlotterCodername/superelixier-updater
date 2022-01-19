@@ -14,4 +14,11 @@ assignees: ''
 <Oneliner description of app>
 
 ### Hosted at
-<URL to where the app is hosted. For us GitHub or AppVeyor is better than a project website.>
+
+- [ ] AppVeyor
+- [ ] GitHub
+- [ ] Other service
+- [ ] Project website
+
+URL: <PASTE URL HERE>
+<AppVeyor or GitHub is preferred over project websites>
