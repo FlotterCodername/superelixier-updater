@@ -13,16 +13,6 @@ distributed on Appveyor, GitHub and HTML pages.
 
 ![Example console output of this program](./docs/example.png)
 
-## Features
-
-- No unnecessary downloads: Checks the installed app for update and only downloads releases if there is a new one. Let's
-  not waste bandwidth (caveat: only detects updates it did itself).
-- Running detection: Downloaded updates will be applied next run if the folder was in use this run.
-- Extensible: Add more apps via configuration files.
-    - Release files detected via regular expression.
-    - Can specify files that should be deleted from release (for files you do not need)
-    - Can specify any files or folders that should be protected from being replaced by updates.
-
 ## Usage
 
 The first-time setup is not friendly to non-technical users yet. **On the bright side**: once set up, using this tool is
@@ -48,6 +38,17 @@ as simple as running the ``superelixier.exe`` file.
       wrong, you'll have your previous files in a folder ``.superelixier-history`` that sits in the app's directory. As
       of now, the updater doesn't delete any of your old files at all: everything goes into the history folder instead.
 - If your configuration is set up, you run the ``superelixier.exe`` file to run the updater.
+
+## Features
+
+- No unnecessary downloads: Checks the installed app for update and only downloads releases if there is a new one. Let's
+  not waste bandwidth (caveat: only detects updates it did itself).
+- Running detection: Downloaded updates will be applied next run if the folder was in use this run.
+- Extensible: Add more apps via configuration files.
+    - Release files detected via regular expression.
+    - Can specify files that should be deleted from release (for files you do not need)
+    - Can specify any files or folders that should be protected from being replaced by updates.
+
 
 ## Planned
 Planned features are tracked via [labeled GitHub Issues](https://github.com/FlotterCodername/superelixier-updater/issues?q=is%3Aopen+is%3Aissue+label%3Aaccepted+label%3Aepic%2Cenhancement).
