@@ -1,7 +1,7 @@
 ---
 name: App Request
 about: Suggest an app that this project can help updating
-title: ''
+title: "[APP] <app name>"
 labels: app request
 assignees: ''
 
