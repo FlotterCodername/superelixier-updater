@@ -79,7 +79,8 @@ class Downloader:
                         if not Downloader.__check_domain(old_url, url):
                             print(
                                 ERROR
-                                + "Could not do a JavaScript-triggered download because the download domain didn't match a trusted domain we know."
+                                + "Could not do a JavaScript-triggered download because "
+                                + "the download domain didn't match a trusted domain we know."
                             )
                             raise ValueError
                         url, response = Downloader.__handle_redirects(url, dl_file)
@@ -124,7 +125,8 @@ class Downloader:
 
     @staticmethod
     def __check_domain(old_url, new_url):
-        # I considered slicing to second-level domain and TLD here. But since the list of [PSDs](https://publicsuffix.org/) is ever-expanding...
+        # I considered slicing to second-level domain and TLD here.
+        # But since the list of [PSDs](https://publicsuffix.org/) is ever-expanding...
         # This will have to do until I have a safe method to handle PSDs.
         if urlparse(old_url).netloc == urlparse(new_url).netloc:
             return True

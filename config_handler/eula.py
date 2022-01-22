@@ -14,12 +14,17 @@ TERM_VER = 1
 TERMS = [
     "Superelixier 3rd-Party Notice\r\n",
     "==================\r\n"
-    "All apps installed using this program are subject to their respective licenses as determined by the proprietors of these apps ('proprietors' hereafter). ",
-    "Inclusion in this list should not be seen as any indication of affiliation of proprietors with the creator(s) of Superelixier Updater ('we' hereafter). ",
+    "All apps installed using this program are subject to their respective licenses as determined by the proprietors "
+    "of these apps ('proprietors' hereafter). ",
+    "Inclusion in this list should not be seen as any indication of affiliation of proprietors with the creator(s) of "
+    "Superelixier Updater ('we' hereafter). ",
     "We only provide automation routines for installing these apps on your local machine.\r\n",
-    "It remains your responsibility as a user of our software to adhere to the terms and licenses proprietors have set for the software that you are asking our routines to access.\r\n",
-    "As a practical example, you may be required to purchase a license from proprietors if using proprietors' software commercially. ",
-    "As a further practical example, if you create a modified version of proprietors' software, you may be required to disclose source code of your modified version.",
+    "It remains your responsibility as a user of our software to adhere to the terms and licenses proprietors have set "
+    "for the software that you are asking our routines to access.\r\n",
+    "As a practical example, you may be required to purchase a license from proprietors if using proprietors' software "
+    "commercially. ",
+    "As a further practical example, if you create a modified version of proprietors' software, you may be required to "
+    "disclose source code of your modified version.",
 ]
 
 
@@ -43,7 +48,8 @@ class EulaChecker:
             EulaChecker.__accept_eula(TERM_VER)
         else:
             print(
-                'Cannot continue as terms were not accepted. If you meant to accept, make sure you only type "yes i agree" without quotes.'
+                "Cannot continue as terms were not accepted. "
+                'If you meant to accept, make sure you only type "yes i agree" without quotes.'
             )
             input("Press ENTER to exit.")
             sys.exit()

@@ -16,8 +16,8 @@ class GenericManager:
     @staticmethod
     def check_update(app: GenericApp):
         """
-        Checks the local installation and any deferred updates against what has been determined to be the latest version on the remote site.
-        Based on that, set update status that governs the appropriate course of action.
+        Checks the local installation and any deferred updates against what has been determined to be the latest version
+        on the remote site. Based on that, set update status that governs the appropriate course of action.
         :param app:
         :return:
         """
@@ -55,7 +55,8 @@ class GenericManager:
     @staticmethod
     def compare(ver_scheme_type: str, old: dict, new: dict):
         """
-        When in doubt, this should return the 'new' version so that the app will be updated to what is currently advertised on the remote site, if nothing else.
+        When in doubt, this should return the 'new' version so that the app will be updated to what is currently
+        advertised on the remote site, if nothing else.
         :return:
         """
         latest_version = old

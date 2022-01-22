@@ -81,13 +81,15 @@ class ConfigHandler:
         for item in self._configuration["available"]:
             cfg.append(self._configuration["available"][item])
         markdown = [
-            "# Pre-configured Apps\r\n",
-            "These apps are subject to their respective licenses as determined by _the proprietors of these apps_ ('proprietors' hereafter).",
-            "Inclusion in this list should not be seen as any indication of affiliation of proprietors with _the creator(s) of Superelixier Updater_ ('we' hereafter).",
-            "We only provide automation routines for installing these apps on your local machine.\r\n",
-            "It remains your responsibility as a user of our software to adhere to the terms and licenses proprietors have set for the software that you are asking our routines to access.\r\n",
-            "As a practical example, you may be required to purchase a license from proprietors if using proprietors' software commercially.",
-            "As a further practical example, if you create a modified version of proprietors' software, you may be required to disclose source code of your modified version.\r\n",
+            "# Pre-configured Apps\r\n\r\nThese apps are subject to their respective licenses as determined by _the "
+            "proprietors of these apps_ ('proprietors' hereafter).\r\nInclusion in this list should not be seen as any "
+            "indication of affiliation of proprietors with _the creator(s) of Superelixier Updater_ ('we' hereafter)."
+            "\r\nWe only provide automation routines for installing these apps on your local machine.\r\n\r\nIt remains"
+            " your responsibility as a user of our software to adhere to the terms and licenses proprietors have set "
+            "for the software that you are asking our routines to access.\r\n\r\nAs a practical example, you may be "
+            "required to purchase a license from proprietors if using proprietors' software commercially.\r\nAs a "
+            "further practical example, if you create a modified version of proprietors' software, you may be required "
+            "to disclose source code of your modified version.\r\n"
         ]
         cats = []
         for app in cfg:

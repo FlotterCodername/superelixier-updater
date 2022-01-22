@@ -31,7 +31,7 @@ class GenericApp:
         repo: str = None,
         ver_scheme_re: str = None,
         ver_scheme_type: str = None,
-        ver_scheme_spec: int = None
+        ver_scheme_spec: int = None,
     ):
         """
         Do not instantiate this. Always use the child classes.

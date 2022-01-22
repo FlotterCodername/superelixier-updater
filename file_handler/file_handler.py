@@ -120,7 +120,14 @@ class FileHandler:
                 normalize_done = True
         if not normalize_failure:
             with open(os.path.join(self.__staging, "superelixier.json"), "w") as file:
-                json.dump({**self.__app.version_latest, "spec": self.__app.ver_scheme_spec, "repo": self.__app.repo}, file)
+                json.dump(
+                    {
+                        **self.__app.version_latest,
+                        "spec": self.__app.ver_scheme_spec,
+                        "repo": self.__app.repo,
+                    },
+                    file,
+                )
 
     def __project_merge_oldnew(self):
         # Data to keep
@@ -269,7 +276,8 @@ class FileHandler:
     @staticmethod
     def __remove_empty_dirs(top_dir, delete_top=False):
         """
-        Delete empty folders created by this program. Do not use on app folders! We don't mess with the UX of installed apps that way.
+        Delete empty folders created by this program. Do not use on app folders! We don't mess with the UX of installed
+        apps that way.
         :param top_dir:
         :param delete_top:
         :return:
