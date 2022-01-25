@@ -4,11 +4,10 @@
     "category": "Emulators"
   },
   "name": "xenia",
-  "user": "benvanik",
-  "project": "xenia",
-  "branch": "master",
+  "user": "xenia-project",
+  "project": "release-builds-windows",
   "blob_re": "^xenia_master\\.zip$",
   "blob_unwanted": [],
   "appdatas": [],
-  "repo": "appveyor"
+  "repo": "github"
 }
