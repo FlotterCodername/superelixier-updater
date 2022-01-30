@@ -1,8 +1,0 @@
-black
-flake8
-isort
-colorama
-jsonschema
-packaging
-pyinstaller
-requests~=2.27.1
