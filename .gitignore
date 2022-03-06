@@ -1,5 +1,6 @@
 /.idea
 /.vscode
+/assets/*
 /build
 /dist
 /config/auth.json
@@ -9,4 +10,3 @@
 /superelixier.spec
 /bin-win32/*
 /config/eula.json
-/app.ico
