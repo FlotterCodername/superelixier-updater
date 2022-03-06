@@ -12,6 +12,7 @@ from requests import HTTPError
 
 import settings
 from generic_app.generic_app import GenericApp
+from github import GITHUB_API
 from helper.terminal import ERROR
 
 
@@ -37,7 +38,7 @@ class GithubApp(GenericApp):
     def __api_request(self):
         try:
             releases = rest.get(
-                f"https://api.github.com/repos/{self._user}/{self._project}/releases", headers=settings.github_headers
+                f"{GITHUB_API}/repos/{self._user}/{self._project}/releases", headers=settings.github_headers
             )
             api_response = json.loads(releases.text)
             if releases.status_code != 200:
