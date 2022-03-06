@@ -13,6 +13,7 @@ keywords = ["windows", "continous-delivery"]
 python = ">=3.10, <3.11"
 # Dependencies
 colorama = "^0.4.4"
+dearpygui = "^1.4.0"
 jsonschema = "^4.4.0"
 packaging = "^21.3"
 requests = "^2.27.1"
