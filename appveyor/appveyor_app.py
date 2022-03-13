@@ -14,13 +14,14 @@ import settings
 from appveyor import API_URL
 from generic_app.generic_app import GenericApp
 from helper.terminal import ERROR
+from helper.types import JsonResponse
 
 
 class AppveyorApp(GenericApp):
-    def __init__(self, target, **kwargs):
+    def __init__(self, target: str, **kwargs: dict):
         super().__init__(target, **kwargs)
-        self._branch = self._branch or "master"
-        self._api_call = None
+        self._branch: str = self._branch or "master"
+        self._api_call: JsonResponse = None
 
     def execute(self):
         """
@@ -32,7 +33,7 @@ class AppveyorApp(GenericApp):
         else:
             self._version_latest = self.__get_latest_version()
 
-    def __api_request(self):
+    def __api_request(self) -> JsonResponse:
         try:
             api_response = rest.get(
                 f"{API_URL}/projects/{self._user}/{self._project}/history?recordsNumber=20",
@@ -77,12 +78,12 @@ class AppveyorApp(GenericApp):
             return None
         return api_response
 
-    def __get_latest_version(self):
+    def __get_latest_version(self) -> dict:
         from appveyor.appveyor_manager import AppveyorManager
 
         my_list = AppveyorManager.build_blob_list(self)
         return my_list
 
     @property
-    def api_call(self):
+    def api_call(self) -> JsonResponse:
         return self._api_call

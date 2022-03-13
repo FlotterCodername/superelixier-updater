@@ -1,13 +1,17 @@
+
 # Pre-configured Apps
 
-These apps are subject to their respective licenses as determined by _the proprietors of these apps_ ('proprietors' hereafter).
-Inclusion in this list should not be seen as any indication of affiliation of proprietors with _the creator(s) of Superelixier Updater_ ('we' hereafter).
-We only provide automation routines for installing these apps on your local machine.
+These apps are subject to their respective licenses as determined by _the proprietors of these apps_ 
+('proprietors' hereafter). Inclusion in this list should not be seen as any indication of affiliation of
+proprietors with _the creator(s) of Superelixier Updater_ ('we' hereafter). We only provide automation
+routines for installing these apps on your local machine.
 
-It remains your responsibility as a user of our software to adhere to the terms and licenses proprietors have set for the software that you are asking our routines to access.
+It remains your responsibility as a user of our software to adhere to the terms and licenses proprietors
+have set for the software that you are asking our routines to access. 
 
-As a practical example, you may be required to purchase a license from proprietors if using proprietors' software commercially.
-As a further practical example, if you create a modified version of proprietors' software, you may be required to disclose source code of your modified version.
+As a practical example, you may be required to purchase a license from proprietors if using proprietors'
+software commercially. As a further practical example, if you create a modified version of proprietors'
+software, you may be required to disclose source code of your modified version.
 
 ## Audio & Video
 App | Description
@@ -20,6 +24,7 @@ App | Description
 **VLC media player** | Video & audio player with broad support for file formats and network streams
 **XnView Classic** | Image browser, viewer and converter
 **XnView MP** | Image browser, viewer and converter. More features than XnView Classic
+
 ## Developer Tools
 App | Description
 --- | ---
@@ -29,6 +34,7 @@ App | Description
 **Notepad++** | Text editor
 **VSCode** | Extensible code editor supporting many programming languages
 **VSCodium** | Extensible code editor supporting many programming languages. This is VSCode without telemetry and Microsoft/GitHub account sync features.
+
 ## Emulators
 App | Description
 --- | ---
@@ -53,21 +59,25 @@ App | Description
 **Ryujinx** | Emulates the Nintendo Switch.
 **xenia** | Emulates the Microsoft Xbox 360
 **yuzu-mainline** | Emulates the Nintendo Switch.
+
 ## Gaming
 App | Description
 --- | ---
 **nvidiaProfileInspector** | 3rd-party Nvidia driver configuration frontend
 **ReShade Setup** | Installer for ReShade, a universal shader injector
 **Steam Rom Manager** | Add roms to Steam as shortcuts with library images
+
 ## Network Tools
 App | Description
 --- | ---
 **FileZilla Client** | File transfer client supporting FTP, FTPS and SFTP
 **KiTTY** | SSH and telnet client. Improved version of PuTTY
+
 ## Security
 App | Description
 --- | ---
 **KeePassXC** | Password manager
+
 ## Utilities
 App | Description
 --- | ---

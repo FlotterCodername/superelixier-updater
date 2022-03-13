@@ -9,12 +9,14 @@ import html
 import os
 import re
 import string
+from typing import Optional
 from urllib.parse import urlparse, urlunparse
 
 import requests
 from requests import HTTPError
 
 from helper.terminal import ERROR
+from helper.types import RealBool
 from html_seu import HEADERS
 
 
@@ -22,13 +24,13 @@ class Downloader:
     def __init__(self, url, target):
         self._file = Downloader.__url_downloader(url, target)
 
-    @staticmethod
-    def __url_downloader(url, target):
+    @classmethod
+    def __url_downloader(cls, url, target) -> Optional[str]:
         """
         curl without curl
 
         :param url:
-        :return:
+        :return: remote filename
         """
         print(f"Downloading file from: {url}")
         try:
@@ -40,8 +42,8 @@ class Downloader:
         except (HTTPError, ValueError):
             return None
 
-    @staticmethod
-    def __handle_redirects(url, dl_file):
+    @classmethod
+    def __handle_redirects(cls, url, dl_file):
         """
         Handle redirects, status codes and JavaScript download trigger
 
@@ -78,9 +80,8 @@ class Downloader:
                         print(f"Redirected to: {url}")
                         if not Downloader.__check_domain(old_url, url):
                             print(
-                                ERROR
-                                + "Could not do a JavaScript-triggered download because "
-                                + "the download domain didn't match a trusted domain we know."
+                                f"{ERROR} Could not do a JavaScript-triggered download because the download domain "
+                                "didn't match a trusted domain we know."
                             )
                             raise ValueError
                         url, response = Downloader.__handle_redirects(url, dl_file)
@@ -89,14 +90,14 @@ class Downloader:
                         raise ValueError
         return url, response
 
-    @staticmethod
-    def __write_response(response, file):
+    @classmethod
+    def __write_response(cls, response, file):
         with open(file, "wb") as fd:
             for chunk in response.iter_content(chunk_size=1024):
                 fd.write(chunk)
 
-    @staticmethod
-    def normalize_url(url, source=None):
+    @classmethod
+    def normalize_url(cls, url, source=None):
         """
         Handling for relative URL paths
 
@@ -118,13 +119,13 @@ class Downloader:
             if None in skeleton[0:5]:
                 raise ValueError
             url = urlunparse(skeleton)
-        except BaseException:
+        except Exception:
             print(ERROR + "Failed to build URL")
             raise ValueError
         return url
 
-    @staticmethod
-    def __check_domain(old_url, new_url):
+    @classmethod
+    def __check_domain(cls, old_url: str, new_url: str) -> RealBool:
         # I considered slicing to second-level domain and TLD here.
         # But since the list of [PSDs](https://publicsuffix.org/) is ever-expanding...
         # This will have to do until I have a safe method to handle PSDs.
@@ -133,8 +134,8 @@ class Downloader:
         else:
             return False
 
-    @staticmethod
-    def __get_remote_filename(url, response):
+    @classmethod
+    def __get_remote_filename(cls, url, response):
         cd = response.headers.get("content-disposition")
         if cd:
             filename = re.findall("filename=(.+)", cd)[0]

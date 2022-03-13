@@ -9,8 +9,7 @@ import os
 import sys
 import time
 from concurrent import futures
-
-import colorama
+from typing import List
 
 import settings
 from appveyor.appveyor_app import AppveyorApp
@@ -18,47 +17,39 @@ from config_handler.config_handler import ConfigHandler
 from config_handler.eula import EulaChecker
 from environment_handler.environment_handler import LockFile, LockFileException
 from file_handler.file_handler import FileHandler
+from file_handler.fs_helper import make_path_native, remove_empty_dirs
 from generic_app.generic_app import GenericApp
 from generic_app.generic_manager import GenericManager
 from github.github_app import GithubApp
-from helper.terminal import BRIGHT, CYAN, GREEN, MAGENTA, RED, RESET, print_header
+from helper.terminal import BRIGHT, CYAN, GREEN, MAGENTA, RED, RESET, color_handling, print_header
 from html_seu.html_app import HTMLApp
-
-TRIGGER_UPDATE_STATUS = ("update", "no_version_file", "not_installed")
 
 
 class Main:
+
+    ConfigHandler()
+    cfg_auth = settings.app_config["auth"]
+    cfg_available = settings.app_config["available"]
+    cfg_local = settings.app_config["local"]
+    __MT_ON = True
+    __UPDATE_TRIGGER = {"update", "no_version_file", "not_installed"}
+
     def __init__(self):
-        try:
-            self.__lock = LockFile()
-        except LockFileException:
-            time.sleep(7)
-            sys.exit()
-        EulaChecker.check_eula()
-        # Configuration
-        ConfigHandler()
-        self.cfg_auth = settings.app_config["auth"]
-        self.cfg_available = settings.app_config["available"]
-        self.cfg_local = settings.app_config["local"]
-        self.__multithreaded = True
-        # Helper objects
         self.job_list = []
 
-    def execute(self):
+    def execute(self) -> None:
         """
         The execute() methods in the project are supposed to provide an idea of what the class does in a nutshell.
         Always put them directly after __init__().
         """
         self.__check_updates()
         self.__update_apps()
-        FileHandler.pre_exit_cleanup(self.cfg_local)
-        self.__lock.__del__()
-        input("Press Enter to continue...")
+        self.__pre_exit_cleanup()
 
-    def __check_updates(self):
-        project_list = []
+    def __check_updates(self) -> None:
+        project_list: List[GenericApp] = []
         for path in self.cfg_local:
-            native_path = FileHandler.make_path_native(path)
+            native_path = make_path_native(path)
             for list_item in self.cfg_local[path]:
                 if list_item.casefold() in self.cfg_available:
                     appconf = self.cfg_available[list_item.casefold()]
@@ -73,25 +64,24 @@ class Main:
                         if job is not None:
                             project_list.append(job)
 
-        if self.__multithreaded:
+        if self.__MT_ON:
             with futures.ThreadPoolExecutor(max_workers=8) as executor:
-                projects = {
-                    executor.submit(Main.__threadable_update_check, project): project for project in project_list
-                }
+                projects = {executor.submit(Main.__report_update_status, project): project for project in project_list}
                 for appconf in futures.as_completed(projects):
-                    if projects[appconf].update_status in TRIGGER_UPDATE_STATUS:
+                    print(appconf.result())
+                    if projects[appconf].update_status in self.__UPDATE_TRIGGER:
                         self.job_list.append(projects[appconf])
         else:
             for appconf in project_list:
-                Main.__threadable_update_check(appconf)
-                if appconf.update_status in TRIGGER_UPDATE_STATUS:
+                print(Main.__report_update_status(appconf))
+                if appconf.update_status in self.__UPDATE_TRIGGER:
                     self.job_list.append(appconf)
 
-    @staticmethod
-    def __threadable_update_check(project):
+    @classmethod
+    def __report_update_status(cls, project) -> str:
         project.execute()
         GenericManager.check_update(project)
-        Main.project_status_report(project)
+        return Main.project_status_report(project)
 
     def __update_apps(self):
         for job in self.job_list:
@@ -110,8 +100,8 @@ class Main:
                 print_header(message, CYAN)
                 my_fsm.project_install()
 
-    @staticmethod
-    def project_status_report(project: GenericApp):
+    @classmethod
+    def project_status_report(cls, project: GenericApp):
         color = ""
         message = ""
         if project.update_status == "no_update":
@@ -120,10 +110,8 @@ class Main:
         elif project.update_status == "installed_newer":
             color = MAGENTA
             message = (
-                "Installed is newer.\r\n "
-                + RESET
-                + project.name
-                + ": Please make sure your version wasn't retracted because of problems with it."
+                f"Installed is newer.\r\n {RESET}{project.name}: Please make sure your version wasn't retracted "
+                "because of problems with it."
             )
         elif project.update_status == "update":
             color = GREEN
@@ -143,24 +131,29 @@ class Main:
         elif project.update_status == "unknown":
             color = RED
             message = "Failed to check this project"
-        print("%s%s: %s\r\n%s" % (color, project.name, message, RESET), end="")
+        return f"{color}{project.name}: {message}{RESET}"
 
-    @staticmethod
-    def color_handling(init=True):
-        if init:
-            os.system("cls")
-            os.system("color 0f")
-            colorama.init()
-            print(colorama.Back.BLACK, end="")
-            print(colorama.Fore.WHITE, end="")
-        else:
-            os.system("color")
-            print(colorama.Style.RESET_ALL, end="")
-            os.system("cls")
+    @classmethod
+    def __pre_exit_cleanup(cls) -> None:
+        """
+        Remove cache directories created by this program.
+        """
+        for target in cls.cfg_local:
+            cache = os.path.join(make_path_native(target), ".superelixier-cache")
+            remove_empty_dirs(cache, delete_top=True)
 
 
 if __name__ == "__main__":
-    Main.color_handling()
-    superelixier_updater = Main()
-    superelixier_updater.execute()
-    Main.color_handling(init=False)
+    try:
+        color_handling()
+        lock = LockFile()
+        EulaChecker.check_eula()
+        superelixier_updater = Main()
+        superelixier_updater.execute()
+        del lock
+        input("Press Enter to continue...")
+    except LockFileException:
+        time.sleep(7)
+    finally:
+        color_handling()
+        sys.exit()

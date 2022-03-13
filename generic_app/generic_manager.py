@@ -13,8 +13,8 @@ from generic_app.generic_app import GenericApp
 
 
 class GenericManager:
-    @staticmethod
-    def check_update(app: GenericApp):
+    @classmethod
+    def check_update(cls, app: GenericApp):
         """
         Checks the local installation and any deferred updates against what has been determined to be the latest version
         on the remote site. Based on that, set update status that governs the appropriate course of action.
@@ -52,8 +52,8 @@ class GenericManager:
             else:
                 app.update_status = "no_version_file"
 
-    @staticmethod
-    def compare(ver_scheme_type: str, old: dict, new: dict):
+    @classmethod
+    def compare(cls, ver_scheme_type: str, old: dict, new: dict):
         """
         When in doubt, this should return the 'new' version so that the app will be updated to what is currently
         advertised on the remote site, if nothing else.
@@ -88,8 +88,8 @@ class GenericManager:
         except KeyError:
             return None
 
-    @staticmethod
-    def get_newest(ver_scheme_type, versions: list):
+    @classmethod
+    def get_newest(cls, ver_scheme_type, versions: list):
         if len(versions) == 0:
             return {"version": "", "blobs": []}
         else:
@@ -98,8 +98,8 @@ class GenericManager:
                 latest_version = GenericManager.compare(ver_scheme_type, latest_version, my_version)
             return latest_version
 
-    @staticmethod
-    def slice_appveyor_date(datestr: str):
+    @classmethod
+    def slice_appveyor_date(cls, datestr: str):
         from appveyor import APPVEYOR_DATE
 
         datestr = datestr.split(".")[0]

@@ -15,8 +15,8 @@ class GithubManager(GenericManager):
     def __init__(self):
         super().__init__()
 
-    @staticmethod
-    def build_blob_list(app: GithubApp):
+    @classmethod
+    def build_blob_list(cls, app: GithubApp):
         latest_release = None
         for release in app.api_call:
             if release["prerelease"] and app.prerelease:

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "superelixier-updater"
-version = "0.0.1"
+version = "0.1.0.dev"
 description = "Superelixier Updater is a generic, extensible updater for portable software."
 license = "MPL-2.0"
 authors = ["Fabian H. Schneider <>"]
@@ -10,22 +10,23 @@ homepage = "https://github.com/FlotterCodername/superelixier-updater"
 keywords = ["windows", "continous-delivery"]
 
 [tool.poetry.dependencies]
-python = "~3.10"
+python = ">=3.10, <3.11"
 # Dependencies
-colorama = "~0.4.4"
-jsonschema = "~4.4.0"
-packaging = "~21.3"
-requests = "~2.27.1"
+colorama = "^0.4.4"
+jsonschema = "^4.4.0"
+packaging = "^21.3"
+requests = "^2.27.1"
 
 [tool.poetry.dev-dependencies]
-black = "*"
-flake8 = "*"
-isort = "*"
-pyinstaller = "*"
+black = "^22.1.0"
+flake8 = "^4.0.1"
+isort = "^5.10.1"
+pyinstaller = "^4.10"
 
 [tool.black]
 line-length = 120
 target-version = ["py310"]
 
 [tool.isort]
+line_length = 120
 profile = "black"
