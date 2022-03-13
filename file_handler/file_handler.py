@@ -14,8 +14,9 @@ import subprocess
 import sys
 
 from file_handler.downloader import Downloader
+from file_handler.fs_helper import list_appdatas, lock_folder, remove_empty_dirs, simple_folder_list
 from generic_app.generic_app import GenericApp
-from helper.terminal import BRIGHT, ERROR, GREEN, MAGENTA, RED, RESET
+from helper.terminal import BRIGHT, ERROR, GREEN, RED, RESET
 
 BIN = os.path.join(os.path.dirname(sys.argv[0]), "bin-win32")
 SEVENZIP = os.path.join(BIN, "7z.exe")
@@ -89,7 +90,7 @@ class FileHandler:
         while not normalize_done:
             extracted = os.listdir(self.__staging)
             if len(extracted) == 0:
-                print(ERROR + "Failure downloading or extracting this app")
+                print(ERROR + "Failure downloading or extracting this app" + RESET)
                 normalize_done = True
                 normalize_failure = True
             elif len(extracted) == 1:
@@ -131,11 +132,11 @@ class FileHandler:
 
     def __project_merge_oldnew(self):
         # Data to keep
-        keep_list = self.__list_appdatas(self.__app)
+        keep_list = list_appdatas(self.__app)
         # Full dir tree list
-        full_list = self.__list_folder(self.__staging)
+        full_list = simple_folder_list(self.__staging)
         # Lock all files
-        opened_files = self.__lock_folder(self.__app, self.__staging, full_list)
+        opened_files = lock_folder(self.__app, self.__staging, full_list)
         if opened_files is None:
             return False
         # Remove appdatas from staging
@@ -170,9 +171,9 @@ class FileHandler:
                 os.rename(stage_location, new_location)
         for key in opened_files:
             opened_files[key].close()
-        self.__remove_empty_dirs(self.__staging)
+        remove_empty_dirs(self.__staging)
         # Ideally don't create these folders in the first place:
-        self.__remove_empty_dirs(os.path.split(self.__history)[0], delete_top=True)
+        remove_empty_dirs(os.path.split(self.__history)[0], delete_top=True)
         return True
 
     def __defer_update(self):
@@ -197,125 +198,6 @@ class FileHandler:
         """
         if self.__app.name in ["VSCode", "VSCodium"]:
             os.makedirs(os.path.join(self.__app.appdir, "data"), exist_ok=True)
-
-    @staticmethod
-    def __list_folder(folder):
-        """
-
-        :param folder: Folder to scan
-        :return: List of absolute file paths
-        """
-        full_list = []
-        for root, _, files in os.walk(folder):
-            for file in files:
-                my_path = os.path.join(root, file)
-                if os.path.isfile(my_path):
-                    full_list.append(my_path)
-        return full_list
-
-    @staticmethod
-    def __list_appdatas(app: GenericApp):
-        keep_list = []
-        missing_appdata = []
-        for appdata in app.appdatas:
-            data = os.path.join(app.appdir, *appdata.split("/"))
-            if os.path.exists(data):
-                if os.path.isfile(data):
-                    keep_list.append(data)
-                if os.path.isdir(data):
-                    for root, _, files in os.walk(data):
-                        for file in files:
-                            my_file = os.path.join(root, file)
-                            keep_list.append(my_file)
-            else:
-                missing_appdata.append(appdata)
-        if len(missing_appdata) != 0:
-            print(MAGENTA + "Old appdatas not found: %s" % ", ".join(missing_appdata))
-        return keep_list
-
-    @staticmethod
-    def __lock_folder(app, staging, staging_list):
-        """
-        Open all files in binary append mode to get exclusive access. Close all files if any file is in use.
-        :param app:
-        :return: Dictionary with the file handles. Invoker must close these again.
-        """
-        opened_files = {}
-        target_list = []
-        for my_file in staging_list:
-            target_list.append(my_file.replace(staging, app.appdir))
-        # Here we could also check if any binaries are running and not even bother with trying to lock all files.
-        file_list = FileHandler.__list_folder(app.appdir)
-        for my_file in file_list:
-            if my_file not in target_list:
-                file_list.remove(my_file)
-        try:
-            for existing_file in file_list:
-                # There is a limit of 2048 opened files per process.
-                if len(file_list) <= 2000:
-                    if os.path.isfile(existing_file):
-                        opened_files[existing_file] = open(existing_file, "ab")
-                else:
-                    if os.path.isfile(existing_file) and re.search(
-                        "\\.(bat|cmd|com|dll|exe|elf|js|jse|msc|ps1|sh|vbe|vbs|wsf|wsh)$",
-                        os.path.split(existing_file)[-1].casefold(),
-                    ):
-                        opened_files[existing_file] = open(existing_file, "ab")
-        except PermissionError:
-            print(MAGENTA + f"{app.name}: Folder is in use. Update files will be moved next time.")
-            for key in opened_files:
-                opened_files[key].close()
-            return None
-        except OSError:
-            print(MAGENTA + f"{app.name}: Couldn't get folder lock.")
-            for key in opened_files:
-                opened_files[key].close()
-            return None
-        return opened_files
-
-    @staticmethod
-    def __remove_empty_dirs(top_dir, delete_top=False):
-        """
-        Delete empty folders created by this program. Do not use on app folders! We don't mess with the UX of installed
-        apps that way.
-        :param top_dir:
-        :param delete_top:
-        :return:
-        """
-        empty_dirs = True
-        while empty_dirs:
-            empty_dirs = False
-            for root, subdirs, _ in os.walk(top_dir):
-                for subdir in subdirs:
-                    my_path = os.path.join(root, subdir)
-                    if len(os.listdir(os.path.join(root, subdir))) == 0:
-                        empty_dirs = True
-                        os.rmdir(my_path)
-        if delete_top:
-            try:
-                if len(os.listdir(top_dir)) == 0:
-                    os.rmdir(top_dir)
-            except FileNotFoundError:
-                pass
-
-    @staticmethod
-    def make_path_native(path):
-        crumbs = path.split("/")
-        if ":" in crumbs[0] and ":\\" not in crumbs[0]:
-            crumbs[0] = crumbs[0].replace(":", ":\\")
-        return os.path.join(*crumbs)
-
-    @staticmethod
-    def pre_exit_cleanup(configuration_local: dict):
-        """
-        Remove cache directories created by this program.
-
-        :param configuration_local:
-        :return:
-        """
-        for target in configuration_local:
-            cache = os.path.join(FileHandler.make_path_native(target), ".superelixier-cache")
-            FileHandler.__remove_empty_dirs(cache, delete_top=True)
 
     def project_update(self):
         reused_files = self.__project_download()

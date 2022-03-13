@@ -8,13 +8,17 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 import json
 import os
 import sys
+import textwrap
+import traceback
 from json import JSONDecodeError
 from os.path import join as opj
+from typing import Optional
 
 import settings
 from config_handler import AUTH
 from helper import DIR_APP
 from helper.terminal import ERROR, WARNING, exit_app
+from helper.types import Json, RealBool
 from schema.definition import JsonSchema
 
 E_MISSING = ERROR + "%s was not found but is required."
@@ -28,9 +32,9 @@ FN_LOCAL_EX = "local_example.json"
 
 class ConfigHandler:
     def __init__(self):
-        self._cfg_dir = opj(DIR_APP, "config")
-        self._schema = JsonSchema()
-        self._configuration = {
+        self._cfg_dir: str = opj(DIR_APP, "config")
+        self._schema: JsonSchema = JsonSchema()
+        self._configuration: dict = {
             "auth": self._load_auth(),
             "available": self.__load_cfg_available(),
             "local": self._load_local(),
@@ -39,7 +43,7 @@ class ConfigHandler:
         settings.appveyor_headers["Authorization"] = self._configuration["auth"]["appveyor_token"]
         settings.github_headers["Authorization"] = self._configuration["auth"]["github_token"]
 
-    def _load_auth(self):
+    def _load_auth(self) -> Json:
         msg_invalid = E_INVALID % FN_AUTH
         loc = opj(self._cfg_dir, FN_AUTH)
         try:
@@ -54,7 +58,7 @@ class ConfigHandler:
     def _load_local(self):
         msg_invalid = E_INVALID % FN_LOCAL
         msg_missing = E_MISSING % FN_LOCAL
-        msg_missing += "You can use '%s' in the application's 'config' directory as a blueprint." % FN_LOCAL_EX
+        msg_missing += f"You can use '{FN_LOCAL_EX}' in the application's 'config' directory as a blueprint."
         loc = opj(self._cfg_dir, FN_LOCAL)
         try:
             unvalidated = self.__load_json(loc, msg_invalid, msg_missing)
@@ -62,42 +66,59 @@ class ConfigHandler:
         except (FileNotFoundError, JSONDecodeError):
             exit_app()
 
-    @staticmethod
-    def __load_json(path: str, msg_invalid=None, msg_missing=None, raising=True):
-        e_map = {FileNotFoundError: msg_missing, JSONDecodeError: msg_invalid}
+    @classmethod
+    def __load_json(
+        cls, path: str, msg_invalid: str = None, msg_missing: str = None, raising: RealBool = True
+    ) -> Optional[Json]:
         loaded = None
         try:
             with open(opj(path), "r") as fd:
                 loaded = json.load(fd)
         except (FileNotFoundError, JSONDecodeError) as e:
-            if error := e_map[type(e)]:
-                print(error)
+            msg = msg_missing if isinstance(e, FileNotFoundError) else msg_invalid
+            print(msg)
             if raising:
+                traceback.print_exc()
                 raise e
-        return loaded
+        finally:
+            return loaded
 
     def write_app_list(self):
         cfg = []
         for item in self._configuration["available"]:
             cfg.append(self._configuration["available"][item])
         markdown = [
-            "# Pre-configured Apps\r\n\r\nThese apps are subject to their respective licenses as determined by _the "
-            "proprietors of these apps_ ('proprietors' hereafter).\r\nInclusion in this list should not be seen as any "
-            "indication of affiliation of proprietors with _the creator(s) of Superelixier Updater_ ('we' hereafter)."
-            "\r\nWe only provide automation routines for installing these apps on your local machine.\r\n\r\nIt remains"
-            " your responsibility as a user of our software to adhere to the terms and licenses proprietors have set "
-            "for the software that you are asking our routines to access.\r\n\r\nAs a practical example, you may be "
-            "required to purchase a license from proprietors if using proprietors' software commercially.\r\nAs a "
-            "further practical example, if you create a modified version of proprietors' software, you may be required "
-            "to disclose source code of your modified version.\r\n"
+            textwrap.dedent(
+                """
+                # Pre-configured Apps
+                
+                These apps are subject to their respective licenses as determined by _the proprietors of these apps_ 
+                ('proprietors' hereafter). Inclusion in this list should not be seen as any indication of affiliation of
+                proprietors with _the creator(s) of Superelixier Updater_ ('we' hereafter). We only provide automation
+                routines for installing these apps on your local machine.
+                
+                It remains your responsibility as a user of our software to adhere to the terms and licenses proprietors
+                have set for the software that you are asking our routines to access. 
+                                
+                As a practical example, you may be required to purchase a license from proprietors if using proprietors'
+                software commercially. As a further practical example, if you create a modified version of proprietors'
+                software, you may be required to disclose source code of your modified version."""
+            )
         ]
         cats = []
         for app in cfg:
             if app["info"]["category"] not in cats:
                 cats.append(app["info"]["category"])
         cats.sort(key=str.casefold)
-        for cat in cats:
-            markdown.append(f"## {cat}\r\nApp | Description\r\n--- | ---")
+        for cat in cats:  # meow
+            markdown.append(
+                textwrap.dedent(
+                    f"""
+                    ## {cat}
+                    App | Description
+                    --- | ---"""
+                )
+            )
             for app in cfg:
                 if app["info"]["category"] == cat:
                     markdown.append(f"**{app['name']}** | {app['info']['gist'].replace('%name', app['name'])}")
@@ -117,20 +138,20 @@ class ConfigHandler:
                         raise ValueError
                     cfg_available[my_dict["name"].casefold()] = my_dict
                 except ValueError:
-                    print("%sBad definition: %s" % (ERROR, defi))
+                    print(f"{ERROR}Bad definition: {defi!r}")
         return cfg_available
 
-    @staticmethod
-    def _validate_paths(cfg_local):
-        new = {}
-        for key_old in cfg_local:
-            if key_old.startswith("/") or key_old.startswith("\\"):
-                cwdrive = os.path.splitdrive(sys.argv[0])[0]
-                key_new = cwdrive + key_old
-                new[key_new] = cfg_local[key_old]
+    @classmethod
+    def _validate_paths(cls, cfg_local: dict) -> dict:
+        converted = {}
+        for old, val in cfg_local.items():
+            if old.startswith("/") or old.startswith("\\"):
+                drive = os.path.splitdrive(sys.argv[0])[0]
+                new = drive + old
+                converted[new] = val
             else:
-                new[key_old] = cfg_local[key_old]
-        return new
+                converted[old] = val
+        return converted
 
     @property
     def configuration(self):

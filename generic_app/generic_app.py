@@ -8,10 +8,12 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 import os
 import random
 import string
-from typing import List, Union
+from typing import Callable, List, Union
 
 
 class GenericApp:
+    execute: Callable
+
     def __init__(
         self,
         target: str,

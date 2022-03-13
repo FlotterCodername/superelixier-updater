@@ -10,15 +10,15 @@ import sys
 
 from helper.terminal import BRIGHT, ERROR
 
-LOCK_MSG = ERROR + BRIGHT + "The previous Superelixier Updater instance is still running."
-
 
 class LockFileException(Exception):
     pass
 
 
 class LockFile:
-    def __init__(self):
+    LOCK_MSG = ERROR + BRIGHT + "The previous Superelixier Updater instance is still running."
+
+    def __init__(self) -> None:
         self.__locked = False
         self.__lockfile = os.path.join(os.path.dirname(sys.argv[0]), "superelixier.lock")
         try:
@@ -35,7 +35,7 @@ class LockFile:
             self.__lock_exit()
         self.__locked = True
 
-    def __del__(self):
+    def __del__(self) -> None:
         if not self.__locked:
             return
         if sys.platform == "win32":
@@ -48,7 +48,7 @@ class LockFile:
             if os.path.isfile(self.__lockfile):
                 os.remove(self.__lockfile)
 
-    @staticmethod
-    def __lock_exit():
-        print(LOCK_MSG)
+    @classmethod
+    def __lock_exit(cls) -> None:
+        print(cls.LOCK_MSG)
         raise LockFileException()

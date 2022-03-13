@@ -1,4 +1,4 @@
 import os
 import sys
 
-DIR_APP = os.path.dirname(sys.argv[0])
+DIR_APP: str = os.path.dirname(sys.argv[0])
