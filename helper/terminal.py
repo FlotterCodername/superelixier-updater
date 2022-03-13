@@ -1,6 +1,9 @@
+import os
 import sys
 
 import colorama
+
+from helper.types import RealBool
 
 BRIGHT = colorama.Style.BRIGHT
 RED = colorama.Fore.RED
@@ -13,11 +16,23 @@ ERROR = RED + "Error: "
 WARNING = MAGENTA + "Warning: "
 
 
-def exit_app():
+def exit_app() -> None:
     input("Press ENTER to exit.")
     sys.exit()
 
 
-def print_header(string, color="", *, frame_char="#"):
+def print_header(string, color="", *, frame_char="#") -> None:
     bar = (len(string) + 4) * frame_char
-    print("%s%s\n%s %s %s\n%s%s" % (color, bar, frame_char, string, frame_char, bar, RESET))
+    print(f"{color}{bar}\n{frame_char} {string} {frame_char}\n{bar}{RESET}")
+
+
+def color_handling(init: RealBool = True):
+    if init:
+        os.system("cls")
+        os.system("color 0f")
+        colorama.init()
+        print(colorama.Back.BLACK + colorama.Fore.WHITE, end="")
+    else:
+        os.system("color")
+        print(colorama.Style.RESET_ALL, end="")
+        os.system("cls")

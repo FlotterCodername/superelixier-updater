@@ -10,6 +10,7 @@ import copy
 import jsonschema
 
 from helper.terminal import ERROR
+from helper.types import Json, RealBool
 
 INSTALLERS = {"enum": ["sfx", "innoextract"]}
 REPOS = {"enum": ["appveyor", "github", "html"]}
@@ -90,7 +91,7 @@ class JsonSchema:
             "html": self.__definition_html,
         }
 
-    def __apply_override(self):
+    def __apply_override(self) -> None:
         my_actions = (
             (self.__definition_appveyor, REQUIRE_APPVEYOR, DISALLOW_APPVEYOR),
             (self.__definition_github, REQUIRE_GITHUB, DISALLOW_GITHUB),
@@ -102,29 +103,29 @@ class JsonSchema:
                 if key in row[0]["properties"]:
                     row[0]["properties"].pop(key)
 
-    def validate_definition(self, obj, filename):
+    def validate_definition(self, obj: Json, filename: str) -> RealBool:
         if "repo" not in obj:
-            print('%sfile %s: Missing key "repo"!' % (ERROR, filename))
+            print(f'{ERROR}file {filename}: Missing key "repo"!')
             return False
         if obj["repo"] not in REPOS["enum"]:
-            print('%sfile %s: Unknown value for key "repo"!' % (ERROR, filename))
+            print(f'{ERROR}file {filename}: Unknown value for key "repo"!')
             return False
         model = self.REPO_MAP[obj["repo"]]
         try:
             jsonschema.validate(obj, model)
         except jsonschema.ValidationError:
-            print("%sfile %s: ValidationError!" % (ERROR, filename))
+            print(f"{ERROR}file {filename}: ValidationError!")
             return False
         except jsonschema.SchemaError:
-            print("%sfile %s: The app has a bug in its %s schema validation!" % (ERROR, filename, obj["repo"]))
+            print(f"{ERROR}file {filename}: The app has a bug in its {obj['repo']} schema validation!")
             return False
         return True
 
 
 if __name__ == "__main__":
     instance = JsonSchema()
-    for key in instance.REPO_MAP:
-        with open(key + ".schema.json", "w") as fd:
+    for d in instance.REPO_MAP:
+        with open(d + ".schema.json", "w") as fd:
             import json
 
-            json.dump(instance.REPO_MAP[key], fd, indent=2)
+            json.dump(instance.REPO_MAP[d], fd, indent=2)

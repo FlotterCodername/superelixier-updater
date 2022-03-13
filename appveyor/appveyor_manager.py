@@ -16,8 +16,8 @@ class AppveyorManager(GenericManager):
     def __init__(self):
         super().__init__()
 
-    @staticmethod
-    def build_blob_list(app: AppveyorApp):
+    @classmethod
+    def build_blob_list(cls, app: AppveyorApp) -> dict:
         my_dict = {"version_id": app.api_call[0]["created"], "blobs": []}
         for asset in app.api_call:
             filename = asset["fileName"]
