@@ -8,9 +8,14 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 import os
 import sys
 import time
+import traceback
 from concurrent import futures
 from typing import List
 
+from requests import RequestException
+from urllib3.exceptions import HTTPError
+
+import helper.terminal
 import settings
 from appveyor.appveyor_app import AppveyorApp
 from config_handler.config_handler import ConfigHandler
@@ -79,9 +84,13 @@ class Main:
 
     @classmethod
     def __report_update_status(cls, project) -> str:
-        project.execute()
-        GenericManager.check_update(project)
-        return Main.project_status_report(project)
+        try:
+            project.execute()
+            GenericManager.check_update(project)
+        except (RequestException, HTTPError):
+            project.update_status = "failed"
+        finally:
+            return Main.project_status_report(project)
 
     def __update_apps(self):
         for job in self.job_list:
@@ -145,15 +154,28 @@ class Main:
 
 if __name__ == "__main__":
     try:
-        color_handling()
-        lock = LockFile()
-        EulaChecker.check_eula()
-        superelixier_updater = Main()
-        superelixier_updater.execute()
-        del lock
+        try:
+            color_handling()
+            lock = LockFile()
+            EulaChecker.check_eula()
+            superelixier_updater = Main()
+            superelixier_updater.execute()
+            del lock
+            input("Press Enter to continue...")
+        except LockFileException:
+            time.sleep(7)
+    except Exception:  # noqa
+        color_handling(init=False)
+        helper.terminal.print_header("superelixier crashed!"),
+        string_builder = (
+            "(╯°□°)╯︵ ┻━┻",
+            "",
+            f"{helper.terminal.RED}{traceback.format_exc()}{helper.terminal.RESET}",
+            "",
+            "┬─┬ノ( º _ ºノ)",
+        )
+        print("\n".join(string_builder))
         input("Press Enter to continue...")
-    except LockFileException:
-        time.sleep(7)
     finally:
-        color_handling()
+        color_handling(init=False)
         sys.exit()

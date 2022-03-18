@@ -8,7 +8,8 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 import re
 
 import requests as rest
-from requests import HTTPError
+from requests import RequestException
+from urllib3.exceptions import HTTPError
 
 from file_handler.downloader import Downloader
 from generic_app.generic_app import GenericApp
@@ -40,7 +41,7 @@ class HTMLApp(GenericApp):
             request = rest.get(self._url, headers=HEADERS)
             if request.status_code != 200:
                 return None
-        except (ConnectionError, HTTPError):
+        except (RequestException, HTTPError):
             return None
         return request.text
 
