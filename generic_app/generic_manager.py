@@ -21,36 +21,42 @@ class GenericManager:
         :param app:
         :return:
         """
-        if not os.path.isdir(app.appdir) and not app.update_status == "failed":
+        if app.update_status == "failed":
+            return
+        if not os.path.isdir(app.appdir):
             app.update_status = "not_installed"
-        elif not app.update_status == "failed":
-            ver_info_file = os.path.join(app.target_dir, app.name, "superelixier.json")
-            if os.path.isfile(ver_info_file):
-                with open(ver_info_file, "r") as file:
-                    version_installed = json.load(file)
-                if "spec" not in version_installed:
-                    version_installed["spec"] = 0
-                if "repo" not in version_installed:
-                    version_installed["repo"] = "html"
-                if app.repo != version_installed["repo"]:
-                    app.update_status = "update"
-                    return
-                comparison = GenericManager.compare(app.ver_scheme_type, app.version_latest, version_installed)
-                if comparison:
-                    if comparison["version_id"] == version_installed["version_id"]:
-                        if comparison["version_id"] != app.version_latest["version_id"]:
-                            if app.ver_scheme_spec > version_installed["spec"]:
-                                app.update_status = "update"
-                            else:
-                                app.update_status = "installed_newer"
-                        else:
-                            app.update_status = "no_update"
-                    else:
-                        app.update_status = "update"
-                else:
-                    app.update_status = "unknown"
+            return
+        ver_info_file = os.path.join(app.target_dir, app.name, "superelixier.json")
+        if not os.path.isfile(ver_info_file):
+            app.update_status = "no_version_file"
+            return
+        version_installed = {"spec": 0, "repo": "html"}
+        with open(ver_info_file, "r") as file:
+            loaded = json.load(file)
+        version_installed.update(loaded)
+        if app.repo != version_installed["repo"]:
+            app.update_status = "update"
+            return
+        if app.ver_scheme_type == "id":
+            if app.version_latest["version_id"] != version_installed["version_id"]:
+                app.update_status = "update"
             else:
-                app.update_status = "no_version_file"
+                app.update_status = "no_update"
+            return
+        comparison = GenericManager.compare(app.ver_scheme_type, app.version_latest, version_installed)
+        if comparison:
+            if comparison["version_id"] == version_installed["version_id"]:
+                if comparison["version_id"] != app.version_latest["version_id"]:
+                    if app.ver_scheme_spec > version_installed["spec"]:
+                        app.update_status = "update"
+                    else:
+                        app.update_status = "installed_newer"
+                else:
+                    app.update_status = "no_update"
+            else:
+                app.update_status = "update"
+        else:
+            app.update_status = "unknown"
 
     @classmethod
     def compare(cls, ver_scheme_type: str, old: dict, new: dict):
