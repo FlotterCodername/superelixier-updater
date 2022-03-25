@@ -5,6 +5,7 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
+import os
 import sys
 import tkinter
 
@@ -35,7 +36,8 @@ class SuGUI:
         dpg.configure_app(manual_callback_management=True)
         dpg.setup_dearpygui()
         with dpg.font_registry():
-            default_font = dpg.add_font("..\\assets\\MotivaSans-Regular.ttf", 15 * SCALE_FACTOR)
+            p = os.path.join("..", "assets", "MotivaSans-Regular.ttf")
+            default_font = dpg.add_font(p, 15 * SCALE_FACTOR)
         with dpg.window(tag="root"):
             dpg.bind_font(default_font)
         dpg.set_primary_window("root", True)
