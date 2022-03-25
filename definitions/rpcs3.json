@@ -4,10 +4,12 @@
     "category": "Emulators"
   },
   "name": "RPCS3",
-  "user": "RPCS3",
-  "project": "rpcs3-binaries-win",
-  "blob_re": "^rpcs3.*win64\\.7z$",
+  "url": "https://rpcs3.net/download",
+  "ver_scheme_type": "id",
+  "ver_scheme_re": "<span>Build <span class='version-buildversion'>(.*?)</span></span>",
+  "ver_scheme_spec": 1,
+  "blob_permalink": "https://rpcs3.net/latest-windows",
   "blob_unwanted": [],
   "appdatas": [],
-  "repo": "github"
+  "repo": "html"
 }

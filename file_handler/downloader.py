@@ -13,7 +13,8 @@ from typing import Optional
 from urllib.parse import urlparse, urlunparse
 
 import requests
-from requests import HTTPError
+from requests import RequestException
+from urllib3.exceptions import HTTPError
 
 from helper.terminal import ERROR
 from helper.types import RealBool
@@ -39,7 +40,7 @@ class Downloader:
             filename = os.path.join(os.path.split(target)[0], Downloader.__get_remote_filename(url, response))
             os.rename(target, filename)
             return filename
-        except (HTTPError, ValueError):
+        except (RequestException, HTTPError, ValueError):
             return None
 
     @classmethod

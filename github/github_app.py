@@ -8,7 +8,8 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 import json
 
 import requests as rest
-from requests import HTTPError
+from requests import RequestException
+from urllib3.exceptions import HTTPError
 
 import settings
 from generic_app.generic_app import GenericApp
@@ -44,7 +45,7 @@ class GithubApp(GenericApp):
             if releases.status_code != 200:
                 print(ERROR + self.name + ": HTTP Status %s: %s" % (releases.status_code, api_response["message"]))
                 return None
-        except (ConnectionError, HTTPError):
+        except (RequestException, HTTPError):
             return None
         return api_response
 

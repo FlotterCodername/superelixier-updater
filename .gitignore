@@ -1,6 +1,6 @@
 /.idea
 /.vscode
-/assets/*
+/assets
 /build
 /dist
 /config/auth.json
