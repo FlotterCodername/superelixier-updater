@@ -17,6 +17,7 @@ software, you may be required to disclose source code of your modified version.
 App | Description
 --- | ---
 **Blender** | 3D graphics suite (and much more)
+**FreeTube** | FLOSS YouTube frontend with a focus on privacy.
 **HandBrake** | Audio/video converter built on top of ffmpeg
 **Kdenlive** | Non-linear video editor
 **MediathekView** | Frontend for the media libraries of German public broadcasters like ARD and ZDF

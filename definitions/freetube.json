@@ -1,0 +1,14 @@
+{
+  "info": {
+    "gist": "FLOSS YouTube frontend with a focus on privacy.",
+    "category": "Audio & Video"
+  },
+  "name": "FreeTube",
+  "user": "FreeTubeApp",
+  "project": "FreeTube",
+  "blob_re": "^freetube-.*?-win-x64-portable\\.zip$",
+  "blob_unwanted": [],
+  "appdatas": [],
+  "prerelease": true,
+  "repo": "github"
+}
