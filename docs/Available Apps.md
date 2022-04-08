@@ -42,6 +42,7 @@ App | Description
 **Cemu** | Emulates the Nintendo Wii U.
 **citra-canary** | Emulates the Nintendo 3DS. The 'canary' branch has all the latest features, but might be less stable than 'nightly'.
 **citra-nightly** | Emulates the Nintendo 3DS.
+**Cxbx-Reloaded** | Emulates the Microsoft Xbox.
 **DeSmuME** | Emulates the Nintendo DS.
 **Dolphin** | Emulates the Nintendo GameCube and Nintendo Wii.
 **DuckStation Preview** | Emulates the Sony PlayStation. Preview build (or development if newer)
@@ -61,7 +62,7 @@ App | Description
 **Ryujinx** | Emulates the Nintendo Switch.
 **Snes9x** | Emulates the Super Nintendo Entertainment System.
 **xemu** | Emulates the Microsoft Xbox.
-**xenia** | Emulates the Microsoft Xbox 360
+**xenia** | Emulates the Microsoft Xbox 360.
 **yuzu-mainline** | Emulates the Nintendo Switch.
 
 ## Gaming
