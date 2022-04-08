@@ -47,6 +47,7 @@ App | Description
 **DuckStation** | Emulates the Sony PlayStation. Development build
 **EasyRPG Player** | RPGMaker 2000 and 2003 compatible game interpreter. Not an emulator in a technical sense.
 **mGBA** | Emulates the Nintendo Game Boy, Game Boy Color and Game Boy Advance.
+**melonDS** | Emulates the Nintendo DS.
 **Mupen64plus** | Emulates the Nintendo 64.
 **PCSX2-SSE4** | Emulates the Sony PlayStation 2. SSE4 Development builds (use if your CPU has no AVX2)
 **PCSX2** | Emulates the Sony PlayStation 2. AVX2 Development builds
