@@ -1,0 +1,13 @@
+{
+  "info": {
+    "gist": "Emulates the Microsoft Xbox 360. Canary/experimental builds.",
+    "category": "Emulators"
+  },
+  "name": "xenia-canary",
+  "user": "xenia-canary",
+  "project": "xenia-canary",
+  "blob_re": "^xenia_canary\\.zip$",
+  "blob_unwanted": [],
+  "appdatas": [],
+  "repo": "github"
+}

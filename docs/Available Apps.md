@@ -63,6 +63,7 @@ App | Description
 **Snes9x** | Emulates the Super Nintendo Entertainment System.
 **Vita3K** | Emulates the Sony PlayStation Vita.
 **xemu** | Emulates the Microsoft Xbox.
+**xenia-canary** | Emulates the Microsoft Xbox 360. Canary/experimental builds.
 **xenia** | Emulates the Microsoft Xbox 360.
 **yuzu-mainline** | Emulates the Nintendo Switch.
 
