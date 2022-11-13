@@ -84,7 +84,7 @@ def pandoc(src, dst):
 
 cleanup()
 ConfigHandler().write_app_list()
-subprocess.run(["pyinstaller", "main.py", "--icon=assets/app.ico", "--name", APP_NAME, "--onefile"], cwd=PROJECT)
+subprocess.run(["pyinstaller", "__main__.py", "--icon=assets/app.ico", "--name", APP_NAME, "--onefile"], cwd=PROJECT)
 for f in FOLDERS:
     os.makedirs(f, exist_ok=True)
 copy_folder(bin_dir, bin_dist)

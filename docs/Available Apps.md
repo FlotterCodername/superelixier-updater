@@ -17,6 +17,7 @@ software, you may be required to disclose source code of your modified version.
 App | Description
 --- | ---
 **Blender** | 3D graphics suite (and much more)
+**FreeTube** | FLOSS YouTube frontend with a focus on privacy.
 **HandBrake** | Audio/video converter built on top of ffmpeg
 **Kdenlive** | Non-linear video editor
 **MediathekView** | Frontend for the media libraries of German public broadcasters like ARD and ZDF
@@ -41,13 +42,14 @@ App | Description
 **Cemu** | Emulates the Nintendo Wii U.
 **citra-canary** | Emulates the Nintendo 3DS. The 'canary' branch has all the latest features, but might be less stable than 'nightly'.
 **citra-nightly** | Emulates the Nintendo 3DS.
+**Cxbx-Reloaded** | Emulates the Microsoft Xbox.
 **DeSmuME** | Emulates the Nintendo DS.
 **Dolphin** | Emulates the Nintendo GameCube and Nintendo Wii.
 **DuckStation Preview** | Emulates the Sony PlayStation. Preview build (or development if newer)
 **DuckStation** | Emulates the Sony PlayStation. Development build
 **EasyRPG Player** | RPGMaker 2000 and 2003 compatible game interpreter. Not an emulator in a technical sense.
-**mGBA** | Emulates the Nintendo Game Boy, Game Boy Color and Game Boy Advance.
 **melonDS** | Emulates the Nintendo DS.
+**mGBA** | Emulates the Nintendo Game Boy, Game Boy Color and Game Boy Advance.
 **Mupen64plus** | Emulates the Nintendo 64.
 **PCSX2-SSE4** | Emulates the Sony PlayStation 2. SSE4 Development builds (use if your CPU has no AVX2)
 **PCSX2** | Emulates the Sony PlayStation 2. AVX2 Development builds
@@ -58,7 +60,11 @@ App | Description
 **RetroArch** | Frontend for emulators, game engines and media players.
 **RPCS3** | Emulates the Sony PlayStation 3.
 **Ryujinx** | Emulates the Nintendo Switch.
-**xenia** | Emulates the Microsoft Xbox 360
+**Snes9x** | Emulates the Super Nintendo Entertainment System.
+**Vita3K** | Emulates the Sony PlayStation Vita.
+**xemu** | Emulates the Microsoft Xbox.
+**xenia-canary** | Emulates the Microsoft Xbox 360. Canary/experimental builds.
+**xenia** | Emulates the Microsoft Xbox 360.
 **yuzu-mainline** | Emulates the Nintendo Switch.
 
 ## Gaming
