@@ -1,0 +1,11 @@
+name = "citra-nightly"
+user = "citra-emu"
+project = "citra-nightly"
+blob_re = "^citra.*windows.*\\.7z$"
+blob_unwanted = []
+appdatas = []
+repo = "github"
+
+[info]
+gist = "Emulates the Nintendo 3DS."
+category = "Emulators"

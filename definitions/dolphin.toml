@@ -1,0 +1,11 @@
+name = "Dolphin"
+url = "https://dolphin-emu.org/download/"
+ver_scheme_type = "integer"
+blob_re = "(?P<url>https://dl\\.dolphin-emu\\.org/.*/dolphin-.*-(?P<ver>.*?)-x64\\.7z)"
+blob_unwanted = []
+appdatas = []
+repo = "html"
+
+[info]
+gist = "Emulates the Nintendo GameCube and Nintendo Wii."
+category = "Emulators"

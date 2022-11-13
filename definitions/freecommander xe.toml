@@ -1,0 +1,12 @@
+name = "FreeCommander XE"
+url = "https://freecommander.com/en/downloads-portable/"
+ver_scheme_type = "integer"
+ver_scheme_re = "<span style=\".*?\">FreeCommander XE 2022 Build (.*?) portable ZIP</span>"
+blob_permalink = "https://freecommander.com/downloads/FreeCommanderXE-32-public_portable.zip"
+blob_unwanted = []
+appdatas = []
+repo = "html"
+
+[info]
+gist = "File manager"
+category = "Utilities"

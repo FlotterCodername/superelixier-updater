@@ -1,0 +1,11 @@
+name = "Remove Empty Directories"
+user = "hxseven"
+project = "Remove-Empty-Directories"
+blob_re = "^red.*portable.*\\.zip$"
+blob_unwanted = []
+appdatas = []
+repo = "github"
+
+[info]
+gist = "Clean directory structures using rulesets"
+category = "Utilities"

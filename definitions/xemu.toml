@@ -1,0 +1,11 @@
+name = "xemu"
+user = "mborgerson"
+project = "xemu"
+blob_re = "^xemu-win-release\\.zip$"
+blob_unwanted = []
+appdatas = []
+repo = "github"
+
+[info]
+gist = "Emulates the Microsoft Xbox."
+category = "Emulators"

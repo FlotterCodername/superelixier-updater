@@ -1,0 +1,14 @@
+name = "PCSX2"
+user = "PCSX2"
+project = "pcsx2"
+blob_re = "^pcsx2-.*-windows-64bit-AVX2.7z$"
+blob_unwanted = []
+appdatas = [
+    "portable.ini",
+]
+prerelease = true
+repo = "github"
+
+[info]
+gist = "Emulates the Sony PlayStation 2. AVX2 Development builds"
+category = "Emulators"

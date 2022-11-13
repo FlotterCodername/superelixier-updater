@@ -1,0 +1,11 @@
+name = "HandBrake"
+user = "HandBrake"
+project = "HandBrake"
+blob_re = "^HandBrake-.*-x86_64-Win_GUI\\.zip$"
+blob_unwanted = []
+appdatas = []
+repo = "github"
+
+[info]
+gist = "Audio/video converter built on top of ffmpeg"
+category = "Audio & Video"

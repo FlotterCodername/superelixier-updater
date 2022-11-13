@@ -1,0 +1,11 @@
+name = "Mupen64plus"
+user = "loganmc10"
+project = "m64p"
+blob_re = "^m64p.*win64.*\\.zip$"
+blob_unwanted = []
+appdatas = []
+repo = "github"
+
+[info]
+gist = "Emulates the Nintendo 64."
+category = "Emulators"

@@ -1,0 +1,12 @@
+name = "DeSmuME"
+user = "zeromus"
+project = "desmume"
+branch = "master"
+blob_re = "^.*\\.exe$"
+blob_unwanted = []
+appdatas = []
+repo = "appveyor"
+
+[info]
+gist = "Emulates the Nintendo DS."
+category = "Emulators"

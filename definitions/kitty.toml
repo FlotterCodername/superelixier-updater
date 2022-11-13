@@ -1,0 +1,17 @@
+name = "KiTTY"
+user = "cyd01"
+project = "KiTTY"
+blob_re = "^kitty-bin-.*?\\.zip$"
+blob_unwanted = []
+appdatas = [
+    "Jumplist",
+    "Proxies",
+    "Sessions",
+    "SshHostKeys",
+    "kitty.ini",
+]
+repo = "github"
+
+[info]
+gist = "SSH and telnet client. Improved version of PuTTY"
+category = "Network Tools"

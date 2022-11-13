@@ -1,0 +1,11 @@
+name = "mGBA"
+user = "mgba-emu"
+project = "mgba"
+blob_re = "^mGBA.*win64.*\\.7z$"
+blob_unwanted = []
+appdatas = []
+repo = "github"
+
+[info]
+gist = "Emulates the Nintendo Game Boy, Game Boy Color and Game Boy Advance."
+category = "Emulators"

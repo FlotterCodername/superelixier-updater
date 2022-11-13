@@ -1,0 +1,11 @@
+name = "melonDS"
+user = "Arisotura"
+project = "melonDS"
+blob_re = "^melonDS_.*?_win_x64\\.7z$"
+blob_unwanted = []
+appdatas = []
+repo = "github"
+
+[info]
+gist = "Emulates the Nintendo DS."
+category = "Emulators"

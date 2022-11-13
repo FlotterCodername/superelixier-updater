@@ -1,0 +1,12 @@
+name = "Cxbx-Reloaded"
+user = "Cxbx-Reloaded"
+project = "Cxbx-Reloaded"
+blob_re = "^CxbxReloaded-Release-VS2022\\.zip$"
+blob_unwanted = []
+appdatas = []
+prerelease = true
+repo = "github"
+
+[info]
+gist = "Emulates the Microsoft Xbox."
+category = "Emulators"
