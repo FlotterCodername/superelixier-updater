@@ -12,16 +12,16 @@ keywords = ["windows", "continous-delivery"]
 [tool.poetry.dependencies]
 python = ">=3.10, <3.11"
 # Dependencies
-colorama = "^0.4.4"
-jsonschema = "^4.4.0"
+colorama = "^0.4"
+jsonschema = "^4.17"
 packaging = "^21.3"
-requests = "^2.27.1"
+requests = "^2.28"
 
 [tool.poetry.dev-dependencies]
-black = "^22.1.0"
-flake8 = "^4.0.1"
-isort = "^5.10.1"
-pyinstaller = "^4.10"
+black = "^22.1"
+flake8 = "^5.0"
+isort = "^5.10"
+pyinstaller = "^5.6"
 
 [tool.black]
 line-length = 120
