@@ -9,7 +9,6 @@ import html
 import os
 import re
 import string
-from typing import Optional
 from urllib.parse import urlparse, urlunparse
 
 import requests
@@ -17,7 +16,6 @@ from requests import RequestException
 from urllib3.exceptions import HTTPError
 
 from helper.terminal import ERROR
-from helper.types import RealBool
 from html_seu import HEADERS
 
 
@@ -26,7 +24,7 @@ class Downloader:
         self._file = Downloader.__url_downloader(url, target)
 
     @classmethod
-    def __url_downloader(cls, url, target) -> Optional[str]:
+    def __url_downloader(cls, url, target) -> str | None:
         """
         curl without curl
 
@@ -126,7 +124,7 @@ class Downloader:
         return url
 
     @classmethod
-    def __check_domain(cls, old_url: str, new_url: str) -> RealBool:
+    def __check_domain(cls, old_url: str, new_url: str) -> bool:
         # I considered slicing to second-level domain and TLD here.
         # But since the list of [PSDs](https://publicsuffix.org/) is ever-expanding...
         # This will have to do until I have a safe method to handle PSDs.

@@ -1,3 +1,1 @@
-from typing import Dict
-
-AUTH: Dict[str, str] = {"appveyor_token": "", "github_token": ""}
+AUTH: dict[str, str] = {"appveyor_token": "", "github_token": ""}

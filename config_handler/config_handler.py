@@ -18,7 +18,7 @@ import settings
 from config_handler import AUTH
 from helper import DIR_APP
 from helper.terminal import ERROR, WARNING, exit_app
-from helper.types import Json, RealBool
+from helper.types import Json
 from schema.definition import JsonSchema
 
 E_MISSING = ERROR + "%s was not found but is required."
@@ -68,7 +68,7 @@ class ConfigHandler:
 
     @classmethod
     def __load_json(
-        cls, path: str, msg_invalid: str = None, msg_missing: str = None, raising: RealBool = True
+        cls, path: str, msg_invalid: str = None, msg_missing: str = None, raising: bool = True
     ) -> Optional[Json]:
         loaded = None
         try:

@@ -12,7 +12,6 @@ def remove_empty_dirs(top_dir: str, delete_top=False) -> None:
 
     :param top_dir:
     :param delete_top:
-    :return:
     """
     empty_dirs = True
     while empty_dirs:

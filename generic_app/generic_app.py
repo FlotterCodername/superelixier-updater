@@ -8,7 +8,7 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 import os
 import random
 import string
-from typing import Callable, List, Union
+from typing import Callable
 
 
 class GenericApp:
@@ -18,10 +18,10 @@ class GenericApp:
         self,
         target: str,
         *,
-        appdatas: Union[str, List[str]] = None,
+        appdatas: str | list[str] = None,
         blob_re: str = None,
         blob_permalink: str = None,
-        blob_unwanted: Union[str, List[str]] = None,
+        blob_unwanted: str | list[str] = None,
         branch: str = None,
         info: dict = None,
         installer: str = None,

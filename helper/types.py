@@ -1,6 +1,7 @@
-from typing import Dict, List, Literal, Optional, Union
+from typing import Any
 
-Json = Union[Dict, List]
-JsonResponse = Optional[Json]
-RealBool = Literal[True, False]
-FlakyBool = Literal[True, False, None]
+JsonObject = dict[str, Any]
+JsonArray = list[JsonObject]
+Json = JsonArray | JsonObject
+JsonResponse = Json | None
+FlakyBool = bool | None

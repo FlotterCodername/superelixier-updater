@@ -3,8 +3,6 @@ import sys
 
 import colorama
 
-from helper.types import RealBool
-
 BRIGHT = colorama.Style.BRIGHT
 RED = colorama.Fore.RED
 GREEN = colorama.Fore.GREEN
@@ -26,7 +24,7 @@ def print_header(string, color="", *, frame_char="#") -> None:
     print(f"{color}{bar}\n{frame_char} {string} {frame_char}\n{bar}{RESET}")
 
 
-def color_handling(init: RealBool = True):
+def color_handling(init: bool = True) -> None:
     if init:
         os.system("cls")
         os.system("color 0f")

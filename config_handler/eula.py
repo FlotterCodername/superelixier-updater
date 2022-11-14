@@ -15,7 +15,7 @@ import textwrap
 class EulaChecker:
     TERM_VER: int = 1
     TERMS = textwrap.dedent(
-        """
+        """\
         Superelixier 3rd-Party Notice
         =============================
         All apps installed using this program are subject to their respective licenses as determined by the proprietors

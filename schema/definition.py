@@ -10,7 +10,7 @@ import copy
 import jsonschema
 
 from helper.terminal import ERROR
-from helper.types import Json, RealBool
+from helper.types import Json
 
 INSTALLERS = {"enum": ["sfx", "innoextract"]}
 REPOS = {"enum": ["appveyor", "github", "html"]}
@@ -103,7 +103,7 @@ class JsonSchema:
                 if key in row[0]["properties"]:
                     row[0]["properties"].pop(key)
 
-    def validate_definition(self, obj: Json, filename: str) -> RealBool:
+    def validate_definition(self, obj: Json, filename: str) -> bool:
         if "repo" not in obj:
             print(f'{ERROR}file {filename}: Missing key "repo"!')
             return False
