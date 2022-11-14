@@ -2,9 +2,10 @@
 
 [![Python app](https://github.com/FlotterCodername/superelixier-updater/actions/workflows/python-app.yml/badge.svg)](https://github.com/FlotterCodername/superelixier-updater/actions/workflows/python-app.yml) [![CodeQL](https://github.com/FlotterCodername/superelixier-updater/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/FlotterCodername/superelixier-updater/actions/workflows/codeql-analysis.yml)
 
-**Using this tool currently requires editing of TOML files (Tom's Obvious Markup Language). This is very similar to an
-INI file.** If you want to wait for a more user-friendly version, select ``Watch -> Custom -> Releases`` from the top of
-the GitHub repository. In any case, check out the [list of Pre-configured Apps](./docs/Available%20Apps.md)
+**Using this tool currently requires editing of TOML files
+([Tom's Obvious, Minimal Language](https://en.wikipedia.org/wiki/TOML)). This is very similar to an  INI file.** If you
+want to wait for a more user-friendly version, select ``Watch -> Custom -> Releases`` from the top of the GitHub
+repository. In any case, check out the [list of Pre-configured Apps](./docs/Available%20Apps.md)
 
 Users who add additional apps definitions to the updater need to be familiar with TOML and Python regular expressions.
 
