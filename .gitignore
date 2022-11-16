@@ -2,12 +2,12 @@
 /build
 /dist
 /config/auth.toml
+/config/eula.toml
 /config/local.toml
 /venv
 /superelixier.lock
 /superelixier.spec
 /bin-win32/*
-/config/eula.toml
 /app.ico
 
 __pycache__
