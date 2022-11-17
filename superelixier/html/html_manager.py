@@ -5,6 +5,10 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
-from superelixier import configuration
 
-configuration.write_app_list()
+from superelixier.generic.generic_manager import GenericManager
+
+
+class HTMLManager(GenericManager):
+    def __init__(self):
+        super().__init__()

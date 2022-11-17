@@ -1,4 +1,6 @@
-"C:/PortableApps" = [
+[[directory]]
+path = "C:/PortableApps"
+apps = [
     "dbeaver",
     "diagrams.net",
     "KiTTY",
@@ -9,7 +11,10 @@
     "Remove Empty Directories",
     "Steam Rom Manager",
 ]
-"D:/Games/Emulators" = [
+
+[[directory]]
+path = "D:/Games/Emulators"
+apps = [
     "Cemu",
     "citra-canary",
     "citra-nightly",
