@@ -10,15 +10,15 @@ import os
 import re
 import shutil
 import subprocess
-import sys
 from os.path import join as opj
 from os.path import split as ops
 
-from config_handler.config_handler import ConfigHandler
+from superelixier import configuration
+from superelixier.helper.filesystem import DIR_APP
 
 APP_NAME = "superelixier"
 VERSION = datetime.datetime.now().strftime("%Y-%m-%d")
-PROJECT = os.path.normpath(os.path.dirname(sys.argv[0]))
+PROJECT = DIR_APP
 BUILD = opj(PROJECT, "build")
 DIST = opj(PROJECT, "dist")
 ROOT_FILES = [
@@ -83,12 +83,12 @@ def pandoc(src, dst):
 
 
 cleanup()
-ConfigHandler().write_app_list()
+configuration.write_app_list()
 subprocess.run(["pyinstaller", "__main__.py", "--icon=assets/app.ico", "--name", APP_NAME, "--onefile"], cwd=PROJECT)
 for f in FOLDERS:
     os.makedirs(f, exist_ok=True)
 copy_folder(bin_dir, bin_dist)
-copy_folder(cfg_dir, cfg_dist, exclusions=["auth.json", "local.json", "eula.json"])
+copy_folder(cfg_dir, cfg_dist, exclusions=["auth.toml", "local.toml", "eula.toml"])
 copy_folder(def_dir, def_dist)
 copy_folder(docs_dir, docs_dist, exclusions=["example.png", "github-markdown.css"])
 copy_folder(thirdparty_dir, thirdparty_dist)
