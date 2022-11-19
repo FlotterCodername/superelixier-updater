@@ -10,21 +10,21 @@ import sys
 import time
 import traceback
 from concurrent import futures
-from html.html_app import HTMLApp
 
-from __init__ import configuration
-from appveyor.appveyor_app import AppveyorApp
-from config_handler.eula import check_eula
-from file_handler import FileHandler
-from generic.generic_app import GenericApp
-from generic.generic_manager import GenericManager
-from github.github_app import GithubApp
-from helper.terminal import Ansi, color_handling, exit_app, print_header
 from requests import RequestException
 from urllib3.exceptions import HTTPError
 
+from superelixier import configuration
+from superelixier.appveyor.appveyor_app import AppveyorApp
+from superelixier.config_handler.eula import check_eula
 from superelixier.environment_handler import LockFile, LockFileException
+from superelixier.file_handler import FileHandler
+from superelixier.generic.generic_app import GenericApp
+from superelixier.generic.generic_manager import GenericManager
+from superelixier.github.github_app import GithubApp
 from superelixier.helper.filesystem import make_path_native, remove_empty_dirs
+from superelixier.helper.terminal import Ansi, color_handling, exit_app, print_header
+from superelixier.html.html_app import HTMLApp
 
 
 def main():
