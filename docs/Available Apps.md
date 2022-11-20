@@ -18,7 +18,7 @@ to disclose source code of your modified version.
 | --- | --- |
 | **Blender** | 3D graphics suite (and much more) |
 | **FreeTube** | FLOSS YouTube frontend with a focus on privacy. |
-| **HandBrake** | Audio/video converter built on top of ffmpeg |
+| **HandBrake** | Audio/video converter built on top of ffmpeg, x264, x265 and more |
 | **Kdenlive** | Non-linear video editor |
 | **MediathekView** | Frontend for the media libraries of German public broadcasters like ARD and ZDF |
 | **Media Player Classic - Home Cinema** | Free and open-source video and audio player (active fork by clsid2). Very high performance |

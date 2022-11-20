@@ -113,14 +113,14 @@ class ConfigHandler:
         markdown = [TERMS]
         cats = []
         for app in cfg:
-            if app["info"]["category"] not in cats:
-                cats.append(app["info"]["category"])
+            if app.info.category not in cats:
+                cats.append(app.info.category)
         cats.sort(key=str.casefold)
         for cat in cats:  # meow
             markdown.append(f"## {cat}\r\n| App | Description |\r\n| --- | --- |")
             for app in cfg:
-                if app["info"]["category"] == cat:
-                    markdown.append(f"| **{app['name']}** | {app['info']['gist'].replace('%name', app['name'])} |")
+                if app.info.category == cat:
+                    markdown.append(f"| **{app.info.name}** | {app.info.gist.replace('%name', app.info.name)} |")
         markdown = "\r\n".join(markdown)
         with open(opj(DIR_APP, "docs", "Available Apps.md"), "wb") as file:
             file.write(str.encode(markdown))
