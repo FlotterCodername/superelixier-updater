@@ -6,15 +6,21 @@ If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
 import copy
+from typing import get_args
 
 import jsonschema
 
 from superelixier.helper.terminal import Ansi
-from superelixier.helper.types import Json
+from superelixier.helper.types import Json, DefinitionInstaller, DefinitionRepo, DefinitionVersioning
 
-INSTALLERS = {"enum": ["sfx", "innoextract"]}
-REPOS = {"enum": ["appveyor", "github", "html"]}
-VS_TYPES = {"enum": ["id", "integer", "tuple"]}
+
+def enum(literal):
+    return {"enum": [*get_args(literal)]}
+
+
+INSTALLERS = enum(DefinitionInstaller)
+REPOS = enum(DefinitionRepo)
+VS_TYPES = enum(DefinitionVersioning)
 
 ARRAY = {"type": "array"}
 BOOL = {"type": "boolean"}
