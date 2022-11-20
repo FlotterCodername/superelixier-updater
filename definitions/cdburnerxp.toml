@@ -1,11 +1,9 @@
-name = "CDBurnerXP"
-url = "https://cdburnerxp.se/download"
-ver_scheme_type = "tuple"
-blob_re = "<td><a href=\"(?P<url>https://download\\.cdburnerxp\\.se/portable/CDBurnerXP-x64-(?P<ver>.*?)\\.zip)\" onclick=\".*?\">64 bit</a></td>"
-blob_unwanted = []
-appdatas = []
-repo = "html"
-
 [info]
 gist = "Disc burning utility"
 category = "Utilities"
+name = "CDBurnerXP"
+
+[html]
+versioning = "tuple"
+blob_re = "<td><a href=\"(?P<url>https://download\\.cdburnerxp\\.se/portable/CDBurnerXP-x64-(?P<ver>.*?)\\.zip)\" onclick=\".*?\">64 bit</a></td>"
+url = "https://cdburnerxp.se/download"

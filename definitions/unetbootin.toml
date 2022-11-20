@@ -1,11 +1,9 @@
-name = "UNetbootin"
-user = "unetbootin"
-project = "unetbootin"
-blob_re = "^unetbootin-windows.*\\.exe$"
-blob_unwanted = []
-appdatas = []
-repo = "github"
-
 [info]
 gist = "Create bootable USB flash drives"
 category = "Utilities"
+name = "UNetbootin"
+
+[github]
+blob_re = "^unetbootin-windows.*\\.exe$"
+user = "unetbootin"
+project = "unetbootin"

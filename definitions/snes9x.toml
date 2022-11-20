@@ -1,11 +1,9 @@
-name = "Snes9x"
-user = "snes9xgit"
-project = "snes9x"
-blob_re = "^snes9x-.*?-win32-x64\\.zip$"
-blob_unwanted = []
-appdatas = []
-repo = "github"
-
 [info]
 gist = "Emulates the Super Nintendo Entertainment System."
 category = "Emulators"
+name = "Snes9x"
+
+[github]
+blob_re = "^snes9x-.*?-win32-x64\\.zip$"
+user = "snes9xgit"
+project = "snes9x"

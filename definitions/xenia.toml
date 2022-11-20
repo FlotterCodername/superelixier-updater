@@ -1,11 +1,9 @@
-name = "xenia"
-user = "xenia-project"
-project = "release-builds-windows"
-blob_re = "^xenia_master\\.zip$"
-blob_unwanted = []
-appdatas = []
-repo = "github"
-
 [info]
 gist = "Emulates the Microsoft Xbox 360."
 category = "Emulators"
+name = "xenia"
+
+[github]
+blob_re = "^xenia_master\\.zip$"
+user = "xenia-project"
+project = "release-builds-windows"

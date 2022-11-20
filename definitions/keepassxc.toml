@@ -1,11 +1,9 @@
-name = "KeePassXC"
-user = "keepassxreboot"
-project = "keepassxc"
-blob_re = "^KeePassXC.*Win64\\.zip$"
-blob_unwanted = []
-appdatas = []
-repo = "github"
-
 [info]
 gist = "Password manager"
 category = "Security"
+name = "KeePassXC"
+
+[github]
+blob_re = "^KeePassXC.*Win64\\.zip$"
+user = "keepassxreboot"
+project = "keepassxc"

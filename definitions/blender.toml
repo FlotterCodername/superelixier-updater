@@ -1,11 +1,9 @@
-name = "Blender"
-url = "https://www.blender.org/download"
-ver_scheme_type = "tuple"
-blob_re = ".*href=\"(?P<url>https://www\\.blender\\.org/download/Blender.*?/blender-(?P<ver>.*?)-windows-?x?64\\.zip)/?\".*"
-blob_unwanted = []
-appdatas = []
-repo = "html"
-
 [info]
 gist = "3D graphics suite (and much more)"
 category = "Audio & Video"
+name = "Blender"
+
+[html]
+versioning = "tuple"
+blob_re = ".*href=\"(?P<url>https://www\\.blender\\.org/download/Blender.*?/blender-(?P<ver>.*?)-windows-?x?64\\.zip)/?\".*"
+url = "https://www.blender.org/download"

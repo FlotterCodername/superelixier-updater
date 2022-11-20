@@ -1,11 +1,9 @@
-name = "Vita3K"
-user = "Vita3K"
-project = "Vita3K"
-blob_re = "^windows-latest\\.zip$"
-blob_unwanted = []
-appdatas = []
-repo = "github"
-
 [info]
 gist = "Emulates the Sony PlayStation Vita."
 category = "Emulators"
+name = "Vita3K"
+
+[github]
+blob_re = "^windows-latest\\.zip$"
+user = "Vita3K"
+project = "Vita3K"

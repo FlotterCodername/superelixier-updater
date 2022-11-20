@@ -1,12 +1,10 @@
-name = "DuckStation Preview"
-user = "stenzek"
-project = "duckstation"
-blob_re = "^duckstation-windows-x64-release\\.zip$"
-blob_unwanted = []
-appdatas = []
-prerelease = true
-repo = "github"
-
 [info]
 gist = "Emulates the Sony PlayStation. Preview build (or development if newer)"
 category = "Emulators"
+name = "DuckStation Preview"
+
+[github]
+prerelease = true
+blob_re = "^duckstation-windows-x64-release\\.zip$"
+user = "stenzek"
+project = "duckstation"

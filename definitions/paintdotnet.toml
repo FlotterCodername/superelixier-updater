@@ -1,13 +1,14 @@
-name = "paint.net"
-user = "paintdotnet"
-project = "release"
-blob_re = "^paint\\.net\\..*?portable\\.x64\\.zip$"
-blob_unwanted = []
-appdatas = [
-    "PaintDotNet.AppSettings.json",
-]
-repo = "github"
-
 [info]
 gist = "Freeware image editor originally conceived as an alternative to Microsoft Paint."
 category = "Utilities"
+name = "paint.net"
+
+[github]
+blob_re = "^paint\\.net\\..*?portable\\.x64\\.zip$"
+user = "paintdotnet"
+project = "release"
+
+[local]
+appdata = [
+    "PaintDotNet.AppSettings.json",
+]

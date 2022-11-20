@@ -1,11 +1,9 @@
-name = "Cemu"
-url = "http://cemu.info/"
-ver_scheme_type = "tuple"
-blob_re = ".*\"(?P<url>https://cemu\\.info/releases/cemu_(?P<ver>.*?)\\.zip)\".*"
-blob_unwanted = []
-appdatas = []
-repo = "html"
-
 [info]
 gist = "Emulates the Nintendo Wii U."
 category = "Emulators"
+name = "Cemu"
+
+[html]
+versioning = "tuple"
+blob_re = ".*\"(?P<url>https://cemu\\.info/releases/cemu_(?P<ver>.*?)\\.zip)\".*"
+url = "http://cemu.info/"

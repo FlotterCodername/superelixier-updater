@@ -1,12 +1,10 @@
-name = "VSCode"
-url = "https://update.code.visualstudio.com/api/releases/stable"
-ver_scheme_type = "tuple"
-ver_scheme_re = "\"(.*?)\""
-blob_permalink = "https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-archive"
-blob_unwanted = []
-appdatas = []
-repo = "html"
-
 [info]
 gist = "Extensible code editor supporting many programming languages"
 category = "Developer Tools"
+name = "VSCode"
+
+[html]
+versioning = "tuple"
+ver_scheme_re = "\"(.*?)\""
+url = "https://update.code.visualstudio.com/api/releases/stable"
+blob_permalink = "https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-archive"

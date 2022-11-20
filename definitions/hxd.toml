@@ -1,15 +1,16 @@
-name = "HxD"
-url = "https://mh-nexus.de/en/programs.php"
-ver_scheme_type = "tuple"
-ver_scheme_re = "[\\S\\s]*<h2>HxD</h2>[\\S\\s]*<span style=\\\"float: left;\\\">(.*?) .*?</span>[\\S\\s]*"
-blob_permalink = "https://mh-nexus.de/downloads/HxDPortableSetup.zip"
-blob_unwanted = [
-    "HxD\\.exe",
-]
-installer = "innoextract"
-appdatas = []
-repo = "html"
-
 [info]
 gist = "Hex editor"
 category = "Developer Tools"
+name = "HxD"
+
+[html]
+versioning = "tuple"
+ver_scheme_re = "[\\S\\s]*<h2>HxD</h2>[\\S\\s]*<span style=\\\"float: left;\\\">(.*?) .*?</span>[\\S\\s]*"
+url = "https://mh-nexus.de/en/programs.php"
+blob_permalink = "https://mh-nexus.de/downloads/HxDPortableSetup.zip"
+
+[local]
+installer = "innoextract"
+delete = [
+    "HxD\\.exe",
+]

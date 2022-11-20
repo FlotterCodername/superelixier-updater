@@ -1,11 +1,9 @@
-name = "FileZilla Client"
-url = "https://filezilla-project.org/download.php?show_all=1"
-ver_scheme_type = "tuple"
-blob_re = "<a href=\"(?P<url>.*?)\" rel=\".*?\">FileZilla_(?P<ver>.*?)_win64\\.zip</a>"
-blob_unwanted = []
-appdatas = []
-repo = "html"
-
 [info]
 gist = "File transfer client supporting FTP, FTPS and SFTP"
 category = "Network Tools"
+name = "FileZilla Client"
+
+[html]
+versioning = "tuple"
+blob_re = "<a href=\"(?P<url>.*?)\" rel=\".*?\">FileZilla_(?P<ver>.*?)_win64\\.zip</a>"
+url = "https://filezilla-project.org/download.php?show_all=1"

@@ -1,11 +1,9 @@
-name = "PPSSPP"
-url = "https://www.ppsspp.org/downloads.html"
-ver_scheme_type = "tuple"
-blob_re = "<p><a.*?href=\\\"(?P<url>files/.*?/ppsspp_win\\.zip)\\\">.*?Download (?P<ver>.*?) zip</a></p>"
-blob_unwanted = []
-appdatas = []
-repo = "html"
-
 [info]
 gist = "Emulates the Sony PlayStation Portable."
 category = "Emulators"
+name = "PPSSPP"
+
+[html]
+versioning = "tuple"
+blob_re = "<p><a.*?href=\\\"(?P<url>files/.*?/ppsspp_win\\.zip)\\\">.*?Download (?P<ver>.*?) zip</a></p>"
+url = "https://www.ppsspp.org/downloads.html"

@@ -1,11 +1,9 @@
-name = "Mupen64plus"
-user = "loganmc10"
-project = "m64p"
-blob_re = "^m64p.*win64.*\\.zip$"
-blob_unwanted = []
-appdatas = []
-repo = "github"
-
 [info]
 gist = "Emulates the Nintendo 64."
 category = "Emulators"
+name = "Mupen64plus"
+
+[github]
+blob_re = "^m64p.*win64.*\\.zip$"
+user = "loganmc10"
+project = "m64p"

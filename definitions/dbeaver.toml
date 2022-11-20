@@ -1,13 +1,14 @@
-name = "dbeaver"
-user = "dbeaver"
-project = "dbeaver"
-blob_re = "^dbeaver.*win32\\.x86_64.*\\.zip$"
-blob_unwanted = []
-appdatas = [
-    "dbeaver.ini",
-]
-repo = "github"
-
 [info]
 gist = "SQL client"
 category = "Developer Tools"
+name = "dbeaver"
+
+[github]
+blob_re = "^dbeaver.*win32\\.x86_64.*\\.zip$"
+user = "dbeaver"
+project = "dbeaver"
+
+[local]
+appdata = [
+    "dbeaver.ini",
+]

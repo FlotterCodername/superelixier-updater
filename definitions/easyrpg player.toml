@@ -1,11 +1,9 @@
-name = "EasyRPG Player"
-url = "https://easyrpg.org/player/downloads/"
-ver_scheme_type = "tuple"
-blob_re = "(?P<url>https://easyrpg\\.org/downloads/player/(?P<ver>.*?)/EasyRPG_Player-.*?-Windows-x64\\.zip)"
-blob_unwanted = []
-appdatas = []
-repo = "html"
-
 [info]
 gist = "RPGMaker 2000 and 2003 compatible game interpreter. Not an emulator in a technical sense."
 category = "Emulators"
+name = "EasyRPG Player"
+
+[html]
+versioning = "tuple"
+blob_re = "(?P<url>https://easyrpg\\.org/downloads/player/(?P<ver>.*?)/EasyRPG_Player-.*?-Windows-x64\\.zip)"
+url = "https://easyrpg.org/player/downloads/"

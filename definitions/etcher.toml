@@ -1,11 +1,9 @@
-name = "Etcher"
-user = "balena-io"
-project = "etcher"
-blob_re = "^balenaEtcher.*Portable.*\\.exe$"
-blob_unwanted = []
-appdatas = []
-repo = "github"
-
 [info]
 gist = "SD card flasher"
 category = "Utilities"
+name = "Etcher"
+
+[github]
+blob_re = "^balenaEtcher.*Portable.*\\.exe$"
+user = "balena-io"
+project = "etcher"

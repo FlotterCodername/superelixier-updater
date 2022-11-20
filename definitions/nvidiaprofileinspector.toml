@@ -1,11 +1,9 @@
-name = "nvidiaProfileInspector"
-user = "Orbmu2k"
-project = "nvidiaProfileInspector"
-blob_re = "^nvidiaProfileInspector\\.zip$"
-blob_unwanted = []
-appdatas = []
-repo = "github"
-
 [info]
 gist = "3rd-party Nvidia driver configuration frontend"
 category = "Gaming"
+name = "nvidiaProfileInspector"
+
+[github]
+blob_re = "^nvidiaProfileInspector\\.zip$"
+user = "Orbmu2k"
+project = "nvidiaProfileInspector"

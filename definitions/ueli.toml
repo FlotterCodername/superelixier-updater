@@ -1,11 +1,9 @@
-name = "ueli"
-user = "oliverschwendener"
-project = "ueli"
-blob_re = "^ueli-(\\d|\\.)*-win\\.zip$"
-blob_unwanted = []
-appdatas = []
-repo = "github"
-
 [info]
 gist = "Cross-platform keystroke launcher"
 category = "Utilities"
+name = "ueli"
+
+[github]
+blob_re = "^ueli-(\\d|\\.)*-win\\.zip$"
+user = "oliverschwendener"
+project = "ueli"

@@ -1,13 +1,11 @@
-name = "RPCS3"
-url = "https://rpcs3.net/download"
-ver_scheme_type = "id"
-ver_scheme_re = "<span>Build <span class='version-buildversion'>(.*?)</span></span>"
-ver_scheme_spec = 1
-blob_permalink = "https://rpcs3.net/latest-windows"
-blob_unwanted = []
-appdatas = []
-repo = "html"
-
 [info]
 gist = "Emulates the Sony PlayStation 3."
 category = "Emulators"
+name = "RPCS3"
+
+[html]
+versioning = "id"
+ver_scheme_spec = 1
+ver_scheme_re = "<span>Build <span class='version-buildversion'>(.*?)</span></span>"
+url = "https://rpcs3.net/download"
+blob_permalink = "https://rpcs3.net/latest-windows"

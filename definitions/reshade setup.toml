@@ -1,11 +1,9 @@
-name = "ReShade Setup"
-url = "https://reshade.me"
-ver_scheme_type = "tuple"
-blob_re = ".*<a href=\"(?P<url>/downloads/.*?\\.exe)\" class=\"button\">Download ReShade (?P<ver>.*?)</a>.*"
-blob_unwanted = []
-appdatas = []
-repo = "html"
-
 [info]
 gist = "Installer for ReShade, a universal shader injector"
 category = "Gaming"
+name = "ReShade Setup"
+
+[html]
+versioning = "tuple"
+blob_re = ".*<a href=\"(?P<url>/downloads/.*?\\.exe)\" class=\"button\">Download ReShade (?P<ver>.*?)</a>.*"
+url = "https://reshade.me"

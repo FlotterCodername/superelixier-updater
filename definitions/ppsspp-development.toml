@@ -1,11 +1,9 @@
-name = "PPSSPP Development"
-url = "https://buildbot.orphis.net/ppsspp"
-ver_scheme_type = "tuple"
-blob_re = ".*(?P<url>/ppsspp/index\\.php\\?m=dl&amp;rev=v*(?P<ver>.*?)&amp;platform=windows-amd64).*"
-blob_unwanted = []
-appdatas = []
-repo = "html"
-
 [info]
 gist = "Emulates the Sony PlayStation Portable. Development builds from Git via Orphis."
 category = "Emulators"
+name = "PPSSPP Development"
+
+[html]
+versioning = "tuple"
+blob_re = ".*(?P<url>/ppsspp/index\\.php\\?m=dl&amp;rev=v*(?P<ver>.*?)&amp;platform=windows-amd64).*"
+url = "https://buildbot.orphis.net/ppsspp"
