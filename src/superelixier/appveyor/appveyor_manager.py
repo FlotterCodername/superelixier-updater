@@ -9,6 +9,7 @@ import re
 
 from superelixier.appveyor import API_URL
 from superelixier.appveyor.appveyor_app import AppveyorApp
+from superelixier.generic.generic_app import VersionInfo
 from superelixier.generic.generic_manager import GenericManager
 
 
@@ -17,10 +18,10 @@ class AppveyorManager(GenericManager):
         super().__init__()
 
     @classmethod
-    def build_blob_list(cls, app: AppveyorApp) -> dict:
-        my_dict = {"version_id": app.api_call[0]["created"], "blobs": []}
+    def build_blob_list(cls, app: AppveyorApp) -> VersionInfo:
+        my_version = VersionInfo(version_id=app.api_call[0]["created"], blobs=[])
         for asset in app.api_call:
             filename = asset["fileName"]
             if re.fullmatch(app.blob_re, filename.split("/")[-1]) is not None:
-                my_dict["blobs"].append(API_URL + "/buildjobs/" + asset["jobId"] + "/artifacts/" + filename)
-        return my_dict
+                my_version.blobs.append(API_URL + "/buildjobs/" + asset["jobId"] + "/artifacts/" + filename)
+        return my_version

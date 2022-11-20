@@ -14,15 +14,15 @@ from urllib3.exceptions import HTTPError
 
 from superelixier import configuration
 from superelixier.appveyor import API_URL
+from superelixier.definition import Definition
 from superelixier.generic.generic_app import GenericApp
 from superelixier.helper.terminal import DENT, Ansi
 from superelixier.helper.types import JsonResponse
 
 
 class AppveyorApp(GenericApp):
-    def __init__(self, target: str, **kwargs: dict):
-        super().__init__(target, **kwargs)
-        self._branch: str = self._branch or "master"
+    def __init__(self, definition: Definition, target: str = None):
+        super().__init__(definition, target)
         self._api_call: JsonResponse = None
 
     def execute(self):
@@ -38,7 +38,7 @@ class AppveyorApp(GenericApp):
     def __api_request(self) -> JsonResponse:
         try:
             api_response = rest.get(
-                f"{API_URL}/projects/{self._user}/{self._project}/history?recordsNumber=20",
+                f"{API_URL}/projects/{self.user}/{self.project}/history?recordsNumber=20",
                 headers=self.headers,
             )
             if api_response.status_code != 200:
@@ -54,10 +54,8 @@ class AppveyorApp(GenericApp):
             for build in history:
                 if job_id:
                     break
-                if build["status"] == "success" and build["branch"] == self._branch:
-                    api_response = rest.get(
-                        f"{API_URL}/projects/{self._user}/{self._project}/builds/{build['buildId']}"
-                    )
+                if build["status"] == "success" and build["branch"] == self.branch:
+                    api_response = rest.get(f"{API_URL}/projects/{self.user}/{self.project}/builds/{build['buildId']}")
                     if api_response.status_code == 200:
                         jobs = json.loads(api_response.text)["build"]["jobs"]
                         for job in jobs:
@@ -90,6 +88,26 @@ class AppveyorApp(GenericApp):
     @property
     def api_call(self) -> JsonResponse:
         return self._api_call
+
+    @property
+    def branch(self):
+        return self.definition.appveyor.branch or "master"
+
+    @property
+    def user(self):
+        return self.definition.appveyor.user
+
+    @property
+    def project(self):
+        return self.definition.appveyor.project
+
+    @property
+    def blob_re(self):
+        return self.definition.appveyor.blob_re
+
+    @property
+    def versioning(self):
+        return "appveyor"
 
     @property
     def headers(self):

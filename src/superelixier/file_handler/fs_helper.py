@@ -16,7 +16,7 @@ from superelixier.helper.terminal import Ansi
 def list_appdatas(app: GenericApp):
     keep_list = []
     missing_appdata = []
-    for appdata in app.appdatas:
+    for appdata in app.definition.local.appdata:
         data = os.path.join(app.appdir, *appdata.split("/"))
         if os.path.exists(data):
             if os.path.isfile(data):

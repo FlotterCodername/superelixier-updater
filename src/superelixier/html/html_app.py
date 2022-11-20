@@ -11,15 +11,22 @@ import requests as rest
 from requests import RequestException
 from urllib3.exceptions import HTTPError
 
+from superelixier.definition import Definition
 from superelixier.file_handler.downloader import Downloader
-from superelixier.generic.generic_app import GenericApp
+from superelixier.generic.generic_app import GenericApp, VersionInfo
 from superelixier.generic.generic_manager import GenericManager
 from superelixier.html import HEADERS
 
 
 class HTMLApp(GenericApp):
-    def __init__(self, target, **kwargs):
-        super().__init__(target, **kwargs)
+    def __init__(self, definition: Definition, target: str = None):
+        super().__init__(definition, target)
+        self._url = self.definition.html.url
+        self._versioning = self.definition.html.versioning
+        self._blob_re = self.definition.html.blob_re
+        self._blob_permalink = self.definition.html.blob_permalink
+        self._blob_permalink_re = self.definition.html.blob_permalink_re
+        self._versioning_spec = self.definition.html.versioning_spec
         self._web_call = None
 
     def execute(self):
@@ -47,21 +54,24 @@ class HTMLApp(GenericApp):
 
     def __get_latest_version(self):
         versions = []
-        if self.blob_permalink:
-            matches = re.findall(self.ver_scheme_re, self._web_call)
+        if self._blob_permalink:
+            matches = re.findall(self._blob_permalink_re, self._web_call)
             for match in matches:
-                my_dict = {"version_id": match, "blobs": [self.blob_permalink]}
-                versions.append(my_dict)
-        elif self.blob_re:
-            matches = re.finditer(self.blob_re, self._web_call)
+                versions.append(VersionInfo(version_id=match, blobs=[self._blob_permalink]))
+        elif self._blob_re:
+            matches = re.finditer(self._blob_re, self._web_call)
             for match in matches:
-                my_dict = {
-                    "version_id": match.group("ver"),
-                    "blobs": [Downloader.normalize_url(match.group("url"), self._url)],
-                }
-                versions.append(my_dict)
-        version = GenericManager.get_newest(self._ver_scheme_type, versions)
+                versions.append(
+                    VersionInfo(
+                        version_id=match.group("ver"), blobs=[Downloader.normalize_url(match.group("url"), self._url)]
+                    )
+                )
+        version = GenericManager.get_newest(self._versioning, versions)
         return version
+
+    @property
+    def versioning(self):
+        return self.definition.html.versioning
 
     @property
     def web_call(self):

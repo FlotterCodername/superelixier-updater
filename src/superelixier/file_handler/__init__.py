@@ -14,7 +14,7 @@ import subprocess
 
 from superelixier.file_handler.downloader import Downloader
 from superelixier.file_handler.fs_helper import list_appdatas, lock_folder
-from superelixier.generic.generic_app import GenericApp
+from superelixier.generic.generic_app import GenericApp, VersionInstalled
 from superelixier.helper.filesystem import DIR_APP, remove_empty_dirs, simple_folder_list
 from superelixier.helper.terminal import Ansi
 
@@ -56,7 +56,7 @@ class FileHandler:
         # Make sure staging directory is empty
         shutil.rmtree(self.__staging)
         os.mkdir(self.__staging)
-        release_latest = self.__app.version_latest["blobs"]
+        release_latest = self.__app.version_latest.blobs
         if len(release_latest) == 0:
             print("No matching downloads for the latest version")
         for url in release_latest:
@@ -65,7 +65,7 @@ class FileHandler:
             if os.path.isfile(tmpfile):
                 os.remove(tmpfile)
             archives = "001|7z|bz2|bzip2|gz|gzip|lzma|rar|tar|tgz|txz|xz|zip"
-            if self.__app.installer == "sfx":
+            if self.__app.definition.local.installer == "sfx":
                 archives = f"exe|{archives}"
             if filename and re.fullmatch(f"^.*\\.({archives})$", filename.casefold()):
                 subprocess.run([SEVENZIP, "x", "-aoa", filename], cwd=self.__staging, stdout=subprocess.DEVNULL)
@@ -75,10 +75,10 @@ class FileHandler:
                 if len(extracted) == 1:
                     filename = extracted[0]
             if filename and filename.casefold().endswith(".exe"):
-                if self.__app.installer == "innoextract":
+                if self.__app.definition.local.installer == "innoextract":
                     subprocess.run([INNOEXTRACT, "-n", filename], cwd=self.__staging, stdout=subprocess.DEVNULL)
                     os.remove(os.path.join(self.__staging, filename))
-                elif self.__app.installer is None:
+                elif self.__app.definition.local.installer is None:
                     os.rename(
                         os.path.join(self.__staging, filename), os.path.join(self.__staging, f"{self.__app.name}.exe")
                     )
@@ -108,7 +108,7 @@ class FileHandler:
                 strs = []
                 for extracted in extracted:
                     print_string = extracted
-                    for pattern in self.__app.blob_unwanted:
+                    for pattern in self.__app.definition.local.delete:
                         if re.fullmatch(pattern, extracted):
                             print_string = Ansi.RED + extracted + " (removed)" + Ansi.RESET
                             full_path = os.path.join(self.__staging, extracted)
@@ -120,15 +120,14 @@ class FileHandler:
                 print(", ".join(strs))
                 normalize_done = True
         if not normalize_failure:
+            new_installed = VersionInstalled(
+                version_id=self.__app.version_latest.version_id,
+                blobs=self.__app.version_latest.blobs,
+                spec=self.__app.versioning_spec,
+                repo=self.__app.definition.repo_type
+            )
             with open(os.path.join(self.__staging, "superelixier.json"), "w") as file:
-                json.dump(
-                    {
-                        **self.__app.version_latest,
-                        "spec": self.__app.ver_scheme_spec,
-                        "repo": self.__app.repo,
-                    },
-                    file,
-                )
+                json.dump(new_installed.as_dict, file)
 
     def __project_merge_oldnew(self):
         # Data to keep

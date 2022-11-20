@@ -7,6 +7,7 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 """
 import re
 
+from superelixier.generic.generic_app import VersionInfo
 from superelixier.generic.generic_manager import GenericManager
 from superelixier.github.github_app import GithubApp
 
@@ -16,7 +17,7 @@ class GithubManager(GenericManager):
         super().__init__()
 
     @classmethod
-    def build_blob_list(cls, app: GithubApp):
+    def build_blob_list(cls, app: GithubApp) -> VersionInfo:
         latest_release = None
         for release in app.api_call:
             if release["prerelease"] and app.prerelease:
@@ -25,12 +26,9 @@ class GithubManager(GenericManager):
             if not release["prerelease"]:
                 latest_release = release
                 break
-        if latest_release:
-            my_dict = {"version_id": latest_release["published_at"], "blobs": []}
-            for asset in latest_release["assets"]:
-                filename = asset["browser_download_url"].split("/")[-1]
-                if re.fullmatch(app.blob_re, filename) is not None:
-                    my_dict["blobs"].append(asset["browser_download_url"])
-            return my_dict
-        else:
-            return None
+        my_version = VersionInfo(version_id=latest_release["published_at"], blobs=[])
+        for asset in latest_release["assets"]:
+            filename = asset["browser_download_url"].split("/")[-1]
+            if re.fullmatch(app.blob_re, filename) is not None:
+                my_version.blobs.append(asset["browser_download_url"])
+        return my_version

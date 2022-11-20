@@ -12,15 +12,15 @@ from requests import RequestException
 from urllib3.exceptions import HTTPError
 
 from superelixier import configuration
+from superelixier.definition import Definition
 from superelixier.generic.generic_app import GenericApp
 from superelixier.github import GITHUB_API
 from superelixier.helper.terminal import Ansi
 
 
 class GithubApp(GenericApp):
-    def __init__(self, target, **kwargs):
-        super().__init__(target, **kwargs)
-        self._prerelease = self._prerelease or False
+    def __init__(self, definition: Definition, target: str = None):
+        super().__init__(definition, target)
         self._api_call = None
 
     def execute(self):
@@ -38,7 +38,7 @@ class GithubApp(GenericApp):
 
     def __api_request(self):
         try:
-            releases = rest.get(f"{GITHUB_API}/repos/{self._user}/{self._project}/releases", headers=self.headers)
+            releases = rest.get(f"{GITHUB_API}/repos/{self.user}/{self.project}/releases", headers=self.headers)
             api_response = json.loads(releases.text)
             if releases.status_code != 200:
                 print(Ansi.ERROR + self.name + ": HTTP Status %s: %s" % (releases.status_code, api_response["message"]))
@@ -56,6 +56,26 @@ class GithubApp(GenericApp):
     @property
     def api_call(self):
         return self._api_call
+
+    @property
+    def blob_re(self):
+        return self.definition.github.blob_re
+
+    @property
+    def user(self):
+        return self.definition.github.user
+
+    @property
+    def prerelease(self):
+        return self.definition.github.prerelease
+
+    @property
+    def project(self):
+        return self.definition.github.project
+
+    @property
+    def versioning(self):
+        return "github"
 
     @property
     def headers(self):
