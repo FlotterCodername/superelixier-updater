@@ -1,7 +1,7 @@
 [info]
-gist = "Emulates the Nintendo 64."
-category = "Emulators"
 name = "Mupen64plus"
+category = "Emulators"
+gist = "Emulates the Nintendo 64."
 
 [github]
 blob_re = "^m64p.*win64.*\\.zip$"

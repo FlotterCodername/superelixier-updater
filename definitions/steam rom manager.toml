@@ -1,7 +1,7 @@
 [info]
-gist = "Add roms to Steam as shortcuts with library images"
-category = "Gaming"
 name = "Steam Rom Manager"
+category = "Gaming"
+gist = "Add roms to Steam as shortcuts with library images"
 
 [github]
 blob_re = "^Steam-ROM-Manager-portable.*\\.exe$"

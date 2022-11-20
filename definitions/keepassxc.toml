@@ -1,7 +1,7 @@
 [info]
-gist = "Password manager"
-category = "Security"
 name = "KeePassXC"
+category = "Security"
+gist = "Password manager"
 
 [github]
 blob_re = "^KeePassXC.*Win64\\.zip$"

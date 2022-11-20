@@ -1,10 +1,10 @@
 [info]
-gist = "Extensible code editor supporting many programming languages"
-category = "Developer Tools"
 name = "VSCode"
+category = "Developer Tools"
+gist = "Extensible code editor supporting many programming languages"
 
 [html]
-versioning = "tuple"
-ver_scheme_re = "\"(.*?)\""
 url = "https://update.code.visualstudio.com/api/releases/stable"
+versioning = "tuple"
 blob_permalink = "https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-archive"
+blob_permalink_re = "\"(.*?)\""

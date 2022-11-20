@@ -1,7 +1,7 @@
 [info]
-gist = "Emulates the Nintendo 3DS."
-category = "Emulators"
 name = "citra-nightly"
+category = "Emulators"
+gist = "Emulates the Nintendo 3DS."
 
 [github]
 blob_re = "^citra.*windows.*\\.7z$"

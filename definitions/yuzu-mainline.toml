@@ -1,7 +1,7 @@
 [info]
-gist = "Emulates the Nintendo Switch."
-category = "Emulators"
 name = "yuzu-mainline"
+category = "Emulators"
+gist = "Emulates the Nintendo Switch."
 
 [github]
 blob_re = "^yuzu.*windows.*\\.7z$"

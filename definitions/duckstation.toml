@@ -1,7 +1,7 @@
 [info]
-gist = "Emulates the Sony PlayStation. Development build"
-category = "Emulators"
 name = "DuckStation"
+category = "Emulators"
+gist = "Emulates the Sony PlayStation. Development build"
 
 [github]
 blob_re = "^duckstation-windows-x64-release\\.zip$"

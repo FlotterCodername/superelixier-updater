@@ -1,7 +1,7 @@
 [info]
-gist = "Emulates the Nintendo DS."
-category = "Emulators"
 name = "melonDS"
+category = "Emulators"
+gist = "Emulates the Nintendo DS."
 
 [github]
 blob_re = "^melonDS_.*?_win_x64\\.7z$"

@@ -1,7 +1,7 @@
 [info]
-gist = "SQL client"
-category = "Developer Tools"
 name = "dbeaver"
+category = "Developer Tools"
+gist = "SQL client"
 
 [github]
 blob_re = "^dbeaver.*win32\\.x86_64.*\\.zip$"

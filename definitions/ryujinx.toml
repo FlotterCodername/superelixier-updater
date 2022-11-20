@@ -1,7 +1,7 @@
 [info]
-gist = "Emulates the Nintendo Switch."
-category = "Emulators"
 name = "Ryujinx"
+category = "Emulators"
+gist = "Emulates the Nintendo Switch."
 
 [github]
 blob_re = "ryujinx-[0-9\\.]*-win_x64\\.zip$"

@@ -1,7 +1,7 @@
 [info]
-gist = "Emulates the Microsoft Xbox."
-category = "Emulators"
 name = "xemu"
+category = "Emulators"
+gist = "Emulates the Microsoft Xbox."
 
 [github]
 blob_re = "^xemu-win-release\\.zip$"

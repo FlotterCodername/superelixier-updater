@@ -1,7 +1,7 @@
 [info]
-gist = "3rd-party Nvidia driver configuration frontend"
-category = "Gaming"
 name = "nvidiaProfileInspector"
+category = "Gaming"
+gist = "3rd-party Nvidia driver configuration frontend"
 
 [github]
 blob_re = "^nvidiaProfileInspector\\.zip$"

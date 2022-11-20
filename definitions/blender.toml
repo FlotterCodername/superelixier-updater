@@ -1,9 +1,9 @@
 [info]
-gist = "3D graphics suite (and much more)"
-category = "Audio & Video"
 name = "Blender"
+category = "Audio & Video"
+gist = "3D graphics suite (and much more)"
 
 [html]
+url = "https://www.blender.org/download"
 versioning = "tuple"
 blob_re = ".*href=\"(?P<url>https://www\\.blender\\.org/download/Blender.*?/blender-(?P<ver>.*?)-windows-?x?64\\.zip)/?\".*"
-url = "https://www.blender.org/download"

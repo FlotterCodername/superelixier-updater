@@ -1,7 +1,7 @@
 [info]
-gist = "Extensible code editor supporting many programming languages. This is VSCode without telemetry and Microsoft/GitHub account sync features."
-category = "Developer Tools"
 name = "VSCodium"
+category = "Developer Tools"
+gist = "Extensible code editor supporting many programming languages. This is VSCode without telemetry and Microsoft/GitHub account sync features."
 
 [github]
 blob_re = "^VSCodium-win32-x64-.*\\.zip$"

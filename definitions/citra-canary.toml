@@ -1,7 +1,7 @@
 [info]
-gist = "Emulates the Nintendo 3DS. The 'canary' branch has all the latest features, but might be less stable than 'nightly'."
-category = "Emulators"
 name = "citra-canary"
+category = "Emulators"
+gist = "Emulates the Nintendo 3DS. The 'canary' branch has all the latest features, but might be less stable than 'nightly'."
 
 [github]
 blob_re = "^citra.*windows.*\\.7z$"

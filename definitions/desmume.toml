@@ -1,10 +1,10 @@
 [info]
-gist = "Emulates the Nintendo DS."
-category = "Emulators"
 name = "DeSmuME"
+category = "Emulators"
+gist = "Emulates the Nintendo DS."
 
 [appveyor]
-branch = "master"
 blob_re = "^.*\\.exe$"
 user = "zeromus"
 project = "desmume"
+branch = "master"

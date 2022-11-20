@@ -1,7 +1,7 @@
 [info]
-gist = "Text editor"
-category = "Developer Tools"
 name = "Notepad++"
+category = "Developer Tools"
+gist = "Text editor"
 
 [github]
 blob_re = "^npp\\..*?\\.portable\\.x64\\.7z$"

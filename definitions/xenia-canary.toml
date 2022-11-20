@@ -1,7 +1,7 @@
 [info]
-gist = "Emulates the Microsoft Xbox 360. Canary/experimental builds."
-category = "Emulators"
 name = "xenia-canary"
+category = "Emulators"
+gist = "Emulates the Microsoft Xbox 360. Canary/experimental builds."
 
 [github]
 blob_re = "^xenia_canary\\.zip$"

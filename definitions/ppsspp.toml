@@ -1,9 +1,9 @@
 [info]
-gist = "Emulates the Sony PlayStation Portable."
-category = "Emulators"
 name = "PPSSPP"
+category = "Emulators"
+gist = "Emulates the Sony PlayStation Portable."
 
 [html]
+url = "https://www.ppsspp.org/downloads.html"
 versioning = "tuple"
 blob_re = "<p><a.*?href=\\\"(?P<url>files/.*?/ppsspp_win\\.zip)\\\">.*?Download (?P<ver>.*?) zip</a></p>"
-url = "https://www.ppsspp.org/downloads.html"

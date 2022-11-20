@@ -1,7 +1,7 @@
 [info]
-gist = "Emulates the Sony PlayStation Vita."
-category = "Emulators"
 name = "Vita3K"
+category = "Emulators"
+gist = "Emulates the Sony PlayStation Vita."
 
 [github]
 blob_re = "^windows-latest\\.zip$"

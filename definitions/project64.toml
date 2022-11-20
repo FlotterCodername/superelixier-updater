@@ -1,12 +1,12 @@
 [info]
-gist = "Emulates the Nintendo 64."
-category = "Emulators"
 name = "Project64"
+category = "Emulators"
+gist = "Emulates the Nintendo 64."
 
 [html]
+url = "https://www.pj64-emu.com/public-releases"
 versioning = "tuple"
 blob_re = ".*<a href=\"(?P<url>/download/project64-v?[-0-9]*?(-installer)?)\">Project64 ( |v)*(?P<ver>.*?)( Installer)?</a>.*"
-url = "https://www.pj64-emu.com/public-releases"
 
 [local]
 installer = "innoextract"

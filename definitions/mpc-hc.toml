@@ -1,7 +1,7 @@
 [info]
-gist = "Free and open-source video and audio player (active fork by clsid2). Very high performance"
-category = "Audio & Video"
 name = "Media Player Classic - Home Cinema"
+category = "Audio & Video"
+gist = "Free and open-source video and audio player (active fork by clsid2). Very high performance"
 
 [github]
 blob_re = "^MPC-HC\\..*?\\.x64\\.zip$"

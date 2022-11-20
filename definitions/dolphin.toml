@@ -1,9 +1,9 @@
 [info]
-gist = "Emulates the Nintendo GameCube and Nintendo Wii."
-category = "Emulators"
 name = "Dolphin"
+category = "Emulators"
+gist = "Emulates the Nintendo GameCube and Nintendo Wii."
 
 [html]
+url = "https://dolphin-emu.org/download/"
 versioning = "integer"
 blob_re = "(?P<url>https://dl\\.dolphin-emu\\.org/.*/dolphin-.*-(?P<ver>.*?)-x64\\.7z)"
-url = "https://dolphin-emu.org/download/"

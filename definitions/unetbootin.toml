@@ -1,7 +1,7 @@
 [info]
-gist = "Create bootable USB flash drives"
-category = "Utilities"
 name = "UNetbootin"
+category = "Utilities"
+gist = "Create bootable USB flash drives"
 
 [github]
 blob_re = "^unetbootin-windows.*\\.exe$"

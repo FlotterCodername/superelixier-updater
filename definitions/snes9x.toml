@@ -1,7 +1,7 @@
 [info]
-gist = "Emulates the Super Nintendo Entertainment System."
-category = "Emulators"
 name = "Snes9x"
+category = "Emulators"
+gist = "Emulates the Super Nintendo Entertainment System."
 
 [github]
 blob_re = "^snes9x-.*?-win32-x64\\.zip$"

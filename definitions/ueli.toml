@@ -1,7 +1,7 @@
 [info]
-gist = "Cross-platform keystroke launcher"
-category = "Utilities"
 name = "ueli"
+category = "Utilities"
+gist = "Cross-platform keystroke launcher"
 
 [github]
 blob_re = "^ueli-(\\d|\\.)*-win\\.zip$"

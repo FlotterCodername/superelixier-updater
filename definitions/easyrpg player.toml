@@ -1,9 +1,9 @@
 [info]
-gist = "RPGMaker 2000 and 2003 compatible game interpreter. Not an emulator in a technical sense."
-category = "Emulators"
 name = "EasyRPG Player"
+category = "Emulators"
+gist = "RPGMaker 2000 and 2003 compatible game interpreter. Not an emulator in a technical sense."
 
 [html]
+url = "https://easyrpg.org/player/downloads/"
 versioning = "tuple"
 blob_re = "(?P<url>https://easyrpg\\.org/downloads/player/(?P<ver>.*?)/EasyRPG_Player-.*?-Windows-x64\\.zip)"
-url = "https://easyrpg.org/player/downloads/"

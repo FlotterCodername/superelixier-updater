@@ -1,7 +1,7 @@
 [info]
-gist = "Audio/video converter built on top of ffmpeg"
-category = "Audio & Video"
 name = "HandBrake"
+category = "Audio & Video"
+gist = "Audio/video converter built on top of ffmpeg, x264, x265 and more"
 
 [github]
 blob_re = "^HandBrake-.*-x86_64-Win_GUI\\.zip$"

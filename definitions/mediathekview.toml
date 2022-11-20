@@ -1,7 +1,7 @@
 [info]
-gist = "Frontend for the media libraries of German public broadcasters like ARD and ZDF"
-category = "Audio & Video"
 name = "MediathekView"
+category = "Audio & Video"
+gist = "Frontend for the media libraries of German public broadcasters like ARD and ZDF"
 
 [github]
 blob_re = "^MediathekView-.*?-win32\\.zip$"

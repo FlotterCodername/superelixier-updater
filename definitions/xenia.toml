@@ -1,7 +1,7 @@
 [info]
-gist = "Emulates the Microsoft Xbox 360."
-category = "Emulators"
 name = "xenia"
+category = "Emulators"
+gist = "Emulates the Microsoft Xbox 360."
 
 [github]
 blob_re = "^xenia_master\\.zip$"

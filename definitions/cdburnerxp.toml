@@ -1,9 +1,9 @@
 [info]
-gist = "Disc burning utility"
-category = "Utilities"
 name = "CDBurnerXP"
+category = "Utilities"
+gist = "Disc burning utility"
 
 [html]
+url = "https://cdburnerxp.se/download"
 versioning = "tuple"
 blob_re = "<td><a href=\"(?P<url>https://download\\.cdburnerxp\\.se/portable/CDBurnerXP-x64-(?P<ver>.*?)\\.zip)\" onclick=\".*?\">64 bit</a></td>"
-url = "https://cdburnerxp.se/download"

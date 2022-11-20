@@ -1,7 +1,7 @@
 [info]
-gist = "Clean directory structures using rulesets"
-category = "Utilities"
 name = "Remove Empty Directories"
+category = "Utilities"
+gist = "Clean directory structures using rulesets"
 
 [github]
 blob_re = "^red.*portable.*\\.zip$"

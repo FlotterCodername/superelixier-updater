@@ -1,7 +1,7 @@
 [info]
-gist = "SSH and telnet client. Improved version of PuTTY"
-category = "Network Tools"
 name = "KiTTY"
+category = "Network Tools"
+gist = "SSH and telnet client. Improved version of PuTTY"
 
 [github]
 blob_re = "^kitty-bin-.*?\\.zip$"
