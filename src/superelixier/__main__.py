@@ -15,16 +15,19 @@ from requests import RequestException
 from urllib3.exceptions import HTTPError
 
 from superelixier import configuration
-from superelixier.appveyor.appveyor_app import AppveyorApp
 from superelixier.config_handler.eula import check_eula
 from superelixier.environment_handler import LockFile, LockFileException
 from superelixier.file_handler import FileHandler
 from superelixier.generic.generic_app import GenericApp
 from superelixier.generic.generic_manager import GenericManager
-from superelixier.github.github_app import GithubApp
+from superelixier.helper.converters import definition_to_app
 from superelixier.helper.filesystem import make_path_native, remove_empty_dirs
 from superelixier.helper.terminal import Ansi, color_handling, exit_app, print_header
-from superelixier.html.html_app import HTMLApp
+
+
+UX_INSTALLED_NEWER = f"""\
+Installed is newer.
+{Ansi.RESET}%s: Please make sure your version wasn't retracted because of problems with it."""
 
 
 def main():
@@ -71,18 +74,10 @@ class Program:
         for path in configuration.local:
             native_path = make_path_native(path)
             for list_item in configuration.local[path]:
-                if list_item.casefold() in configuration.available:
-                    appconf = configuration.available[list_item.casefold()]
-                    if appconf["repo"]:
-                        job = None
-                        if appconf["repo"] == "appveyor":
-                            job = AppveyorApp(native_path, **appconf)
-                        elif appconf["repo"] == "github":
-                            job = GithubApp(native_path, **appconf)
-                        elif appconf["repo"] == "html":
-                            job = HTMLApp(native_path, **appconf)
-                        if job is not None:
-                            project_list.append(job)
+                norm_name = list_item.casefold()
+                if norm_name in configuration.definitions:
+                    appconf = configuration.definitions[norm_name]
+                    project_list.append(definition_to_app(appconf, target=native_path))
 
         if self.__MT_ON:
             with futures.ThreadPoolExecutor(max_workers=8) as executor:
@@ -113,50 +108,49 @@ class Program:
         for job in self.job_list:
             my_fsm = FileHandler(job)
             message = f"{job.name}: "
-            if job.update_status == "update":
-                message += "Updating"
-                print_header(message, Ansi.GREEN)
-                my_fsm.project_update()
-            elif job.update_status == "no_version_file":
-                message += "Updating (forced)"
-                print_header(message, Ansi.MAGENTA)
-                my_fsm.project_update()
-            elif job.update_status == "not_installed":
-                message += "Installing"
-                print_header(message, Ansi.CYAN)
-                my_fsm.project_install()
+            match job.update_status:
+                case "update":
+                    message += "Updating"
+                    print_header(message, Ansi.GREEN)
+                    my_fsm.project_update()
+                case "no_version_file":
+                    message += "Updating (forced)"
+                    print_header(message, Ansi.MAGENTA)
+                    my_fsm.project_update()
+                case "not_installed":
+                    message += "Installing"
+                    print_header(message, Ansi.CYAN)
+                    my_fsm.project_install()
 
     @classmethod
     def project_status_report(cls, project: GenericApp):
         color = ""
         message = ""
-        if project.update_status == "no_update":
-            color = Ansi.BRIGHT
-            message = "No update available"
-        elif project.update_status == "installed_newer":
-            color = Ansi.MAGENTA
-            message = (
-                f"Installed is newer.\r\n {Ansi.RESET}{project.name}: Please make sure your version wasn't retracted "
-                "because of problems with it."
-            )
-        elif project.update_status == "update":
-            color = Ansi.GREEN
-            message = "Update available"
-        elif project.update_status == "no_version_file":
-            color = Ansi.MAGENTA
-            message = "Update forced (no valid version info found)"
-        elif project.update_status == "not_installed":
-            color = Ansi.CYAN
-            message = "Will be installed"
-        elif project.update_status == "error":
-            color = Ansi.RED
-            message = "Could not determine the version installed"
-        elif project.update_status == "failed":
-            color = Ansi.RED
-            message = "Could not connect to URL or API"
-        elif project.update_status == "unknown":
-            color = Ansi.RED
-            message = "Failed to check this project"
+        match project.update_status:
+            case "no_update":
+                color = Ansi.BRIGHT
+                message = "No update available"
+            case "installed_newer":
+                color = Ansi.MAGENTA
+                message = UX_INSTALLED_NEWER % project.name
+            case "update":
+                color = Ansi.GREEN
+                message = "Update available"
+            case "no_version_file":
+                color = Ansi.MAGENTA
+                message = "Update forced (no valid version info found)"
+            case "not_installed":
+                color = Ansi.CYAN
+                message = "Will be installed"
+            case "error":
+                color = Ansi.RED
+                message = "Could not determine the version installed"
+            case "failed":
+                color = Ansi.RED
+                message = "Could not connect to URL or API"
+            case "unknown":
+                color = Ansi.RED
+                message = "Failed to check this project"
         return f"{color}{project.name}: {message}{Ansi.RESET}"
 
     @classmethod
