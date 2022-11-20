@@ -7,17 +7,17 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 """
 import os
 import sys
-import textwrap
 import traceback
+from copy import deepcopy
 from os.path import join as opj
 
 from superelixier.config_handler.eula import TERMS
+from superelixier.definition import Definition
 from superelixier.helper import toml
 from superelixier.helper.filesystem import DIR_APP, DIR_CFG
 from superelixier.helper.terminal import Ansi, exit_app
 from superelixier.helper.toml import TOMLDecodeError
 from superelixier.helper.types import Json
-from superelixier.schemas import JsonSchema
 
 E_MISSING = Ansi.ERROR + "%s was not found but is required."
 E_INVALID = Ansi.ERROR + "%s is not valid TOML."
@@ -26,6 +26,18 @@ W_INVALID = Ansi.WARNING + "%s is not valid TOML.%s"
 FN_AUTH = "auth.toml"
 FN_LOCAL = "local.toml"
 FN_LOCAL_EX = "local_example.toml"
+
+UX_MISSING_LOCAL = f"""\
+The file {FN_LOCAL} must have one of more "directory" entries, like so:
+
+[[{Ansi.YELLOW}directory{Ansi.RESET}]]
+{Ansi.YELLOW}path{Ansi.RESET} = {Ansi.GREEN}"C:/my cool directory/my apps"{Ansi.RESET}
+{Ansi.YELLOW}apps{Ansi.RESET} = [
+    {Ansi.GREEN}"app1"{Ansi.RESET},
+    {Ansi.GREEN}"app2{Ansi.RESET},
+]
+
+Put the file into: {DIR_APP}"""
 
 AUTH_DEFAULT: dict[str, str] = {"appveyor_token": "", "github_token": ""}
 
@@ -38,12 +50,21 @@ class ConfigHandler:
     def __init__(self):
         self.__dict__ = self.__state
         if self.__state == {}:
-            self._schema: JsonSchema = JsonSchema()
-            self._configuration: dict = {
-                "auth": self._load_auth(),
-                "available": self.__load_cfg_available(),
-                "local": self._load_local(),
-            }
+            self.__auth = self._load_auth()
+            self.__definitions = self.__load_definitions()
+            self.__local = self._load_local()
+
+    @property
+    def auth(self):
+        return deepcopy(self.__auth)
+
+    @property
+    def definitions(self):
+        return deepcopy(self.__definitions)
+
+    @property
+    def local(self):
+        return deepcopy(self.__local)
 
     def _load_auth(self) -> Json:
         msg_invalid = E_INVALID % FN_AUTH
@@ -87,8 +108,8 @@ class ConfigHandler:
 
     def write_app_list(self):
         cfg = []
-        for item in self._configuration["available"]:
-            cfg.append(self._configuration["available"][item])
+        for item in self.definitions:
+            cfg.append(self.definitions[item])
         markdown = [TERMS]
         cats = []
         for app in cfg:
@@ -104,7 +125,8 @@ class ConfigHandler:
         with open(opj(DIR_APP, "docs", "Available Apps.md"), "wb") as file:
             file.write(str.encode(markdown))
 
-    def __load_cfg_available(self):
+    @classmethod
+    def __load_definitions(cls):
         definition_dir = opj(DIR_APP, "definitions")
         files = [f for f in os.listdir(definition_dir) if f.endswith(".toml")]
         cfg_available = {}
@@ -112,9 +134,11 @@ class ConfigHandler:
             try:
                 with open(opj(definition_dir, defi), "rb") as fd:
                     my_dict = toml.load(fd)
-                if not self._schema.validate_definition(my_dict, filename=defi):
+                if not Definition.validate_definition(my_dict, filename=defi):
                     raise ValueError
-                cfg_available[my_dict["name"].casefold()] = my_dict
+                cfg_available[my_dict["info"]["name"].casefold()] = Definition.from_dict(my_dict)
+            except TOMLDecodeError:
+                print(f"{Ansi.ERROR}Bad TOML file: {defi!r}")
             except ValueError:
                 print(f"{Ansi.ERROR}Bad definition: {defi!r}")
         return cfg_available
@@ -130,20 +154,7 @@ class ConfigHandler:
                     for item2 in item["apps"]:
                         assert isinstance(item2, str)
         except (AssertionError, KeyError):
-            msg = textwrap.dedent(
-                f"""\
-            The file {FN_LOCAL} must have one of more "directory" entries, like so:
-
-            [[{Ansi.YELLOW}directory{Ansi.RESET}]]
-            {Ansi.YELLOW}path{Ansi.RESET} = {Ansi.GREEN}"C:/my cool directory/my apps"{Ansi.RESET}
-            {Ansi.YELLOW}apps{Ansi.RESET} = [
-                {Ansi.GREEN}"app1"{Ansi.RESET},
-                {Ansi.GREEN}"app2{Ansi.RESET},
-            ]
-
-            Put the file into: {DIR_APP}"""
-            )
-            print(msg)
+            print(UX_MISSING_LOCAL)
             exit_app()
 
         cfg_local = {entry["path"]: entry["apps"] for entry in cfg_loaded["directory"]}
@@ -156,18 +167,6 @@ class ConfigHandler:
             else:
                 converted[old] = val
         return converted
-
-    @property
-    def auth(self):
-        return self._configuration["auth"]
-
-    @property
-    def available(self):
-        return self._configuration["available"]
-
-    @property
-    def local(self):
-        return self._configuration["local"]
 
 
 configuration = ConfigHandler()
