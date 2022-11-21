@@ -8,9 +8,7 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 import os
 import sys
 
-DIR_APP: str = os.path.normpath(os.path.join(__file__, "..", "..", "..", ".."))
-if getattr(sys, "frozen", False):
-    # noinspection PyUnresolvedReferences
-    # noinspection PyProtectedMember
-    DIR_APP: str = os.path.join(sys._MEIPASS, "..")
+DIR_APP: str = os.path.abspath(os.path.join(__file__, "..", "..", "..", ".."))
+if getattr(sys, "frozen", False) and hasattr(sys, '_MEIPASS'):
+    DIR_APP: str = os.path.abspath(os.path.dirname(sys.argv[0]))
 DIR_CFG: str = os.path.join(DIR_APP, "config")

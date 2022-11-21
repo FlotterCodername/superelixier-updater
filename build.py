@@ -17,7 +17,7 @@ from superelixier import configuration
 
 APP_NAME = "superelixier"
 VERSION = datetime.datetime.now().strftime("%Y-%m-%d")
-PROJECT = os.path.normpath(os.path.dirname(__file__))
+PROJECT = os.path.abspath(os.path.dirname(__file__))
 BUILD = opj(PROJECT, "build")
 DIST = opj(PROJECT, "dist")
 ROOT_FILES = [

@@ -7,7 +7,6 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 """
 import os
 import sys
-import traceback
 from copy import deepcopy
 from os.path import join as opj
 
@@ -18,9 +17,8 @@ from superelixier.helper.terminal import Ansi, exit_app
 from superelixier.helper.toml import TOMLDecodeError
 from superelixier.helper.types import Json
 
-E_MISSING = Ansi.ERROR + "%s was not found but is required."
-E_INVALID = Ansi.ERROR + "%s is not valid TOML."
-W_INVALID = Ansi.WARNING + "%s is not valid TOML.%s"
+E_MISSING = Ansi.ERROR + "%s was not found but is required." + Ansi.RESET
+E_INVALID = Ansi.ERROR + "%s is not valid TOML." + Ansi.RESET
 
 FN_AUTH = "auth.toml"
 FN_LOCAL = "local.toml"
@@ -49,38 +47,46 @@ class ConfigHandler:
     def __init__(self):
         self.__dict__ = self.__state
         if self.__state == {}:
-            self.__auth = self._load_auth()
-            self.__definitions = self.__load_definitions()
-            self.__local = self._load_local()
+            self.__auth = None
+            self.__definitions = None
+            self.__local = None
 
     @property
     def auth(self):
+        if self.__auth is None:
+            self.__auth = self._load_auth()
         return deepcopy(self.__auth)
 
     @property
     def definitions(self):
+        if self.__definitions is None:
+            self.__definitions = self.__load_definitions()
         return deepcopy(self.__definitions)
 
     @property
     def local(self):
+        if self.__local is None:
+            self.__local = self._load_local()
         return deepcopy(self.__local)
 
     def _load_auth(self) -> Json:
         msg_invalid = E_INVALID % FN_AUTH
+        msg_missing = E_MISSING % FN_AUTH
         loc = opj(DIR_CFG, FN_AUTH)
         try:
-            return self.__load_toml(loc, msg_invalid)
+            return self.__load_toml(loc, msg_invalid, msg_missing)
         except FileNotFoundError:
+            print(f"Creating blank {FN_AUTH}...")
             with open(loc, "wb") as fd:
                 toml.dump(AUTH_DEFAULT, fd)
-            return self.__load_toml(loc)
+            return self.__load_toml(loc, "", "")
         except TOMLDecodeError:
             exit_app()
 
     def _load_local(self):
         msg_invalid = E_INVALID % FN_LOCAL
         msg_missing = E_MISSING % FN_LOCAL
-        msg_missing += f"You can use '{FN_LOCAL_EX}' in the application's 'config' directory as a blueprint."
+        msg_missing += f"\nYou can use '{FN_LOCAL_EX}' in the application's 'config' directory as a blueprint."
         loc = opj(DIR_CFG, FN_LOCAL)
         try:
             unvalidated = self.__load_toml(loc, msg_invalid, msg_missing)
@@ -89,21 +95,16 @@ class ConfigHandler:
             exit_app()
 
     @classmethod
-    def __load_toml(
-        cls, path: str, msg_invalid: str = None, msg_missing: str = None, raising: bool = True
-    ) -> Json | None:
+    def __load_toml(cls, path: str, msg_invalid, msg_missing) -> Json | None:
         loaded = None
+        if not os.path.isfile(path):
+            print(msg_missing)
         try:
-            with open(opj(path), "rb") as fd:
+            with open(path, "rb") as fd:
                 loaded = toml.load(fd)
-        except (FileNotFoundError, TOMLDecodeError) as e:
-            msg = msg_missing if isinstance(e, FileNotFoundError) else msg_invalid
-            print(msg)
-            if raising:
-                traceback.print_exc()
-                raise e
-        finally:
-            return loaded
+        except TOMLDecodeError:
+            print(msg_invalid)
+        return loaded
 
     def write_app_list(self):
         from superelixier.eula import TERMS

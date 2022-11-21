@@ -33,8 +33,9 @@ def main():
     try:
         try:
             color_handling()
-            lock = LockFile()  # noqa
             check_eula()
+            _ = configuration.auth  # ensure auth available on main thread
+            lock = LockFile()  # noqa
             superelixier_updater = Program()
             superelixier_updater.execute()
             del lock
