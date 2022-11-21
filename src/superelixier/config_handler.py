@@ -156,7 +156,7 @@ class ConfigHandler:
                     for item2 in item["apps"]:
                         assert isinstance(item2, str)
         except (AssertionError, KeyError):
-            print(UX_MISSING_LOCAL % DIR_CFG)
+            print(UX_MISSING_LOCAL)
             exit_app()
 
         cfg_local = {entry["path"]: entry["apps"] for entry in cfg_loaded["directory"]}
