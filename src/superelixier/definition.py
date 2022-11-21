@@ -20,6 +20,7 @@ from superelixier.helper.types import (
 )
 from superelixier.schema import BOOL, INT, NULL, STR, any_of, array_of, enum
 
+# TODO: STR <-> STR ARRAY HANDLING !
 
 @dataclass(frozen=True)
 class DefinitionInfo:
