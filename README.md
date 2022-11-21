@@ -5,9 +5,9 @@
 **Using this tool currently requires editing of TOML files
 ([Tom's Obvious, Minimal Language](https://en.wikipedia.org/wiki/TOML)). This is very similar to an  INI file.** If you
 want to wait for a more user-friendly version, select ``Watch -> Custom -> Releases`` from the top of the GitHub
-repository. In any case, check out the [list of Pre-configured Apps](./docs/Available%20Apps.md)
+repository.
 
-Users who add additional apps definitions to the updater need to be familiar with TOML and Python regular expressions.
+In any case, check out the [list of Pre-configured Apps](./docs/Available%20Apps.md) or (if regex knowledge available) [find out how to add your favorite app.](./docs/Adding%20Apps.md)
 
 Superelixier Updater can automatically update a number of apps provided in portable form. Currently, it handles apps
 distributed on Appveyor, GitHub and HTML pages.
