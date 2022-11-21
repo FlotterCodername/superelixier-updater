@@ -94,8 +94,8 @@ Versioning describes how to interpret version identifiers found on the page:
 ### Permalink method (preferable)
 ```toml
 [html]
-url = ...
-versioning = ...
+url = "..."
+versioning = "..."
 # string, required. URL where the latest artifact will be published
 blob_permalink = "https://coolapp.org/downloads/latest-portable.zip"
 # string, required. regex with the version id as an unnamed group.
@@ -105,8 +105,8 @@ blob_permalink_re = "<span style=\".*?\">Cool App (.*?) latest portable ZIP</spa
 ### Variable link method (danger zone)
 ```toml
 [html]
-url = ...
-versioning = ...
+url = "..."
+versioning = "..."
 # string, required. regex with group "url" for downloads and group "ver" for version IDs
 blob_re = "<your regex here>"
 ```
