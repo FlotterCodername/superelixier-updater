@@ -6,4 +6,4 @@ gist = "Emulates the Sony PlayStation 3."
 [github]
 user = "RPCS3"
 project = "rpcs3-binaries-win"
-blob_re = "rpcs3-.*?_win64\\.7z
+blob_re = "rpcs3-.*?_win64\\.7z"
