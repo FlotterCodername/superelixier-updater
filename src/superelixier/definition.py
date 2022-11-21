@@ -20,7 +20,6 @@ from superelixier.helper.types import (
 )
 from superelixier.schema import BOOL, INT, NULL, STR, any_of, array_of, enum
 
-# TODO: STR <-> STR ARRAY HANDLING !
 
 @dataclass(frozen=True)
 class DefinitionInfo:
@@ -129,9 +128,15 @@ class DefinitionHTML:
 
 @dataclass(frozen=True)
 class DefinitionLocal:
-    appdata: str | list[str] = ()
-    delete: str | list[str] = ()
+    appdata: list[str] = ""
+    delete: list[str] = ""
     installer: DefinitionInstaller = None
+
+    def __post_init__(self):
+        if isinstance(self.appdata, str):
+            object.__setattr__(self, "appdata", [self.appdata])
+        if isinstance(self.delete, str):
+            object.__setattr__(self, "delete", [self.delete])
 
     @classmethod
     def from_dict(cls, obj: dict | None) -> Optional["DefinitionLocal"]:
