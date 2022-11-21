@@ -15,15 +15,14 @@ from requests import RequestException
 from urllib3.exceptions import HTTPError
 
 from superelixier import configuration
-from superelixier.config_handler.eula import check_eula
-from superelixier.environment_handler import LockFile, LockFileException
+from superelixier.eula import check_eula
 from superelixier.file_handler import FileHandler
 from superelixier.generic.generic_app import GenericApp
 from superelixier.generic.generic_manager import GenericManager
 from superelixier.helper.converters import definition_to_app
 from superelixier.helper.filesystem import make_path_native, remove_empty_dirs
+from superelixier.helper.lock_file import LockFile, LockFileException
 from superelixier.helper.terminal import Ansi, color_handling, exit_app, print_header
-
 
 UX_INSTALLED_NEWER = f"""\
 Installed is newer.
@@ -124,8 +123,6 @@ class Program:
 
     @classmethod
     def project_status_report(cls, project: GenericApp):
-        color = ""
-        message = ""
         match project.update_status:
             case "no_update":
                 color = Ansi.BRIGHT
@@ -148,7 +145,7 @@ class Program:
             case "failed":
                 color = Ansi.RED
                 message = "Could not connect to URL or API"
-            case "unknown":
+            case _:
                 color = Ansi.RED
                 message = "Failed to check this project"
         return f"{color}{project.name}: {message}{Ansi.RESET}"

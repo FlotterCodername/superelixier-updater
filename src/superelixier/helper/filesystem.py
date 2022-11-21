@@ -7,9 +7,6 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 """
 import os
 
-DIR_APP: str = os.path.normpath(os.path.join(__file__, "..", "..", "..", ".."))
-DIR_CFG: str = os.path.join(DIR_APP, "config")
-
 
 def remove_empty_dirs(top_dir: str, delete_top=False) -> None:
     """

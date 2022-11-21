@@ -15,7 +15,7 @@ from superelixier.definition import Definition
 from superelixier.file_handler.downloader import Downloader
 from superelixier.generic.generic_app import GenericApp, VersionInfo
 from superelixier.generic.generic_manager import GenericManager
-from superelixier.html import HEADERS
+from superelixier.html_page import HEADERS
 
 
 class HTMLApp(GenericApp):
@@ -40,7 +40,7 @@ class HTMLApp(GenericApp):
             try:
                 self._version_latest = self.__get_latest_version()
             except Exception as e:
-                print(f"Error checking {self.name}: {type(e)}: {e}")
+                print(f"Error checking {self.name}: {e.__class__.__name__}")
                 self.update_status = "unknown"
 
     def __web_request(self):
@@ -53,7 +53,7 @@ class HTMLApp(GenericApp):
         return request.text
 
     def __get_latest_version(self):
-        versions = []
+        versions: list[VersionInfo] = []
         if self._blob_permalink:
             matches = re.findall(self._blob_permalink_re, self._web_call)
             for match in matches:

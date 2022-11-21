@@ -16,7 +16,7 @@ from requests import RequestException
 from urllib3.exceptions import HTTPError
 
 from superelixier.helper.terminal import Ansi
-from superelixier.html import HEADERS
+from superelixier.html_page import HEADERS
 
 
 class Downloader:
@@ -63,7 +63,7 @@ class Downloader:
                     print(f"Redirected to: {url}")
                     url, response = Downloader.__handle_redirects(url, dl_file)
                 else:
-                    print(Ansi.ERROR + "Failed to find URL on redirect")
+                    print("Failed to find URL on redirect")
                     raise ValueError
             elif response.headers.get("content-type"):
                 ct = response.headers["content-type"]
@@ -85,7 +85,7 @@ class Downloader:
                             raise ValueError
                         url, response = Downloader.__handle_redirects(url, dl_file)
                     else:
-                        print(Ansi.ERROR + "Failed to find URL on redirect")
+                        print("Failed to find URL on redirect")
                         raise ValueError
         return url, response
 

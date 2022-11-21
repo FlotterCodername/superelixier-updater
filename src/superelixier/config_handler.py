@@ -11,10 +11,9 @@ import traceback
 from copy import deepcopy
 from os.path import join as opj
 
-from superelixier.config_handler.eula import TERMS
 from superelixier.definition import Definition
 from superelixier.helper import toml
-from superelixier.helper.filesystem import DIR_APP, DIR_CFG
+from superelixier.helper.environment import DIR_APP, DIR_CFG
 from superelixier.helper.terminal import Ansi, exit_app
 from superelixier.helper.toml import TOMLDecodeError
 from superelixier.helper.types import Json
@@ -37,7 +36,7 @@ The file {FN_LOCAL} must have one of more "directory" entries, like so:
     {Ansi.GREEN}"app2{Ansi.RESET},
 ]
 
-Put the file into: {DIR_APP}"""
+Put the file into: {DIR_CFG}"""
 
 AUTH_DEFAULT: dict[str, str] = {"appveyor_token": "", "github_token": ""}
 
@@ -107,6 +106,8 @@ class ConfigHandler:
             return loaded
 
     def write_app_list(self):
+        from superelixier.eula import TERMS
+
         cfg = []
         for item in self.definitions:
             cfg.append(self.definitions[item])
@@ -154,7 +155,7 @@ class ConfigHandler:
                     for item2 in item["apps"]:
                         assert isinstance(item2, str)
         except (AssertionError, KeyError):
-            print(UX_MISSING_LOCAL)
+            print(UX_MISSING_LOCAL % DIR_CFG)
             exit_app()
 
         cfg_local = {entry["path"]: entry["apps"] for entry in cfg_loaded["directory"]}

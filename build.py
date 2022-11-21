@@ -14,11 +14,10 @@ from os.path import join as opj
 from os.path import split as ops
 
 from superelixier import configuration
-from superelixier.helper.filesystem import DIR_APP
 
 APP_NAME = "superelixier"
 VERSION = datetime.datetime.now().strftime("%Y-%m-%d")
-PROJECT = DIR_APP
+PROJECT = os.path.normpath(os.path.dirname(__file__))
 BUILD = opj(PROJECT, "build")
 DIST = opj(PROJECT, "dist")
 ROOT_FILES = [
@@ -40,6 +39,8 @@ FOLDERS = [
     thirdparty_dir := opj(PROJECT, "thirdparty"),
     thirdparty_dist := opj(DIST, "thirdparty"),
 ]
+
+os.chdir(PROJECT)
 
 
 def cleanup():
@@ -71,6 +72,7 @@ def copy_folder(src, dst, exclusions=None):
 
 
 def pandoc(src, dst):
+    title = os.path.split(src)[-1].removeprefix(".md")
     preprocessed = opj(BUILD, ops(src)[1])
     with open(src, "r") as fd:
         markdown = fd.read()
@@ -78,13 +80,27 @@ def pandoc(src, dst):
     with open(preprocessed, "w") as fd:
         fd.write(markdown)
     subprocess.run(
-        ["pandoc", preprocessed, "-s", "-o", dst, "--self-contained", "--css=./docs/github-markdown.css"], cwd=PROJECT
+        [
+            "pandoc",
+            preprocessed,
+            "--metadata",
+            f'title="{title}"',
+            "--standalone",
+            "--output",
+            dst,
+            "--self-contained",
+            "--css=./docs/github-markdown.css",
+        ],
+        cwd=PROJECT,
     )
 
 
 cleanup()
 configuration.write_app_list()
-subprocess.run(["pyinstaller", "__main__.py", "--icon=assets/app.ico", "--name", APP_NAME, "--onefile"], cwd=PROJECT)
+subprocess.run(
+    ["pyinstaller", "src/superelixier/__main__.py", "--icon=assets/app.ico", "--name", APP_NAME, "--onefile"],
+    cwd=PROJECT,
+)
 for f in FOLDERS:
     os.makedirs(f, exist_ok=True)
 copy_folder(bin_dir, bin_dist)

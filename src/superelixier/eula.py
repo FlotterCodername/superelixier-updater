@@ -10,7 +10,7 @@ import re
 import textwrap
 
 from superelixier.helper import toml
-from superelixier.helper.filesystem import DIR_APP
+from superelixier.helper.environment import DIR_APP
 from superelixier.helper.shell import clear
 from superelixier.helper.terminal import exit_app
 

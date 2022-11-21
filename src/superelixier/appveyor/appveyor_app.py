@@ -15,7 +15,7 @@ from urllib3.exceptions import HTTPError
 from superelixier import configuration
 from superelixier.appveyor import API_URL
 from superelixier.definition import Definition
-from superelixier.generic.generic_app import GenericApp
+from superelixier.generic.generic_app import GenericApp, VersionInfo
 from superelixier.helper.terminal import DENT, Ansi
 from superelixier.helper.types import JsonResponse
 
@@ -79,7 +79,7 @@ class AppveyorApp(GenericApp):
             return None
         return api_response
 
-    def __get_latest_version(self) -> dict:
+    def __get_latest_version(self) -> VersionInfo:
         from superelixier.appveyor.appveyor_manager import AppveyorManager
 
         my_list = AppveyorManager.build_blob_list(self)

@@ -22,8 +22,8 @@ def definition_to_app(definition, **kwargs):
 
             return GithubApp(definition=definition, **kwargs)
         case "html":
-            from superelixier.html.html_app import HTMLApp
+            from superelixier.html_page.html_app import HTMLApp
 
             return HTMLApp(definition=definition, **kwargs)
         case _:
-            raise ValueError
+            raise ValueError("Unknown repo type")

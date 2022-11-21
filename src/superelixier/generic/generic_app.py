@@ -9,7 +9,7 @@ import json
 import os
 import random
 import string
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
 from typing import Callable
 
 from superelixier.definition import Definition
@@ -23,6 +23,8 @@ class VersionInfo:
     @property
     def as_dict(self) -> dict:
         return asdict(self)
+
+
 @dataclass
 class VersionInstalled(VersionInfo):
     repo: str

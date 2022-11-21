@@ -8,7 +8,7 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 import os
 import sys
 
-from superelixier.helper.filesystem import DIR_APP
+from superelixier.helper.environment import DIR_APP
 from superelixier.helper.terminal import Ansi
 
 

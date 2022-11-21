@@ -15,7 +15,8 @@ import subprocess
 from superelixier.file_handler.downloader import Downloader
 from superelixier.file_handler.fs_helper import list_appdatas, lock_folder
 from superelixier.generic.generic_app import GenericApp, VersionInstalled
-from superelixier.helper.filesystem import DIR_APP, remove_empty_dirs, simple_folder_list
+from superelixier.helper.environment import DIR_APP
+from superelixier.helper.filesystem import remove_empty_dirs, simple_folder_list
 from superelixier.helper.terminal import Ansi
 
 BIN = os.path.join(DIR_APP, "bin-win32")
@@ -124,7 +125,7 @@ class FileHandler:
                 version_id=self.__app.version_latest.version_id,
                 blobs=self.__app.version_latest.blobs,
                 spec=self.__app.versioning_spec,
-                repo=self.__app.definition.repo_type
+                repo=self.__app.definition.repo_type,
             )
             with open(os.path.join(self.__staging, "superelixier.json"), "w") as file:
                 json.dump(new_installed.as_dict, file)
