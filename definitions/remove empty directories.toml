@@ -1,0 +1,9 @@
+[info]
+name = "Remove Empty Directories"
+category = "Utilities"
+gist = "Clean directory structures using rulesets"
+
+[github]
+blob_re = "^red.*portable.*\\.zip$"
+user = "hxseven"
+project = "Remove-Empty-Directories"

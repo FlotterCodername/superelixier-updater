@@ -1,0 +1,14 @@
+<component name="CopyrightManager">
+  <settings default="MPL">
+    <module2copyright>
+      <element module="Project Files" copyright="MPL" />
+    </module2copyright>
+    <LanguageOptions name="Python">
+      <option name="fileTypeOverride" value="1" />
+      <option name="block" value="false" />
+      <option name="lenBefore" value="1" />
+      <option name="lenAfter" value="1" />
+      <option name="filler" value="&quot;&quot;&quot;" />
+    </LanguageOptions>
+  </settings>
+</component>

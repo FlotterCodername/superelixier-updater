@@ -1,0 +1,29 @@
+[[directory]]
+path = "C:/PortableApps"
+apps = [
+    "dbeaver",
+    "diagrams.net",
+    "KiTTY",
+    "Etcher",
+    "Kdenlive",
+    "KeePassXC",
+    "nvidiaProfileInspector",
+    "Remove Empty Directories",
+    "Steam Rom Manager",
+]
+
+[[directory]]
+path = "D:/Games/Emulators"
+apps = [
+    "Cemu",
+    "citra-canary",
+    "citra-nightly",
+    "DeSmuME",
+    "Dolphin",
+    "mGBA",
+    "Mupen64plus",
+    "PCSX2",
+    "PPSSPP",
+    "RPCS3",
+    "yuzu-mainline",
+]

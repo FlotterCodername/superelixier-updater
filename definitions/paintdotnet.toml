@@ -1,0 +1,14 @@
+[info]
+name = "paint.net"
+category = "Utilities"
+gist = "Freeware image editor originally conceived as an alternative to Microsoft Paint."
+
+[github]
+blob_re = "^paint\\.net\\..*?portable\\.x64\\.zip$"
+user = "paintdotnet"
+project = "release"
+
+[local]
+appdata = [
+    "PaintDotNet.AppSettings.json",
+]

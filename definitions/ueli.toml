@@ -1,0 +1,9 @@
+[info]
+name = "ueli"
+category = "Utilities"
+gist = "Cross-platform keystroke launcher"
+
+[github]
+blob_re = "^ueli-(\\d|\\.)*-win\\.zip$"
+user = "oliverschwendener"
+project = "ueli"

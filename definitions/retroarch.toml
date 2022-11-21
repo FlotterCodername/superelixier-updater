@@ -1,0 +1,9 @@
+[info]
+name = "RetroArch"
+category = "Emulators"
+gist = "Frontend for emulators, game engines and media players."
+
+[html]
+url = "https://retroarch.com/index.php?page=platforms"
+versioning = "tuple"
+blob_re = ".*<a href=\"(?P<url>https://buildbot\\.libretro\\.com/stable/(?P<ver>.*?)/windows/x86_64/RetroArch\\.7z)\".*"

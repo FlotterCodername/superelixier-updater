@@ -1,0 +1,9 @@
+[info]
+name = "Mupen64plus"
+category = "Emulators"
+gist = "Emulates the Nintendo 64."
+
+[github]
+blob_re = "^m64p.*win64.*\\.zip$"
+user = "loganmc10"
+project = "m64p"

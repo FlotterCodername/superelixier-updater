@@ -1,0 +1,9 @@
+[info]
+name = "citra-nightly"
+category = "Emulators"
+gist = "Emulates the Nintendo 3DS."
+
+[github]
+blob_re = "^citra.*windows.*\\.7z$"
+user = "citra-emu"
+project = "citra-nightly"

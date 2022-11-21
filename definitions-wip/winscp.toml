@@ -1,0 +1,13 @@
+name = "WinSCP"
+url = "https://winscp.net/eng/downloads.php"
+blob_re = "<a href=\"(/download/WinSCP-.*?-Portable\\.zip)\""
+blob_unwanted = []
+appdatas = []
+repo = "html"
+
+[info]
+gist = "File transfer client supporting FTP, FTPS, SCP, SFTP, WebDAV and S3"
+category = "Network Tools"
+
+[version_scheme]
+type = "tuple"

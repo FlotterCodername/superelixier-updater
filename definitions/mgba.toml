@@ -1,0 +1,9 @@
+[info]
+name = "mGBA"
+category = "Emulators"
+gist = "Emulates the Nintendo Game Boy, Game Boy Color and Game Boy Advance."
+
+[github]
+blob_re = "^mGBA.*win64.*\\.7z$"
+user = "mgba-emu"
+project = "mgba"

@@ -1,0 +1,9 @@
+[info]
+name = "Rufus"
+category = "Utilities"
+gist = "Create bootable USB flash drives"
+
+[github]
+blob_re = "^rufus-.*p\\.exe$"
+user = "pbatard"
+project = "rufus"

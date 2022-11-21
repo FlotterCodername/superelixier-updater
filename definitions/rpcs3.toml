@@ -1,0 +1,11 @@
+[info]
+name = "RPCS3"
+category = "Emulators"
+gist = "Emulates the Sony PlayStation 3."
+
+[html]
+url = "https://rpcs3.net/download"
+versioning = "id"
+blob_permalink = "https://rpcs3.net/latest-windows"
+blob_permalink_re = "<span>Build <span class='version-buildversion'>(.*?)</span></span>"
+versioning_spec = 1

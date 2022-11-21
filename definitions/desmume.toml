@@ -1,0 +1,10 @@
+[info]
+name = "DeSmuME"
+category = "Emulators"
+gist = "Emulates the Nintendo DS."
+
+[appveyor]
+blob_re = "^.*\\.exe$"
+user = "zeromus"
+project = "desmume"
+branch = "master"

@@ -1,0 +1,9 @@
+[info]
+name = "PPSSPP Development"
+category = "Emulators"
+gist = "Emulates the Sony PlayStation Portable. Development builds from Git via Orphis."
+
+[html]
+url = "https://buildbot.orphis.net/ppsspp"
+versioning = "tuple"
+blob_re = ".*(?P<url>/ppsspp/index\\.php\\?m=dl&amp;rev=v*(?P<ver>.*?)&amp;platform=windows-amd64).*"

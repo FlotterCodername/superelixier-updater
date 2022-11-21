@@ -1,0 +1,10 @@
+[info]
+name = "VSCode"
+category = "Developer Tools"
+gist = "Extensible code editor supporting many programming languages"
+
+[html]
+url = "https://update.code.visualstudio.com/api/releases/stable"
+versioning = "tuple"
+blob_permalink = "https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-archive"
+blob_permalink_re = "\"(.*?)\""

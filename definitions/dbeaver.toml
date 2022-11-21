@@ -1,0 +1,14 @@
+[info]
+name = "dbeaver"
+category = "Developer Tools"
+gist = "SQL client"
+
+[github]
+blob_re = "^dbeaver.*win32\\.x86_64.*\\.zip$"
+user = "dbeaver"
+project = "dbeaver"
+
+[local]
+appdata = [
+    "dbeaver.ini",
+]

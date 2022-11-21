@@ -1,0 +1,9 @@
+[info]
+name = "Etcher"
+category = "Utilities"
+gist = "SD card flasher"
+
+[github]
+blob_re = "^balenaEtcher.*Portable.*\\.exe$"
+user = "balena-io"
+project = "etcher"

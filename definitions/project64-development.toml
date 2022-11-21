@@ -1,0 +1,12 @@
+[info]
+name = "Project64-Development"
+category = "Emulators"
+gist = "Emulates the Nintendo 64. The 'Development' branch has all the latest features, but might be less stable."
+
+[html]
+url = "https://www.pj64-emu.com/nightly-builds"
+versioning = "integer"
+blob_re = "\"(?P<url>/file/setup-project64-.*-(?P<ver>.*?)-.*?/)\""
+
+[local]
+installer = "innoextract"

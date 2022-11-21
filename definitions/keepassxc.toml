@@ -1,0 +1,9 @@
+[info]
+name = "KeePassXC"
+category = "Security"
+gist = "Password manager"
+
+[github]
+blob_re = "^KeePassXC.*Win64\\.zip$"
+user = "keepassxreboot"
+project = "keepassxc"

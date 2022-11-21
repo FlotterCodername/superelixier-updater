@@ -1,0 +1,9 @@
+[info]
+name = "Vita3K"
+category = "Emulators"
+gist = "Emulates the Sony PlayStation Vita."
+
+[github]
+blob_re = "^windows-latest\\.zip$"
+user = "Vita3K"
+project = "Vita3K"

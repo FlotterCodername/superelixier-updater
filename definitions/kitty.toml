@@ -1,0 +1,18 @@
+[info]
+name = "KiTTY"
+category = "Network Tools"
+gist = "SSH and telnet client. Improved version of PuTTY"
+
+[github]
+blob_re = "^kitty-bin-.*?\\.zip$"
+user = "cyd01"
+project = "KiTTY"
+
+[local]
+appdata = [
+    "Jumplist",
+    "Proxies",
+    "Sessions",
+    "SshHostKeys",
+    "kitty.ini",
+]

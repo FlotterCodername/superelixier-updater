@@ -1,0 +1,9 @@
+[info]
+name = "HandBrake"
+category = "Audio & Video"
+gist = "Audio/video converter built on top of ffmpeg, x264, x265 and more"
+
+[github]
+blob_re = "^HandBrake-.*-x86_64-Win_GUI\\.zip$"
+user = "HandBrake"
+project = "HandBrake"

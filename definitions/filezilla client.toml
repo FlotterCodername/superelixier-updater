@@ -1,0 +1,9 @@
+[info]
+name = "FileZilla Client"
+category = "Network Tools"
+gist = "File transfer client supporting FTP, FTPS and SFTP"
+
+[html]
+url = "https://filezilla-project.org/download.php?show_all=1"
+versioning = "tuple"
+blob_re = "<a href=\"(?P<url>.*?)\" rel=\".*?\">FileZilla_(?P<ver>.*?)_win64\\.zip</a>"

@@ -1,0 +1,9 @@
+[info]
+name = "Notepad++"
+category = "Developer Tools"
+gist = "Text editor"
+
+[github]
+blob_re = "^npp\\..*?\\.portable\\.x64\\.7z$"
+user = "notepad-plus-plus"
+project = "notepad-plus-plus"

@@ -1,0 +1,15 @@
+[info]
+name = "PCSX2"
+category = "Emulators"
+gist = "Emulates the Sony PlayStation 2. AVX2 Development builds"
+
+[github]
+blob_re = "^pcsx2-.*-windows-64bit-AVX2.7z$"
+user = "PCSX2"
+project = "pcsx2"
+prerelease = true
+
+[local]
+appdata = [
+    "portable.ini",
+]

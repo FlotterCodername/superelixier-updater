@@ -4,18 +4,20 @@ version = "0.1.0.dev"
 description = "Superelixier Updater is a generic, extensible updater for portable software."
 license = "MPL-2.0"
 authors = ["Fabian H. Schneider <>"]
-readme = "README.md"  # Markdown files are supported
+readme = "README.md"
 repository = "https://github.com/FlotterCodername/superelixier-updater"
 homepage = "https://github.com/FlotterCodername/superelixier-updater"
 keywords = ["windows", "continous-delivery"]
 
 [tool.poetry.dependencies]
-python = ">=3.10, <3.11"
+python = ">=3.11, <3.12"
 # Dependencies
 colorama = "^0.4"
 jsonschema = "^4.17"
-packaging = "^21.3"
+packaging = ">=21.3"
 requests = "^2.28"
+tomli = "^2.0"
+tomli-w = "^1.0"
 
 [tool.poetry.dev-dependencies]
 black = "^22.1"

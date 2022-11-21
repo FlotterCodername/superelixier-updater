@@ -1,0 +1,10 @@
+[info]
+name = "DuckStation Preview"
+category = "Emulators"
+gist = "Emulates the Sony PlayStation. Preview build (or development if newer)"
+
+[github]
+blob_re = "^duckstation-windows-x64-release\\.zip$"
+user = "stenzek"
+project = "duckstation"
+prerelease = true

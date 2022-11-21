@@ -1,0 +1,10 @@
+[info]
+name = "FreeTube"
+category = "Audio & Video"
+gist = "FLOSS YouTube frontend with a focus on privacy."
+
+[github]
+blob_re = "^freetube-.*?-win-x64-portable\\.zip$"
+user = "FreeTubeApp"
+project = "FreeTube"
+prerelease = true

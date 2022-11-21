@@ -1,0 +1,15 @@
+[info]
+name = "VLC media player"
+category = "Audio & Video"
+gist = "Video & audio player with broad support for file formats and network streams"
+
+[html]
+url = "https://www.videolan.org/vlc/"
+versioning = "tuple"
+blob_re = ".*<li><a href=\"(?P<url>//get\\.videolan\\.org/vlc/(?P<ver>.*?)/win64/vlc-.*?-win64\\.exe)\">Windows 64bit</a></li>.*"
+
+[local]
+installer = "sfx"
+delete = [
+    "\\$PLUGINSDIR",
+]

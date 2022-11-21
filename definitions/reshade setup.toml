@@ -1,0 +1,9 @@
+[info]
+name = "ReShade Setup"
+category = "Gaming"
+gist = "Installer for ReShade, a universal shader injector"
+
+[html]
+url = "https://reshade.me"
+versioning = "tuple"
+blob_re = ".*<a href=\"(?P<url>/downloads/.*?\\.exe)\" class=\"button\">Download ReShade (?P<ver>.*?)</a>.*"

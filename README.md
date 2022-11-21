@@ -2,11 +2,12 @@
 
 [![Python app](https://github.com/FlotterCodername/superelixier-updater/actions/workflows/python-app.yml/badge.svg)](https://github.com/FlotterCodername/superelixier-updater/actions/workflows/python-app.yml) [![CodeQL](https://github.com/FlotterCodername/superelixier-updater/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/FlotterCodername/superelixier-updater/actions/workflows/codeql-analysis.yml)
 
-**Using this tool currently requires basic knowledge about JavaScript Object Notation (JSON). As development progresses,
-this will change.** If you want to wait for a user-friendly version, select ``Watch -> Custom -> Releases`` from the top
-of the GitHub repository. In any case, check out the [list of Pre-configured Apps](./docs/Available%20Apps.md)
+**Using this tool currently requires editing of TOML files
+([Tom's Obvious, Minimal Language](https://en.wikipedia.org/wiki/TOML)). This is very similar to an  INI file.** If you
+want to wait for a more user-friendly version, select ``Watch -> Custom -> Releases`` from the top of the GitHub
+repository. In any case, check out the [list of Pre-configured Apps](./docs/Available%20Apps.md)
 
-Users who add additional apps definitions to the updater need to be familiar with JSON and regular expressions.
+Users who add additional apps definitions to the updater need to be familiar with TOML and Python regular expressions.
 
 Superelixier Updater can automatically update a number of apps provided in portable form. Currently, it handles apps
 distributed on Appveyor, GitHub and HTML pages.
@@ -26,9 +27,9 @@ as simple as running the ``superelixier.exe`` file.
 
 - Download and extract the latest preview release.
 - Two configuration files in the ``config`` folder need to be set up.
-    - ``auth.json`` will be auto-created if it's missing. Most users don't need to change anything here, as modest
+    - ``auth.toml`` will be auto-created if it's missing. Most users don't need to change anything here, as modest
       amounts of API calls can be done without authentification tokens.
-    - ``local.json`` tells the tool where to install which app. Rename the ``local_example.json`` to ``local.json`` and
+    - ``local.toml`` tells the tool where to install which app. Rename the ``local_example.toml`` to ``local.toml`` and
       set your options. Make sure you use forward slashes in your paths.
 
 ### Running the updater

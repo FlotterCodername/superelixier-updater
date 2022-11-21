@@ -1,0 +1,10 @@
+[info]
+name = "Cxbx-Reloaded"
+category = "Emulators"
+gist = "Emulates the Microsoft Xbox."
+
+[github]
+blob_re = "^CxbxReloaded-Release-VS2022\\.zip$"
+user = "Cxbx-Reloaded"
+project = "Cxbx-Reloaded"
+prerelease = true

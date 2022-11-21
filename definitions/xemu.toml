@@ -1,0 +1,9 @@
+[info]
+name = "xemu"
+category = "Emulators"
+gist = "Emulates the Microsoft Xbox."
+
+[github]
+blob_re = "^xemu-win-release\\.zip$"
+user = "mborgerson"
+project = "xemu"

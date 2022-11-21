@@ -1,0 +1,9 @@
+[info]
+name = "Cemu"
+category = "Emulators"
+gist = "Emulates the Nintendo Wii U."
+
+[html]
+url = "http://cemu.info/"
+versioning = "tuple"
+blob_re = ".*\"(?P<url>https://cemu\\.info/releases/cemu_(?P<ver>.*?)\\.zip)\".*"
