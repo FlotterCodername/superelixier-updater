@@ -12,6 +12,7 @@ keywords = ["windows", "continous-delivery"]
 [tool.poetry.dependencies]
 python = ">=3.11, <3.12"
 # Dependencies
+cleo = "^2.0"  # https://github.com/python-poetry/cleo/blob/main/CHANGELOG.md
 colorama = "^0.4"
 jsonschema = "^4.17"
 packaging = ">=21.3"
@@ -21,7 +22,7 @@ tomli-w = "^1.0"
 
 [tool.poetry.dev-dependencies]
 black = "^22.1"
-flake8 = "^5.0"
+flake8 = "^6.0"  # https://flake8.pycqa.org/en/latest/release-notes/index.html
 isort = "^5.10"
 pyinstaller = "^5.6"
 
