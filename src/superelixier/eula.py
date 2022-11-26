@@ -12,7 +12,7 @@ import textwrap
 from superelixier.helper import toml
 from superelixier.helper.environment import DIR_APP
 from superelixier.helper.shell import clear
-from superelixier.helper.terminal import exit_app
+from superelixier.helper.terminal import confirm_exit_app
 
 TERM_VER: int = 2
 TERMS: str = """\
@@ -57,7 +57,7 @@ def __show_eula() -> None:
                 If you meant to accept, make sure you only type "agree" without quotes."""
             )
         )
-        exit_app(-1)
+        confirm_exit_app(-1)
 
 
 def __accept_eula() -> None:

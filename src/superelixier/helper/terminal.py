@@ -29,7 +29,7 @@ class Ansi:
     WARNING = MAGENTA + "Warning: "
 
 
-def exit_app(return_code) -> None:
+def confirm_exit_app(return_code) -> None:
     input("Press ENTER to exit...")
     sys.exit(return_code)
 

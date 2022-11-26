@@ -18,7 +18,7 @@ from superelixier.generic.generic_app import GenericApp
 from superelixier.generic.generic_manager import GenericManager
 from superelixier.helper.converters import definition_to_app
 from superelixier.helper.filesystem import make_path_native, remove_empty_dirs
-from superelixier.helper.terminal import Ansi, print_header
+from superelixier.helper.terminal import Ansi, print_header, clear
 
 UX_INSTALLED_NEWER = f"""\
 Installed is newer.
@@ -31,18 +31,19 @@ UPDATE_TRIGGER = {"update", "no_version_file", "not_installed"}
 class Upgrade(Command):
     # cleo
     name = "upgrade"
-    description = "Upgrade all apps specified in your configuration"
+    description = "Upgrade all apps specified in your configuration (default command)"
     # Upgrade
     job_list = []
     mt_on = True
 
     # logic
     def handle(self) -> int:
+        clear()
         _ = configuration.auth  # Check authentication
         self.__check_updates()
         self.__update_apps()
         self.__pre_exit_cleanup()
-        return 0
+        return 100
 
     def __check_updates(self) -> None:
         project_list: list[GenericApp] = []

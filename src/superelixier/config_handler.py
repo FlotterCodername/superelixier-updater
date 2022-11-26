@@ -13,7 +13,7 @@ from os.path import join as opj
 from superelixier.definition import Definition
 from superelixier.helper import toml
 from superelixier.helper.environment import DIR_APP, DIR_CFG
-from superelixier.helper.terminal import Ansi, exit_app
+from superelixier.helper.terminal import Ansi, confirm_exit_app
 from superelixier.helper.toml import TOMLDecodeError
 from superelixier.helper.types import Json
 
@@ -81,7 +81,7 @@ class ConfigHandler:
                 toml.dump(AUTH_DEFAULT, fd)
             return self.__load_toml(loc, "", "")
         except TOMLDecodeError:
-            exit_app(-1)
+            confirm_exit_app(-1)
 
     def _load_local(self):
         msg_invalid = E_INVALID % FN_LOCAL
@@ -92,7 +92,7 @@ class ConfigHandler:
             unvalidated = self.__load_toml(loc, msg_invalid, msg_missing)
             return ConfigHandler._validate_local(unvalidated)
         except (FileNotFoundError, TOMLDecodeError):
-            exit_app(-1)
+            confirm_exit_app(-1)
 
     @classmethod
     def __load_toml(cls, path: str, msg_invalid, msg_missing) -> Json | None:
@@ -157,7 +157,7 @@ class ConfigHandler:
                         assert isinstance(item2, str)
         except (AssertionError, KeyError):
             print(UX_MISSING_LOCAL)
-            exit_app(-1)
+            confirm_exit_app(-1)
 
         cfg_local = {entry["path"]: entry["apps"] for entry in cfg_loaded["directory"]}
         converted = {}
