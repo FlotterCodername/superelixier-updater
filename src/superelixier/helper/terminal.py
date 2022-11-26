@@ -11,7 +11,7 @@ from dataclasses import dataclass
 
 import colorama
 
-from superelixier.helper.shell import clear
+from superelixier.helper.shell import clear as clear_str
 
 DENT = " " * 2
 
@@ -29,9 +29,9 @@ class Ansi:
     WARNING = MAGENTA + "Warning: "
 
 
-def exit_app() -> None:
+def exit_app(return_code) -> None:
     input("Press ENTER to exit...")
-    sys.exit()
+    sys.exit(return_code)
 
 
 def print_header(string, color="", *, frame_char="#") -> None:
@@ -39,13 +39,5 @@ def print_header(string, color="", *, frame_char="#") -> None:
     print(f"{color}{bar}\n{frame_char} {string} {frame_char}\n{bar}{Ansi.RESET}")
 
 
-def color_handling(init: bool = True) -> None:
-    if init:
-        os.system(clear)
-        os.system("color 0f")
-        colorama.init()
-        print(colorama.Back.BLACK + colorama.Fore.WHITE, end="")
-    else:
-        os.system("color")
-        print(colorama.Style.RESET_ALL, end="")
-        os.system(clear)
+def clear() -> None:
+    os.system(clear_str)

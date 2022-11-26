@@ -33,7 +33,7 @@ As a further practical example, if you create a modified version of proprietors'
 to disclose source code of your modified version."""
 
 
-def check_eula() -> None:
+def check_terms() -> None:
     term_file = os.path.join(DIR_APP, "config", "eula.toml")
     if os.path.isfile(term_file):
         with open(term_file, "rb") as file:
@@ -57,7 +57,7 @@ def __show_eula() -> None:
                 If you meant to accept, make sure you only type "agree" without quotes."""
             )
         )
-        exit_app()
+        exit_app(-1)
 
 
 def __accept_eula() -> None:
