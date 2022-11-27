@@ -6,6 +6,7 @@ If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
 import os
+import sys
 import textwrap
 from concurrent import futures
 from typing import get_args
@@ -48,6 +49,8 @@ class Upgrade(Command):
         for call in (self.__check_updates, self.__update_apps, self.__pre_exit_cleanup):
             if ret_code == 0:
                 ret_code = call() or 0
+        if len(sys.argv) == 1 and ret_code == 0:  # "oneclick mode", sucessful: still ask for exit confirmation.
+            ret_code = 10
         return ret_code
 
     def __check_updates(self) -> int | None:
