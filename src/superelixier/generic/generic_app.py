@@ -31,6 +31,10 @@ class VersionInstalled(VersionInfo):
     repo: str
     spec: int = 1
 
+    def __post_init__(self):
+        if not isinstance(self.spec, int) or self.spec < 0:
+            self.spec = 0
+
 
 class GenericApp:
     execute: Callable
