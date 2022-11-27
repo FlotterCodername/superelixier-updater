@@ -3,7 +3,7 @@
 [![Python app](https://github.com/FlotterCodername/superelixier-updater/actions/workflows/python-app.yml/badge.svg)](https://github.com/FlotterCodername/superelixier-updater/actions/workflows/python-app.yml) [![CodeQL](https://github.com/FlotterCodername/superelixier-updater/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/FlotterCodername/superelixier-updater/actions/workflows/codeql-analysis.yml)
 
 **Using this tool currently requires editing of TOML files
-([Tom's Obvious, Minimal Language](https://en.wikipedia.org/wiki/TOML)). This is very similar to an  INI file.** If you
+([Tom's Obvious, Minimal Language](https://en.wikipedia.org/wiki/TOML)). This is very similar to an INI file.** If you
 want to wait for a more user-friendly version, select ``Watch -> Custom -> Releases`` from the top of the GitHub
 repository.
 
@@ -43,15 +43,18 @@ You can
 
 ### Command-line interface
 Various commands are available.
-To install an app: 
->>> superelixier.exe install goat-app
-
+To install an app:
+```shell
+> superelixier.exe install goat-app
+```
 To update (or install):
->>> superelixier.exe install -U goat-app
-
-See what else is available:
->>> superelixier.exe list
-
+```shell
+> superelixier.exe install -U goat-app
+```
+To see what else is available:
+```shell
+> superelixier.exe list
+```
 ### Authentication (optional)
 GitHub authentication tokens can be configured in the file ``config/auth.toml``. This will be auto-created
 if it's missing. Most users don't need to change anything here, as modest amounts of API calls can be done without
