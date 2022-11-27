@@ -6,6 +6,7 @@ If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
 import os
+import textwrap
 from concurrent import futures
 
 from cleo.commands.command import Command
@@ -13,13 +14,13 @@ from requests import RequestException
 from urllib3.exceptions import HTTPError
 
 from superelixier import configuration
-from superelixier.configuration import InvalidLocalException
+from superelixier.configuration import InvalidLocalException, MissingLocalException
 from superelixier.file_handler import FileHandler
 from superelixier.generic.generic_app import GenericApp
 from superelixier.generic.generic_manager import GenericManager
 from superelixier.helper.converters import create_app_jobs
 from superelixier.helper.filesystem import make_path_native, remove_empty_dirs
-from superelixier.helper.terminal import Ansi, clear, print_header
+from superelixier.helper.terminal import DENT, Ansi, clear, print_header
 
 UX_INSTALLED_NEWER = f"""\
 Installed is newer.
@@ -51,9 +52,10 @@ class Upgrade(Command):
         app_jobs: list[GenericApp] = []
         try:
             configuration.local
-        except InvalidLocalException as e:
-            self.line_error("Problem with the local.toml file!")
-            self.line(e.args[0])
+        except (MissingLocalException, InvalidLocalException) as e:
+            self.line_error("A valid local.toml file is required for the upgrader.")
+            for arg in e.args:
+                self.line(textwrap.indent(arg, DENT))
             return -100
         for item in configuration.local.values():
             app_jobs += create_app_jobs(item.apps, item.path, self)

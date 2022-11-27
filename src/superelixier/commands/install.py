@@ -14,7 +14,7 @@ from requests import RequestException
 from urllib3.exceptions import HTTPError
 
 from superelixier import configuration
-from superelixier.configuration import InvalidLocalException
+from superelixier.configuration import InvalidLocalException, MissingLocalException
 from superelixier.file_handler import FileHandler
 from superelixier.generic.generic_manager import GenericManager
 from superelixier.helper.converters import create_app_jobs
@@ -52,9 +52,10 @@ class Install(Command):
                 for item in configuration.local.values():
                     if item.default:
                         op_de = item.path
-            except InvalidLocalException as e:
+            except (MissingLocalException, InvalidLocalException) as e:
                 self.line_error("If the --destination option is not used, a valid local.toml is required.")
-                self.line(e.args[0])
+                for arg in e.args:
+                    self.line(textwrap.indent(arg, DENT))
                 return -100
         if op_de is None:
             self.line_error('If the "--destination" option is not used, you must set a folder as default.')
