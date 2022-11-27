@@ -1,0 +1,9 @@
+[info]
+name = "simple64"
+category = "Emulators"
+gist = "Emulates the Nintendo 64."
+
+[github]
+blob_re = "^simple64.*win64.*\\.zip$"
+user = "simple64"
+project = "simple64"
