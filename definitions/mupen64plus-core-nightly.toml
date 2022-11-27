@@ -1,0 +1,10 @@
+[info]
+name = "Mupen64Plus-Core-nightly"
+category = "Emulators"
+gist = "Emulates the Nintendo 64."
+
+[github]
+blob_re = "^mupen64plus-core-msvc-x64-.*\\.zip$"
+user = "mupen64plus"
+project = "mupen64plus-core"
+prerelease = true
