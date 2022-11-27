@@ -12,8 +12,6 @@ from copy import deepcopy
 from dataclasses import dataclass
 from os.path import join as opj
 
-from cleo.commands.command import Command
-
 from superelixier.definition import Definition
 from superelixier.helper import toml
 from superelixier.helper.environment import DIR_APP, DIR_CFG
@@ -21,7 +19,6 @@ from superelixier.helper.filesystem import make_path_native
 from superelixier.helper.terminal import Ansi, confirm_exit_app
 from superelixier.helper.toml import TOMLDecodeError
 from superelixier.helper.types import Json
-
 
 __all__ = ["DirectoryConfig", "InvalidLocalException"]
 
@@ -196,8 +193,8 @@ class ConfigHandler:
                     {}
 
                     Put the file into: {}"""
-                    ).format(FN_LOCAL, UX_SAMPLE_LOCAL, DIR_CFG)
-                )
+                ).format(FN_LOCAL, UX_SAMPLE_LOCAL, DIR_CFG)
+            )
         if len(default_directories) > 1:
             bulleted = "* " + "\n* ".join(default_directories)
             raise InvalidLocalException(

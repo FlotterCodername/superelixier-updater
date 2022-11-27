@@ -19,4 +19,6 @@ JsonArray = list[list | JsonObject]
 Json = JsonArray | JsonObject
 JsonResponse = Json | None
 
-UpdateStatus = Literal["no_update", "installed_newer", "update", "no_version_file", "not_installed", "error", "failed", "unknown"]
+UpdateStatus = Literal[
+    "no_update", "installed_newer", "update", "no_version_file", "not_installed", "error", "failed", "unknown"
+]

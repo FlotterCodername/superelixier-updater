@@ -18,7 +18,7 @@ from superelixier.configuration import InvalidLocalException
 from superelixier.file_handler import FileHandler
 from superelixier.generic.generic_manager import GenericManager
 from superelixier.helper.converters import create_app_jobs
-from superelixier.helper.terminal import Ansi, DENT, print_header
+from superelixier.helper.terminal import DENT, Ansi, print_header
 from superelixier.helper.types import UpdateStatus
 
 
@@ -57,14 +57,18 @@ class Install(Command):
                 self.line(e.args[0])
                 return -100
         if op_de is None:
-            self.line_error("If the \"--destination\" option is not used, you must set a folder as default.")
-            self.line(textwrap.dedent(f"""\
+            self.line_error('If the "--destination" option is not used, you must set a folder as default.')
+            self.line(
+                textwrap.dedent(
+                    f"""\
 
             [[{Ansi.YELLOW}directory{Ansi.RESET}]]
             {Ansi.YELLOW}default{Ansi.RESET} = true
             {Ansi.YELLOW}path{Ansi.RESET} = {Ansi.GREEN}"C:/my cool directory/my apps"{Ansi.RESET}
             {Ansi.YELLOW}apps{Ansi.RESET} = [ ... ]
-            """))
+            """
+                )
+            )
             self.line("Only one default folder is possible!")
             return -100
         app_jobs = create_app_jobs(arg_apps, op_de, self)
@@ -93,11 +97,11 @@ class Install(Command):
                 if not (op_u or op_f):
                     msg = f"{app.name}: Already installed"
                     if app.update_status == "update":
-                        msg += f" (update available)"
+                        msg += " (update available)"
                     elif app.update_status == "installed_newer":
-                        msg += f" (installed newer)"
+                        msg += " (installed newer)"
                     elif app.update_status == "no_version_file":
-                        msg += f" (no version info)"
+                        msg += " (no version info)"
                     self.line(f"{app.name}: Already installed")
                     continue
                 if op_u and not op_f:
@@ -124,15 +128,24 @@ class Install(Command):
                         self.line(f"{app.name}: Installing")
         if is_installed_newer_case:
             self.line_error("One or more apps appeared to be ahead of the latest version!")
-            self.line(textwrap.indent(textwrap.dedent(f"""\
+            self.line(
+                textwrap.indent(
+                    textwrap.dedent(
+                        f"""\
             Maybe the release was removed... but it's more likely our app definition is outdated.
             Tech-savvy? Find out how to update/create app definitions here:
-            {DENT}https://github.com/FlotterCodername/superelixier-updater/blob/main/docs/Adding%20Apps.md"""), DENT))
+            {DENT}https://github.com/FlotterCodername/superelixier-updater/blob/main/docs/Adding%20Apps.md"""
+                    ),
+                    DENT,
+                )
+            )
 
         for app in app_jobs:
             if not app.version_latest.blobs:
                 print_header(app.name, Ansi.RED)
-                self.line_error(f"Definition problem: no matching downloads for version ID {app.version_latest.version_id}")
+                self.line_error(
+                    f"Definition problem: no matching downloads for version ID {app.version_latest.version_id}"
+                )
             elif op_d:
                 for blob in app.version_latest.blobs:
                     print_header(app.name, Ansi.MAGENTA)

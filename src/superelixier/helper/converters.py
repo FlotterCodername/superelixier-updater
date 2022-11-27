@@ -44,5 +44,5 @@ def create_app_jobs(apps: list[str], target: str, command: Command = None) -> li
             app_list.append(definition_to_app_job(appconf, target=target))
         else:
             if isinstance(command, Command):
-                command.line(f"{Ansi.WARNING}Ignoring undefined app \"{norm_name}\"{Ansi.RESET}")
+                command.line(f'{Ansi.WARNING}Ignoring undefined app "{norm_name}"{Ansi.RESET}')
     return app_list

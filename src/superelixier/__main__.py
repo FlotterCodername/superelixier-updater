@@ -20,8 +20,8 @@ __all__ = []
 EXIT_CONFIRM_TRIGGER = {
     -200: -2,  # Layer 7 problem
     -100: -1,  # Layer 8 problem
-    10: 0,     # No problem but ask for confirmation
-    100: 1,    # Other problem
+    10: 0,  # No problem but ask for confirmation
+    100: 1,  # Other problem
 }
 
 

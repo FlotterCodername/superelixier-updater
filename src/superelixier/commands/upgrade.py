@@ -17,7 +17,7 @@ from superelixier.configuration import InvalidLocalException
 from superelixier.file_handler import FileHandler
 from superelixier.generic.generic_app import GenericApp
 from superelixier.generic.generic_manager import GenericManager
-from superelixier.helper.converters import definition_to_app_job, create_app_jobs
+from superelixier.helper.converters import create_app_jobs
 from superelixier.helper.filesystem import make_path_native, remove_empty_dirs
 from superelixier.helper.terminal import Ansi, clear, print_header
 
