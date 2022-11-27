@@ -7,38 +7,61 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 """
 import os
 import sys
+import textwrap
 from copy import deepcopy
+from dataclasses import dataclass
 from os.path import join as opj
 
 from superelixier.definition import Definition
 from superelixier.helper import toml
 from superelixier.helper.environment import DIR_APP, DIR_CFG
-from superelixier.helper.terminal import Ansi, exit_app
+from superelixier.helper.filesystem import make_path_native
+from superelixier.helper.terminal import Ansi, confirm_exit_app
 from superelixier.helper.toml import TOMLDecodeError
 from superelixier.helper.types import Json
 
-E_MISSING = Ansi.ERROR + "%s was not found but is required." + Ansi.RESET
-E_INVALID = Ansi.ERROR + "%s is not valid TOML." + Ansi.RESET
+__all__ = ["DirectoryConfig", "InvalidLocalException"]
+
+E_MISSING = Ansi.ERROR + "This requires file %s, which was not found." + Ansi.RESET
+E_INVALID = Ansi.ERROR + "This requires file %s, which is not valid TOML." + Ansi.RESET
 
 FN_AUTH = "auth.toml"
 FN_LOCAL = "local.toml"
 FN_LOCAL_EX = "local_example.toml"
 
-UX_MISSING_LOCAL = f"""\
-The file {FN_LOCAL} must have one of more "directory" entries, like so:
-
+UX_SAMPLE_LOCAL = f"""\
 [[{Ansi.YELLOW}directory{Ansi.RESET}]]
+{Ansi.YELLOW}default{Ansi.RESET} = true  {Ansi.DIM}# Optional. Only one default folder is possible!{Ansi.RESET}
 {Ansi.YELLOW}path{Ansi.RESET} = {Ansi.GREEN}"C:/my cool directory/my apps"{Ansi.RESET}
 {Ansi.YELLOW}apps{Ansi.RESET} = [
     {Ansi.GREEN}"app1"{Ansi.RESET},
     {Ansi.GREEN}"app2{Ansi.RESET},
-]
-
-Put the file into: {DIR_CFG}"""
+]"""
 
 AUTH_DEFAULT: dict[str, str] = {"appveyor_token": "", "github_token": ""}
 
-__all__ = []
+
+@dataclass
+class DirectoryConfig:
+    path: str
+    apps: list[str] | None
+    default: bool = False
+
+    def __post_init__(self):
+        self.__volume_relative = False
+        if self.path.startswith("/") or self.path.startswith("\\"):
+            drive = os.path.splitdrive(sys.argv[0])[0]
+            self.path = drive + self.path
+            self.__volume_relative = True
+        self.path = make_path_native(self.path)
+
+    @property
+    def volume_relative(self) -> bool:
+        return self.__volume_relative
+
+
+class InvalidLocalException(Exception):
+    pass
 
 
 class ConfigHandler:
@@ -64,7 +87,7 @@ class ConfigHandler:
         return deepcopy(self.__definitions)
 
     @property
-    def local(self):
+    def local(self) -> dict[str, DirectoryConfig]:
         if self.__local is None:
             self.__local = self._load_local()
         return deepcopy(self.__local)
@@ -81,7 +104,7 @@ class ConfigHandler:
                 toml.dump(AUTH_DEFAULT, fd)
             return self.__load_toml(loc, "", "")
         except TOMLDecodeError:
-            exit_app()
+            confirm_exit_app(-1)
 
     def _load_local(self):
         msg_invalid = E_INVALID % FN_LOCAL
@@ -92,7 +115,7 @@ class ConfigHandler:
             unvalidated = self.__load_toml(loc, msg_invalid, msg_missing)
             return ConfigHandler._validate_local(unvalidated)
         except (FileNotFoundError, TOMLDecodeError):
-            exit_app()
+            confirm_exit_app(-1)
 
     @classmethod
     def __load_toml(cls, path: str, msg_invalid, msg_missing) -> Json | None:
@@ -147,6 +170,7 @@ class ConfigHandler:
 
     @classmethod
     def _validate_local(cls, cfg_loaded: dict) -> dict:
+        default_directories = []
         try:
             assert isinstance(cfg_loaded["directory"], list)
             for item in cfg_loaded["directory"]:
@@ -155,20 +179,33 @@ class ConfigHandler:
                     assert isinstance(item["apps"], list)
                     for item2 in item["apps"]:
                         assert isinstance(item2, str)
+                if "default" in item:
+                    assert isinstance(item["default"], bool)
+                    if item["default"]:
+                        default_directories.append(item["path"])
+                assert set(item.keys()).issubset({"path", "apps", "default"})
         except (AssertionError, KeyError):
-            print(UX_MISSING_LOCAL)
-            exit_app()
+            raise InvalidLocalException(
+                textwrap.dedent(
+                    """\
+                    The file {} must have one of more "directory" entries, like so:
 
-        cfg_local = {entry["path"]: entry["apps"] for entry in cfg_loaded["directory"]}
-        converted = {}
-        for old, val in cfg_local.items():
-            if old.startswith("/") or old.startswith("\\"):
-                drive = os.path.splitdrive(sys.argv[0])[0]
-                new = drive + old
-                converted[new] = val
-            else:
-                converted[old] = val
-        return converted
+                    {}
+
+                    Put the file into: {}"""
+                ).format(FN_LOCAL, UX_SAMPLE_LOCAL, DIR_CFG)
+            )
+        if len(default_directories) > 1:
+            bulleted = "* " + "\n* ".join(default_directories)
+            raise InvalidLocalException(
+                textwrap.dedent(
+                    """\
+                    Multiple folders in the local.toml file are set as default:
+                    {}
+                    Only one is allowed."""
+                ).format(bulleted)
+            )
+        return {i.path: i for i in (DirectoryConfig(**j) for j in cfg_loaded["directory"])}
 
 
 configuration = ConfigHandler()

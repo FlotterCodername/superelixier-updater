@@ -3,15 +3,20 @@ name = "superelixier-updater"
 version = "0.1.0.dev"
 description = "Superelixier Updater is a generic, extensible updater for portable software."
 license = "MPL-2.0"
-authors = ["Fabian H. Schneider <>"]
+authors = ["Fabian H. Schneider <example@example.com>"]
 readme = "README.md"
 repository = "https://github.com/FlotterCodername/superelixier-updater"
 homepage = "https://github.com/FlotterCodername/superelixier-updater"
 keywords = ["windows", "continous-delivery"]
+packages = [{include = "superelixier", from = "src"}]
+
+[tool.poetry.scripts]
+supup = "superelixier.__main__:main"
 
 [tool.poetry.dependencies]
 python = ">=3.11, <3.12"
 # Dependencies
+cleo = "^2.0"  # https://github.com/python-poetry/cleo/blob/main/CHANGELOG.md
 colorama = "^0.4"
 jsonschema = "^4.17"
 packaging = ">=21.3"
@@ -21,7 +26,7 @@ tomli-w = "^1.0"
 
 [tool.poetry.dev-dependencies]
 black = "^22.1"
-flake8 = "^5.0"
+flake8 = "^6.0"  # https://flake8.pycqa.org/en/latest/release-notes/index.html
 isort = "^5.10"
 pyinstaller = "^5.6"
 
