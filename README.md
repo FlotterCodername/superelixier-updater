@@ -45,15 +45,15 @@ You can
 Various commands are available.
 To install an app:
 ```shell
-> superelixier.exe install goat-app
+superelixier.exe install goat-app
 ```
 To update (or install):
 ```shell
-> superelixier.exe install -U goat-app
+superelixier.exe install -U goat-app
 ```
 To see what else is available:
 ```shell
-> superelixier.exe list
+superelixier.exe list
 ```
 ### Authentication (optional)
 GitHub authentication tokens can be configured in the file ``config/auth.toml``. This will be auto-created
