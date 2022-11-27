@@ -41,16 +41,17 @@ to disclose source code of your modified version.
 | **citra-canary** | Emulates the Nintendo 3DS. The 'canary' branch has all the latest features, but might be less stable than 'nightly'. |
 | **citra-nightly** | Emulates the Nintendo 3DS. |
 | **Cxbx-Reloaded** | Emulates the Microsoft Xbox. |
-| **DeSmuME** | Emulates the Nintendo DS. |
+| **DeSmuME-nightly** | Emulates the Nintendo DS (nightly.link) |
+| **DeSmuME** | Emulates the Nintendo DS. (Stable) |
 | **Dolphin** | Emulates the Nintendo GameCube and Nintendo Wii. |
 | **DuckStation Preview** | Emulates the Sony PlayStation. Preview build (or development if newer) |
 | **DuckStation** | Emulates the Sony PlayStation. Development build |
 | **EasyRPG Player** | RPGMaker 2000 and 2003 compatible game interpreter. Not an emulator in a technical sense. |
 | **melonDS** | Emulates the Nintendo DS. |
 | **mGBA** | Emulates the Nintendo Game Boy, Game Boy Color and Game Boy Advance. |
-| **Mupen64plus** | Emulates the Nintendo 64. |
-| **PCSX2-SSE4** | Emulates the Sony PlayStation 2. SSE4 Development builds (use if your CPU has no AVX2) |
-| **PCSX2** | Emulates the Sony PlayStation 2. AVX2 Development builds |
+| **Mupen64Plus-Core-nightly** | Emulates the Nintendo 64. |
+| **PCSX2-SSE4** | Emulates the Sony PlayStation 2. Qt-SSE4 Development builds (use if your CPU has no AVX2) |
+| **PCSX2** | Emulates the Sony PlayStation 2. Qt-AVX2 Development builds |
 | **PPSSPP Development** | Emulates the Sony PlayStation Portable. Development builds from Git via Orphis. |
 | **PPSSPP** | Emulates the Sony PlayStation Portable. |
 | **Project64-Development** | Emulates the Nintendo 64. The 'Development' branch has all the latest features, but might be less stable. |
@@ -58,6 +59,7 @@ to disclose source code of your modified version.
 | **RetroArch** | Frontend for emulators, game engines and media players. |
 | **RPCS3** | Emulates the Sony PlayStation 3. |
 | **Ryujinx** | Emulates the Nintendo Switch. |
+| **simple64** | Emulates the Nintendo 64. |
 | **Snes9x** | Emulates the Super Nintendo Entertainment System. |
 | **Vita3K** | Emulates the Sony PlayStation Vita. |
 | **xemu** | Emulates the Microsoft Xbox. |
