@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="install --dry-run" type="PythonConfigurationType" factoryName="Python">
+  <configuration default="false" name="check definitions" type="PythonConfigurationType" factoryName="Python">
     <module name="superelixier-updater" />
     <option name="INTERPRETER_OPTIONS" value="" />
     <option name="PARENT_ENVS" value="true" />
@@ -13,7 +13,7 @@
     <option name="ADD_SOURCE_ROOTS" value="true" />
     <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
     <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/superelixier/__main__.py" />
-    <option name="PARAMETERS" value="install blender desmume desmume-nightly --dry-run" />
+    <option name="PARAMETERS" value="check definitions" />
     <option name="SHOW_COMMAND_LINE" value="false" />
     <option name="EMULATE_TERMINAL" value="true" />
     <option name="MODULE_MODE" value="false" />

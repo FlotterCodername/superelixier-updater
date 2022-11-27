@@ -1,0 +1,9 @@
+[info]
+name = "Playnite"
+category = "Gaming"
+gist = "Video game library manager and launcher for PC and emulators."
+
+[github]
+blob_re = "^Playnite\\d+.*\\.zip$"
+user = "JosefNemec"
+project = "Playnite"

@@ -16,14 +16,20 @@ from superelixier.definition import Definition
 from superelixier.helper import toml
 from superelixier.helper.environment import DIR_APP, DIR_CFG
 from superelixier.helper.filesystem import make_path_native
-from superelixier.helper.terminal import Ansi, confirm_exit_app
+from superelixier.helper.terminal import DENT, Ansi
 from superelixier.helper.toml import TOMLDecodeError
 from superelixier.helper.types import Json
 
-__all__ = ["DirectoryConfig", "InvalidLocalException"]
+__all__ = [
+    "DirectoryConfig",
+    "InvalidAuthException",
+    "InvalidLocalException",
+    "MissingAuthException",
+    "MissingLocalException",
+]
 
-E_MISSING = Ansi.ERROR + "This requires file %s, which was not found." + Ansi.RESET
-E_INVALID = Ansi.ERROR + "This requires file %s, which is not valid TOML." + Ansi.RESET
+E_MISSING = Ansi.ERROR + "The file %s was not found." + Ansi.RESET
+E_INVALID = Ansi.ERROR + "The file %s is not valid TOML." + Ansi.RESET
 
 FN_AUTH = "auth.toml"
 FN_LOCAL = "local.toml"
@@ -44,15 +50,18 @@ AUTH_DEFAULT: dict[str, str] = {"appveyor_token": "", "github_token": ""}
 @dataclass
 class DirectoryConfig:
     path: str
-    apps: list[str] | None
+    apps: list[str] | None = None
     default: bool = False
 
     def __post_init__(self):
-        self.__volume_relative = False
         if self.path.startswith("/") or self.path.startswith("\\"):
             drive = os.path.splitdrive(sys.argv[0])[0]
             self.path = drive + self.path
             self.__volume_relative = True
+        else:
+            self.__volume_relative = False
+        if self.apps is None:
+            self.apps = []
         self.path = make_path_native(self.path)
 
     @property
@@ -61,6 +70,18 @@ class DirectoryConfig:
 
 
 class InvalidLocalException(Exception):
+    pass
+
+
+class MissingLocalException(Exception):
+    pass
+
+
+class InvalidAuthException(Exception):
+    pass
+
+
+class MissingAuthException(Exception):
     pass
 
 
@@ -93,41 +114,36 @@ class ConfigHandler:
         return deepcopy(self.__local)
 
     def _load_auth(self) -> Json:
-        msg_invalid = E_INVALID % FN_AUTH
-        msg_missing = E_MISSING % FN_AUTH
         loc = opj(DIR_CFG, FN_AUTH)
         try:
-            return self.__load_toml(loc, msg_invalid, msg_missing)
-        except FileNotFoundError:
-            print(f"Creating blank {FN_AUTH}...")
-            with open(loc, "wb") as fd:
-                toml.dump(AUTH_DEFAULT, fd)
-            return self.__load_toml(loc, "", "")
+            return self.__load_toml(loc)
+        except OSError:
+            print(f"Trying to create blank {FN_AUTH}...")
+            try:
+                with open(loc, "wb") as fd:
+                    toml.dump(AUTH_DEFAULT, fd)
+                return self.__load_toml(loc)
+            except (OSError, TOMLDecodeError):
+                raise MissingAuthException(f"Permanently failed to create an {FN_AUTH} file.")
         except TOMLDecodeError:
-            confirm_exit_app(-1)
+            raise InvalidAuthException(E_INVALID % FN_AUTH)
 
     def _load_local(self):
-        msg_invalid = E_INVALID % FN_LOCAL
         msg_missing = E_MISSING % FN_LOCAL
-        msg_missing += f"\nYou can use '{FN_LOCAL_EX}' in the application's 'config' directory as a blueprint."
+        msg_missing += f"\n{DENT}You can use '{FN_LOCAL_EX}' in the application's 'config' directory as a blueprint."
         loc = opj(DIR_CFG, FN_LOCAL)
         try:
-            unvalidated = self.__load_toml(loc, msg_invalid, msg_missing)
+            unvalidated = self.__load_toml(loc)
             return ConfigHandler._validate_local(unvalidated)
-        except (FileNotFoundError, TOMLDecodeError):
-            confirm_exit_app(-1)
+        except TOMLDecodeError:
+            raise InvalidLocalException(E_INVALID % FN_LOCAL)
+        except OSError:
+            raise MissingLocalException(msg_missing)
 
     @classmethod
-    def __load_toml(cls, path: str, msg_invalid, msg_missing) -> Json | None:
-        loaded = None
-        if not os.path.isfile(path):
-            print(msg_missing)
-        try:
-            with open(path, "rb") as fd:
-                loaded = toml.load(fd)
-        except TOMLDecodeError:
-            print(msg_invalid)
-        return loaded
+    def __load_toml(cls, path: str) -> Json | None:
+        with open(path, "rb") as fd:
+            return toml.load(fd)
 
     def write_app_list(self):
         from superelixier.eula import TERMS
@@ -196,13 +212,24 @@ class ConfigHandler:
                 ).format(FN_LOCAL, UX_SAMPLE_LOCAL, DIR_CFG)
             )
         if len(default_directories) > 1:
-            bulleted = "* " + "\n* ".join(default_directories)
+            bulleted = "- " + "\n- ".join(default_directories)
             raise InvalidLocalException(
                 textwrap.dedent(
                     """\
-                    Multiple folders in the local.toml file are set as default:
-                    {}
-                    Only one is allowed."""
+                    Multiple folders are set as default (only one is allowed):
+                    {}"""
+                ).format(bulleted)
+            )
+        paths = [i["path"] for i in cfg_loaded["directory"]]
+        if len(paths) != len(set(paths)):
+            for p in set(paths):
+                paths.remove(p)
+            bulleted = "- " + "\n- ".join(set(paths))
+            raise InvalidLocalException(
+                textwrap.dedent(
+                    """\
+                    Duplicate values for directory.path (each value must be unique):
+                    {}"""
                 ).format(bulleted)
             )
         return {i.path: i for i in (DirectoryConfig(**j) for j in cfg_loaded["directory"])}

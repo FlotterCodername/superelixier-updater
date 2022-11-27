@@ -6,4 +6,5 @@ gist = "Emulates the Sony PlayStation Portable. Development builds from Git via 
 [html]
 url = "https://buildbot.orphis.net/ppsspp"
 versioning = "tuple"
+# The redirect does not work here.
 blob_re = ".*(?P<url>/ppsspp/index\\.php\\?m=dl&amp;rev=v*(?P<ver>.*?)&amp;platform=windows-amd64).*"

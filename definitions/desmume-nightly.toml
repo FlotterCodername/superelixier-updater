@@ -1,0 +1,10 @@
+[info]
+name = "DeSmuME-nightly"
+category = "Emulators"
+gist = "Emulates the Nintendo DS (nightly.link)"
+
+[html]
+url = "https://nightly.link/TASEmulators/desmume/workflows/build_win/master/desmume-win-x64"
+versioning = "integer"
+blob_permalink = "https://nightly.link/TASEmulators/desmume/workflows/build_win/master/desmume-win-x64.zip"
+blob_permalink_re = "<a\\ rel=\"nofollow\"\\ href=\"https://nightly\\.link/TASEmulators/desmume/actions/runs/(\\d+)/desmume\\-win\\-x64\\.zip\">"

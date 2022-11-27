@@ -8,6 +8,8 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 from cleo.application import Application
 
 from superelixier import __version__
+from superelixier.commands.check_configuration import CheckConfiguration
+from superelixier.commands.check_definitions import CheckDefinitions
 from superelixier.commands.install import Install
 from superelixier.commands.search import Search
 from superelixier.commands.upgrade import Upgrade
@@ -15,6 +17,8 @@ from superelixier.commands.upgrade import Upgrade
 DefaultCommand = Upgrade
 cli = Application(name="superelixier-updater", version=__version__)
 cli.auto_exits(False)
+cli.add(CheckConfiguration())
+cli.add(CheckDefinitions())
 cli.add(Install())
-cli.add(Upgrade())
 cli.add(Search())
+cli.add(Upgrade())
