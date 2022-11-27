@@ -128,11 +128,15 @@ class DefinitionHTML:
 
 @dataclass(frozen=True)
 class DefinitionLocal:
-    appdata: list[str] = ""
-    delete: list[str] = ""
+    appdata: list[str] = None
+    delete: list[str] = None
     installer: DefinitionInstaller = None
 
     def __post_init__(self):
+        if self.appdata is None:
+            object.__setattr__(self, "appdata", [])
+        if self.delete is None:
+            object.__setattr__(self, "delete", [])
         if isinstance(self.appdata, str):
             object.__setattr__(self, "appdata", [self.appdata])
         if isinstance(self.delete, str):

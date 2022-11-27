@@ -124,7 +124,6 @@ class FileHandler:
             new_installed = VersionInstalled(
                 version_id=self.__app.version_latest.version_id,
                 blobs=self.__app.version_latest.blobs,
-                spec=self.__app.versioning_spec,
                 repo=self.__app.definition.repo_type,
             )
             with open(os.path.join(self.__staging, "superelixier.json"), "w") as file:
