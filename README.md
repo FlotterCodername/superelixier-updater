@@ -49,7 +49,7 @@ superelixier.exe install goat-app
 ```
 To update (or install):
 ```shell
-superelixier.exe install -U goat-app
+superelixier.exe install -u goat-app
 ```
 To see what else is available:
 ```shell
