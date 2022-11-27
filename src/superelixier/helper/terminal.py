@@ -19,6 +19,7 @@ DENT = " " * 2
 @dataclass
 class Ansi:
     BRIGHT = colorama.Style.BRIGHT
+    DIM = colorama.Style.DIM
     RED = colorama.Fore.RED
     GREEN = colorama.Fore.GREEN
     YELLOW = colorama.Fore.YELLOW
@@ -30,7 +31,10 @@ class Ansi:
 
 
 def confirm_exit_app(return_code) -> None:
-    input("Press ENTER to exit...")
+    from superelixier import runtime
+
+    if runtime.interaction:
+        input("Press ENTER to exit...")
     sys.exit(return_code)
 
 

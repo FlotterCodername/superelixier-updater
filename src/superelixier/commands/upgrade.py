@@ -13,12 +13,13 @@ from requests import RequestException
 from urllib3.exceptions import HTTPError
 
 from superelixier import configuration
+from superelixier.configuration import InvalidLocalException
 from superelixier.file_handler import FileHandler
 from superelixier.generic.generic_app import GenericApp
 from superelixier.generic.generic_manager import GenericManager
-from superelixier.helper.converters import definition_to_app
+from superelixier.helper.converters import definition_to_app_job, create_app_jobs
 from superelixier.helper.filesystem import make_path_native, remove_empty_dirs
-from superelixier.helper.terminal import Ansi, print_header, clear
+from superelixier.helper.terminal import Ansi, clear, print_header
 
 UX_INSTALLED_NEWER = f"""\
 Installed is newer.
@@ -40,30 +41,31 @@ class Upgrade(Command):
     def handle(self) -> int:
         clear()
         _ = configuration.auth  # Check authentication
-        self.__check_updates()
-        self.__update_apps()
-        self.__pre_exit_cleanup()
-        return 100
+        ret_code = 0
+        for call in (self.__check_updates, self.__update_apps, self.__pre_exit_cleanup):
+            if ret_code == 0:
+                ret_code = call() or 0
+        return ret_code
 
-    def __check_updates(self) -> None:
-        project_list: list[GenericApp] = []
-        for path in configuration.local:
-            native_path = make_path_native(path)
-            for list_item in configuration.local[path]:
-                norm_name = list_item.casefold()
-                if norm_name in configuration.definitions:
-                    appconf = configuration.definitions[norm_name]
-                    project_list.append(definition_to_app(appconf, target=native_path))
-
+    def __check_updates(self) -> int | None:
+        app_jobs: list[GenericApp] = []
+        try:
+            configuration.local
+        except InvalidLocalException as e:
+            self.line_error("Problem with the local.toml file!")
+            self.line(e.args[0])
+            return -100
+        for item in configuration.local.values():
+            app_jobs += create_app_jobs(item.apps, item.path, self)
         if self.mt_on:
             with futures.ThreadPoolExecutor(max_workers=8) as executor:
-                projects = {executor.submit(self.__report_update_status, project): project for project in project_list}
+                projects = {executor.submit(self.__report_update_status, project): project for project in app_jobs}
                 for appconf in futures.as_completed(projects):
                     self.line(appconf.result())
                     if projects[appconf].update_status in UPDATE_TRIGGER:
                         self.job_list.append(projects[appconf])
         else:
-            for appconf in project_list:
+            for appconf in app_jobs:
                 self.line(self.__report_update_status(appconf))
                 if appconf.update_status in UPDATE_TRIGGER:
                     self.job_list.append(appconf)

@@ -13,6 +13,7 @@ from dataclasses import asdict, dataclass
 from typing import Callable
 
 from superelixier.definition import Definition
+from superelixier.helper.types import UpdateStatus
 
 
 @dataclass
@@ -45,7 +46,7 @@ class GenericApp:
         self._appdir: str | None = None
         self._target_dir: str | None = target
         # Update status managed by manager classes
-        self.update_status = "unknown"
+        self.update_status: UpdateStatus = "unknown"
         self.__post_init()
 
     def __post_init(self):
@@ -95,3 +96,6 @@ class GenericApp:
     @property
     def random_id(self):
         return self._random_id
+
+    def __repr__(self):
+        return f"{self.name} | {self.update_status}"

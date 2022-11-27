@@ -1,4 +1,5 @@
 [[directory]]
+default = true
 path = "C:/PortableApps"
 apps = [
     "dbeaver",
