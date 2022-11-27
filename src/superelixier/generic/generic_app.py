@@ -15,6 +15,8 @@ from typing import Callable
 from superelixier.definition import Definition
 from superelixier.helper.types import UpdateStatus
 
+UPDATER_JSON_SPEC: int = 1
+
 
 @dataclass
 class VersionInfo:
@@ -29,7 +31,7 @@ class VersionInfo:
 @dataclass
 class VersionInstalled(VersionInfo):
     repo: str
-    spec: int = 1
+    spec: int = UPDATER_JSON_SPEC
 
     def __post_init__(self):
         if not isinstance(self.spec, int) or self.spec < 0:
@@ -72,10 +74,6 @@ class GenericApp:
     @property
     def versioning(self):
         raise NotImplementedError
-
-    @property
-    def versioning_spec(self):
-        return None
 
     @property
     def appdir(self):

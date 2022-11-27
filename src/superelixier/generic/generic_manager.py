@@ -8,7 +8,7 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 import os
 from datetime import datetime
 
-from superelixier.generic.generic_app import GenericApp, VersionInfo
+from superelixier.generic.generic_app import GenericApp, VersionInfo, UPDATER_JSON_SPEC
 
 
 class GenericManager:
@@ -41,7 +41,7 @@ class GenericManager:
         if comparison:
             if comparison.version_id == app.version_installed.version_id:
                 if comparison.version_id != app.version_latest.version_id:
-                    if app.versioning_spec > app.version_installed.spec:
+                    if UPDATER_JSON_SPEC > app.version_installed.spec:
                         app.update_status = "update"
                     else:
                         app.update_status = "installed_newer"

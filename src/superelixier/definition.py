@@ -98,7 +98,6 @@ class DefinitionHTML:
     blob_re: str = None
     blob_permalink: str = None
     blob_permalink_re: DefinitionVersioning = None
-    versioning_spec: int = None
 
     @classmethod
     def from_dict(cls, obj: dict | None) -> Optional["DefinitionHTML"]:
@@ -115,7 +114,6 @@ class DefinitionHTML:
                 "blob_re": STR,
                 "blob_permalink": STR,
                 "blob_permalink_re": STR,
-                "versioning_spec": any_of(INT, NULL),
             },
             "required": ["url", "versioning"],
             "oneOf": [

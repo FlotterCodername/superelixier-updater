@@ -26,7 +26,6 @@ class HTMLApp(GenericApp):
         self._blob_re = self.definition.html.blob_re
         self._blob_permalink = self.definition.html.blob_permalink
         self._blob_permalink_re = self.definition.html.blob_permalink_re
-        self._versioning_spec = self.definition.html.versioning_spec
         self._web_call = None
 
     def execute(self):
