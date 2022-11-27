@@ -52,7 +52,6 @@ to disclose source code of your modified version.
 | **Mupen64Plus-Core-nightly** | Emulates the Nintendo 64. |
 | **PCSX2-SSE4** | Emulates the Sony PlayStation 2. Qt-SSE4 Development builds (use if your CPU has no AVX2) |
 | **PCSX2** | Emulates the Sony PlayStation 2. Qt-AVX2 Development builds |
-| **PPSSPP Development** | Emulates the Sony PlayStation Portable. Development builds from Git via Orphis. |
 | **PPSSPP** | Emulates the Sony PlayStation Portable. |
 | **Project64-Development** | Emulates the Nintendo 64. The 'Development' branch has all the latest features, but might be less stable. |
 | **Project64** | Emulates the Nintendo 64. |
@@ -70,6 +69,7 @@ to disclose source code of your modified version.
 | App | Description |
 | --- | --- |
 | **nvidiaProfileInspector** | 3rd-party Nvidia driver configuration frontend |
+| **Playnite** | Video game library manager and launcher for PC and emulators. |
 | **ReShade Setup** | Installer for ReShade, a universal shader injector |
 | **Steam Rom Manager** | Add roms to Steam as shortcuts with library images |
 ## Network Tools
