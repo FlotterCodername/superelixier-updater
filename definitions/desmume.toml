@@ -1,10 +1,9 @@
 [info]
 name = "DeSmuME"
 category = "Emulators"
-gist = "Emulates the Nintendo DS."
+gist = "Emulates the Nintendo DS. (Stable)"
 
-[appveyor]
-blob_re = "^.*\\.exe$"
-user = "zeromus"
+[github]
+blob_re = "^.*-win64\\.zip"
+user = "TASEmulators"
 project = "desmume"
-branch = "master"
