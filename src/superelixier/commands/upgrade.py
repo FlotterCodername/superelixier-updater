@@ -8,6 +8,7 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 import os
 import textwrap
 from concurrent import futures
+from typing import get_args
 
 from cleo.commands.command import Command
 from requests import RequestException
@@ -21,6 +22,7 @@ from superelixier.generic.generic_manager import GenericManager
 from superelixier.helper.converters import create_app_jobs
 from superelixier.helper.filesystem import make_path_native, remove_empty_dirs
 from superelixier.helper.terminal import DENT, Ansi, clear, print_header
+from superelixier.helper.types import UpdateStatus
 
 UX_INSTALLED_NEWER = f"""\
 Installed is newer.
@@ -124,7 +126,8 @@ class Upgrade(Command):
             case "failed":
                 color = Ansi.RED
                 message = "Could not connect to URL or API"
-            case _:
+            case _:  # "unknown" or bad value
+                assert project.update_status in get_args(UpdateStatus), f"Bad value for {project.update_status=}"
                 color = Ansi.RED
                 message = "Failed to check this project"
         return f"{color}{project.name}: {message}{Ansi.RESET}"
