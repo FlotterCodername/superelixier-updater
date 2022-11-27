@@ -49,7 +49,7 @@ class Upgrade(Command):
         for call in (self.__check_updates, self.__update_apps, self.__pre_exit_cleanup):
             if ret_code == 0:
                 ret_code = call() or 0
-        if len(sys.argv) == 1 and ret_code == 0:  # "oneclick mode", sucessful: still ask for exit confirmation.
+        if len(sys.argv) == 1 and ret_code == 0:  # "oneclick mode", successful: still ask for exit confirmation.
             ret_code = 10
         return ret_code
 
