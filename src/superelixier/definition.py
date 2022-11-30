@@ -18,7 +18,7 @@ from superelixier.helper.types import (
     DefinitionVersioning,
     JsonObject,
 )
-from superelixier.schema import BOOL, INT, NULL, STR, any_of, array_of, enum
+from superelixier.schema import BOOL, NULL, STR, any_of, array_of, enum
 
 
 @dataclass(frozen=True)

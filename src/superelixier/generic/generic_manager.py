@@ -8,7 +8,7 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 import os
 from datetime import datetime
 
-from superelixier.generic.generic_app import GenericApp, VersionInfo, UPDATER_JSON_SPEC
+from superelixier.generic.generic_app import UPDATER_JSON_SPEC, GenericApp, VersionInfo
 
 
 class GenericManager:
