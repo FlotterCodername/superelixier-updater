@@ -7,4 +7,3 @@ gist = "an open source note taking and to-do application with synchronisation ca
 blob_re = "^JoplinPortable\\.exe$"
 user = "laurent22"
 project = "Joplin"
-
