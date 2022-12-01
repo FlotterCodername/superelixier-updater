@@ -11,6 +11,7 @@ from cleo.commands.command import Command
 from cleo.helpers import argument
 
 from superelixier import configuration
+from superelixier.commands.self_upgrade import SelfUpgrade
 from superelixier.definition import Definition
 
 UPDATE_TRIGGER = {"update", "no_version_file", "not_installed"}
@@ -45,7 +46,9 @@ class Search(Command):
             for name, gist, l_name, l_gist in [hits[k] for k in sorted(hits, key=str.casefold)]:
                 self.line(f"| {name}{' '*(w_name-l_name)} | {gist}{' '*(w_gist-l_gist)} |")
             self.line(boundary)
-            return 0
+            ret_code = 0
         else:
             self.line_error("Sorry, nothing found!")
-            return 1
+            ret_code = 1
+        SelfUpgrade.notify_update(None, command=self)
+        return ret_code

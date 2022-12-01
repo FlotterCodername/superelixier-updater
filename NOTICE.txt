@@ -1,8 +1,10 @@
 This software includes or links to other software licensed under a variety of licenses.
 A copy of Apache License 2.0 is provided at ./thirdparty/Apache-2.0.txt
+A copy of BSD-3-Clause is provided at ./thirdparty/BSD-3-Clause.txt
+A copy of MIT License is provided at ./thirdparty/MIT.txt
 
-Licensed under Apache-2.0:
---------------------------
+Licensed under Apache License 2.0:
+----------------------------------
 Requests
 Copyright 2019 Kenneth Reitz
 
@@ -11,9 +13,8 @@ Copyright Donald Stufft and individual contributors
 
 Licensed under BSD-3-Clause:
 --------------------------
-Colorama
-Copyright Jonathan Hartley & Arnon Yaari, 2013-2020
-License file: ./thirdparty/Colorama.txt
+colorama
+Copyright Jonathan Hartley, 2010
 
 Licensed under GNU LGPL:
 ------------------------
@@ -21,6 +22,26 @@ Licensed under GNU LGPL:
 Copyright 1999-2019 Igor Pavlov
 Additional restrictions apply as described in the license file.
 License file: ./thirdparty/7-Zip.txt
+
+Licensed under MIT License:
+---------------------------
+cleo
+Copyright 2013 Sébastien Eustace
+
+dateutil
+Copyright 2017- Paul Ganssle <paul@ganssle.io> and contributors
+
+github-markdown-css
+Copyright Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
+
+jsonschema
+Copyright 2013 Julian Berman
+
+tomli
+Copyright 2021 Taneli Hukkinen
+
+tomli-w
+Copyright 2021 Taneli Hukkinen
 
 Licensed as-is:
 ---------------

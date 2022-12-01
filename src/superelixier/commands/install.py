@@ -14,6 +14,7 @@ from requests import RequestException
 from urllib3.exceptions import HTTPError
 
 from superelixier import configuration
+from superelixier.commands.self_upgrade import SelfUpgrade
 from superelixier.configuration import InvalidLocalException, MissingLocalException
 from superelixier.file_handler import FileHandler
 from superelixier.generic.generic_manager import GenericManager
@@ -159,6 +160,7 @@ class Install(Command):
                 else:
                     print_header(app.name, Ansi.CYAN)
                     my_fh.project_update()
+        SelfUpgrade.notify_update(None, command=self)
         return 0
 
     @classmethod

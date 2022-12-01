@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "superelixier-updater"
+name = "superelixier"
 version = "0.1.0.dev"
-description = "Superelixier Updater is a generic, extensible updater for portable software."
+description = "Superelixier is a generic, extensible updater for portable software."
 license = "MPL-2.0"
 authors = ["Fabian H. Schneider <example@example.com>"]
 readme = "README.md"
@@ -11,7 +11,7 @@ keywords = ["windows", "continous-delivery"]
 packages = [{include = "superelixier", from = "src"}]
 
 [tool.poetry.scripts]
-supup = "superelixier.__main__:main"
+superelixier = "superelixier.__main__:main"
 
 [tool.poetry.dependencies]
 python = ">=3.11, <3.12"
@@ -20,6 +20,7 @@ cleo = "^2.0"  # https://github.com/python-poetry/cleo/blob/main/CHANGELOG.md
 colorama = "^0.4"
 jsonschema = "^4.17"
 packaging = ">=21.3"
+python-dateutil = "^2.8.2"
 requests = "^2.28"
 tomli = "^2.0"
 tomli-w = "^1.0"

@@ -10,6 +10,7 @@ import textwrap
 from cleo.commands.command import Command
 
 from superelixier import configuration
+from superelixier.commands.self_upgrade import SelfUpgrade
 from superelixier.configuration import (
     InvalidAuthException,
     InvalidLocalException,
@@ -59,4 +60,5 @@ class CheckConfiguration(Command):
             self.line("Everything is in order!")
         else:
             self.line_error("Some problems detected!")
+        SelfUpgrade.notify_update(None, command=self)
         return ret_code
