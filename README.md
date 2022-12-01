@@ -41,7 +41,7 @@ You can
       of now, the updater doesn't delete any of your old files at all: everything goes into the history folder instead.
 - If your configuration is set up, you run the ``superelixier.exe`` file to run the updater.
 
-### Command-line interface (not yet released)
+### Command-line interface
 Various commands are available.
 To install an app:
 ```shell
