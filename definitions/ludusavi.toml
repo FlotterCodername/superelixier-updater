@@ -1,0 +1,9 @@
+[info]
+name = "ludusavi"
+category = "Utilities"
+gist = "Backup tool for PC game saves"
+
+[github]
+blob_re = "^ludusavi-v.*.*-win64.zip$"
+user = "mtkennerly"
+project = "ludusavi"
