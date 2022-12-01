@@ -41,6 +41,7 @@ class SelfUpgrade(Command):
     def ask_update(self):
         check = self.check_update()
         if None in check:
+            self.line("No update found!")
             return -1
         release, asset, description = check
         clear()
@@ -72,6 +73,7 @@ class SelfUpgrade(Command):
         )
 
     def check_update(self):
+        NOTHING = (None, None, None)
         try:
             releases_api = rest.get(f"{GITHUB_API}/repos/{USER}/{REPO}/releases", headers=HEADERS)
             releases = json.loads(releases_api.text)
@@ -81,23 +83,25 @@ class SelfUpgrade(Command):
                     + f"Self update check: HTTP Status {releases_api.status_code}: {releases['message']}"
                     + Ansi.RESET
                 )
-                return None
+                return (*NOTHING,)
         except (json.JSONDecodeError, RequestException, HTTPError) as e:
             self.line(Ansi.ERROR + f"Self update check: {e.__class__.__name__}" + Ansi.RESET)
-            return None
+            return (*NOTHING,)
         if not PRERELEASES:
             releases = [i for i in releases if "prerelease" not in i or not i["prerelease"]]
         releases = {parser.parse(i["published_at"]): i for i in releases if "published_at" in i and i["published_at"]}
         releases = {
             k: v for k, v in releases.items() if "assets" in v and isinstance(v["assets"], list) and v["assets"]
         }
+        if not releases.keys():
+            return (*NOTHING,)
         latest_release = releases[max(releases.keys())]
         if "tag_name" in latest_release and latest_release["tag_name"]:
             try:
                 package_version = version.parse(latest_release["tag_name"])
                 assert isinstance(package_version, Version)
                 if package_version <= __version_obj__:
-                    return None, None, None
+                    return (*NOTHING,)
             except (AssertionError, TypeError, ValueError):
                 pass
         asset = None
