@@ -5,7 +5,6 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
-import datetime
 import os
 import re
 import shutil
@@ -13,10 +12,10 @@ import subprocess
 from os.path import join as opj
 from os.path import split as ops
 
-from superelixier import configuration
+from superelixier import __version__, configuration
 
 APP_NAME = "superelixier"
-VERSION = datetime.datetime.now().strftime("%Y-%m-%d")
+VERSION = __version__
 PROJECT = os.path.abspath(os.path.dirname(__file__))
 BUILD = opj(PROJECT, "build")
 DIST = opj(PROJECT, "dist")
