@@ -14,6 +14,7 @@ from requests import RequestException
 from urllib3.exceptions import HTTPError
 
 from superelixier import configuration
+from superelixier.commands.self_upgrade import SelfUpgrade
 from superelixier.generic.generic_manager import GenericManager
 from superelixier.helper.converters import create_app_jobs
 from superelixier.helper.environment import DIR_APP
@@ -69,6 +70,7 @@ class CheckDefinitions(Command):
                 self.line("")
                 n = "\n"
                 self.line(f"OK definitions:{n}- {f'{n}- '.join(ok)}")
+            SelfUpgrade.notify_update(None, command=self)
             return ret_code
 
     @classmethod

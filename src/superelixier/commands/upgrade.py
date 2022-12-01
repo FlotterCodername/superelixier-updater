@@ -16,6 +16,7 @@ from requests import RequestException
 from urllib3.exceptions import HTTPError
 
 from superelixier import configuration
+from superelixier.commands.self_upgrade import SelfUpgrade
 from superelixier.configuration import InvalidLocalException, MissingLocalException
 from superelixier.file_handler import FileHandler
 from superelixier.generic.generic_app import GenericApp
@@ -51,6 +52,7 @@ class Upgrade(Command):
                 ret_code = call() or 0
         if len(sys.argv) == 1 and ret_code == 0:  # "oneclick mode", successful: still ask for exit confirmation.
             ret_code = 10
+        SelfUpgrade.notify_update(_, command=self)
         return ret_code
 
     def __check_updates(self) -> int | None:

@@ -8,6 +8,7 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 import json
 import os.path
 import textwrap
+from typing import Optional
 from zipfile import ZipFile
 
 import requests as rest
@@ -61,31 +62,60 @@ class SelfUpgrade(Command):
         else:
             return -2
 
-    def notify_update(self):
-        check = self.check_update()
+    def do_self_update(self, asset):
+        executable = os.path.join(DIR_APP, "superelixier.exe")
+        executable_bak = os.path.join(DIR_APP, "superelixier.exe.bak")
+        location = os.path.join(DIR_APP, "update.zip")
+        if os.path.isfile(location):
+            os.unlink(location)
+        download = Downloader(asset["browser_download_url"], location)
+        if download.file != "update.zip":
+            os.rename(os.path.join(DIR_APP, download.file), location)
+        with ZipFile(location) as update_zip:
+            if error := ZipFile.testzip(update_zip):
+                self.line(Ansi.ERROR + f"Self update check: Bad Zip File, {error}" + Ansi.RESET)
+                return -1
+            if os.path.isfile(executable_bak):
+                os.unlink(executable_bak)
+            if os.path.isfile(executable):
+                os.rename(executable, executable_bak)
+            self.write("Extracting... ")
+            update_zip.extractall(DIR_APP)
+        self.write(Ansi.GREEN + "Self upgrade successful!\n" + Ansi.RESET)
+        return 0
+
+    def notify_update(self: Optional["SelfUpgrade"], *, command: Command = None):
+        if command is None:
+            command = self
+        check = SelfUpgrade.check_update(None, command=command)
         if None in check:
             return
         release, asset, description = check
-        self.line(
-            Ansi.BRIGHT
-            + f"A new version of superelixier is available {':' + release['name'] if 'name' in release else '.'}"
-            + Ansi.RESET
+        command.line(Ansi.BRIGHT)
+        command.line(
+            textwrap.dedent(
+                f"""\
+            A new version of superelixier is available{': ' + release['name'] if 'name' in release else '.'}{Ansi.RESET}
+            >>> Run "superelixier self upgrade" to install it."""
+            )
         )
 
-    def check_update(self):
+    def check_update(self: Optional["SelfUpgrade"], *, command: Command = None):
+        if command is None:
+            command = self
         NOTHING = (None, None, None)
         try:
             releases_api = rest.get(f"{GITHUB_API}/repos/{USER}/{REPO}/releases", headers=HEADERS)
             releases = json.loads(releases_api.text)
             if releases_api.status_code != 200:
-                self.line(
+                command.line(
                     Ansi.ERROR
                     + f"Self update check: HTTP Status {releases_api.status_code}: {releases['message']}"
                     + Ansi.RESET
                 )
                 return (*NOTHING,)
         except (json.JSONDecodeError, RequestException, HTTPError) as e:
-            self.line(Ansi.ERROR + f"Self update check: {e.__class__.__name__}" + Ansi.RESET)
+            command.line(Ansi.ERROR + f"Self update check: {e.__class__.__name__}" + Ansi.RESET)
             return (*NOTHING,)
         if not PRERELEASES:
             releases = [i for i in releases if "prerelease" not in i or not i["prerelease"]]
@@ -111,7 +141,9 @@ class SelfUpgrade(Command):
                     asset = i
                     break
             if asset is None:
-                return self.line(Ansi.ERROR + "Self update check: No update file found for the version!" + Ansi.RESET)
+                return command.line(
+                    Ansi.ERROR + "Self update check: No update file found for the version!" + Ansi.RESET
+                )
         else:
             asset = latest_release["assets"][0]
         if asset and "browser_download_url" not in asset:
@@ -122,25 +154,3 @@ class SelfUpgrade(Command):
             while "\n\n" in description:
                 description = description.replace("\n\n", "\n")
         return latest_release, asset, description
-
-    def do_self_update(self, asset):
-        executable = os.path.join(DIR_APP, "superelixier.exe")
-        executable_bak = os.path.join(DIR_APP, "superelixier.exe.bak")
-        location = os.path.join(DIR_APP, "update.zip")
-        if os.path.isfile(location):
-            os.unlink(location)
-        download = Downloader(asset["browser_download_url"], location)
-        if download.file != "update.zip":
-            os.rename(os.path.join(DIR_APP, download.file), location)
-        with ZipFile(location) as update_zip:
-            if error := ZipFile.testzip(update_zip):
-                self.line(Ansi.ERROR + f"Self update check: Bad Zip File, {error}" + Ansi.RESET)
-                return -1
-            if os.path.isfile(executable_bak):
-                os.unlink(executable_bak)
-            if os.path.isfile(executable):
-                os.rename(executable, executable_bak)
-            self.write("Extracting... ")
-            update_zip.extractall(DIR_APP)
-        self.write(Ansi.GREEN + "Self upgrade successful!\n" + Ansi.RESET)
-        return 0
