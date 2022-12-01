@@ -1,0 +1,9 @@
+[info]
+name = "Steamless"
+category = "Utilities"
+gist = "Steamless is a DRM remover of the SteamStub variants. The goal of Steamless is to make a single solution for unpacking all Steam DRM-packed files. Steamless aims to support as many games as possible."
+
+[github]
+blob_re = "^Steamless.v.*.*.-.by.atom0s.zip$"
+user = "atom0s"
+project = "Steamless"
