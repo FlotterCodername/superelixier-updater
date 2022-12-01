@@ -7,11 +7,11 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 """
 import json
 import os.path
-import sys
 import textwrap
 from zipfile import ZipFile
 
 import requests as rest
+from cleo.commands.command import Command
 from dateutil import parser
 from packaging import version
 from packaging.version import Version
@@ -24,23 +24,27 @@ from superelixier.github import GITHUB_API
 from superelixier.helper.environment import DIR_APP
 from superelixier.helper.terminal import DENT, Ansi, clear
 
+USER = "FlotterCodername"
+REPO = "superelixier-updater"
+HEADERS = {"Accept": "application/vnd.github.v3+json", "User-Agent": "Googlebot/2.1 (+http://www.google.com/bot.html)"}
+PRERELEASES = True  # Make configurable later
 
-class SelfUpdater:
-    user = "FlotterCodername"
-    project = "superelixier-updater"
-    headers = {
-        "Accept": "application/vnd.github.v3+json",
-        "User-Agent": "Googlebot/2.1 (+http://www.google.com/bot.html)",
-    }
-    prereleases = True  # Make configurable later
 
-    @classmethod
-    def ask_update(cls):
-        check = cls.check_update()
+class SelfUpgrade(Command):
+    # cleo
+    name = "self upgrade"
+    description = f'Upgrade the current installation of superelixier that is located at "{DIR_APP}".'
+
+    def handle(self) -> int:
+        return self.ask_update()
+
+    def ask_update(self):
+        check = self.check_update()
         if None in check:
-            return
+            return -1
         release, asset, description = check
-        print(
+        clear()
+        self.line(
             Ansi.BRIGHT
             + f"A new version of superelixier is available{': ' + release['name'] if 'name' in release else '.'}"
             + "\nDetails:"
@@ -48,38 +52,39 @@ class SelfUpdater:
             else "" + Ansi.RESET
         )
         if description:
-            print(textwrap.indent(description, DENT) + "\n")
+            self.line(textwrap.indent(description, DENT) + "\n")
         inp = ""
         while inp.casefold() not in ("y", "n"):
             inp = input("Download and install now? [y/n]: ")
         if inp.casefold() == "y":
-            cls.do_self_update(asset)
-        clear()
+            return self.do_self_update(asset)
+        else:
+            return -2
 
-    @classmethod
-    def notify_update(cls):
-        check = cls.check_update()
+    def notify_update(self):
+        check = self.check_update()
         if None in check:
             return
         release, asset, description = check
-        print(
+        self.line(
             Ansi.BRIGHT
             + f"A new version of superelixier is available {':' + release['name'] if 'name' in release else '.'}"
             + Ansi.RESET
         )
 
-    @classmethod
-    def check_update(cls):
+    def check_update(self):
         try:
-            releases_api = rest.get(f"{GITHUB_API}/repos/{cls.user}/{cls.project}/releases", headers=cls.headers)
+            releases_api = rest.get(f"{GITHUB_API}/repos/{USER}/{REPO}/releases", headers=HEADERS)
             releases = json.loads(releases_api.text)
             if releases_api.status_code != 200:
-                print(Ansi.ERROR + f"Self update check: HTTP Status {releases_api.status_code}: {releases['message']}")
+                self.line(
+                    Ansi.ERROR + f"Self update check: HTTP Status {releases_api.status_code}: {releases['message']}"
+                )
                 return None
         except (json.JSONDecodeError, RequestException, HTTPError) as e:
-            print(Ansi.ERROR + f"Self update check: {e.__class__.__name__}")
+            self.line(Ansi.ERROR + f"Self update check: {e.__class__.__name__}")
             return None
-        if not cls.prereleases:
+        if not PRERELEASES:
             releases = [i for i in releases if "prerelease" not in i or not i["prerelease"]]
         releases = {parser.parse(i["published_at"]): i for i in releases if "published_at" in i and i["published_at"]}
         releases = {
@@ -101,7 +106,7 @@ class SelfUpdater:
                     asset = i
                     break
             if asset is None:
-                return print(Ansi.ERROR + "Self update check: No update file found for the version!")
+                return self.line(Ansi.ERROR + "Self update check: No update file found for the version!")
         else:
             asset = latest_release["assets"][0]
         if asset and "browser_download_url" not in asset:
@@ -113,8 +118,7 @@ class SelfUpdater:
                 description = description.replace("\n\n", "\n")
         return latest_release, asset, description
 
-    @classmethod
-    def do_self_update(cls, asset):
+    def do_self_update(self, asset):
         executable = os.path.join(DIR_APP, "superelixier.exe")
         executable_bak = os.path.join(DIR_APP, "superelixier.exe.bak")
         location = os.path.join(DIR_APP, "update.zip")
@@ -125,15 +129,13 @@ class SelfUpdater:
             os.rename(os.path.join(DIR_APP, download.file), location)
         with ZipFile(location) as update_zip:
             if error := ZipFile.testzip(update_zip):
-                print(Ansi.ERROR + f"Self update check: Bad Zip File, {error}")
-                return
+                self.line(Ansi.ERROR + f"Self update check: Bad Zip File, {error}")
+                return -1
             if os.path.isfile(executable_bak):
                 os.unlink(executable_bak)
             if os.path.isfile(executable):
                 os.rename(executable, executable_bak)
+            self.write("Extracting... ")
             update_zip.extractall(DIR_APP)
-
-
-if __name__ == "__main__":
-    SelfUpdater.ask_update()
-    sys.exit()
+        self.write(Ansi.GREEN + "Self upgrade successful!\n")
+        return 0

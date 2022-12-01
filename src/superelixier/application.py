@@ -12,6 +12,7 @@ from superelixier.commands.check_configuration import CheckConfiguration
 from superelixier.commands.check_definitions import CheckDefinitions
 from superelixier.commands.install import Install
 from superelixier.commands.search import Search
+from superelixier.commands.self_upgrade import SelfUpgrade
 from superelixier.commands.upgrade import Upgrade
 
 DefaultCommand = Upgrade
@@ -21,4 +22,5 @@ cli.add(CheckConfiguration())
 cli.add(CheckDefinitions())
 cli.add(Install())
 cli.add(Search())
+cli.add(SelfUpgrade())
 cli.add(Upgrade())
