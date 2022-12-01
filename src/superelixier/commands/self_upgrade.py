@@ -27,7 +27,7 @@ from superelixier.helper.terminal import DENT, Ansi, clear
 USER = "FlotterCodername"
 REPO = "superelixier-updater"
 HEADERS = {"Accept": "application/vnd.github.v3+json", "User-Agent": "Googlebot/2.1 (+http://www.google.com/bot.html)"}
-PRERELEASES = True  # Make configurable later
+PRERELEASES = False  # Make configurable later
 
 
 class SelfUpgrade(Command):
