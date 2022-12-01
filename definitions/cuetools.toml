@@ -1,0 +1,9 @@
+[info]
+name = "cuetools"
+category = "Utilities"
+gist = "CD image processing suite with optimized lossless encoders in C#"
+
+[github]
+blob_re = "^CUETools_.*\\.zip$"
+user = "gchudov"
+project = "cuetools.net"
