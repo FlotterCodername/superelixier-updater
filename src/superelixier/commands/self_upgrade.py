@@ -47,9 +47,8 @@ class SelfUpgrade(Command):
         self.line(
             Ansi.BRIGHT
             + f"A new version of superelixier is available{': ' + release['name'] if 'name' in release else '.'}"
-            + "\nDetails:"
-            if description
-            else "" + Ansi.RESET
+            + ("\nDetails:" if description else "")
+            + Ansi.RESET
         )
         if description:
             self.line(textwrap.indent(description, DENT) + "\n")
@@ -78,11 +77,13 @@ class SelfUpgrade(Command):
             releases = json.loads(releases_api.text)
             if releases_api.status_code != 200:
                 self.line(
-                    Ansi.ERROR + f"Self update check: HTTP Status {releases_api.status_code}: {releases['message']}"
+                    Ansi.ERROR
+                    + f"Self update check: HTTP Status {releases_api.status_code}: {releases['message']}"
+                    + Ansi.RESET
                 )
                 return None
         except (json.JSONDecodeError, RequestException, HTTPError) as e:
-            self.line(Ansi.ERROR + f"Self update check: {e.__class__.__name__}")
+            self.line(Ansi.ERROR + f"Self update check: {e.__class__.__name__}" + Ansi.RESET)
             return None
         if not PRERELEASES:
             releases = [i for i in releases if "prerelease" not in i or not i["prerelease"]]
@@ -106,7 +107,7 @@ class SelfUpgrade(Command):
                     asset = i
                     break
             if asset is None:
-                return self.line(Ansi.ERROR + "Self update check: No update file found for the version!")
+                return self.line(Ansi.ERROR + "Self update check: No update file found for the version!" + Ansi.RESET)
         else:
             asset = latest_release["assets"][0]
         if asset and "browser_download_url" not in asset:
@@ -129,7 +130,7 @@ class SelfUpgrade(Command):
             os.rename(os.path.join(DIR_APP, download.file), location)
         with ZipFile(location) as update_zip:
             if error := ZipFile.testzip(update_zip):
-                self.line(Ansi.ERROR + f"Self update check: Bad Zip File, {error}")
+                self.line(Ansi.ERROR + f"Self update check: Bad Zip File, {error}" + Ansi.RESET)
                 return -1
             if os.path.isfile(executable_bak):
                 os.unlink(executable_bak)
@@ -137,5 +138,5 @@ class SelfUpgrade(Command):
                 os.rename(executable, executable_bak)
             self.write("Extracting... ")
             update_zip.extractall(DIR_APP)
-        self.write(Ansi.GREEN + "Self upgrade successful!\n")
+        self.write(Ansi.GREEN + "Self upgrade successful!\n" + Ansi.RESET)
         return 0

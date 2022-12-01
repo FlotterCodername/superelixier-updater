@@ -25,7 +25,7 @@ class Ansi:
     YELLOW = colorama.Fore.YELLOW
     MAGENTA = colorama.Style.BRIGHT + colorama.Fore.MAGENTA
     CYAN = colorama.Style.BRIGHT + colorama.Fore.CYAN
-    RESET = colorama.Fore.WHITE + colorama.Style.NORMAL + colorama.Back.RESET
+    RESET = colorama.Style.RESET_ALL
     ERROR = RED + "Error: "
     WARNING = MAGENTA + "Warning: "
 
