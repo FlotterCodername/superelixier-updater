@@ -27,7 +27,7 @@ You can
 
 ### One-click update setup
 
-- Download and extract the latest preview release.
+- Download and extract the latest release.
 - Set up the configuration file in the ``config`` folder of the updater:
     ``local.toml`` tells the tool where to install which app. Rename the ``local_example.toml`` to ``local.toml`` and
     set your options. Make sure you use forward slashes in your paths.
