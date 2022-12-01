@@ -1,0 +1,9 @@
+[info]
+name = "streamlink gui"
+category = "Audio & Video"
+gist = "A multi platform Twitch.tv browser for Streamlink"
+
+[github]
+blob_re = "^streamlink-twitch-gui-v.*?-win64\\.zip$"
+user = "streamlink"
+project = "streamlink-twitch-gui"
