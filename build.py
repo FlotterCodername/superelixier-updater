@@ -98,7 +98,16 @@ def pandoc(src, dst):
 cleanup()
 configuration.write_app_list()
 subprocess.run(
-    ["pyinstaller", "src/superelixier/__main__.py", "--icon=assets/app.ico", "--name", APP_NAME, "--onefile"],
+    [
+        "pyinstaller",
+        "src/superelixier/__main__.py",
+        "--icon=assets/app.ico",
+        "--name",
+        APP_NAME,
+        "--onefile",
+        "--copy-metadata",
+        "superelixier",
+    ],
     cwd=PROJECT,
 )
 for f in FOLDERS:

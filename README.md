@@ -1,4 +1,4 @@
-# Superelixier Updater
+# Superelixier - Portable App Updater
 
 [![Python app](https://github.com/FlotterCodername/superelixier-updater/actions/workflows/python-app.yml/badge.svg)](https://github.com/FlotterCodername/superelixier-updater/actions/workflows/python-app.yml) [![CodeQL](https://github.com/FlotterCodername/superelixier-updater/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/FlotterCodername/superelixier-updater/actions/workflows/codeql-analysis.yml)
 
