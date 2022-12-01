@@ -16,7 +16,7 @@ from superelixier.commands.self_upgrade import SelfUpgrade
 from superelixier.commands.upgrade import Upgrade
 
 DefaultCommand = Upgrade
-cli = Application(name="superelixier-updater", version=__version__)
+cli = Application(name="superelixier", version=__version__)
 cli.auto_exits(False)
 cli.add(CheckConfiguration())
 cli.add(CheckDefinitions())
