@@ -1,0 +1,9 @@
+[info]
+name = "MicMute"
+category = "Utilities"
+gist = "Control your microphone using keyboard and mouse hotkeys."
+
+[github]
+blob_re = "^MicMute\\.exe$"
+user = "SaifAqqad"
+project = "AHK_MicMute"
