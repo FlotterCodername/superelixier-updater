@@ -1,7 +1,7 @@
 [info]
 name = "Joplin"
 category = "Utilities"
-gist = "an open source note taking and to-do application with synchronisation capabilities"
+gist = "A free and open source note-taking and task management app with synchronization capabilities"
 
 [github]
 blob_re = "^JoplinPortable\\.exe$"
