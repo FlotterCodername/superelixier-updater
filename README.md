@@ -63,6 +63,10 @@ authentication.
 For AppVeyor, an authentication token is practically required. AppVeyor is not meant to be a public file hoster.
 Dev teams may still find the AppVeyor functionality useful, though.
 
+## Contributors
+### Definitions
+- [@super-lurker](https://github.com/super-lurker)
+
 ## Features
 
 - No unnecessary downloads: Checks the installed app for update and only downloads releases if there is a new one. Let's

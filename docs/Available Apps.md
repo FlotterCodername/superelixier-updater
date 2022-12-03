@@ -17,6 +17,7 @@ to disclose source code of your modified version.
 | App | Description |
 | --- | --- |
 | **Blender** | 3D graphics suite (and much more) |
+| **CUETools** | Audio CD processing suite aiming to preserve disc images as accurately as possible |
 | **FreeTube** | FLOSS YouTube frontend with a focus on privacy. |
 | **HandBrake** | Audio/video converter built on top of ffmpeg, x264, x265 and more |
 | **Kdenlive** | Non-linear video editor |
@@ -32,6 +33,7 @@ to disclose source code of your modified version.
 | **diagrams.net** | Diagram software for making flowcharts, process diagrams, org charts, UML, ER and network diagrams. Previously known as draw.io |
 | **HxD** | Hex editor |
 | **Notepad++** | Text editor |
+| **Notepad2-zufuliu** | A lightweight Scintilla-based text editor with syntax highlighting, code folding, auto-completion and API list for about 80 programming languages/documents |
 | **VSCode** | Extensible code editor supporting many programming languages |
 | **VSCodium** | Extensible code editor supporting many programming languages. This is VSCode without telemetry and Microsoft/GitHub account sync features. |
 ## Emulators
@@ -87,6 +89,8 @@ to disclose source code of your modified version.
 | **CDBurnerXP** | Disc burning utility |
 | **Etcher** | SD card flasher |
 | **FreeCommander XE** | File manager |
+| **Joplin** | A free and open source note-taking and task management app with synchronization capabilities |
+| **MicMute** | Allows control of the microphone via keyboard and mouse shortcuts |
 | **paint.net** | Freeware image editor originally conceived as an alternative to Microsoft Paint. |
 | **Remove Empty Directories** | Clean directory structures using rulesets |
 | **Rufus** | Create bootable USB flash drives |
