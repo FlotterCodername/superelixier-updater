@@ -169,7 +169,7 @@ class ConfigHandler:
     @classmethod
     def __load_definitions(cls):
         definition_dir = opj(DIR_APP, "definitions")
-        files = [f for f in os.listdir(definition_dir) if f.endswith(".toml")]
+        files = sorted([f for f in os.listdir(definition_dir) if f.endswith(".toml")], key=str.casefold)
         cfg_available = {}
         for defi in files:
             try:
