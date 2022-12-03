@@ -17,6 +17,7 @@ to disclose source code of your modified version.
 | App | Description |
 | --- | --- |
 | **Blender** | 3D graphics suite (and much more) |
+| **CUETools** | Audio CD processing suite aiming to preserve disc images as accurately as possible |
 | **FreeTube** | FLOSS YouTube frontend with a focus on privacy. |
 | **HandBrake** | Audio/video converter built on top of ffmpeg, x264, x265 and more |
 | **Kdenlive** | Non-linear video editor |

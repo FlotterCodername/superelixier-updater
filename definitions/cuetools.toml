@@ -1,7 +1,7 @@
 [info]
-name = "cuetools"
-category = "Utilities"
-gist = "CD image processing suite with optimized lossless encoders in C#"
+name = "CUETools"
+category = "Audio & Video"
+gist = "Audio CD processing suite aiming to preserve disc images as accurately as possible"
 
 [github]
 blob_re = "^CUETools_.*\\.zip$"
