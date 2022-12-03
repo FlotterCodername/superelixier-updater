@@ -4,7 +4,7 @@ category = "Developer Tools"
 gist = "A lightweight Scintilla-based text editor with syntax highlighting, code folding, auto-completion and API list for about 80 programming languages/documents"
 
 [github]
-blob_re = "^Notepad2_en_AVX2_.*.zip$"
+blob_re = "^Notepad2_en_AVX2_.*\\.zip$"
 user = "zufuliu"
 project = "notepad2"
 
