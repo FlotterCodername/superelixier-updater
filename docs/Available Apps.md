@@ -90,6 +90,7 @@ to disclose source code of your modified version.
 | **Etcher** | SD card flasher |
 | **FreeCommander XE** | File manager |
 | **Joplin** | A free and open source note-taking and task management app with synchronization capabilities |
+| **MicMute** | Allows control of the microphone via keyboard and mouse shortcuts |
 | **paint.net** | Freeware image editor originally conceived as an alternative to Microsoft Paint. |
 | **Remove Empty Directories** | Clean directory structures using rulesets |
 | **Rufus** | Create bootable USB flash drives |

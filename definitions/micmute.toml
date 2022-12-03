@@ -1,7 +1,7 @@
 [info]
 name = "MicMute"
 category = "Utilities"
-gist = "Control your microphone using keyboard and mouse hotkeys."
+gist = "Allows control of the microphone via keyboard and mouse shortcuts"
 
 [github]
 blob_re = "^MicMute\\.exe$"
