@@ -1,0 +1,9 @@
+[info]
+name = "Streamlink"
+category = "Audio & Video"
+gist = "CLI tool for extracting streams to a video player of your choice"
+
+[github]
+blob_re = "^streamlink-.*?-py310-x86_64\\.zip$"
+user = "streamlink"
+project = "windows-builds"
