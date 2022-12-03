@@ -1,0 +1,9 @@
+[info]
+name = "CUETools"
+category = "Audio & Video"
+gist = "Audio CD processing suite aiming to preserve disc images as accurately as possible"
+
+[github]
+blob_re = "^CUETools_.*\\.zip$"
+user = "gchudov"
+project = "cuetools.net"
