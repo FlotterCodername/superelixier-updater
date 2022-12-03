@@ -70,6 +70,7 @@ to disclose source code of your modified version.
 ## Gaming
 | App | Description |
 | --- | --- |
+| **Ludusavi** | Backup tool for PC game saves |
 | **nvidiaProfileInspector** | 3rd-party Nvidia driver configuration frontend |
 | **Playnite** | Video game library manager and launcher for PC and emulators. |
 | **ReShade Setup** | Installer for ReShade, a universal shader injector |
