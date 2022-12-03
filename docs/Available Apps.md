@@ -23,6 +23,7 @@ to disclose source code of your modified version.
 | **Kdenlive** | Non-linear video editor |
 | **MediathekView** | Frontend for the media libraries of German public broadcasters like ARD and ZDF |
 | **Media Player Classic - Home Cinema** | Free and open-source video and audio player (active fork by clsid2). Very high performance |
+| **Streamlink Twitch GUI** | A Twitch.tv browser for Streamlink |
 | **Streamlink** | CLI tool for extracting streams to a video player of your choice |
 | **VLC media player** | Video & audio player with broad support for file formats and network streams |
 | **XnView Classic** | Image browser, viewer and converter |
