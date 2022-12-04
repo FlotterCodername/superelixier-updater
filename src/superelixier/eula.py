@@ -10,7 +10,7 @@ import re
 import textwrap
 
 from superelixier.helper import toml
-from superelixier.helper.environment import DIR_APP
+from superelixier.helper.environment import DIR_CFG
 from superelixier.helper.shell import clear
 from superelixier.helper.terminal import confirm_exit_app
 
@@ -34,7 +34,7 @@ to disclose source code of your modified version."""
 
 
 def check_terms() -> None:
-    term_file = os.path.join(DIR_APP, "config", "eula.toml")
+    term_file = os.path.join(DIR_CFG, "eula.toml")
     if os.path.isfile(term_file):
         with open(term_file, "rb") as file:
             my_dict = toml.load(file)
@@ -62,6 +62,6 @@ def __show_eula() -> None:
 
 def __accept_eula() -> None:
     accepted = {"eula_version_accepted": TERM_VER, "eula_for_reference": TERMS}
-    with open(os.path.join(DIR_APP, "config", "eula.toml"), "wb") as file:
+    with open(os.path.join(DIR_CFG, "eula.toml"), "wb") as file:
         toml.dump(accepted, file)
     os.system(clear)
