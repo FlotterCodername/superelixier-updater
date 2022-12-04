@@ -12,10 +12,8 @@ import subprocess
 from os.path import join as opj
 from os.path import split as ops
 
-from superelixier import __version__, configuration
 
 APP_NAME = "superelixier"
-VERSION = __version__
 PROJECT = os.path.abspath(os.path.dirname(__file__))
 BUILD = opj(PROJECT, "build")
 DIST = opj(PROJECT, "dist")
@@ -38,8 +36,6 @@ FOLDERS = [
     thirdparty_dir := opj(PROJECT, "thirdparty"),
     thirdparty_dist := opj(DIST, "thirdparty"),
 ]
-
-os.chdir(PROJECT)
 
 
 def cleanup():
@@ -94,7 +90,12 @@ def pandoc(src, dst):
     )
 
 
+os.chdir(PROJECT)
 cleanup()
+subprocess.run(["poetry", "install", "--sync"], cwd=PROJECT)
+
+from superelixier import __version__, configuration
+
 configuration.write_app_list()
 subprocess.run(
     [
@@ -119,6 +120,6 @@ copy_folder(thirdparty_dir, thirdparty_dist)
 for root_file in ROOT_FILES:
     conversion_copy(root_file, DIST)
 subprocess.run(
-    ["7z", "-tzip", "u", f"..\\..\\superelixier-updater-{VERSION}.zip", "*", "-m0=Deflate", "-mx9"], cwd=DIST
+    ["7z", "-tzip", "u", f"..\\..\\superelixier-updater-{__version__}.zip", "*", "-m0=Deflate", "-mx9"], cwd=DIST
 )
 cleanup()
