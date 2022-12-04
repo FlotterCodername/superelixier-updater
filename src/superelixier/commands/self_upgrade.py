@@ -91,10 +91,10 @@ class SelfUpgrade(Command):
         if None in check:
             return
         release, asset, description = check
-        command.line(Ansi.BRIGHT)
         command.line(
             textwrap.dedent(
                 f"""\
+            {Ansi.BRIGHT}
             A new version of superelixier is available{': ' + release['name'] if 'name' in release else '.'}{Ansi.RESET}
             >>> Run "superelixier self upgrade" to install it."""
             )

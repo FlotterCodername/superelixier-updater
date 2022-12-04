@@ -12,7 +12,6 @@ import subprocess
 from os.path import join as opj
 from os.path import split as ops
 
-
 APP_NAME = "superelixier"
 PROJECT = os.path.abspath(os.path.dirname(__file__))
 BUILD = opj(PROJECT, "build")
@@ -94,7 +93,7 @@ os.chdir(PROJECT)
 cleanup()
 subprocess.run(["poetry", "install", "--sync"], cwd=PROJECT)
 
-from superelixier import __version__, configuration
+from superelixier import __version__, configuration  # noqa
 
 configuration.write_app_list()
 subprocess.run(

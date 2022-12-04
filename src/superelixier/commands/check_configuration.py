@@ -37,13 +37,13 @@ class CheckConfiguration(Command):
                 self.line(textwrap.indent(arg, DENT))
         if auth is not None:
             if "appveyor_token" in auth and auth["appveyor_token"].strip():
-                self.line("- AppVeyor API token is there")
+                self.line("- API token for AppVeyor is there")
             else:
-                self.line("- AppVeyor token is not there (optional)")
+                self.line("- API token for AppVeyor is not there (optional)")
             if "github_token" in auth and auth["github_token"].strip():
-                self.line("- GitHub API token is there")
+                self.line("- API token for GitHub is there")
             else:
-                self.line("- GitHub token is not there (optional)")
+                self.line("- API token for GitHub is not there (optional)")
         self.line("")
         self.line("local.toml")
         try:
