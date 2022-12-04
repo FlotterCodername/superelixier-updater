@@ -30,6 +30,10 @@ category = "Audio & Video"     # enum[...], optional. Further documentation belo
 gist = "Oneliner description"  # string, optional
 ```
 
+Currently, categories are:
+
+"Audio & Video", "Developer Tools", "Emulators", "Gaming", "Network Tools", "Security", "Utilities" and "Other".
+
 ### ``local`` section
 This section describes how the updater should interact with the app's folder.  
 ```toml

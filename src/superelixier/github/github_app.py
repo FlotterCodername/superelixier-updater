@@ -39,10 +39,29 @@ class GithubApp(GenericApp):
     def __api_request(self):
         try:
             releases = rest.get(f"{GITHUB_API}/repos/{self.user}/{self.project}/releases", headers=self.headers)
+            releases_latest = rest.get(
+                f"{GITHUB_API}/repos/{self.user}/{self.project}/releases/latest", headers=self.headers
+            )
             api_response = json.loads(releases.text)
-            if releases.status_code != 200:
-                print(Ansi.ERROR + self.name + ": HTTP Status %s: %s" % (releases.status_code, api_response["message"]))
+            api_response_latest = json.loads(releases_latest.text)
+            if releases.status_code != 200 or releases_latest.status_code != 200:
+                if releases.status_code != 200:
+                    print(
+                        Ansi.ERROR
+                        + "{}: HTTP Status {}: {}".format(self.name, releases.status_code, api_response["message"])
+                        + Ansi.RESET
+                    )
+                if releases_latest.status_code != 200:
+                    print(
+                        Ansi.ERROR
+                        + "{}: HTTP Status {}: {}".format(
+                            self.name, releases_latest.status_code, api_response_latest["message"]
+                        )
+                        + Ansi.RESET
+                    )
                 return None
+            if api_response_latest not in api_response:
+                api_response.append(api_response_latest)
         except (RequestException, HTTPError):
             return None
         return api_response

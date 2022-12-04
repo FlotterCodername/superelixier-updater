@@ -18,7 +18,7 @@ def list_appdatas(app: GenericApp):
     missing_appdata = []
     for appdata in app.definition.local.appdata:
         if appdata.strip() != appdata or appdata.strip() == "":
-            print(Ansi.MAGENTA + f"Ignoring bad definition.local.appdata value: {appdata}")
+            print(Ansi.MAGENTA + f"Ignoring bad definition.local.appdata value: {appdata}" + Ansi.RESET)
             continue
         data = os.path.join(app.appdir, *appdata.split("/"))
         if os.path.exists(data):
@@ -67,12 +67,12 @@ def lock_folder(app, staging, staging_list):
                 ):
                     opened_files[existing_file] = open(existing_file, "ab")
     except PermissionError:
-        print(f"{Ansi.MAGENTA}{app.name}: Folder is in use. Update files will be moved next time.")
+        print(f"{Ansi.MAGENTA}{app.name}: Folder is in use. Update files will be moved next time.{Ansi.RESET}")
         for key in opened_files:
             opened_files[key].close()
         return None
     except OSError:
-        print(f"{Ansi.MAGENTA}{app.name}: Couldn't get folder lock.")
+        print(f"{Ansi.MAGENTA}{app.name}: Couldn't get folder lock.{Ansi.RESET}")
         for key in opened_files:
             opened_files[key].close()
         return None

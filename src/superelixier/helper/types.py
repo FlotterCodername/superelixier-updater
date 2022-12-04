@@ -8,7 +8,7 @@ You can obtain one at https://mozilla.org/MPL/2.0/.
 from typing import Any, Literal
 
 DefinitionCategory = Literal[
-    "Audio & Video", "Developer Tools", "Emulators", "Gaming", "Network Tools", "Security", "Utilities"
+    "Audio & Video", "Developer Tools", "Emulators", "Gaming", "Network Tools", "Security", "Utilities", "Other"
 ]
 DefinitionInstaller = Literal["innoextract", "sfx"]
 DefinitionRepo = Literal["appveyor", "github", "html"]

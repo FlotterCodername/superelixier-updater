@@ -22,9 +22,9 @@ apps = [
     "DeSmuME",
     "Dolphin",
     "mGBA",
-    "Mupen64plus",
     "PCSX2",
     "PPSSPP",
     "RPCS3",
+    "simple64",
     "yuzu-mainline",
 ]
