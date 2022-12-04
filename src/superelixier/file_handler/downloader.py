@@ -51,7 +51,7 @@ class Downloader:
         """
         response = requests.get(url, allow_redirects=True, headers=HEADERS, stream=True)
         if response.status_code != 200:
-            print(Ansi.ERROR + "Download failed, HTTP status %s: %s" % (response.status_code, response.reason))
+            print(Ansi.ERROR + "Download failed, HTTP status %s: %s" % (response.status_code, response.reason) + Ansi.RESET)
             raise HTTPError
         else:
             if response.headers.get("refresh"):
@@ -80,7 +80,7 @@ class Downloader:
                         if not Downloader.__check_domain(old_url, url):
                             print(
                                 f"{Ansi.ERROR}Could not do a JavaScript-triggered download because the download domain "
-                                "didn't match a trusted domain we know."
+                                f"didn't match a trusted domain we know.{Ansi.RESET}"
                             )
                             raise ValueError
                         url, response = Downloader.__handle_redirects(url, dl_file)
@@ -118,7 +118,7 @@ class Downloader:
                 raise ValueError
             url = urlunparse(skeleton)
         except Exception:
-            print(Ansi.ERROR + "Failed to build URL")
+            print(Ansi.ERROR + "Failed to build URL" + Ansi.RESET)
             raise ValueError
         return url
 

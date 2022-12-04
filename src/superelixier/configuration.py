@@ -179,9 +179,9 @@ class ConfigHandler:
                     raise ValueError
                 cfg_available[my_dict["info"]["name"].casefold()] = Definition.from_dict(my_dict)
             except TOMLDecodeError:
-                print(f"{Ansi.ERROR}Bad TOML file: {defi!r}")
+                print(f"{Ansi.ERROR}Bad TOML file: {defi!r}{Ansi.RESET}")
             except ValueError:
-                print(f"{Ansi.ERROR}Bad definition: {defi!r}")
+                print(f"{Ansi.ERROR}Bad definition: {defi!r}{Ansi.RESET}")
         return cfg_available
 
     @classmethod

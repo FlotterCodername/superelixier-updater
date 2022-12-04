@@ -46,11 +46,11 @@ class FileHandler:
             with open(version_deferred, "r") as file:
                 version_deferred = json.load(file)
             if version_deferred == self.__app.version_latest:
-                print(Ansi.GREEN + self.__app.name + ": Re-using previously downloaded update files")
+                print(Ansi.GREEN + self.__app.name + ": Re-using previously downloaded update files" + Ansi.RESET)
                 self.__staging = self.__deferred
                 return True
             else:
-                print(Ansi.GREEN + self.__app.name + ": Previously downloaded update is not latest version, removing")
+                print(Ansi.GREEN + self.__app.name + ": Previously downloaded update is not latest version, removing" + Ansi.RESET)
                 shutil.rmtree(self.__deferred)
         # Create folder structure if it doesn't exist
         os.makedirs(self.__staging, exist_ok=True)
@@ -101,11 +101,11 @@ class FileHandler:
                         shutil.move(os.path.join(extracted_content, item), os.path.join(self.__staging, item))
                     os.rmdir(extracted_content)
                 elif os.path.isfile(extracted_content):
-                    print(Ansi.BRIGHT + self.__app.name + ": file retrieved:")
+                    print(Ansi.BRIGHT + self.__app.name + ": file retrieved:" + Ansi.RESET)
                     print(extracted[0])
                     normalize_done = True
             elif len(extracted) > 1:
-                print(Ansi.BRIGHT + self.__app.name + ": extracted files:")
+                print(Ansi.BRIGHT + self.__app.name + ": extracted files:" + Ansi.RESET)
                 strs = []
                 for extracted in extracted:
                     print_string = extracted
