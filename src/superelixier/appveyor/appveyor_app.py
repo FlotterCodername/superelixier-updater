@@ -68,7 +68,11 @@ class AppveyorApp(GenericApp):
                 return None
             api_response = json.loads(artifacts.text)
             if artifacts.status_code != 200:
-                print(f"{Ansi.ERROR}{self.name}: HTTP Status {artifacts.status_code}: {api_response['message']}{Ansi.RESET}")
+                print(
+                    Ansi.ERROR
+                    + f"{self.name}: HTTP Status {artifacts.status_code}: {api_response['message']}"
+                    + Ansi.RESET
+                )
                 return None
             # Handle hypothetical case where successful build has no artifacts. The JSON response would be []:
             if len(api_response) == 0:

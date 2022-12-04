@@ -50,7 +50,11 @@ class FileHandler:
                 self.__staging = self.__deferred
                 return True
             else:
-                print(Ansi.GREEN + self.__app.name + ": Previously downloaded update is not latest version, removing" + Ansi.RESET)
+                print(
+                    Ansi.GREEN
+                    + f"{self.__app.name}: Previously downloaded update is not latest version, removing"
+                    + Ansi.RESET
+                )
                 shutil.rmtree(self.__deferred)
         # Create folder structure if it doesn't exist
         os.makedirs(self.__staging, exist_ok=True)

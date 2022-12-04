@@ -51,7 +51,11 @@ class Downloader:
         """
         response = requests.get(url, allow_redirects=True, headers=HEADERS, stream=True)
         if response.status_code != 200:
-            print(Ansi.ERROR + "Download failed, HTTP status %s: %s" % (response.status_code, response.reason) + Ansi.RESET)
+            print(
+                Ansi.ERROR
+                + "Download failed, HTTP status %s: %s" % (response.status_code, response.reason)
+                + Ansi.RESET
+            )
             raise HTTPError
         else:
             if response.headers.get("refresh"):
