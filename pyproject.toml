@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "superelixier"
-version = "0.1.1+tryout"
+version = "0.1.2"
 description = "Superelixier is a generic, extensible updater for portable software."
 license = "MPL-2.0"
 authors = ["Fabian H. Schneider <example@example.com>"]
@@ -33,7 +33,7 @@ pyinstaller = "^5.7"  # https://pyinstaller.org/en/stable/CHANGES.html
 
 [tool.black]
 line-length = 120
-target-version = ["py310"]
+target-version = ["py311"]
 
 [tool.isort]
 line_length = 120
