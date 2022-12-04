@@ -12,7 +12,6 @@ import subprocess
 from os.path import join as opj
 from os.path import split as ops
 
-
 APP_NAME = "superelixier"
 PROJECT = os.path.abspath(os.path.dirname(__file__))
 BUILD = opj(PROJECT, "build")
