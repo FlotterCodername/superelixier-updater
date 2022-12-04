@@ -93,7 +93,7 @@ os.chdir(PROJECT)
 cleanup()
 subprocess.run(["poetry", "install", "--sync"], cwd=PROJECT)
 
-from superelixier import __version__, configuration
+from superelixier import __version__, configuration  # noqa
 
 configuration.write_app_list()
 subprocess.run(
