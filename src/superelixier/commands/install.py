@@ -5,6 +5,7 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 If a copy of the MPL was not distributed with this file,
 You can obtain one at https://mozilla.org/MPL/2.0/.
 """
+import os.path
 import textwrap
 from concurrent.futures import ThreadPoolExecutor
 
@@ -73,7 +74,7 @@ class Install(Command):
             )
             self.line("Only one default folder is possible!")
             return -100
-        app_jobs = create_app_jobs(arg_apps, op_de, self)
+        app_jobs = create_app_jobs(arg_apps, os.path.abspath(op_de), self)
         with ThreadPoolExecutor(max_workers=8) as executor:
             for project in app_jobs:
                 executor.submit(self.__check_update_status, project)
