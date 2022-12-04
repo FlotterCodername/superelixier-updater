@@ -97,5 +97,6 @@ to disclose source code of your modified version.
 | **paint.net** | Freeware image editor originally conceived as an alternative to Microsoft Paint. |
 | **Remove Empty Directories** | Clean directory structures using rulesets |
 | **Rufus** | Create bootable USB flash drives |
+| **Steamless** | Steamless is a DRM remover and unpacker for Steam games |
 | **ueli** | Cross-platform keystroke launcher |
 | **UNetbootin** | Create bootable USB flash drives |
