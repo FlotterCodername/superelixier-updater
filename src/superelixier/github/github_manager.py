@@ -30,7 +30,13 @@ class GithubManager(GenericManager):
                 if r["published_at"] in releases_by_date:
                     del releases_by_date[r["published_at"]]
                 releases_by_date[parse(r["published_at"])] = r
-        latest_release = releases_by_date[max(releases_by_date)]
+        actual_latest_release = releases_by_date[max(releases_by_date)]
+        latest_release = actual_latest_release
+        # Filter out releases without any release assets
+        releases_by_date = {k: v for k, v in releases_by_date.items() if v["assets"]}
+        # Substitute "actual latest release" with the most recent release with assets
+        if not actual_latest_release["assets"] and releases_by_date:
+            latest_release = releases_by_date[max(releases_by_date)]
         my_version = VersionInfo(version_id=latest_release["published_at"], blobs=[])
         for asset in latest_release["assets"]:
             filename = asset["browser_download_url"].split("/")[-1]
