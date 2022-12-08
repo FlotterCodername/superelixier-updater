@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "superelixier"
-version = "0.1.3"
+version = "0.1.4"
 description = "Superelixier is a generic, extensible updater for portable software."
 license = "MPL-2.0"
 authors = ["Fabian H. Schneider <example@example.com>"]

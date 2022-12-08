@@ -57,7 +57,7 @@ class GithubApp(GenericApp):
                 releases.append(api_response_latest)
         except (RequestException, HTTPError):
             return None
-        return api_response
+        return releases
 
     def __get_latest_version(self):
         from superelixier.github.github_manager import GithubManager
