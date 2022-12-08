@@ -4,7 +4,7 @@ category = "Emulators"
 gist = "Emulates the Sony PlayStation 2. Qt-AVX2 Development builds"
 
 [github]
-blob_re = "^pcsx2-.*-windows-64bit-AVX2-Qt.7z$"
+blob_re = "^pcsx2-.*-windows-64bit-AVX2-Qt\\.7z$"
 user = "PCSX2"
 project = "pcsx2"
 prerelease = true

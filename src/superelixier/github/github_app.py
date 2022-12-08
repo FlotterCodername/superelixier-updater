@@ -37,31 +37,24 @@ class GithubApp(GenericApp):
             return
 
     def __api_request(self):
+        releases = []
         try:
-            releases = rest.get(f"{GITHUB_API}/repos/{self.user}/{self.project}/releases", headers=self.headers)
-            releases_latest = rest.get(
+            rq_releases = rest.get(f"{GITHUB_API}/repos/{self.user}/{self.project}/releases", headers=self.headers)
+            rq_releases_latest = rest.get(
                 f"{GITHUB_API}/repos/{self.user}/{self.project}/releases/latest", headers=self.headers
             )
-            api_response = json.loads(releases.text)
-            api_response_latest = json.loads(releases_latest.text)
-            if releases.status_code != 200 or releases_latest.status_code != 200:
-                if releases.status_code != 200:
-                    print(
-                        Ansi.ERROR
-                        + "{}: HTTP Status {}: {}".format(self.name, releases.status_code, api_response["message"])
-                        + Ansi.RESET
-                    )
-                if releases_latest.status_code != 200:
-                    print(
-                        Ansi.ERROR
-                        + "{}: HTTP Status {}: {}".format(
-                            self.name, releases_latest.status_code, api_response_latest["message"]
-                        )
-                        + Ansi.RESET
-                    )
+            api_response = json.loads(rq_releases.text)
+            api_response_latest = json.loads(rq_releases_latest.text)
+            if rq_releases.status_code != 200:
+                print(
+                    Ansi.ERROR
+                    + "{}: HTTP Status {}: {}".format(self.name, rq_releases.status_code, api_response["message"])
+                    + Ansi.RESET
+                )
                 return None
-            if api_response_latest not in api_response:
-                api_response.append(api_response_latest)
+            releases += api_response
+            if rq_releases_latest.status_code == 200 and api_response_latest not in api_response:
+                releases.append(api_response_latest)
         except (RequestException, HTTPError):
             return None
         return api_response

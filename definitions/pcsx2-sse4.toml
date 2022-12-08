@@ -4,7 +4,7 @@ category = "Emulators"
 gist = "Emulates the Sony PlayStation 2. Qt-SSE4 Development builds (use if your CPU has no AVX2)"
 
 [github]
-blob_re = "^pcsx2-.*-windows-64bit-SSE4-Qt.7z$"
+blob_re = "^pcsx2-.*-windows-64bit-SSE4-Qt\\.7z$"
 user = "PCSX2"
 project = "pcsx2"
 prerelease = true
