@@ -1,0 +1,10 @@
+[info]
+name = "RyuSAK"
+category = "Emulators"
+gist = "Nintendo Switch emulator companion app"
+
+[github]
+blob_re = "^RyuSAK-win32-x64-?.*.zip$"
+user = "Ecks1337"
+project = "RyuSAK"
+
