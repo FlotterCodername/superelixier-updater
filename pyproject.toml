@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "superelixier"
-version = "0.1.5"
+version = "0.1.6"
 description = "Superelixier is a generic, extensible updater for portable software."
 license = "MPL-2.0"
 authors = ["Fabian H. Schneider <example@example.com>"]
@@ -19,7 +19,7 @@ python = ">=3.11, <3.12"
 cleo = "^2.0"  # https://github.com/python-poetry/cleo/blob/main/CHANGELOG.md
 colorama = "^0.4"
 jsonschema = "^4.17"
-packaging = ">=21.3"
+packaging = ">=21.3, <22"
 python-dateutil = "^2.8.2"
 requests = "^2.28"
 tomli = "^2.0"
