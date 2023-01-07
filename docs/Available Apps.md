@@ -62,6 +62,7 @@ to disclose source code of your modified version.
 | **RetroArch** | Frontend for emulators, game engines and media players. |
 | **RPCS3** | Emulates the Sony PlayStation 3. |
 | **Ryujinx** | Emulates the Nintendo Switch. |
+| **RyuSAK** | A companion app to the Nintendo Switch emulator Ryujinx |
 | **simple64** | Emulates the Nintendo 64. |
 | **Snes9x** | Emulates the Super Nintendo Entertainment System. |
 | **Vita3K** | Emulates the Sony PlayStation Vita. |
