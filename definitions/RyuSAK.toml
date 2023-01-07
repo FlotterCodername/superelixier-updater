@@ -1,0 +1,9 @@
+[info]
+name = "RyuSAK"
+category = "Emulators"
+gist = "A companion app to the Nintendo Switch emulator Ryujinx"
+
+[github]
+blob_re = "^RyuSAK-win32-x64-.*?\\.zip$"
+user = "Ecks1337"
+project = "RyuSAK"
