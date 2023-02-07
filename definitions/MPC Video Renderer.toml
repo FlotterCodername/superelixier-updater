@@ -1,0 +1,9 @@
+[info]
+name = "MPC Video Renderer"
+category = "Utilities"
+gist = "MPC Video Renderer is a free and open-source video renderer for DirectShow."
+
+[github]
+blob_re = "^MpcVideoRenderer-.*.zip$"
+user = "Aleksoid1978"
+project = "VideoRenderer"
