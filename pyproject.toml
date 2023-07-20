@@ -18,18 +18,19 @@ python = ">=3.11, <3.12"
 # Dependencies
 cleo = "^2.0"  # https://github.com/python-poetry/cleo/blob/main/CHANGELOG.md
 colorama = "^0.4"
-jsonschema = "^4.17"
+jsonschema = "^4.18"
 packaging = ">=21.3, <22"
 python-dateutil = "^2.8.2"
-requests = "^2.28"
+requests = "^2.31"
 tomli = "^2.0"
 tomli-w = "^1.0"
 
 [tool.poetry.dev-dependencies]
-black = "^22.1"
+black = "*"
 flake8 = "^6.0"  # https://flake8.pycqa.org/en/latest/release-notes/index.html
-isort = "^5.10"
-pyinstaller = "^5.7"  # https://pyinstaller.org/en/stable/CHANGES.html
+isort = "^5.12"
+pre-commit = "^3.3"  # https://github.com/pre-commit/pre-commit/blob/main/CHANGELOG.md
+pyinstaller = "^5.13"  # https://pyinstaller.org/en/stable/CHANGES.html
 
 [tool.black]
 line-length = 120
