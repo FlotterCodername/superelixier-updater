@@ -26,9 +26,6 @@ tomli = "^2.0"
 tomli-w = "^1.0"
 
 [tool.poetry.dev-dependencies]
-black = "*"
-flake8 = "^6.0"  # https://flake8.pycqa.org/en/latest/release-notes/index.html
-isort = "^5.12"
 pre-commit = "^3.3"  # https://github.com/pre-commit/pre-commit/blob/main/CHANGELOG.md
 pyinstaller = "^5.13"  # https://pyinstaller.org/en/stable/CHANGES.html
 
