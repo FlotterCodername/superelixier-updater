@@ -1,11 +1,11 @@
 # Adding Apps
 
-The TOML files in ``/definitions`` hold patterns that the tool needs to detect, download and install updates. The TOML 
+The TOML files in ``/definitions`` hold patterns that the tool needs to detect, download and install updates. The TOML
 file's name is not relevant to functionality, but we're using all-lowercase file names for uniformity.
 
 On start, this updater reads and validates the TOML files and makes them available to the program. So it is not
 necessary to push them to the superelixier-updater repository before using them. BUT, in the spirit of collaboration,
-please consider opening a Pull Request with any definitions you have written, so that all users may benefit. 
+please consider opening a Pull Request with any definitions you have written, so that all users may benefit.
 
 Knowledge of Python Regular Expressions (regex) is required.
 [This w3schools article](https://www.w3schools.com/python/python_regex.asp) is highly recommended.
@@ -35,12 +35,12 @@ Currently, categories are:
 "Audio & Video", "Developer Tools", "Emulators", "Gaming", "Network Tools", "Security", "Utilities" and "Other".
 
 ### ``local`` section
-This section describes how the updater should interact with the app's folder.  
+This section describes how the updater should interact with the app's folder.
 ```toml
 [local]
 appdata = "settings.ini"  # string or string[], optional. Further documentation below
 delete = "Audio & Video"  # string or string[], optional. Further documentation below
-installer = "sfx"         # enum["sfx", "innoextract"], optional. 
+installer = "sfx"         # enum["sfx", "innoextract"], optional.
 ```
 The most important parameter here is ``installer``:
 - If the program is distributed as an archive or single ``.exe`` file, leave ``installer`` out
@@ -147,7 +147,7 @@ appdata = [
     "other_configuration_folder",
     "folder_where_i_want_to_keep_only/this_file.ini",
 ]
-``` 
+```
 
 Note that in ``folder_where_i_want_to_keep_only``, only ``this_file.ini`` will be protected. Also, regular expressions
 are not supported here.

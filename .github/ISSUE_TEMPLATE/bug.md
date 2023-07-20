@@ -26,8 +26,8 @@ Steps to reproduce the behavior:
 ### My environment
 <please complete the following information>
 
-- *OS* is
-- *Version* is 
+- *OS* is _
+- *Version* is _
 
 ### Additional context
 <Add any other context about the problem here.>

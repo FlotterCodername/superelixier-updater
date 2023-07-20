@@ -21,5 +21,5 @@ assignees: ''
 - [ ] Other service: SERVICE_NAME_HERE
 - [ ] Project website
 
-URL: 
+URL:
 <AppVeyor or GitHub is preferred over project websites>

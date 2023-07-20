@@ -1,0 +1,45 @@
+﻿# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.2.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        name: isort (python)
+        args: [
+          --line-length, "120",
+          --profile, "black"
+        ]
+
+  - repo: https://github.com/psf/black
+    rev: 22.10.0
+    hooks:
+      - id: black
+        args: [
+          --line-length, "120",
+          --target-version, "py311"
+        ]
+
+  - repo: https://github.com/pycqa/flake8
+    rev: 6.0.0
+    hooks:
+      - id: flake8
+        args: [
+          --ignore, "E203,W503",
+          --max-line-length, "120",
+          --exclude, "exclude = .git,.idea,.venv,__pycache__,docs/source/conf.py,old,build,dist,venv"
+        ]
+
+  - repo: https://github.com/python-poetry/poetry
+    rev: 1.5.1
+    hooks:
+      - id: poetry-check
+      - id: poetry-lock
