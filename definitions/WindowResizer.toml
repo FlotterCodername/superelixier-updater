@@ -1,0 +1,14 @@
+[info]
+name = "WindowResizer"
+category = "Utilities"
+gist = "Save and restore your windows size and position with hotkeys "
+
+[github]
+blob_re = "^WindowResizer-portable-.*.zip$"
+user = "caoyue"
+project = "WindowResizer"
+
+[local]
+appdata = [
+    "WindowResizer.config.json",
+]
